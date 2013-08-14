@@ -25,12 +25,11 @@
 }( jQuery ));
 (function( $, window, undefined ) {
 	var nsNormalizeDict = {},
-		// Monkey-patching Sizzle to filter the :jqmData selector
 		oldFind = $.find,
 		rbrace = /(?:\{[\s\S]*\}|\[[\s\S]*\])$/,
 		jqmDataRE = /:jqmData\(([^)]*)\)/g;
 
-	$.extend($.mobile, {
+	$.extend( $.mobile, {
 
 		// Namespace used framework-wide for data-attrs. Default is no namespace
 
@@ -38,14 +37,14 @@
 
 		// Retrieve an attribute from an element and perform some massaging of the value
 
-		getAttribute: function( e, key, dns ) {
+		getAttribute: function( element, key ) {
 			var data;
 
-			if ( dns ) {
-				key = "data-" + $.mobile.ns + key;
-			}
+			element = element.jquery ? element[0] : element;
 
-			data = e.getAttribute( key );
+			if( element && element.getAttribute ){
+				data = element.getAttribute( "data-" + $.mobile.ns + key );
+			}
 
 			// Copied from core's src/data.js:dataAttr()
 			// Convert from a string to a proper data type
@@ -69,7 +68,8 @@
 		// and then camel case the attribute string. Add the result
 		// to our nsNormalizeDict so we don't have to do this again.
 		nsNormalize: function( prop ) {
-			return nsNormalizeDict[ prop ] || ( nsNormalizeDict[ prop ] = $.camelCase( $.mobile.ns + prop ) );
+			return nsNormalizeDict[ prop ] ||
+				( nsNormalizeDict[ prop ] = $.camelCase( $.mobile.ns + prop ) );
 		},
 
 		// Find the closest javascript page element to gather settings data jsperf test
@@ -84,6 +84,7 @@
 		}
 
 	});
+
 	// Mobile version of data and removeData and hasData methods
 	// ensures all data is set and retrieved using jQuery Mobile's data namespace
 	$.fn.jqmData = function( prop, value ) {
@@ -120,9 +121,10 @@
 		return $.removeData( elem, $.mobile.nsNormalize( prop ) );
 	};
 
-
 	$.find = function( selector, context, ret, extra ) {
-		selector = selector.replace( jqmDataRE, "[data-" + ( $.mobile.ns || "" ) + "$1]" );
+		if ( selector.indexOf( ":jqmData" ) > -1 ) {
+			selector = selector.replace( jqmDataRE, "[data-" + ( $.mobile.ns || "" ) + "$1]" );
+		}
 
 		return oldFind.call( this, selector, context, ret, extra );
 	};
@@ -132,7 +134,7 @@
 })( jQuery, this );
 
 /*!
- * jQuery UI Widget 1.10.1
+ * jQuery UI Widget @VERSION
  * http://jqueryui.com
  *
  * Copyright 2013 jQuery Foundation and other contributors
@@ -239,7 +241,7 @@ $.widget = function( name, base, prototype ) {
 		// TODO: remove support for widgetEventPrefix
 		// always use the name + a colon as the prefix, e.g., draggable:start
 		// don't prefix for widgets that aren't DOM-based
-		widgetEventPrefix: existingConstructor ? basePrototype.widgetEventPrefix : name
+		widgetEventPrefix: existingConstructor ? (basePrototype.widgetEventPrefix || name) : name
 	}, proxiedPrototype, {
 		constructor: constructor,
 		namespace: namespace,
@@ -267,7 +269,7 @@ $.widget = function( name, base, prototype ) {
 	}
 
 	$.widget.bridge( name, constructor );
-	
+
 	return constructor;
 };
 
@@ -313,6 +315,10 @@ $.widget.bridge = function( name, object ) {
 			this.each(function() {
 				var methodValue,
 					instance = $.data( this, fullName );
+				if ( options === "instance" ) {
+					returnValue = instance;
+					return false;
+				}
 				if ( !instance ) {
 					return $.error( "cannot call methods on " + name + " prior to initialization; " +
 						"attempted to call method '" + options + "'" );
@@ -402,9 +408,6 @@ $.Widget.prototype = {
 		// all event bindings should go through this._on()
 		this.element
 			.unbind( this.eventNamespace )
-			// 1.9 BC for #7810
-			// TODO remove dual storage
-			.removeData( this.widgetName )
 			.removeData( this.widgetFullName )
 			// support: jquery <1.6.3
 			// http://bugs.jquery.com/ticket/9413
@@ -480,8 +483,7 @@ $.Widget.prototype = {
 
 		if ( key === "disabled" ) {
 			this.widget()
-				.toggleClass( this.widgetFullName + "-disabled ui-state-disabled", !!value )
-				.attr( "aria-disabled", value );
+				.toggleClass( this.widgetFullName + "-disabled", !!value );
 			this.hoverable.removeClass( "ui-state-hover" );
 			this.focusable.removeClass( "ui-state-focus" );
 		}
@@ -490,10 +492,10 @@ $.Widget.prototype = {
 	},
 
 	enable: function() {
-		return this._setOption( "disabled", false );
+		return this._setOptions({ disabled: false });
 	},
 	disable: function() {
-		return this._setOption( "disabled", true );
+		return this._setOptions({ disabled: true });
 	},
 
 	_on: function( suppressDisabledCheck, element, handlers ) {
@@ -659,15 +661,13 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 $.extend( $.Widget.prototype, {
 	_getCreateOptions: function() {
-
-		var elem = this.element,
+		var elem = this.element[ 0 ],
 			options = {};
 
 		$.each( this.options, function( option ) {
-
-			var value = $.mobile.getAttribute( elem[ 0 ], option.replace( /[A-Z]/g, function( c ) {
-							return "-" + c.toLowerCase();
-						}), true );
+			var value = $.mobile.getAttribute( elem, option.replace( /[A-Z]/g, function( c ) {
+				return "-" + c.toLowerCase();
+			}));
 
 			if ( value != null ) {
 				options[ option ] = value;
@@ -675,17 +675,6 @@ $.extend( $.Widget.prototype, {
 		});
 
 		return options;
-	},
-
-	// FIXME: These have to stay in place until we're running on a version of
-	// the widget factory that does enable()/disable() via _setOptions, as in
-	// https://github.com/jquery/jquery-ui/pull/1024
-	enable: function() {
-		return this._setOptions({ disabled: false });
-	},
-
-	disable: function() {
-		return this._setOptions({ disabled: true });
 	},
 
 	enhanceWithin: function( target, useKeepNative ) {
@@ -713,8 +702,10 @@ $.extend( $.Widget.prototype, {
 		$widgetElements[ this.widgetName ]();
 	}
 });
+
 //TODO: Remove in 1.5 for backcompat only
 $.mobile.widget = $.Widget;
+
 })( jQuery );
 
 (function( $, undefined ) {

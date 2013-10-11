@@ -1,15 +1,17 @@
 
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Button</title>
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.js"></script>
-	<!--script src="http://172.21.100.252/jqm1.4.0-beta1/js/"></script-->
+	<!--link rel="stylesheet" href="http://localhost/jqm1.4.0-beta1/css/themes/default/jquery.mobile.css">
+	<script src="http://localhost/jqm1.4.0-beta1/js/jquery.js"></script>
+	<script src="http://localhost/jqm1.4.0-beta1/js/"></script-->
 	<style type="text/css">
 		.ui-icon-myemail-x {
 			background-image: url("e_mail.png");
@@ -162,6 +164,16 @@
 		<a href="#" data-role="button" data-theme="a" data-icon="arrow-l" data-inline="true">Swatch a</a>
 		<a href="#" data-role="button" data-theme="b" data-icon="arrow-l" data-inline="true">Swatch b</a>
 	</div>
+
+<h2>Options:Corners</h2>
+	<a href="#" id="corners"></a>
+	<script>
+		var corners_btn = $( "#corners" );
+		corners_btn.buttonMarkup({ corners: false });
+		corners_btn.text( corners_btn.buttonMarkup( "option", "corners" ).attr("id") );
+		corners_btn.buttonMarkup( "option", "corners", true );
+	</script>
+	<a href="#" data-role="button" data-corners="false">No rounded corner</a>
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

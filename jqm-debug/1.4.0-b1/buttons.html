@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Button</title>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.js"></script>
+	<!--script src="http://172.21.100.252/jqm1.4.0-beta1/js/"></script-->
+	<style type="text/css">
+		.ui-icon-myemail-x {
+			background-image: url("e_mail.png");
+		}
+		.ui-icon-myemail-o:after {
+			background-image: url("e_mail.png");
+		}
+	</style>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Styling links as buttons</h2>
+	<a href="#" data-role="button">Link button</a>
+	<a href="#" data-role="button" class="ui-disabled">Link button</a>
+
+<h2>Mini version</h2>
+	<a href="#" data-role="button" data-mini="true">Link button</a>
+
+<h2>Form buttons</h2>
+
+	<span type="submit">span</span>
+	<script>
+		$( "[type='submit']" ).button();
+	</script>
+	<button>Button element</button>
+	<input type="submit" value="Submit Button" />
+	<input type="reset" value="Reset Button" />
+
+<h2>Inline</h2>
+	<a href="#" data-role="button" data-inline="true">Link button</a>
+	<button data-inline="true">Button element</button>
+	<input type="submit" data-inline="true" value="Submit Button" />
+	<input type="reset" data-inline="true" value="Reset Button" />
+
+<h2>Mini & Inline</h2>
+	<a href="#" data-role="button" data-mini="true" data-inline="true">Link button</a>
+	<button data-mini="true" data-inline="true">Button element</button>
+	<input type="submit" data-mini="true" data-inline="true" value="Submit Button" />
+	<input type="reset" data-mini="true" data-inline="true" value="Reset Button" />
+
+<h2>Adding Icons to Buttons</h2>
+	<a href="#" data-role="button" data-icon="delete">Delete</a>
+	<a href="#" data-role="button" data-icon="delete" data-mini="true">Delete</a>
+
+<h2>Icon positioning</h2>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="left">Delete</a>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="right">Delete</a>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="top">Delete</a>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="bottom">Delete</a>
+
+<h2>Mini & Inline & Icon</h2>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="left">Delete</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Delete</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="top">Delete</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="bottom">Delete</a>
+
+<h2>Icon set</h2>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="bars">Bars</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="edit">Edit</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l">Arrow Left</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-r">Arrow Right</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-u">Arrow Up</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-d">Arrow Down</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete">Delete</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="plus">Plus</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="minus">Minus</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="check">Check</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="gear">Gear</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="refresh">Refresh</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="forward">Forward</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="back">Back</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="grid">Grid</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="star">Star</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="alert">Alert</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="info">Info</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="home">Home</a>
+
+<h2>Custom Icons</h2>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-x">Email (X)</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-o">Email (O)</a>
+
+<h2>Icon only</h2>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-o" data-iconpos="notext">Email</a>
+
+<h2>Grouped buttons</h2>
+	<div data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button" data-icon="plus">Add</a>
+		<a href="#" data-role="button" data-icon="delete">Delete</a>
+	</div>
+
+	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+
+	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+		<a href="#" data-role="button" data-icon="plus">Add</a>
+		<a href="#" data-role="button" data-icon="delete">Delete</a>
+	</div>
+
+	<div data-role="controlgroup" data-type="horizontal" >
+		<a href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext">Up</a>
+		<a href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext">Down</a>
+		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+	</div>
+
+	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+		<a href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext">Up</a>
+		<a href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext">Down</a>
+		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+	</div>
+
+<h2>Labels</h2>
+	<fieldset data-role="controlgroup">
+		<a href="#" name="button1" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+		<label for="button1">Up</label>
+		<a href="#" name="button2" data-role="button" data-icon="plus" data-iconpos="notext">Plus</a>
+		<label for="button2">Down</label>
+		<a href="#" name="button3" data-role="button" data-icon="minus" data-iconpos="notext">Minus</a>
+		<label for="button3">Cancel</label>
+	</fieldset>
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

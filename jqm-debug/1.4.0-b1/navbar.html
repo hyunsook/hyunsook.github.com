@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Navbar - jQM 1.4.0-beta</title>
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.css"></script>
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<h1>Navbar in header</h1>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#">Set</a></li>
+						<li><a href="#">theme</a></li>
+						<li><a href="#">to</a></li>
+						<li><a href="#">header</a></li>
+					</ul>
+				</div>
+			</div>	<!-- header -->
+
+			<div data-role="content">
+
+				<h1>Navbar - jQM 1.4.0-beta</h1>
+
+				<h3>Default: 1 item</h3>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#">One</a></li>
+					</ul>
+				</div>
+
+				<h3>Default: 2 items</h3>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#">One</a></li>
+						<li><a href="#">Two</a></li>
+					</ul>
+				</div>
+
+				<h3>Default: 5 items, activate 'Three' upon initialization</h3>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#">One</a></li>
+						<li><a href="#">Two</a></li>
+						<li><a href="#" class="ui-btn-active ui-state-persist">Three</a></li>
+						<li><a href="#">Four</a></li>
+						<li><a href="#">Five</a></li>
+					</ul>
+				</div>
+
+				<h3>Default: 7 items</h3>
+				<div>If more then 5 items are added, the navbar will simply wrap to multiple lines of two across</div>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#">One</a></li>
+						<li><a href="#">Two</a></li>
+						<li><a href="#">Three</a></li>
+						<li><a href="#">Four</a></li>
+						<li><a href="#">Five</a></li>
+						<li><a href="#">Six</a></li>
+						<li><a href="#">Seven</a></li>
+					</ul>
+				</div>
+				<!-- Option -->
+
+				<h3>Icon position: default (top), set theme to each anchors</h3>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#" data-icon="grid" data-theme="b">One</a></li>
+						<li><a href="#" data-icon="star" data-theme="a">Two</a></li>
+						<li><a href="#" data-icon="gear" data-theme="b">Three</a></li>
+					</ul>
+				</div>
+
+				<h3>Icon position: top</h3>
+				<div data-role="navbar" data-iconpos="top">
+					<ul>
+						<li><a href="#" data-icon="grid">One</a></li>
+						<li><a href="#" data-icon="star">Two</a></li>
+						<li><a href="#" data-icon="gear">Three</a></li>
+					</ul>
+				</div>
+				
+				<h3>Icon position: bottom</h3>
+				<div data-role="navbar" data-iconpos="bottom">
+					<ul>
+						<li><a href="#" data-icon="grid">One</a></li>
+						<li><a href="#" data-icon="star">Two</a></li>
+						<li><a href="#" data-icon="gear">Three</a></li>
+					</ul>
+				</div>
+
+				<h3>Icon position: left</h3>
+				<div data-role="navbar" data-iconpos="left">
+					<ul>
+						<li><a href="#" data-icon="grid">One</a></li>
+						<li><a href="#" data-icon="star">Two</a></li>
+						<li><a href="#" data-icon="gear">Three</a></li>
+					</ul>
+				</div>
+
+				<h3>Icon position: right</h3>
+				<div data-role="navbar" data-iconpos="right">
+					<ul>
+						<li><a href="#" data-icon="grid">One</a></li>
+						<li><a href="#" data-icon="star">Two</a></li>
+						<li><a href="#" data-icon="gear">Three</a></li>
+					</ul>
+				</div>
+
+				<h3>Icon position: mixed</h3>
+				<div data-role="navbar" data-iconpos="left">
+					<ul>
+						<li><a href="#" data-icon="grid" class="ui-btn-icon-top">One</a></li>
+						<li><a href="#" data-icon="star" class="ui-btn-icon-left">Two</a></li>
+						<li><a href="#" data-icon="gear" class="ui-btn-icon-bottom">Three</a></li>
+						<li><a href="#" data-icon="gear" class="ui-btn-icon-right">Four</a></li>
+					</ul>
+				</div>
+				<textarea>
+<div data-role="navbar" data-iconpos="left">
+	<ul>
+		<li><a href="#" data-icon="grid" class="ui-btn-icon-top">One</a></li>
+		<li><a href="#" data-icon="star" class="ui-btn-icon-left">Two</a></li>
+		<li><a href="#" data-icon="gear" class="ui-btn-icon-bottom">Three</a></li>
+		<li><a href="#" data-icon="gear" class="ui-btn-icon-right">Four</a></li>
+	</ul>
+</div>
+				</textarea>
+
+			</div>	<!-- content -->
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Navbar in footer</h1>
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#" data-icon="grid">One</a></li>
+						<li><a href="#">Two</a></li>
+						<li><a href="#">Three</a></li>
+					</ul>
+				</div>
+			</div>	<!-- footer -->
+
+		</div>	<!-- page-->
+	</body>
+</html>

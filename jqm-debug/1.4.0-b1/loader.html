@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Loader - jQM 1.4.0-beta</title>
+		<script src="jquery-1.8.2.js"></script>
+		<script src="jquery.mobile-1.4.0-beta.js"></script>
+		<link rel="stylesheet" href="jquery.mobile-1.4.0-beta.css"></script>
+		<script>
+			$( document ).on( "click", ".show-loading", function() {
+				var $this = $( this ),
+					theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+					msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+					textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+					textonly = !!$this.jqmData( "textonly" );
+					html = $this.jqmData( "html" ) || "";
+				$.mobile.loading( "show", {
+					text: msgText,
+					textVisible: textVisible,
+				 	theme: theme,
+				 	textonly: textonly,
+					html: html
+				    });
+			}).on( "click", ".hide-loading ", function() {
+				$.mobile.loading( "hide" );
+			}).on( "click", ".test-checkLoaderPosition", function() {
+				$.mobile.loading( "checkLoaderPosition" );
+			}).on( "click", ".test-fakeFixLoader", function() {
+				$.mobile.loading( "fakeFixLoader" );
+			}).on( "click", ".test-hide", function() {
+				$.mobile.loading( "hide" );
+			}).on( "click", ".test-loading", function() {
+				var val = $.mobile.loading( "loading" );
+				console.log( val );
+			}).on( "click", ".test-resetHtml", function() {
+				$.mobile.loading( "resetHtml" );
+			}).on( "click", ".test-show", function() {
+				$.mobile.loading( "show" );
+			});
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header" data-position="fixed">
+				<a href="#" class="hide-loading ui-btn-right" data-icon="delete">Hide</a>
+			</div>
+
+			<div data-role="content">
+
+				<h1>Loader - jQM 1.4.0-beta</h1>
+
+				<h3>Options</h3>
+
+				<button class="show-loading" data-textonly="false" data-textvisible="false" data-msgtext="" data-inline="true" data-mini="true">Icon</button>
+				<p>
+				<ul data-role="listview" data-inset="true">
+					<li>html: -</li>
+					<li>text: ""</li>
+					<li>textVisible: false</li>
+					<li>textonly: false</li>
+					<li>theme: -</li>
+				</ul>
+				<p>
+
+				<button class="show-loading" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" data-mini="true">Icon + text</button>
+				<p>
+				<ul data-role="listview" data-inset="true">
+					<li>html: -</li>
+					<li>text: ""</li>
+					<li>textVisible: true</li>
+					<li>textonly: false</li>
+					<li>theme: -</li>
+				</ul>
+				<p>
+
+				<button class="show-loading" data-textonly="true" data-textvisible="true" data-msgtext="Text only" data-inline="true" data-mini="true">Text only</button>
+				<p>
+				<ul data-role="listview" data-inset="true">
+					<li>html: -</li>
+					<li>text: "Text only"</li>
+					<li>textVisible: true</li>
+					<li>textonly: true</li>
+					<li>theme: -</li>
+				</ul>
+				<p>
+
+				<button class="show-loading" data-theme="b" data-textonly="true" data-textvisible="true" data-msgtext="Custom loader" data-inline="true"  data-html="<marquee>Custom HTML</marquee>" data-mini="true">Custom HTML</button>
+				<p>
+				<ul data-role="listview" data-inset="true">
+					<li>html: <textarea><marquee>Custom HTML</marquee></textarea></li>
+					<li>text: "Custom loader"</li>
+					<li>textVisible: true</li>
+					<li>textonly: true</li>
+					<li>theme: "b"</li>
+				</ul>
+				<p>
+				<!-- Option -->
+
+				<h3>Methods</h3>
+
+				<button class="test-checkLoaderPosition" data-inline="true" data-mini="true">checkLoaderPosition()</button>
+
+				<button class="test-fakeFixLoader" data-inline="true" data-mini="true">fakeFixLoader()</button>
+
+				<button class="test-hide" data-inline="true" data-mini="true">hide()</button>
+
+				<button class="test-loading" data-inline="true" data-mini="true">loading()</button>
+
+				<button class="test-resetHtml" data-inline="true" data-mini="true">resetHtml()</button>
+
+				<button class="test-show" data-inline="true" data-mini="true">show()</button>
+				
+
+			</div>	<!-- content -->
+
+		</div>	<!-- page-->
+	</body>
+</html>

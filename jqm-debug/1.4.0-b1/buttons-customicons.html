@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Button</title>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.js"></script>
+	<style type="text/css">
+		.ui-icon-myemail-a {
+			background-image: url("buttons_e_mail.png");
+		}
+		.ui-icon-myemail-b:after {
+			background-image: url("buttons_e_mail.png");
+		}
+	</style>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Custom Icons</h2>
+	<p>
+		.ui-icon-myemail-a:<br>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-a">Email</a> <font color="red">=> icon wasn't displayed. (abnormal)</font>
+	</p>
+	<p>
+		.ui-icon-myemail-b<font color="blue">:after:</font><br>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-b">Email</a> (normal)
+	</p>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

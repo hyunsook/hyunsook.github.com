@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Panel - jQM 1.4.0-beta</title>
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.css"></link>
+		<script>
+			$( document ).on( "click", ".toggle-panel", function() {
+				$(  "#left-overlay" ).panel( "toggle" );
+			});
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header" data-position="fixed">
+				<a href="#" class="toggle-panel ui-btn-right">Toggle</a>
+			</div>
+
+			<div data-role="content">
+
+				<h1>Panel - jQM 1.4.0-beta</h1>
+
+				<h3>Left panels</h3>
+				<a href="#left-overlay" data-role="button" data-inline="true">Overlay</a>
+				<a href="#left-reveal" data-role="button" data-inline="true">Reveal</a>
+				<a href="#left-push" data-role="button" data-inline="true">Push</a>
+
+				<h3>Right panels</h3>
+				<a href="#right-overlay" data-role="button" data-inline="true">Overlay</a>
+				<a href="#right-reveal" data-role="button" data-inline="true">Reveal</a>
+				<a href="#right-push" data-role="button" data-inline="true">Push</a>
+
+			</div>	<!-- content -->
+
+			<div data-role="footer" data-position="fixed">
+				<h1>Footer</h1>
+				<a class="toggle-panel ui-btn-right" data-role="button">Toggle</a>
+			</div>	<!-- footer -->
+
+			<div data-role="panel" id="default-panel">
+					<h3>Default panel</h3>
+					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+				</div>
+
+				<div data-role="panel" id="left-overlay" data-position="left" data-display="overlay">
+					<h3>Left panel: Overlay</h3>
+					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+				</div>
+				<div data-role="panel" id="left-reveal" data-position="left" data-display="reveal" data-position-fixed="true">
+					<h3>Left panel: Reveal</h3>
+					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+				</div>
+				<div data-role="panel" id="left-push" data-position="left" data-display="push">
+					<h3>Left panel: Push</h3>
+					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+				</div>
+
+				<div data-role="panel" id="right-overlay" data-position="right" data-display="overlay">
+					<h3>Right panel: Overlay</h3>
+					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+				</div>
+				<div data-role="panel" id="right-reveal" data-position="right" data-display="reveal">
+					<h3>Right panel: Reveal</h3>
+					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+				</div>
+				<div data-role="panel" id="right-push" data-position="right" data-display="push">
+					<h3>Right panel: Push</h3>
+					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+				</div>
+				<!-- panels -->
+
+		</div>	<!-- page-->
+	</body>
+</html>

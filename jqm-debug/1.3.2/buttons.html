@@ -16,8 +16,14 @@
 			background-image: url("buttons_e_mail.png");
 		}
 	</style>
+	<script>
+		function testButtons() {
+			testCornersOption();
+			testIconOption();
+		}
+	</script>
 </head>
-<body>
+<body onload="testButtons();">
 <div data-role="page">
 <div data-role="content" class="jqm-content">
 <h2 id="custom_icons">Custom Icons</h2>
@@ -79,14 +85,50 @@
 	</div>
 
 <h2 id="options_corners">Options:Corners</h2>
-	<a href="#" id="corners"></a>
+	<a href="#" id="corners1" data-role="button">Rounded corners --> No rounded corners</a>
 	<script>
-		var corners_btn = $( "#corners" );
-		corners_btn.buttonMarkup({ corners: false });
-		corners_btn.text( corners_btn.buttonMarkup( "option", "corners" ).attr("id") );
-		corners_btn.buttonMarkup( "option", "corners", true );
+		function testCornersOption() {
+			var corners1_btn = $( "#corners1" ),
+				result = "X";
+
+			if ( corners1_btn.buttonMarkup( "option", "corners" ) ) {	// getter
+				corners1_btn.buttonMarkup( "option", "corners", false );	// setter
+				if ( !corners1_btn.buttonMarkup( "option", "corners" ) ) {	// getter
+					result = "O";
+				}
+			} 
+			corners1_btn.text( corners1_btn.text() + " (" + result + ")" );
+		}
 	</script>
-	<a href="#" data-role="button" data-corners="false">No rounded corner</a>
+	<a href="#" id="corners2">Create with { corners: false }</a>
+	<script>
+		var corners2_btn = $( "#corners2" );
+		corners2_btn.buttonMarkup( { corners: false } );
+	</script>
+	<a href="#" data-role="button" data-corners="false">No rounded corners</a>
+
+<h2 id="options_icon">Options:Icon</h2>
+	<a href="#" id="icon1" data-role="button">No icon --> Star</a>
+	<script>
+		function testIconOption() {
+			var icon1_btn = $( "#icon1" ),
+				result = "X";
+
+			if ( !icon1_btn.buttonMarkup( "option", "icon" ) ) {	// getter
+				icon1_btn.buttonMarkup( "option", "icon", "star" );	// setter
+				if ( icon1_btn.buttonMarkup( "option", "icon" ) === "star" ) {	// getter
+					result = "O";
+				}
+			}
+			icon1_btn.text( icon1_btn.text() + " (" + result + ")" );
+		}
+	</script>
+	<a href="#" id="icon2">Create with { icon: "star" }</a>
+	<script>
+		var icon2_btn = $( "#icon2" );
+		icon2_btn.buttonMarkup( { icon: "star" } );
+	</script>
+	<a href="#" data-role="button" data-icon="star">Star icon</a>
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

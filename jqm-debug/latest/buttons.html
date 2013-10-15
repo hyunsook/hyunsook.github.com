@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Button</title>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
 	<!--link rel="stylesheet" href="http://localhost/jqm-latest/css/themes/default/jquery.mobile.css">
@@ -24,6 +24,9 @@
 		function testButtons() {
 			testCornersOption();
 			testIconOption();
+			testIconposOption();
+			testIconposShadow();
+			testInitSelector();
 		}
 	</script>
 </head>
@@ -216,6 +219,81 @@
 		icon2_btn.buttonMarkup( { icon: "star" } );
 	</script>
 	<a href="#" data-role="button" data-icon="star">Star icon</a>
+
+<h2 id="options_iconpos">Options:Iconpos</h2>
+	<a href="#" id="iconpos1" data-role="button" data-icon="star">iconpos: Left --> Right</a>
+	<script>
+		function testIconposOption() {
+			var iconpos1_btn = $( "#iconpos1" ),
+				result = "X";
+
+			if ( iconpos1_btn.buttonMarkup( "option", "iconpos" ) === "left" ) {	// getter
+				iconpos1_btn.buttonMarkup( "option", "iconpos", "right" );	// setter
+				if ( iconpos1_btn.buttonMarkup( "option", "iconpos" ) === "right" ) {	// getter
+					result = "O";
+				}
+			}
+			iconpos1_btn.text( iconpos1_btn.text() + " (" + result + ")" );
+		}
+	</script>
+	<a href="#" id="iconpos2">Create with { iconpos: "right" }</a>
+	<script>
+		var iconpos2_btn = $( "#iconpos2" );
+		iconpos2_btn.buttonMarkup( { icon: "star", iconpos: "right" } );
+	</script>
+	<a href="#" data-role="button" data-icon="star" data-iconpos="right">iconpos: Right</a>
+
+<h2 id="options_iconshadow">Options:Iconshadow</h2>
+	<a href="#" id="iconshadow1" data-role="button" data-icon="star">iconshadow: true --> false</a>
+	<script>
+		function testIconposShadow() {
+			var iconshadow1_btn = $( "#iconshadow1" ),
+				result = "X";
+
+			if ( iconshadow1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
+				iconshadow1_btn.buttonMarkup( "option", "iconshadow", false );	// setter
+				if ( !iconshadow1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
+					result = "O";
+				}
+			}
+			iconshadow1_btn.text( iconshadow1_btn.text() + " (" + result + ")" );
+		}
+	</script>
+	<a href="#" id="iconshadow2">Create with { iconshadow: false }</a>
+	<script>
+		var iconshadow2_btn = $( "#iconshadow2" );
+		iconshadow2_btn.buttonMarkup( { icon: "star", iconshadow: false } );
+	</script>
+	<a href="#" data-role="button" data-icon="star" data-iconshadow="false">No icon shadow</a>
+
+<h2 id="options_initSelector">Options:InitSelector</h2>
+	<button id="initSelector">Button element</button>
+	<script>
+		function testInitSelector() {
+			var initSelector_btn = $( "#initSelector" );
+			initSelector_btn.click( function() {
+				var msg = "initSelector: ",
+					result;
+				try {
+					msg += initSelector_btn.button( "option", "initSelector" ) + " (O)";
+				} catch( e ) {
+					msg += e.message + " (X)";
+				}
+
+				msg += "\nprototype::initSelector: ";
+				try {
+					result = $.mobile.button.prototype.options.initSelector;
+					msg += result;
+					msg +=  result ? " (O)" : " (X)";
+				} catch( e ) {
+					msg += e.message + " (X)";
+				}
+
+				alert( msg );
+			});
+		}
+	</script>
+
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

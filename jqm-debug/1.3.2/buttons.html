@@ -20,8 +20,8 @@
 		function testButtons() {
 			testCornersOption();
 			testIconOption();
-			testIconposShadow();
 			testInitSelector();
+			testInline();
 		}
 	</script>
 </head>
@@ -132,29 +132,6 @@
 	</script>
 	<a href="#" data-role="button" data-icon="star">Star icon</a>
 
-<h2 id="options_iconshadow">Options:Iconshadow</h2>
-	<a href="#" id="iconshadow1" data-role="button" data-icon="star">iconshadow: true --> false</a>
-	<script>
-		function testIconposShadow() {
-			var iconshadow1_btn = $( "#iconshadow1" ),
-				result = "X";
-
-			if ( iconshadow1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
-				iconshadow1_btn.buttonMarkup( "option", "iconshadow", false );	// setter
-				if ( !iconshadow1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
-					result = "O";
-				}
-			}
-			iconshadow1_btn.text( iconshadow1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="iconshadow2">Create with { iconshadow: false }</a>
-	<script>
-		var iconshadow2_btn = $( "#iconshadow2" );
-		iconshadow2_btn.buttonMarkup( { icon: "star", iconshadow: false } );
-	</script>
-	<a href="#" data-role="button" data-icon="star" data-iconshadow="false">No icon shadow</a>
-
 <h2 id="options_initSelector">Options:InitSelector</h2>
 	<button id="initSelector">Button element</button>
 	<script>
@@ -182,6 +159,7 @@
 			});
 		}
 	</script>
+
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

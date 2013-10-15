@@ -9,6 +9,9 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<!--link rel="stylesheet" href="http://172.21.100.252/jqm-latest/css/themes/default/jquery.mobile.css">
+	<script src="http://172.21.100.252/jqm-latest/js/jquery.js"></script>
+	<script src="http://172.21.100.252/jqm-latest/js/"></script-->
 	<!--link rel="stylesheet" href="http://localhost/jqm-latest/css/themes/default/jquery.mobile.css">
 	<script src="http://localhost/jqm-latest/js/jquery.js"></script>
 	<script src="http://localhost/jqm-latest/js/"></script-->
@@ -25,8 +28,12 @@
 			testCornersOption();
 			testIconOption();
 			testIconposOption();
-			testIconposShadow();
-			testInitSelector();
+			testIconshadowOption();
+			testInitSelectorOption();
+			testInlineOption();
+			testMiniOption();
+			testShadowOption();
+			testThemeOption();
 		}
 	</script>
 </head>
@@ -175,6 +182,7 @@
 	</div>
 
 <h2 id="options_corners">Options:Corners</h2>
+	<a href="#" data-role="button" data-corners="false">No rounded corners</a>
 	<a href="#" id="corners1" data-role="button">Rounded corners --> No rounded corners</a>
 	<script>
 		function testCornersOption() {
@@ -195,9 +203,9 @@
 		var corners2_btn = $( "#corners2" );
 		corners2_btn.buttonMarkup( { corners: false } );
 	</script>
-	<a href="#" data-role="button" data-corners="false">No rounded corners</a>
 
 <h2 id="options_icon">Options:Icon</h2>
+	<a href="#" data-role="button" data-icon="star">Star icon</a>
 	<a href="#" id="icon1" data-role="button">No icon --> Star</a>
 	<script>
 		function testIconOption() {
@@ -218,9 +226,9 @@
 		var icon2_btn = $( "#icon2" );
 		icon2_btn.buttonMarkup( { icon: "star" } );
 	</script>
-	<a href="#" data-role="button" data-icon="star">Star icon</a>
 
 <h2 id="options_iconpos">Options:Iconpos</h2>
+	<a href="#" data-role="button" data-icon="star" data-iconpos="right">iconpos: Right</a>
 	<a href="#" id="iconpos1" data-role="button" data-icon="star">iconpos: Left --> Right</a>
 	<script>
 		function testIconposOption() {
@@ -241,12 +249,12 @@
 		var iconpos2_btn = $( "#iconpos2" );
 		iconpos2_btn.buttonMarkup( { icon: "star", iconpos: "right" } );
 	</script>
-	<a href="#" data-role="button" data-icon="star" data-iconpos="right">iconpos: Right</a>
 
 <h2 id="options_iconshadow">Options:Iconshadow</h2>
+	<a href="#" data-role="button" data-icon="star" data-iconshadow="false">No icon shadow</a>
 	<a href="#" id="iconshadow1" data-role="button" data-icon="star">iconshadow: true --> false</a>
 	<script>
-		function testIconposShadow() {
+		function testIconshadowOption() {
 			var iconshadow1_btn = $( "#iconshadow1" ),
 				result = "X";
 
@@ -264,12 +272,11 @@
 		var iconshadow2_btn = $( "#iconshadow2" );
 		iconshadow2_btn.buttonMarkup( { icon: "star", iconshadow: false } );
 	</script>
-	<a href="#" data-role="button" data-icon="star" data-iconshadow="false">No icon shadow</a>
 
 <h2 id="options_initSelector">Options:InitSelector</h2>
 	<button id="initSelector">Button element</button>
 	<script>
-		function testInitSelector() {
+		function testInitSelectorOption() {
 			var initSelector_btn = $( "#initSelector" );
 			initSelector_btn.click( function() {
 				var msg = "initSelector: ",
@@ -293,6 +300,100 @@
 			});
 		}
 	</script>
+
+<h2 id="options_inline">Options:Inline</h2>
+	<a href="#" data-role="button" data-inline="true">inline</a>
+	<a href="#" id="inline1" data-role="button">inline: false --> true</a>
+	<script>
+		function testInlineOption() {
+			var inline1_btn = $( "#inline1" ),
+				result = "X";
+
+			if ( !inline1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
+				inline1_btn.buttonMarkup( "option", "inline", true );	// setter
+				if ( inline1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
+					result = "O";
+				}
+			}
+			inline1_btn.text( inline1_btn.text() + " (" + result + ")" );
+		}
+	</script>
+	<a href="#" data-role="button" data-inline="true">inline</a>
+	<a href="#" id="inline2">Create with { inline: true }</a>
+	<script>
+		var inline2_btn = $( "#inline2" );
+		inline2_btn.buttonMarkup( { inline: true } );
+	</script>
+
+<h2 id="options_mini">Options:Mini</h2>
+	<a href="#" data-role="button" data-mini="true">Mini</a>
+	<a href="#" id="mini1" data-role="button">mini: false --> true</a>
+	<script>
+		function testMiniOption() {
+			var mini1_btn = $( "#mini1" ),
+				result = "X";
+
+			if ( !mini1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
+				mini1_btn.buttonMarkup( "option", "mini", true );	// setter
+				if ( mini1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
+					result = "O";
+				}
+			}
+			mini1_btn.text( mini1_btn.text() + " (" + result + ")" );
+		}
+	</script>
+	<a href="#" id="mini2">Create with { mini: true }</a>
+	<script>
+		var mini2_btn = $( "#mini2" );
+		mini2_btn.buttonMarkup( { mini: true } );
+	</script>
+
+<h2 id="options_shadow">Options:Shadow</h2>
+	<a href="#" data-role="button" data-shadow="false">No button shadow</a>
+	<a href="#" id="shadow1" data-role="button">shadow: true --> false</a>
+	<script>
+		function testShadowOption() {
+			var shadow1_btn = $( "#shadow1" ),
+				result = "X";
+
+			if ( shadow1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
+				shadow1_btn.buttonMarkup( "option", "shadow", false );	// setter
+				if ( !shadow1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
+					result = "O";
+				}
+			}
+			shadow1_btn.text( shadow1_btn.text() + " (" + result + ")" );
+		}
+	</script>
+	<a href="#" id="shadow2">Create with { shadow: false }</a>
+	<script>
+		var shadow2_btn = $( "#shadow2" );
+		shadow2_btn.buttonMarkup( { shadow: false } );
+	</script>
+
+<h2 id="options_theme">Options:Theme</h2>
+	<a href="#" data-role="button" data-theme="b">Theme B</a>
+	<a href="#" id="theme1" data-role="button">theme: null --> b</a>
+	<script>
+		function testThemeOption() {
+			var theme1_btn = $( "#theme1" ),
+				result = "X";
+
+			if ( !theme1_btn.buttonMarkup( "option", "theme" ) ) {	// getter
+				theme1_btn.buttonMarkup( "option", "theme", "b" );	// setter
+				if ( theme1_btn.buttonMarkup( "option", "theme" ) === "b" ) {	// getter
+					result = "O";
+				}
+			}
+			theme1_btn.text( theme1_btn.text() + " (" + result + ")" );
+		}
+	</script>
+	<a href="#" id="theme2">Create with { theme: "b" }</a>
+	<script>
+		var theme2_btn = $( "#theme2" );
+		theme2_btn.buttonMarkup( { theme: "b" } );
+	</script>
+
 
 </div><!-- /content -->
 </div><!-- /page -->

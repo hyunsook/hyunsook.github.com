@@ -541,7 +541,7 @@
 <h2 id="options_iconshadow">Options:Iconshadow</h2>
 	<h3>Link Button</h3>
 	<div class="ui-body ui-body-b">
-		<a href="#" data-role="button" data-icon="star" data-iconshadow="false">No icon shadow</a>
+		<a href="#" data-role="button" data-icon="star" data-iconshadow="true">Icon shadow</a>
 		<a href="#" id="iconshadowA1" data-role="button" data-icon="star">iconshadow: false --> true</a>
 		<script>
 			function testIconshadowOptionA() {
@@ -557,16 +557,16 @@
 				iconshadowA1_btn.text( iconshadowA1_btn.text() + " (" + result + ")" );
 			}
 		</script>
-		<a href="#" id="iconshadowA2">Create with { iconshadow: false }</a>
+		<a href="#" id="iconshadowA2">Create with { iconshadow: true }</a>
 		<script>
 			var iconshadowA2_btn = $( "#iconshadowA2" );
-			iconshadowA2_btn.buttonMarkup( { icon: "star", iconshadow: false } );
+			iconshadowA2_btn.buttonMarkup( { icon: "star", iconshadow: true } );
 		</script>
 	</div>
 
 	<h3>Button Element</h3>
 	<div class="ui-body ui-body-b">
-		<button data-icon="star" data-iconshadow="false">No icon shadow</button>
+		<button data-icon="star" data-iconshadow="true">Icon shadow</button>
 		<button id="iconshadowB1" data-icon="star">iconshadow: false --> true</button>
 		<script>
 			function testIconshadowOptionB() {
@@ -582,16 +582,16 @@
 				iconshadowB1_btn.text( iconshadowB1_btn.text() + " (" + result + ")" );
 			}
 		</script>
-		<a href="#" id="iconshadowB2" data-icon="star">Initialize with { iconshadow: false }</a>
+		<a href="#" id="iconshadowB2" data-icon="star">Initialize with { iconshadow: true }</a>
 		<script>
 			var iconshadowB2_btn = $( "#iconshadowB2" );
-			iconshadowB2_btn.buttonMarkup( { iconshadow: false } );
+			iconshadowB2_btn.buttonMarkup( { iconshadow: true } );
 		</script>
 	</div>
 
 	<h3>Input Button</h3>
 	<div class="ui-body ui-body-b">
-		<input type="button" data-icon="star" data-iconshadow="false" value="No icon shadow" />
+		<input type="button" data-icon="star" data-iconshadow="true" value="Icon shadow" />
 		<input type="button" id="iconshadowI1" data-icon="star" value="iconshadow: false --> true" />
 		<script>
 			function testIconshadowOptionI() {
@@ -608,10 +608,10 @@
 				iconshadowI1_btn.button( "refresh" );
 			}
 		</script>
-		<input type="button" id="iconshadowI2" data-icon="star" value='Initialize with { iconshadow: false }'>
+		<input type="button" id="iconshadowI2" data-icon="star" value='Initialize with { iconshadow: true }'>
 		<script>
 			var iconshadowI2_btn = $( "#iconshadowI2" );
-			iconshadowI2_btn.button( { iconshadow: false } );
+			iconshadowI2_btn.button( { iconshadow: true } );
 		</script>
 	</div>
 

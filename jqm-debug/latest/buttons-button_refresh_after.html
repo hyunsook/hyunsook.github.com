@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Buttons - button : refresh()</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="jquery.mobile-git_bugfix_button.js"></script>
+	<script>
+		function testButtons() {
+			testIconOptionI();
+			testIconposOptionI();
+			testIconshadowOptionI();
+		}
+	</script>
+</head>
+<body onload="testButtons();">
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2 id="options_icon">Options:Icon</h2>
+	<input type="button" data-icon="star" value="Star icon" />
+	<input type="button" id="iconI1" value="No icon --> Star" />
+	<script>
+		function testIconOptionI() {
+			var iconI1_btn = $("#iconI1"),
+				result = "X";
+
+			if ( !iconI1_btn.button( "option", "icon" ) ) {	// getter
+				iconI1_btn.button( "option", "icon", "star" );	// setter
+				if ( iconI1_btn.button( "option", "icon" ) === "star" ) {	// getter
+					result = "O";
+				}
+			}
+			iconI1_btn.val( iconI1_btn.val() + " (" + result + ")" );
+			iconI1_btn.button( "refresh" );
+		}
+	</script>
+	<input type="button" id="iconI2" value='Initialize with { icon: "star" }'>
+	<script>
+		var iconI2_btn = $( "#iconI2" );
+		iconI2_btn.button( { icon: "star" } );
+	</script>
+
+<h2 id="options_iconpos">Options:Iconpos</h2>
+	<input type="button" data-icon="star" data-iconpos="right" value="iconpos: Right" />
+	<input type="button" id="iconposI1" data-icon="star" value="iconpos: Left --> Right" />
+	<script>
+		function testIconposOptionI() {
+			var iconposI1_btn = $("#iconposI1"),
+				result = "X";
+
+			if ( iconposI1_btn.button( "option", "iconpos" ) === "left") {	// getter
+				iconposI1_btn.button( "option", "iconpos", "right" );	// setter
+				if ( iconposI1_btn.button( "option", "iconpos" ) === "right" ) {	// getter
+					result = "O";
+				}
+			}
+			iconposI1_btn.val( iconposI1_btn.val() + " (" + result + ")" );
+			iconposI1_btn.button( "refresh" );
+		}
+	</script>
+	<input type="button" id="iconposI2" data-icon="star" value='Initialize with { iconpos: "right" }'>
+	<script>
+		var iconposI2_btn = $( "#iconposI2" );
+		iconposI2_btn.button( { iconpos: "right" } );
+	</script>
+
+<h2 id="options_iconshadow">Options:Iconshadow</h2>
+	<div class="ui-body ui-body-b">
+		<input type="button" data-icon="star" data-iconshadow="true" value="No icon shadow" />
+		<input type="button" id="iconshadowI1" data-icon="star" value="iconshadow: false --> true" />
+		<script>
+			function testIconshadowOptionI() {
+				var iconshadowI1_btn = $( "#iconshadowI1" ),
+					result = "X";
+
+				if ( !iconshadowI1_btn.button( "option", "iconshadow" ) ) {	// getter
+					iconshadowI1_btn.button( "option", "iconshadow", true );	// setter
+					if ( iconshadowI1_btn.button( "option", "iconshadow" ) ) {	// getter
+						result = "O";
+					}
+				}
+				iconshadowI1_btn.val( iconshadowI1_btn.val() + " (" + result + ")" );
+				iconshadowI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="iconshadowI2" data-icon="star" value='Initialize with { iconshadow: true }'>
+		<script>
+			var iconshadowI2_btn = $( "#iconshadowI2" );
+			iconshadowI2_btn.button( { iconshadow: true } );
+		</script>
+	</div>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

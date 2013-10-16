@@ -6,17 +6,47 @@
 		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"></link>
 		<script>
-			$( document ).on( "click", ".toggle-panel", function() {
+			$( document ).on( "click", ".toggle-panel", function () {
 				$(  "#left-overlay" ).panel( "toggle" );
+			}).on( "click", ".close-panel", function ( event ) {
+				$( "#right-push" ).panel( "close" );
+			}).on( "click", ".open-panel", function ( event ) {
+				$( "#option-test" ).panel( "open" );
+			}).on( "click", ".set-animate", function () {
+				$( "#option-test" ).panel( "option", "animate", $( this ).jqmData( "value" ) );
+			}).on( "click", ".set-dismissible", function () {
+				$( "#option-test" ).panel( "option", "dismissible", $( this ).jqmData( "value" ) );
+			}).on( "click", ".set-display", function () {
+				$( "#option-test" ).panel( "option", "display", $( this ).jqmData( "value" ) );
+			}).on( "click", ".set-position", function () {
+				$( "#option-test" ).panel( "option", "position", $( this ).jqmData( "value" ) );
+			}).on( "click", ".set-positionFixed", function () {
+				$( "#option-test" ).panel( "option", "positionFixed", $( this ).jqmData( "value" ) );
+			}).on( "click", ".set-swipeClose", function () {
+				$( "#option-test" ).panel( "option", "swipeClose", $( this ).jqmData( "value" ) );
+			}).on( "click", ".set-theme", function () {
+				$( "#option-test" ).panel( "option", "theme", $( this ).jqmData( "value" ) );
+			});
+
+			$( document ).on( "panelbeforeopen", "#option-test", function ( event, ui ) {
+				var $target = $( event.target );
+				$( ".animate-stat" ).text( $target.panel( "option", "animate" ) );
+				$( ".dismissible-stat" ).text( $target.panel( "option", "dismissible" ) );
+				$( ".display-stat" ).text( $target.panel( "option", "display" ) );
+				$( ".position-stat" ).text( $target.panel( "option", "position" ) );
+				$( ".positionFixed-stat" ).text( $target.panel( "option", "positionFixed" ) );
+				$( ".swipeClose-stat" ).text( $target.panel( "option", "swipeClose" ) );
+				$( ".theme-stat" ).text( $target.panel( "option", "theme" ) );
 			});
 		</script>
 	</head>
 
 	<body>
-		<div data-role="page">
+		<div data-role="page" id="panel-sample" class="ui-responsive-panel">
 
 			<div data-role="header" data-position="fixed">
 				<a href="#" class="toggle-panel ui-btn-right">Toggle</a>
+				<span class="ui-title"></span>
 			</div>
 
 			<div data-role="content">
@@ -25,7 +55,7 @@
 
 				<h3>Left panels</h3>
 				<a href="#left-overlay" data-role="button" data-inline="true">Overlay</a>
-				<a href="#left-reveal" data-role="button" data-inline="true">Reveal</a>
+				<a href="#left-reveal" data-role="button" data-inline="true" data-position="right">Reveal</a>
 				<a href="#left-push" data-role="button" data-inline="true">Push</a>
 
 				<h3>Right panels</h3>
@@ -33,44 +63,91 @@
 				<a href="#right-reveal" data-role="button" data-inline="true">Reveal</a>
 				<a href="#right-push" data-role="button" data-inline="true">Push</a>
 
+				<h3>Options</h3>
+				<a href="#option-test" data-role="button" data-inline="true">Open</a>
+				<a href="#" data-role="button" data-inline="true" class="open-panel">open()</a>
+				<ul data-role="listview" data-inset="true">
+					<li data-role="listdivider">animate</li>
+					<li><a href="#" class="set-animate" data-value="true">True</a></li>
+					<li><a href="#" class="set-animate" data-value="false">False</a></li>
+					<li data-role="listdivider">dismissible</li>
+					<li><a href="#" class="set-dismissible" data-value="true">True</a></li>
+					<li><a href="#" class="set-dismissible" data-value="false">False</a></li>
+					<li data-role="listdivider">display</li>
+					<li><a href="#" class="set-display" data-value="overlay">Overlay</a></li>
+					<li><a href="#" class="set-display" data-value="reveal">Reveal</a></li>
+					<li><a href="#" class="set-display" data-value="push">Push</a></li>
+					<li data-role="listdivider">position</li>
+					<li><a href="#" class="set-position" data-value="left">Left</a></li>
+					<li><a href="#" class="set-position" data-value="right">Right</a></li>
+					<li data-role="listdivider">positionFixed</li>
+					<li><a href="#" class="set-positionFixed" data-value="true">True</a></li>
+					<li><a href="#" class="set-positionFixed" data-value="false">False</a></li>
+					<li data-role="listdivider">swipeClose</li>
+					<li><a href="#" class="set-swipeClose" data-value="true">True</a></li>
+					<li><a href="#" class="set-swipeClose" data-value="false">False</a></li>
+					<li data-role="theme">theme</li>
+					<li><a href="#" class="set-theme" data-value="a">a</a></li>
+					<li><a href="#" class="set-theme" data-value="b">b</a></li>
+				</ul>
+
 			</div>	<!-- content -->
 
-			<div data-role="footer" data-position="fixed">
+			<div data-role="footer">
 				<h1>Footer</h1>
 				<a class="toggle-panel ui-btn-right" data-role="button">Toggle</a>
 			</div>	<!-- footer -->
 
-			<div data-role="panel" id="default-panel">
-					<h3>Default panel</h3>
-					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
-				</div>
+			<div data-role="panel" id="left-overlay" data-position="left" data-display="overlay" data-animate="false">
+				<h3>Left panel: Overlay</h3>
+				<div>data-animate="false"</div>
+				<div>If set to false, the panel will just appear and disappear WITHOUT animation.</div>
+				<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+			</div>
+			<div data-role="panel" id="left-reveal" data-position="left" data-display="reveal" data-dismissible="false">
+				<h3>Left panel: Reveal</h3>
+				<div>data-dismissible="false"</div>
+				<div>If set to false, the panel can NOT be closed by clicking outside onto the page.</div>
+				<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+			</div>
+			<div data-role="panel" id="left-push" data-position="left" data-display="push" data-position-fixed="true">
+				<h3>Left panel: Push</h3>
+				<div>data-position-fixed="true"</div>
+				<div>If set to true, the panel has fixed positioning so the contents are in view even if the page is scrolled down.</div>
+				<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+			</div>
 
-				<div data-role="panel" id="left-overlay" data-position="left" data-display="overlay">
-					<h3>Left panel: Overlay</h3>
-					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
-				</div>
-				<div data-role="panel" id="left-reveal" data-position="left" data-display="reveal" data-position-fixed="true">
-					<h3>Left panel: Reveal</h3>
-					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
-				</div>
-				<div data-role="panel" id="left-push" data-position="left" data-display="push">
-					<h3>Left panel: Push</h3>
-					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
-				</div>
+			<div data-role="panel" id="right-overlay" data-position="right" data-display="overlay" data-swipe-close="false">
+				<h3>Right panel: Overlay</h3>
+				<div>data-swipe-close="false"</div>
+				<div>If set to false, the panel can NOT be close by swiping left or right over the panel.</div>
+				<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+			</div>
+			<div data-role="panel" id="right-reveal" data-position="right" data-display="reveal" data-theme="b">
+				<h3>Right panel: Reveal</h3>
+				<div>data-theme="b"</div>
+				<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+			</div>
+			<div data-role="panel" id="right-push" data-position="right" data-display="push">
+				<h3>Right panel: Push</h3>
+				<a  class="close-panel" data-role="button" data-inline="true">close()</a>
+			</div>
 
-				<div data-role="panel" id="right-overlay" data-position="right" data-display="overlay">
-					<h3>Right panel: Overlay</h3>
-					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
+			<div data-role="panel" id="option-test">
+				<h3>Option testing panel</h3>
+				<div>
+					<p>Current options (update when "panelbeforeopen")</p>
+					animate: <div class="animate-stat">&nbsp;</div>
+					dismissible: <div class="dismissible-stat">&nbsp;</div>
+					display: <div class="display-stat">&nbsp;</div>
+					position: <div class="position-stat">&nbsp;</div>
+					positionFixed: <div class="positionFixed-stat">&nbsp;</div>
+					swipeClose: <div class="swipeClose-stat">&nbsp;</div>
+					theme: <div class="theme-stat">&nbsp;</div>
 				</div>
-				<div data-role="panel" id="right-reveal" data-position="right" data-display="reveal">
-					<h3>Right panel: Reveal</h3>
-					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
-				</div>
-				<div data-role="panel" id="right-push" data-position="right" data-display="push">
-					<h3>Right panel: Push</h3>
-					<a  data-role="button" data-rel="close" data-inline="true">Close</a>
-				</div>
-				<!-- panels -->
+				<a data-role="button" data-rel="close" data-inline="true">Close</a>
+			</div>
+			<!-- panels -->
 
 		</div>	<!-- page-->
 	</body>

@@ -1,0 +1,156 @@
+<html>
+	<head>
+		<title>Filterable - jQM 1.4.0-beta</title>
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.css"></script>
+	</head>
+
+	<body>
+
+		<div id="FrontPage" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<H1>Filterable</H1>
+				<a href="#" class="hide-loading ui-btn-right" data-icon="delete">Hide</a>
+			</div>
+
+			<div data-role="content">
+				<ul id="filter-list" data-role="listview" data-inset="true" >					
+					<li><a href="#byHTML">HTML Type</a></li>
+					<li><a href="#byScript">Script Type</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="byHTML" data-role="page">
+
+			<div data-role="header" data-position="fixed">
+				<H1>Filterable - By HTML</H1>
+				<a href="#FrontPage" class="hide-loading ui-btn-right" data-icon="back">Back</a>
+			</div>
+
+			<div data-role="content">
+				<button id="readFilter" data-inline="true" >Read value ('data-filter')</button>
+				<button id="readTheme" data-inline="true" >Read value ('data-filter-theme')</button>
+				<button id="readPlaceholder" data-inline="true" >Read value ('data-filter-placeholder')</button>
+				<br>
+				<ul id="filterListView" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="search" data-filter-theme="a">
+					<li data-role="list-divider">A</li>
+					<li><a>Adam Kinkaid</a></li>
+					<li><a>Alex Wickerham</a></li>
+					<li><a>Avery Johnson</a></li>
+					<li data-role="list-divider">B</li>
+					<li><a>Bob Cabot</a></li>
+					<li data-role="list-divider">C</li>
+					<li><a>Caleb Booth</a></li>
+					<li><a>Christopher Adams</a></li>
+					<li><a>Culver James</a></li>
+					<li data-role="list-divider">D</li>
+					<li><a>David Walsh</a></li>
+					<li><a>Drake Alfred</a></li>
+					<li data-role="list-divider">E</li>
+					<li><a>Elizabeth Bacon</a></li>
+					<li><a>Emery Parker</a></li>
+					<li><a>Enid Voldon</a></li>
+					<li data-role="list-divider">F</li>
+					<li><a>F</a></li>
+					<li><a>Francis Wall</a></li>
+					<li data-role="list-divider">G</li>
+					<li><a>Graham Smith</a></li>
+					<li><a>Greta Peete</a></li>
+					<li data-role="list-divider">H</li>
+					<li><a>Harvey Walls</a></li>
+					<li data-role="list-divider">M</li>
+					<li><a>Mike Farnsworth</a></li>
+					<li><a>Murray Vanderbuilt</a></li>
+					<li data-role="list-divider">N</li>
+					<li><a>Nathan Williams</a></li>
+					<li data-role="list-divider">P</li>
+					<li><a>Paul Baker</a></li>
+					<li><a>Pete Mason</a></li>
+					<li data-role="list-divider">R</li>
+					<li><a>Rod Tarker</a></li>
+					<li data-role="list-divider">S</li>
+					<li><a>Sawyer Wakefield</a></li>
+				</ul>		
+				
+			</div>	<!-- content -->
+
+		</div>	<!-- page-->
+		<script>
+			$("#readFilter").bind( "click", function ( event ) {
+				var value = $("#filterListView").listview( "option", "filter" );
+				alert("read value (filter) : " + value );
+			});
+			$("#readPlaceholder").bind( "click", function ( event ) {				
+				var value = $("#filterListview").listview( "option", "filterPlaceholder" );
+				alert("read value (placeholder) : " + value );
+			});
+			$("#readTheme").bind( "click", function ( event ) {				
+				var value = $("#filterListview").listview( "option", "filterTheme" );
+				console.log(" " + value.length)
+				alert("read value (theme) : " + value );
+			});
+		</script>
+
+		<div id="byScript" data-role="page">
+
+			<div data-role="header" data-position="fixed">
+				<H1>Filterable - By Script</H1>
+				<a href="#FrontPage" class="hide-loading ui-btn-right" data-icon="back">back</a>
+			</div>
+
+			<div data-role="content">
+
+				<ul id="demolist" data-inset="true" >
+					<li data-role="list-divider">A</li>
+					<li><a>Adam Kinkaid</a></li>
+					<li><a>Alex Wickerham</a></li>
+					<li><a>Avery Johnson</a></li>
+					<li data-role="list-divider">B</li>
+					<li><a>Bob Cabot</a></li>
+					<li data-role="list-divider">C</li>
+					<li><a>Caleb Booth</a></li>
+					<li><a>Christopher Adams</a></li>
+					<li><a>Culver James</a></li>
+					<li data-role="list-divider">D</li>
+					<li><a>David Walsh</a></li>
+					<li><a>Drake Alfred</a></li>
+					<li data-role="list-divider">E</li>
+					<li><a>Elizabeth Bacon</a></li>
+					<li><a>Emery Parker</a></li>
+					<li><a>Enid Voldon</a></li>
+					<li data-role="list-divider">F</li>
+					<li><a>F</a></li>
+					<li><a>Francis Wall</a></li>
+					<li data-role="list-divider">G</li>
+					<li><a>Graham Smith</a></li>
+					<li><a>Greta Peete</a></li>
+					<li data-role="list-divider">H</li>
+					<li><a>Harvey Walls</a></li>
+					<li data-role="list-divider">M</li>
+					<li><a>Mike Farnsworth</a></li>
+					<li><a>Murray Vanderbuilt</a></li>
+					<li data-role="list-divider">N</li>
+					<li><a>Nathan Williams</a></li>
+					<li data-role="list-divider">P</li>
+					<li><a>Paul Baker</a></li>
+					<li><a>Pete Mason</a></li>
+					<li data-role="list-divider">R</li>
+					<li><a>Rod Tarker</a></li>
+					<li data-role="list-divider">S</li>
+					<li><a>Sawyer Wakefield</a></li>
+				</ul>
+
+			</div>	<!-- content -->
+
+		</div>	<!-- page-->
+	</body>
+	<script>
+		$( document ).bind("pagebeforecreate", function ( event ) {			
+			$("#demolist").listview( { filter : true, filterTheme : "a", filterPlaceholder : "search" } );
+			console.log( "length : "+ $("#filterlist").length)
+
+		});
+	</script>
+</html>

@@ -25,15 +25,37 @@
 	</style>
 	<script>
 		function testButtons() {
-			testCornersOption();
-			testIconOption();
-			testIconposOption();
-			testIconshadowOption();
-			testInitSelectorOption();
-			testInlineOption();
-			testMiniOption();
-			testShadowOption();
-			testThemeOption();
+			testCornersOptionA();
+			testCornersOptionB();
+			testCornersOptionI();
+
+			testIconOptionA();
+			testIconOptionB();
+			testIconOptionI();
+
+			testIconposOptionA();
+			testIconposOptionB();
+			testIconposOptionI();
+
+			testIconshadowOptionA();
+			testIconshadowOptionB();
+			testIconshadowOptionI();
+
+			testInlineOptionA();
+			testInlineOptionB();
+			testInlineOptionI();
+
+			testMiniOptionA();
+			testMiniOptionB();
+			testMiniOptionI();
+
+			testShadowOptionA();
+			testShadowOptionB();
+			testShadowOptionI();
+
+			testThemeOptionA();
+			testThemeOptionB();
+			testThemeOptionI();
 		}
 	</script>
 </head>
@@ -44,6 +66,7 @@
 <h2>Styling links as buttons</h2>
 	<a href="#" data-role="button">Link button</a>
 	<a href="#" data-role="button" class="ui-disabled">Link button</a>
+	<a href="#" data-role="button" class="ui-state-disabled">Link button</a>
 
 <h2>Mini version</h2>
 	<a href="#" data-role="button" data-mini="true">Link button</a>
@@ -55,6 +78,8 @@
 		$( "[type='submit']" ).button();
 	</script>
 	<button>Button element</button>
+	<button disabled>Button element</button>
+	<input type="button" value="Button" />
 	<input type="submit" value="Submit Button" />
 	<input type="reset" value="Reset Button" />
 
@@ -71,89 +96,182 @@
 	<input type="reset" data-mini="true" data-inline="true" value="Reset Button" />
 
 <h2>Adding Icons to Buttons</h2>
-	<a href="#" data-role="button" data-icon="delete">Delete</a>
-	<a href="#" data-role="button" data-icon="delete" data-mini="true">Delete</a>
+	<a href="#" data-role="button" data-icon="delete">Link</a>
+	<a href="#" data-role="button" data-icon="delete" data-mini="true">Link</a>
+
+	<button data-icon="delete">Button</button>
+	<button data-icon="delete" data-mini="true">Button</button>
+
+	<input type="button" data-icon="delete" value="Input" />
+	<input type="button" data-icon="delete" data-mini="true" value="Input" />
 
 <h2>Icon positioning</h2>
-	<a href="#" data-role="button" data-icon="delete" data-iconpos="left">Delete</a>
-	<a href="#" data-role="button" data-icon="delete" data-iconpos="right">Delete</a>
-	<a href="#" data-role="button" data-icon="delete" data-iconpos="top">Delete</a>
-	<a href="#" data-role="button" data-icon="delete" data-iconpos="bottom">Delete</a>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="left">Link</a>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="right">Link</a>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="top">Link</a>
+	<a href="#" data-role="button" data-icon="delete" data-iconpos="bottom">Link</a>
+
+	<button data-icon="delete" data-iconpos="left">Button</button>
+	<button data-icon="delete" data-iconpos="right">Button</button>
+	<button data-icon="delete" data-iconpos="top">Button</button>
+	<button data-icon="delete" data-iconpos="bottom">Button</button>
+
+	<input type="button" data-icon="delete" data-iconpos="left" value="Input" />
+	<input type="button" data-icon="delete" data-iconpos="right" value="Input" />
+	<input type="button" data-icon="delete" data-iconpos="top" value="Input" />
+	<input type="button" data-icon="delete" data-iconpos="bottom" value="Input" />
 
 <h2>Mini & Inline & Icon</h2>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="left">Delete</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Delete</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="top">Delete</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="bottom">Delete</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="left">Link</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Link</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="top">Link</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="bottom">Link</a>
+	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="notext">Link</a>
+
+	<button data-mini="true" data-inline="true" data-icon="delete" data-iconpos="left">Button</button>
+	<button data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Button</button>
+	<button data-mini="true" data-inline="true" data-icon="delete" data-iconpos="top">Button</button>
+	<button data-mini="true" data-inline="true" data-icon="delete" data-iconpos="bottom">Button</button>
+	<button data-mini="true" data-inline="true" data-icon="delete" data-iconpos="notext">Button</button>
+
+	<input type="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="left" value="Input" />
+	<input type="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right" value="Input" />
+	<input type="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="top" value="Input" />
+	<input type="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="bottom" value="Input" />
+	<input type="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="notext" value="Input" />
+
 
 <h2>Icon set</h2>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="bars">Bars</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="edit">Edit</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l">Arrow Left</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-r">Arrow Right</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-u">Arrow Up</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-d">Arrow Down</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete">Delete</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="plus">Plus</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="minus">Minus</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="check">Check</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="gear">Gear</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="refresh">Refresh</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="forward">Forward</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="back">Back</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="grid">Grid</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="star">Star</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="alert">Alert</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="info">Info</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="home">Home</a>
+	<h3>Link Buttons</h3>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="bars">Bars</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="edit">Edit</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l">Arrow Left</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-r">Arrow Right</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-u">Arrow Up</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-d">Arrow Down</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="delete">Delete</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="plus">Plus</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="minus">Minus</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="check">Check</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="gear">Gear</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="refresh">Refresh</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="forward">Forward</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="back">Back</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="grid">Grid</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="star">Star</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="alert">Alert</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="info">Info</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="home">Home</a>
+		<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="search">Search</a>
+
+	<h3>Button Elements</h3>
+		<button data-mini="true" data-inline="true" data-icon="bars">Bars</a>
+		<button data-mini="true" data-inline="true" data-icon="edit">Edit</button>
+		<button data-mini="true" data-inline="true" data-icon="arrow-l">Arrow Left</button>
+		<button data-mini="true" data-inline="true" data-icon="arrow-r">Arrow Right</button>
+		<button data-mini="true" data-inline="true" data-icon="arrow-u">Arrow Up</button>
+		<button data-mini="true" data-inline="true" data-icon="arrow-d">Arrow Down</button>
+		<button data-mini="true" data-inline="true" data-icon="delete">Delete</button>
+		<button data-mini="true" data-inline="true" data-icon="plus">Plus</button>
+		<button data-mini="true" data-inline="true" data-icon="minus">Minus</button>
+		<button data-mini="true" data-inline="true" data-icon="check">Check</button>
+		<button data-mini="true" data-inline="true" data-icon="gear">Gear</button>
+		<button data-mini="true" data-inline="true" data-icon="refresh">Refresh</button>
+		<button data-mini="true" data-inline="true" data-icon="forward">Forward</button>
+		<button data-mini="true" data-inline="true" data-icon="back">Back</button>
+		<button data-mini="true" data-inline="true" data-icon="grid">Grid</button>
+		<button data-mini="true" data-inline="true" data-icon="star">Star</button>
+		<button data-mini="true" data-inline="true" data-icon="alert">Alert</button>
+		<button data-mini="true" data-inline="true" data-icon="info">Info</button>
+		<button data-mini="true" data-inline="true" data-icon="home">Home</button>
+		<button data-mini="true" data-inline="true" data-icon="search">Search</button>
+
+	<h3>Input Buttons</h3>
+		<input type="button" data-mini="true" data-inline="true" data-icon="bars" value="Bars" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="edit" value="Edit" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="arrow-l" value="Arrow Left" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="arrow-r" value="Arrow Right" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="arrow-u" value="Arrow Up" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="arrow-d" value="Arrow Down" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="delete" value="Delete" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="plus" value="Plus" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="minus" value="Minus" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="check" value="Check" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="gear" value="Gear" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="refresh" value="Refresh" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="forward" value="Forward" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="back" value="Back" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="grid" value="Grid" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="star" value="Star" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="alert" value="Alert" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="info" value="Info" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="home" value="Home" />
+		<input type="button" data-mini="true" data-inline="true" data-icon="search" value="Search" />
 
 <h2 id="custom_icons">Custom Icons</h2>
 	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-x">Email (X)</a>
 	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-o">Email (O)</a>
 
+	<button data-mini="true" data-inline="true" data-icon="myemail-o">Button</button>
+	<input type="button" data-mini="true" data-inline="true" data-icon="myemail-o" value="Input" />
+
 <h2>Icon only</h2>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
-	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail-o" data-iconpos="notext">Email</a>
+	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
+	<a href="#" data-role="button" data-inline="true" data-icon="myemail-o" data-iconpos="notext">Email</a>
 
 <h2>Grouped buttons</h2>
 	<div data-role="controlgroup">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
+		<button>Button</button>
+		<input type="button" value="Input" />
 	</div>
 
 	<div data-role="controlgroup" data-type="horizontal">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
+		<button>Button</button>
+		<input type="button" value="Input" />
 	</div>
 
 	<div data-role="controlgroup" data-type="horizontal">
 		<a href="#" data-role="button" data-icon="plus">Add</a>
 		<a href="#" data-role="button" data-icon="delete">Delete</a>
+		<button data-icon="plus">Button</button>
+		<input type="button" data-icon="delete" value="Input" />
 	</div>
 
 	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
+		<button>Button</button>
+		<input type="button" value="Input" />
 	</div>
 
 	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 		<a href="#" data-role="button" data-icon="plus">Add</a>
 		<a href="#" data-role="button" data-icon="delete">Delete</a>
+		<button data-icon="plus">Button</button>
+		<input type="button" data-icon="delete" value="Input" />
 	</div>
 
 	<div data-role="controlgroup" data-type="horizontal" >
 		<a href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext">Up</a>
 		<a href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext">Down</a>
 		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+		<button data-icon="plus" data-iconpos="notext">Button</button>
+		<input type="button" data-icon="delete" data-iconpos="notext" value="Input" />
 	</div>
 
 	<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 		<a href="#" data-role="button" data-icon="arrow-u" data-iconpos="notext">Up</a>
 		<a href="#" data-role="button" data-icon="arrow-d" data-iconpos="notext">Down</a>
 		<a href="#" data-role="button" data-icon="delete" data-iconpos="notext">Delete</a>
+		<button data-icon="plus" data-iconpos="notext">Button</button>
+		<input type="button" data-icon="delete" data-iconpos="notext" value="Input" />
 	</div>
 
 <h2 id="lables">Labels</h2>
@@ -164,235 +282,645 @@
 		<label for="button2">Up</label>
 		<a href="#" name="button3" data-role="button" data-icon="minus" data-iconpos="notext">Minus</a>
 		<label for="button3">Down</label>
+		<button name="button4" data-icon="plus" data-iconpos="notext">Button</button>
+		<label for="button4">Button</label>
+		<input name="button5" type="button" data-icon="delete" data-iconpos="notext" value="Input" />
+		<label for="button5">Input</label>
 	</fieldset>
 
 <h2>Theming buttons</h2>
 	The number of swatches has been reduced from five to two; a light “A” swatch and a dark “B” swatch. (<a href="http://jquerymobile.com/blog/2013/09/24/announcing-jquery-mobile-1-4-beta/">New default theme</a>)
-	<div class="ui-body ui-body-a"><h4>Swatch "a"</h4><a href="#" data-role="button">Button</a></div>
-	<div class="ui-body ui-body-b"><h4>Swatch "b"</h4><a href="#" data-role="button">Button</a></div>
+	<div class="ui-body ui-body-a">
+		<h4>Swatch "a"</h4>
+		<a href="#" data-role="button">Link Button</a>
+		<button>Button Element</button>
+		<input type="button" value="Input Button" />
+	</div>
+	<div class="ui-body ui-body-b">
+		<h4>Swatch "b"</h4>
+		<a href="#" data-role="button">Link Button</a>
+		<button>Button Element</button>
+		<input type="button" value="Input Button" />
+	</div>
 
 <h2>Theme variations</h2>
 	<div class="ui-body ui-body-a">
-		<a href="#" data-role="button" data-theme="a" data-icon="arrow-l" data-inline="true">Swatch a</a>
-		<a href="#" data-role="button" data-theme="b" data-icon="arrow-l" data-inline="true">Swatch b</a>
+		<a href="#" data-role="button" data-theme="a" data-icon="arrow-l" data-inline="true">Link</a>
+		<a href="#" data-role="button" data-theme="b" data-icon="arrow-l" data-inline="true">Link</a>
+
+		<button data-theme="a" data-icon="arrow-l" data-inline="true">Button</button>
+		<button data-theme="b" data-icon="arrow-l" data-inline="true">Button</button>
+
+		<input type="button" data-theme="a" data-icon="arrow-l" data-inline="true" value="Input" />
+		<input type="button" data-theme="b" data-icon="arrow-l" data-inline="true" value="Input" />
 	</div>
 	<div class="ui-body ui-body-b">
-		<a href="#" data-role="button" data-theme="a" data-icon="arrow-l" data-inline="true">Swatch a</a>
-		<a href="#" data-role="button" data-theme="b" data-icon="arrow-l" data-inline="true">Swatch b</a>
+		<a href="#" data-role="button" data-theme="a" data-icon="arrow-l" data-inline="true">Link</a>
+		<a href="#" data-role="button" data-theme="b" data-icon="arrow-l" data-inline="true">Link</a>
+
+		<button data-theme="a" data-icon="arrow-l" data-inline="true">Button</button>
+		<button data-theme="b" data-icon="arrow-l" data-inline="true">Button</button>
+
+		<input type="button" data-theme="a" data-icon="arrow-l" data-inline="true" value="Input" />
+		<input type="button" data-theme="b" data-icon="arrow-l" data-inline="true" value="Input" />
 	</div>
 
 <h2 id="options_corners">Options:Corners</h2>
-	<a href="#" data-role="button" data-corners="false">No rounded corners</a>
-	<a href="#" id="corners1" data-role="button">Rounded corners --> No rounded corners</a>
-	<script>
-		function testCornersOption() {
-			var corners1_btn = $( "#corners1" ),
-				result = "X";
+	<h3>Link Button</h3>
+		<a href="#" data-role="button" data-corners="false">No rounded corners</a>
+		<a href="#" id="cornersA1" data-role="button">Rounded corners --> No rounded corners</a>
+		<script>
+			function testCornersOptionA() {
+				var cornersA1_btn = $( "#cornersA1" ),
+					result = "X";
 
-			if ( corners1_btn.buttonMarkup( "option", "corners" ) ) {	// getter
-				corners1_btn.buttonMarkup( "option", "corners", false );	// setter
-				if ( !corners1_btn.buttonMarkup( "option", "corners" ) ) {	// getter
-					result = "O";
+				if ( cornersA1_btn.buttonMarkup( "option", "corners" ) ) {	// getter
+					cornersA1_btn.buttonMarkup( "option", "corners", false );	// setter
+					if ( !cornersA1_btn.buttonMarkup( "option", "corners" ) ) {	// getter
+						result = "O";
+					}
+				} 
+				cornersA1_btn.text( cornersA1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<a href="#" id="cornersA2">Create with { corners: false }</a>
+		<script>
+			var cornersA2 = $( "#cornersA2" );
+			cornersA2.buttonMarkup( { corners: false } );
+		</script>
+
+	<h3>Button Element</h3>
+		<button data-corners="false">No rounded corners</button>
+		<button id="cornersB1">Rounded corners --> No rounded corners</button>
+		<script>
+			function testCornersOptionB() {
+				var cornersB1_btn = $("#cornersB1"),
+					result = "X";
+
+				if ( cornersB1_btn.buttonMarkup( "option", "corners" ) ) {
+					cornersB1_btn.buttonMarkup( "option", "corners", false );
+					if ( !cornersB1_btn.buttonMarkup( "option", "corners" ) ) {
+						result = "O";
+					}
 				}
-			} 
-			corners1_btn.text( corners1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="corners2">Create with { corners: false }</a>
-	<script>
-		var corners2_btn = $( "#corners2" );
-		corners2_btn.buttonMarkup( { corners: false } );
-	</script>
+				cornersB1_btn.text( cornersB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<input type="button" id="cornersB2" value="Initialize with { corners: false }">
+		<script>
+			var cornersB2 = $( "#cornersB2" );
+			cornersB2.button( { corners: false } );
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" data-corners="false" value="No rounded corners" />
+		<input type="button" id="cornersI1" value="Rounded corners --> No rounded corners" />
+		<script>
+			function testCornersOptionI() {
+				var cornersI1_btn = $("#cornersI1"),
+					result = "X";
+
+				if ( cornersI1_btn.button( "option", "corners" ) ) {
+					cornersI1_btn.button( "option", "corners", false );
+					if ( !cornersI1_btn.button( "option", "corners" ) ) {
+						result = "O";
+					}
+				}
+				cornersI1_btn.val( cornersI1_btn.val() + " (" + result + ")" );
+				cornersI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="cornersI2" value="Initialize with { corners: false }">
+		<script>
+			var cornersI2_btn = $( "#cornersI2" );
+			cornersI2_btn.button( { corners: false } );
+		</script>
 
 <h2 id="options_icon">Options:Icon</h2>
-	<a href="#" data-role="button" data-icon="star">Star icon</a>
-	<a href="#" id="icon1" data-role="button">No icon --> Star</a>
-	<script>
-		function testIconOption() {
-			var icon1_btn = $( "#icon1" ),
-				result = "X";
+	<h3>Link Button</h3>
+		<a href="#" data-role="button" data-icon="star">Star icon</a>
+		<a href="#" id="iconA1" data-role="button">No icon --> Star</a>
+		<script>
+			function testIconOptionA() {
+				var iconA1_btn = $( "#iconA1" ),
+					result = "X";
 
-			if ( !icon1_btn.buttonMarkup( "option", "icon" ) ) {	// getter
-				icon1_btn.buttonMarkup( "option", "icon", "star" );	// setter
-				if ( icon1_btn.buttonMarkup( "option", "icon" ) === "star" ) {	// getter
-					result = "O";
+				if ( !iconA1_btn.buttonMarkup( "option", "icon" ) ) {	// getter
+					iconA1_btn.buttonMarkup( "option", "icon", "star" );	// setter
+					if ( iconA1_btn.buttonMarkup( "option", "icon" ) === "star" ) {	// getter
+						result = "O";
+					}
 				}
+				iconA1_btn.text( iconA1_btn.text() + " (" + result + ")" );
 			}
-			icon1_btn.text( icon1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="icon2">Create with { icon: "star" }</a>
-	<script>
-		var icon2_btn = $( "#icon2" );
-		icon2_btn.buttonMarkup( { icon: "star" } );
-	</script>
+		</script>
+		<a href="#" id="iconA2">Create with { icon: "star" }</a>
+		<script>
+			var iconA2_btn = $( "#iconA2" );
+			iconA2_btn.buttonMarkup( { icon: "star" } );
+		</script>
+
+	<h3>Button Element</h3>
+		<button data-icon="star">Star icon</button>
+		<button id="iconB1">No icon --> Star</button>
+		<script>
+			function testIconOptionB() {
+				var iconB1_btn = $( "#iconB1" ),
+					result = "X";
+
+				if ( !iconB1_btn.buttonMarkup( "option", "icon" ) ) {	// getter
+					iconB1_btn.buttonMarkup( "option", "icon", "star" );	// setter
+					if ( iconB1_btn.buttonMarkup( "option", "icon" ) === "star" ) {	// getter
+						result = "O";
+					}
+				}
+				iconB1_btn.text( iconB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<button id="iconB2">Initialize with { icon: "star" }</button>
+		<script>
+			var iconB2_btn = $( "#iconB2" );
+			iconB2_btn.buttonMarkup( { icon: "star" } );
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" data-icon="star" value="Star icon" />
+		<input type="button" id="iconI1" value="No icon --> Star" />
+		<script>
+			function testIconOptionI() {
+				var iconI1_btn = $("#iconI1"),
+					result = "X";
+
+				if ( !iconI1_btn.button( "option", "icon" ) ) {	// getter
+					iconI1_btn.button( "option", "icon", "star" );	// setter
+					if ( iconI1_btn.button( "option", "icon" ) === "star" ) {	// getter
+						result = "O";
+					}
+				}
+				iconI1_btn.val( iconI1_btn.val() + " (" + result + ")" );
+				iconI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="iconI2" value='Initialize with { icon: "star" }'>
+		<script>
+			var iconI2_btn = $( "#iconI2" );
+			iconI2_btn.button( { icon: "star" } );
+		</script>
 
 <h2 id="options_iconpos">Options:Iconpos</h2>
-	<a href="#" data-role="button" data-icon="star" data-iconpos="right">iconpos: Right</a>
-	<a href="#" id="iconpos1" data-role="button" data-icon="star">iconpos: Left --> Right</a>
-	<script>
-		function testIconposOption() {
-			var iconpos1_btn = $( "#iconpos1" ),
-				result = "X";
+	<h3>Link Button</h3>
+		<a href="#" data-role="button" data-icon="star" data-iconpos="right">iconpos: Right</a>
+		<a href="#" id="iconposA1" data-role="button" data-icon="star">iconpos: Left --> Right</a>
+		<script>
+			function testIconposOptionA() {
+				var iconposA1_btn = $( "#iconposA1" ),
+					result = "X";
 
-			if ( iconpos1_btn.buttonMarkup( "option", "iconpos" ) === "left" ) {	// getter
-				iconpos1_btn.buttonMarkup( "option", "iconpos", "right" );	// setter
-				if ( iconpos1_btn.buttonMarkup( "option", "iconpos" ) === "right" ) {	// getter
-					result = "O";
+				if ( iconposA1_btn.buttonMarkup( "option", "iconpos" ) === "left" ) {	// getter
+					iconposA1_btn.buttonMarkup( "option", "iconpos", "right" );	// setter
+					if ( iconposA1_btn.buttonMarkup( "option", "iconpos" ) === "right" ) {	// getter
+						result = "O";
+					}
 				}
+				iconposA1_btn.text( iconposA1_btn.text() + " (" + result + ")" );
 			}
-			iconpos1_btn.text( iconpos1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="iconpos2">Create with { iconpos: "right" }</a>
-	<script>
-		var iconpos2_btn = $( "#iconpos2" );
-		iconpos2_btn.buttonMarkup( { icon: "star", iconpos: "right" } );
-	</script>
+		</script>
+		<a href="#" id="iconposA2">Create with { iconpos: "right" }</a>
+		<script>
+			var iconposA2_btn = $( "#iconposA2" );
+			iconposA2_btn.buttonMarkup( { icon: "star", iconpos: "right" } );
+		</script>
+
+	<h3>Button Element</h3>
+		<button data-icon="star" data-iconpos="right">iconpos: Right</button>
+		<button id="iconposB1" data-icon="star">iconpos: Left --> Right</button>
+		<script>
+			function testIconposOptionB() {
+				var iconposB1_btn = $( "#iconposB1" ),
+					result = "X";
+
+				if ( iconposB1_btn.buttonMarkup( "option", "iconpos" ) === "left" ) {	// getter
+					iconposB1_btn.buttonMarkup( "option", "iconpos", "right" );	// setter
+					if ( iconposB1_btn.buttonMarkup( "option", "iconpos" ) === "right" ) {	// getter
+						result = "O";
+					}
+				}
+				iconposB1_btn.text( iconposB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<button id="iconposB2" data-icon="star">Initialize with { iconpos: "right" }</button>
+		<script>
+			var iconposB2_btn = $( "#iconposB2" );
+			iconposB2_btn.buttonMarkup( { iconpos: "right" } );
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" data-icon="star" data-iconpos="right" value="iconpos: Right" />
+		<input type="button" id="iconposI1" data-icon="star" value="iconpos: Left --> Right" />
+		<script>
+			function testIconposOptionI() {
+				var iconposI1_btn = $("#iconposI1"),
+					result = "X";
+
+				if ( iconposI1_btn.button( "option", "iconpos" ) === "left") {	// getter
+					iconposI1_btn.button( "option", "iconpos", "right" );	// setter
+					if ( iconposI1_btn.button( "option", "iconpos" ) === "right" ) {	// getter
+						result = "O";
+					}
+				}
+				iconposI1_btn.val( iconposI1_btn.val() + " (" + result + ")" );
+				iconposI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="iconposI2" data-icon="star" value='Initialize with { iconpos: "right" }'>
+		<script>
+			var iconposI2_btn = $( "#iconposI2" );
+			iconposI2_btn.button( { iconpos: "right" } );
+		</script>
 
 <h2 id="options_iconshadow">Options:Iconshadow</h2>
-	<a href="#" data-role="button" data-icon="star" data-iconshadow="false">No icon shadow</a>
-	<a href="#" id="iconshadow1" data-role="button" data-icon="star">iconshadow: true --> false</a>
-	<script>
-		function testIconshadowOption() {
-			var iconshadow1_btn = $( "#iconshadow1" ),
-				result = "X";
+	<h3>Link Button</h3>
+	<div class="ui-body ui-body-b">
+		<a href="#" data-role="button" data-icon="star" data-iconshadow="false">No icon shadow</a>
+		<a href="#" id="iconshadowA1" data-role="button" data-icon="star">iconshadow: false --> true</a>
+		<script>
+			function testIconshadowOptionA() {
+				var iconshadowA1_btn = $( "#iconshadowA1" ),
+					result = "X";
 
-			if ( iconshadow1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
-				iconshadow1_btn.buttonMarkup( "option", "iconshadow", false );	// setter
-				if ( !iconshadow1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
-					result = "O";
+				if ( !iconshadowA1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
+					iconshadowA1_btn.buttonMarkup( "option", "iconshadow", true );	// setter
+					if ( iconshadowA1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
+						result = "O";
+					}
 				}
+				iconshadowA1_btn.text( iconshadowA1_btn.text() + " (" + result + ")" );
 			}
-			iconshadow1_btn.text( iconshadow1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="iconshadow2">Create with { iconshadow: false }</a>
-	<script>
-		var iconshadow2_btn = $( "#iconshadow2" );
-		iconshadow2_btn.buttonMarkup( { icon: "star", iconshadow: false } );
-	</script>
+		</script>
+		<a href="#" id="iconshadowA2">Create with { iconshadow: false }</a>
+		<script>
+			var iconshadowA2_btn = $( "#iconshadowA2" );
+			iconshadowA2_btn.buttonMarkup( { icon: "star", iconshadow: false } );
+		</script>
+	</div>
 
-<h2 id="options_initSelector">Options:InitSelector</h2>
-	<button id="initSelector">Button element</button>
-	<script>
-		function testInitSelectorOption() {
-			var initSelector_btn = $( "#initSelector" );
-			initSelector_btn.click( function() {
-				var msg = "initSelector: ",
-					result;
-				try {
-					msg += initSelector_btn.button( "option", "initSelector" ) + " (O)";
-				} catch( e ) {
-					msg += e.message + " (X)";
+	<h3>Button Element</h3>
+	<div class="ui-body ui-body-b">
+		<button data-icon="star" data-iconshadow="false">No icon shadow</button>
+		<button id="iconshadowB1" data-icon="star">iconshadow: false --> true</button>
+		<script>
+			function testIconshadowOptionB() {
+				var iconshadowB1_btn = $( "#iconshadowB1" ),
+					result = "X";
+
+				if ( !iconshadowB1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
+					iconshadowB1_btn.buttonMarkup( "option", "iconshadow", true );	// setter
+					if ( iconshadowB1_btn.buttonMarkup( "option", "iconshadow" ) ) {	// getter
+						result = "O";
+					}
 				}
+				iconshadowB1_btn.text( iconshadowB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<a href="#" id="iconshadowB2" data-icon="star">Initialize with { iconshadow: false }</a>
+		<script>
+			var iconshadowB2_btn = $( "#iconshadowB2" );
+			iconshadowB2_btn.buttonMarkup( { iconshadow: false } );
+		</script>
+	</div>
 
-				msg += "\nprototype::initSelector: ";
-				try {
-					result = $.mobile.button.prototype.options.initSelector;
-					msg += result;
-					msg +=  result ? " (O)" : " (X)";
-				} catch( e ) {
-					msg += e.message + " (X)";
+	<h3>Input Button</h3>
+	<div class="ui-body ui-body-b">
+		<input type="button" data-icon="star" data-iconshadow="false" value="No icon shadow" />
+		<input type="button" id="iconshadowI1" data-icon="star" value="iconshadow: false --> true" />
+		<script>
+			function testIconshadowOptionI() {
+				var iconshadowI1_btn = $( "#iconshadowI1" ),
+					result = "X";
+
+				if ( !iconshadowI1_btn.button( "option", "iconshadow" ) ) {	// getter
+					iconshadowI1_btn.button( "option", "iconshadow", true );	// setter
+					if ( iconshadowI1_btn.button( "option", "iconshadow" ) ) {	// getter
+						result = "O";
+					}
 				}
-
-				alert( msg );
-			});
-		}
-	</script>
+				iconshadowI1_btn.val( iconshadowI1_btn.val() + " (" + result + ")" );
+				iconshadowI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="iconshadowI2" data-icon="star" value='Initialize with { iconshadow: false }'>
+		<script>
+			var iconshadowI2_btn = $( "#iconshadowI2" );
+			iconshadowI2_btn.button( { iconshadow: false } );
+		</script>
+	</div>
 
 <h2 id="options_inline">Options:Inline</h2>
-	<a href="#" data-role="button" data-inline="true">inline</a>
-	<a href="#" id="inline1" data-role="button">inline: false --> true</a>
-	<script>
-		function testInlineOption() {
-			var inline1_btn = $( "#inline1" ),
-				result = "X";
+	<h3>Link Button</h3>
+		<a href="#" data-role="button" data-inline="true">inline</a>
+		<a href="#" id="inlineA1" data-role="button">inline: false --> true</a>
+		<script>
+			function testInlineOptionA() {
+				var inlineA1_btn = $( "#inlineA1" ),
+					result = "X";
 
-			if ( !inline1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
-				inline1_btn.buttonMarkup( "option", "inline", true );	// setter
-				if ( inline1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
-					result = "O";
+				if ( !inlineA1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
+					inlineA1_btn.buttonMarkup( "option", "inline", true );	// setter
+					if ( inlineA1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
+						result = "O";
+					}
 				}
+				inlineA1_btn.text( inlineA1_btn.text() + " (" + result + ")" );
 			}
-			inline1_btn.text( inline1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" data-role="button" data-inline="true">inline</a>
-	<a href="#" id="inline2">Create with { inline: true }</a>
-	<script>
-		var inline2_btn = $( "#inline2" );
-		inline2_btn.buttonMarkup( { inline: true } );
-	</script>
+		</script>
+		<a href="#" id="inlineA2">Create with { inline: true }</a>
+		<script>
+			var inlineA2_btn = $( "#inlineA2" );
+			inlineA2_btn.buttonMarkup( { inline: true } );
+		</script>
+
+	<h3>Button Element</h3>
+		<button data-inline="true">inline</button>
+		<button id="inlineB1">inline: false --> true</button>
+		<script>
+			function testInlineOptionB() {
+				var inlineB1_btn = $( "#inlineB1" ),
+					result = "X";
+
+				if ( !inlineB1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
+					inlineB1_btn.buttonMarkup( "option", "inline", true );	// setter
+					if ( inlineB1_btn.buttonMarkup( "option", "inline" ) ) {	// getter
+						result = "O";
+					}
+				}
+				inlineB1_btn.text( inlineB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<button id="inlineB2">Initialize with { inline: true }</button>
+		<script>
+			var inlineB2_btn = $( "#inlineB2" );
+			inlineB2_btn.buttonMarkup( { inline: true } );
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" data-inline="true" value="inline" />
+		<input type="button" id="inlineI1" value="inline: false --> true" />
+		<script>
+			function testInlineOptionI() {
+				var inlineI1_btn = $( "#inlineI1" ),
+					result = "X";
+
+				if ( !inlineI1_btn.button( "option", "inline" ) ) {	// getter
+					inlineI1_btn.button( "option", "inline", true );	// setter
+					if ( inlineI1_btn.button( "option", "inline" ) ) {	// getter
+						result = "O";
+					}
+				}
+				inlineI1_btn.val( inlineI1_btn.val() + " (" + result + ")" );
+				inlineI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="inlineI2" value="Initialize with { inline: true }" />
+		<script>
+			var inlineI2_btn = $( "#inlineI2" );
+			inlineI2_btn.button( { inline: true } );
+		</script>
 
 <h2 id="options_mini">Options:Mini</h2>
-	<a href="#" data-role="button" data-mini="true">Mini</a>
-	<a href="#" id="mini1" data-role="button">mini: false --> true</a>
-	<script>
-		function testMiniOption() {
-			var mini1_btn = $( "#mini1" ),
-				result = "X";
+	<h3>Link Button</h3>
+		<a href="#" data-role="button" data-mini="true">Mini</a>
+		<a href="#" id="miniA1" data-role="button">mini: false --> true</a>
+		<script>
+			function testMiniOptionA() {
+				var miniA1_btn = $( "#miniA1" ),
+					result = "X";
 
-			if ( !mini1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
-				mini1_btn.buttonMarkup( "option", "mini", true );	// setter
-				if ( mini1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
-					result = "O";
+				if ( !miniA1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
+					miniA1_btn.buttonMarkup( "option", "mini", true );	// setter
+					if ( miniA1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
+						result = "O";
+					}
 				}
+				miniA1_btn.text( miniA1_btn.text() + " (" + result + ")" );
 			}
-			mini1_btn.text( mini1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="mini2">Create with { mini: true }</a>
-	<script>
-		var mini2_btn = $( "#mini2" );
-		mini2_btn.buttonMarkup( { mini: true } );
-	</script>
+		</script>
+		<a href="#" id="miniA2">Create with { mini: true }</a>
+		<script>
+			var miniA2_btn = $( "#miniA2" );
+			miniA2_btn.buttonMarkup( { mini: true } );
+		</script>
+
+	<h3>Button Element</h3>
+		<button data-mini="true">Mini</button>
+		<button id="miniB1">mini: false --> true</button>
+		<script>
+			function testMiniOptionB() {
+				var miniB1_btn = $( "#miniB1" ),
+					result = "X";
+
+				if ( !miniB1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
+					miniB1_btn.buttonMarkup( "option", "mini", true );	// setter
+					if ( miniB1_btn.buttonMarkup( "option", "mini" ) ) {	// getter
+						result = "O";
+					}
+				}
+				miniB1_btn.text( miniB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<button id="miniB2">Initialize with { mini: true }</button>
+		<script>
+			var miniB2_btn = $( "#miniB2" );
+			miniB2_btn.buttonMarkup( { mini: true } );
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" data-mini="true" value="Mini" />
+		<input type="button" id="miniI1" value="mini: false --> true" />
+		<script>
+			function testMiniOptionI() {
+				var miniI1_btn = $( "#miniI1" ),
+					result = "X";
+
+				if ( !miniI1_btn.button( "option", "mini" ) ) {	// getter
+					miniI1_btn.button( "option", "mini", true );	// setter
+					if ( miniI1_btn.button( "option", "mini" ) ) {	// getter
+						result = "O";
+					}
+				}
+				miniI1_btn.val( miniI1_btn.val() + " (" + result + ")" );
+				miniI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="miniI2" value="Initialize with { mini: true }" />
+		<script>
+			var miniI2_btn = $( "#miniI2" );
+			miniI2_btn.button( { mini: true } );
+		</script>
 
 <h2 id="options_shadow">Options:Shadow</h2>
-	<a href="#" data-role="button" data-shadow="false">No button shadow</a>
-	<a href="#" id="shadow1" data-role="button">shadow: true --> false</a>
-	<script>
-		function testShadowOption() {
-			var shadow1_btn = $( "#shadow1" ),
-				result = "X";
+	<h3>Link Button</h3>
+		<a href="#" data-role="button" data-shadow="false">No button shadow</a>
+		<a href="#" id="shadowA1" data-role="button">shadow: true --> false</a>
+		<script>
+			function testShadowOptionA() {
+				var shadowA1_btn = $( "#shadowA1" ),
+					result = "X";
 
-			if ( shadow1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
-				shadow1_btn.buttonMarkup( "option", "shadow", false );	// setter
-				if ( !shadow1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
-					result = "O";
+				if ( shadowA1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
+					shadowA1_btn.buttonMarkup( "option", "shadow", false );	// setter
+					if ( !shadowA1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
+						result = "O";
+					}
 				}
+				shadowA1_btn.text( shadowA1_btn.text() + " (" + result + ")" );
 			}
-			shadow1_btn.text( shadow1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="shadow2">Create with { shadow: false }</a>
-	<script>
-		var shadow2_btn = $( "#shadow2" );
-		shadow2_btn.buttonMarkup( { shadow: false } );
-	</script>
+		</script>
+		<a href="#" id="shadowA2">Create with { shadow: false }</a>
+		<script>
+			var shadowA2_btn = $( "#shadowA2" );
+			shadowA2_btn.buttonMarkup( { shadow: false } );
+		</script>
+
+	<h3>Button Element</h3>
+		<button data-shadow="false">No button shadow</button>
+		<button id="shadowB1">shadow: true --> false</button>
+		<script>
+			function testShadowOptionB() {
+				var shadowB1_btn = $( "#shadowB1" ),
+					result = "X";
+
+				if ( shadowB1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
+					shadowB1_btn.buttonMarkup( "option", "shadow", false );	// setter
+					if ( !shadowB1_btn.buttonMarkup( "option", "shadow" ) ) {	// getter
+						result = "O";
+					}
+				}
+				shadowB1_btn.text( shadowB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<button id="shadowB2">Initialize with { shadow: false }</button>
+		<script>
+			var shadowB2_btn = $( "#shadowB2" );
+			shadowB2_btn.buttonMarkup( { shadow: false } );
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" data-shadow="false" value="No button shadow" />
+		<input type="button" id="shadowI1" value="shadow: true --> false" />
+		<script>
+			function testShadowOptionI() {
+				var shadowI1_btn = $( "#shadowI1" ),
+					result = "X";
+
+				if ( shadowI1_btn.button( "option", "shadow" ) ) {	// getter
+					shadowI1_btn.button( "option", "shadow", false );	// setter
+					if ( !shadowI1_btn.button( "option", "shadow" ) ) {	// getter
+						result = "O";
+					}
+				}
+				shadowI1_btn.val( shadowI1_btn.val() + " (" + result + ")" );
+				shadowI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="shadowI2" value="Initialize with { shadow: false }" />
+		<script>
+			var shadowI2_btn = $( "#shadowI2" );
+			shadowI2_btn.button( { shadow: false } );
+		</script>
 
 <h2 id="options_theme">Options:Theme</h2>
-	<a href="#" data-role="button" data-theme="b">Theme B</a>
-	<a href="#" id="theme1" data-role="button">theme: null --> b</a>
-	<script>
-		function testThemeOption() {
-			var theme1_btn = $( "#theme1" ),
-				result = "X";
+	<h3>Link Button</h3>
+		<a href="#" data-role="button" data-theme="b">Theme B</a>
+		<a href="#" id="themeA1" data-role="button">theme: null --> b</a>
+		<script>
+			function testThemeOptionA() {
+				var themeA1_btn = $( "#themeA1" ),
+					result = "X";
 
-			if ( !theme1_btn.buttonMarkup( "option", "theme" ) ) {	// getter
-				theme1_btn.buttonMarkup( "option", "theme", "b" );	// setter
-				if ( theme1_btn.buttonMarkup( "option", "theme" ) === "b" ) {	// getter
-					result = "O";
+				if ( !themeA1_btn.buttonMarkup( "option", "theme" ) ) {	// getter
+					themeA1_btn.buttonMarkup( "option", "theme", "b" );	// setter
+					if ( themeA1_btn.buttonMarkup( "option", "theme" ) === "b" ) {	// getter
+						result = "O";
+					}
 				}
+				themeA1_btn.text( themeA1_btn.text() + " (" + result + ")" );
 			}
-			theme1_btn.text( theme1_btn.text() + " (" + result + ")" );
-		}
-	</script>
-	<a href="#" id="theme2">Create with { theme: "b" }</a>
+		</script>
+		<a href="#" id="themeA2">Create with { theme: "b" }</a>
+		<script>
+			var themeA2_btn = $( "#themeA2" );
+			themeA2_btn.buttonMarkup( { theme: "b" } );
+		</script>
+
+	<h3>Button Element</h3>
+		<button data-theme="b">Theme B</button>
+		<button id="themeB1">theme: null --> b</button>
+		<script>
+			function testThemeOptionB() {
+				var themeB1_btn = $( "#themeB1" ),
+					result = "X";
+
+				if ( !themeB1_btn.buttonMarkup( "option", "theme" ) ) {	// getter
+					themeB1_btn.buttonMarkup( "option", "theme", "b" );	// setter
+					if ( themeB1_btn.buttonMarkup( "option", "theme" ) === "b" ) {	// getter
+						result = "O";
+					}
+				}
+				themeB1_btn.text( themeB1_btn.text() + " (" + result + ")" );
+			}
+		</script>
+		<a href="#" id="themeB2">Initialize with { theme: "b" }</a>
+		<script>
+			var themeB2_btn = $( "#themeB2" );
+			themeB2_btn.buttonMarkup( { theme: "b" } );
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" data-theme="b" value="Theme B" />
+		<input type="button" id="themeI1" value="theme: null --> b" />
+		<script>
+			function testThemeOptionI() {
+				var themeI1_btn = $( "#themeI1" ),
+					result = "X";
+
+				if ( !themeI1_btn.button( "option", "theme" ) ) {	// getter
+					themeI1_btn.button( "option", "theme", "b" );	// setter
+					if ( themeI1_btn.button( "option", "theme" ) === "b" ) {	// getter
+						result = "O";
+					}
+				}
+				themeI1_btn.val( themeI1_btn.val() + " (" + result + ")" );
+				themeI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="themeI2" value='Initialize with { theme: "b" }' />
+		<script>
+			var themeI2_btn = $( "#themeI2" );
+			themeI2_btn.button( { theme: "b" } );
+		</script>
+
+<!--h2 id="methods_disable">Methods:disable()</h2>
+	<input id="disable1" type="button" value="Button" />
+	<a href="#" id="disable2" data-role="button">Link Button</a>
 	<script>
-		var theme2_btn = $( "#theme2" );
-		theme2_btn.buttonMarkup( { theme: "b" } );
-	</script>
+		function testDisableMethod() {
+			var disable1_btn = $( "#disable1" ),
+				disable2_btn = $( "#disable2" ),
+				result1 = "X", result2 = "X";
+
+			disable1_btn.button( "disable" );
+			disable2_btn.buttonMarkup( "disable" );
+
+			// if ( !disable1_btn.buttonMarkup( "option", "theme" ) ) {	// getter
+			// 	theme1_btn.buttonMarkup( "option", "theme", "b" );	// setter
+			// 	if ( theme1_btn.buttonMarkup( "option", "theme" ) === "b" ) {	// getter
+			// 		result = "O";
+			// 	}
+			// }
+			// theme1_btn.text( theme1_btn.text() + " (" + result + ")" );
+		}
+	</script-->
+
 
 
 </div><!-- /content -->

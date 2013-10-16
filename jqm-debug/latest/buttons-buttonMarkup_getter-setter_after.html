@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Buttons - buttonMarkup : setter, getter</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!--script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script-->
+	<script src="jquery.mobile-git_bugfix_buttonMarkup.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2 id="options_corners">Set or Get the corners option</h2>
+	<p>
+		Target button : <br>
+		<a href="#" id="corners1" data-role="button">Ancher</a>
+		<span id="result"></span>
+		<br>
+		<hr />
+		Test buttons to check buttonMarkup : <br>
+		<button type="button" id="btn_get1" onclick="getOptionBybuttonMarkup( '1. Get : ' )">1. Get the corners option of Ancher</button>
+		<button type="button" id="btn_set" onclick="setOptionBybuttonMarkup()">2. Set "false" as the corners option of Ancher</button>
+		<button type="button" id="btn_get2" onclick="getOptionBybuttonMarkup( '3. Get for no.2 : ' )">3. Get again</button>
+	</p>
+	<script>
+		var btn_corners = $( "#corners1" );
+
+		function getOptionBybuttonMarkup( txt ) {
+			var result = btn_corners.buttonMarkup( "option", "corners" );
+
+			if ( result === true || result === false )
+				alert( txt + result + "\n\n==> Suceeded! Get the corners option value properly.  " );
+			else
+				alert( txt + result + "\n\n==> Failed! Doesn't get the corners option value.  " );				
+			
+			console.log( btn_corners.buttonMarkup( "option", "corners" ) ); // print out log to check
+		}
+
+		function setOptionBybuttonMarkup() {
+			btn_corners.buttonMarkup( "option", "corners", false );	// setter
+			console.log( btn_corners.buttonMarkup( "option", "corners" ) ); // print out log to check
+
+			if ( !btn_corners.buttonMarkup( "option", "corners" ) ) {	// getter
+				document.getElementById( "result" ).innerHTML = "<font color=blue>=> Succeeded! Set the corners option properly.</font>";
+			} else {
+				document.getElementById( "result" ).innerHTML = "<font color=red>=> Failed! Doesn't set the corners option value.</font>";
+			}
+		}
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

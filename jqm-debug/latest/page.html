@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+		<script>
+			$( document ).on( "click", ".change-dom", function() {
+				var tmpElement = $( "<div>DOM changed</div>").insertAfter( this );
+			}).on( "click", ".set-theme", function() {
+				var $page = $.mobile.activePage,
+					tmpTheme = $( this ).jqmData( "tmp" );
+				$page.page( "option", "theme", tmpTheme );
+				$page.find( ".current-theme" ).text( $page.page( "option", "theme" ) );
+			});
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header">
+				<h1>Page</h1>
+			</div>
+
+			<div data-role="content">
+
+				<h1>Page - jQM latest</h1>
+
+				<h3>Options</h3>
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider">domCache</li>
+					<li>	<a href="page-caching.html">true</a></li>
+					<li><a href="page-uncaching.html">false</a></li>
+					<li data-role="list-divider">keepNativeDefault - deprecated</li>
+					<li data-role="list-divider">theme</li>
+					<li><a href="#page-theme-a">a</a></li>
+					<li><a href="#page-theme-b">b</a></li>
+				</ul>
+
+			</div>	<!-- content -->
+
+		</div>	<!-- page-->
+
+		<div data-role="page" data-theme="a" id="page-theme-a">
+			<div data-role="header" data-add-back-btn="true">
+				<h1>default theme="a"</h1>
+			</div>
+			<div data-role="content">
+				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="a">a</a>
+				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="b">b</a>
+				<div class="current-theme"></div>
+			</div>
+		</div>	<!-- page theme a -->
+
+		<div data-role="page" data-theme="b" id="page-theme-b">
+			<div data-role="header" data-add-back-btn="true">
+				<h1>default theme="b"</h1>
+			</div>
+			<div data-role="content">
+				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="a">a</a>
+				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="b">b</a>
+				<div class="current-theme"></div>
+			</div>
+		</div>	<!-- page theme b -->
+	</body>
+</html>

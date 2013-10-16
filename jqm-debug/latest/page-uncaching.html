@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page - DOM uncaching</title>
+	</head>
+
+	<body>
+		<div data-role="page" data-dom-cache="false">
+
+			<div data-role="header" data-add-back-btn="true">
+				<h1>dom-cache="false"</h1>
+			</div>
+			
+			<div data-role="content">
+				<ul>
+					<li>Press 'Go!' button</li>
+					<li>Go back and reenter this page</li>
+					<li>Confirm 'DOM changed' message is NOT remaining</li>
+				</ul>
+				<a href="#" class="change-dom" data-role="button" data-inline="true">Go!</a>
+			</div>
+
+		</div>
+	</body>
+</html>

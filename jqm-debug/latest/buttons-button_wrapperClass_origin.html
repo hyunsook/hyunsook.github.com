@@ -16,35 +16,24 @@
 		}
 	</style>
 </head>
-<body onload="testWrapperOption();">
+<body>
 <div data-role="page">
 <div data-role="content" class="jqm-content">
 
-<h2 id="options_theme">Options:wrapperClass</h2>
-	<h3>Input Button</h3>
-		<input type="button" data-wrapper-class="orange" value="Wrapper: Orange" />
-		<input type="button" id="wrapper1" value="Wrapper: null --> Orange" />
-		<script>
-			function testWrapperOption() {
-				var wrapper1_btn = $( "#wrapper1" ),
-					result = "X";
+<h2 id="options_theme">Set the wrapperClass option to orange</h2>
 
-				if ( !wrapper1_btn.button( "option", "wrapperClass" ) ) {	// getter
-					wrapper1_btn.button( "option", "wrapperClass", "orange" );	// setter
-					if ( wrapper1_btn.button( "option", "wrapperClass" ) === "orange" ) {	// getter
-						result = "O";
-					}
-				}
-				wrapper1_btn.val( wrapper1_btn.val() + " (" + result + ")" );
-				wrapper1_btn.button( "refresh" );
-			}
-		</script>
-		<input type="button" id="wrapper2" value='Initialize with { wrapperClass: "orange" }' />
-		<script>
-			var wrapper2_btn = $( "#wrapper2" );
-			wrapper2_btn.button( { wrapperClass: "orange" } );
-		</script>
+<input type="button" value="Target button" />
+<span id="result"></span><br/>
+<hr />
 
+<a href="javascript:setWrapperClassOption();">&gt;Set the wrapperClass option to orange</a>
+
+<script>
+	function setWrapperClassOption() {
+		$( "input" ).button( "option", "wrapperClass", "orange" );
+		$( "#result" ).html("<font color='red'>The orange class is not applied to the wrapper block.</font>");
+	}
+</script>
 
 </div><!-- /content -->
 </div><!-- /page -->

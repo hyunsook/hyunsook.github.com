@@ -62,6 +62,16 @@
 			testThemeOptionI();
 
 			testWrapperOption();
+
+			testDisableMethod();
+			testEnableMethod();
+			testDisabledOption1();
+			testDisabledOption2();
+
+			testRefreshMethodA();
+			testRefreshMethodI1();
+			testRefreshMethodI2();
+			testRefreshMethodI3();
 		}
 	</script>
 </head>
@@ -85,6 +95,10 @@
 	</script>
 	<button>Button element</button>
 	<button disabled>Button element</button>
+	<button class="ui-state-disabled">Button element</button>
+	<input type="button" value="Button" />
+	<input type="button" disabled value="Button" />
+	<input type="button" data-disabled="true" value="Button" />
 	<input type="button" value="Button" />
 	<input type="submit" value="Submit Button" />
 	<input type="reset" value="Reset Button" />
@@ -930,29 +944,98 @@
 			wrapper2_btn.button( { wrapperClass: "orange" } );
 		</script>
 
-<!--h2 id="methods_disable">Methods:disable()</h2>
-	<input id="disable1" type="button" value="Button" />
-	<a href="#" id="disable2" data-role="button">Link Button</a>
-	<script>
-		function testDisableMethod() {
-			var disable1_btn = $( "#disable1" ),
-				disable2_btn = $( "#disable2" ),
-				result1 = "X", result2 = "X";
+<h2 id="methods_disable">Options:disabled</h2>
+	<h3><strike>Link Buttons & Button Elements: Methods:disable(), enable() --> Removed</strike></h3>
+		<a href="#" id="disableA" data-role="button">Normal --> Disable</a>
+		<script>
+			function testDisableMethod() {
+				$( "#disableA" ).buttonMarkup( "disable" )
+			}
+		</script>
 
-			disable1_btn.button( "disable" );
-			disable2_btn.buttonMarkup( "disable" );
+		<button id="disableB" class="ui-state-disable">Disable --> Normal</button>
+		<script>
+			function testEnableMethod() {
+				$( "#disableB" ).buttonMarkup( "enable" )
+			}
+		</script>
 
-			// if ( !disable1_btn.buttonMarkup( "option", "theme" ) ) {	// getter
-			// 	theme1_btn.buttonMarkup( "option", "theme", "b" );	// setter
-			// 	if ( theme1_btn.buttonMarkup( "option", "theme" ) === "b" ) {	// getter
-			// 		result = "O";
-			// 	}
-			// }
-			// theme1_btn.text( theme1_btn.text() + " (" + result + ")" );
-		}
-	</script-->
+	<h3>Input Button: --> Options:disabled</h3>
+		<input type="button" data-disabled="true" value="Disabled" />
+		<input type="button" id="disabledI1" value="Disabled: false --> true" />
+		<script>
+			function testDisabledOption1() {
+				var disabledI1_btn = $( "#disabledI1" ),
+					result = "X";
 
+				if ( !disabledI1_btn.button( "option", "disabled" ) ) {	// getter
+					disabledI1_btn.button( "option", "disabled", true );	// setter
+					if ( disabledI1_btn.button( "option", "disabled" ) ) {	// getter
+						result = "O";
+					}
+				}
+				disabledI1_btn.val( disabledI1_btn.val() + " (" + result + ")" );
+				disabledI1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="disabledI2" value='Initialize with { disabled: true }' />
+		<script>
+			var disabledI2_btn = $( "#disabledI2" );
+			disabledI2_btn.button( { disabled: true } );
+		</script>
+		<input type="button" id="disabledI3" data-disabled="true" value="Disabled: true --> false" />
+		<script>
+			function testDisabledOption2() {
+				var disabledI3_btn = $( "#disabledI3" ),
+					result = "X";
 
+				if ( disabledI3_btn.button( "option", "disabled" ) ) {	// getter
+					disabledI3_btn.button( "option", "disabled", false );	// setter
+					if ( !disabledI3_btn.button( "option", "disabled" ) ) {	// getter
+						result = "O";
+					}
+				}
+				disabledI3_btn.val( disabledI3_btn.val() + " (" + result + ")" );
+				disabledI3_btn.button( "refresh" );
+			}
+		</script>
+
+<h2 id="methods_disable">Methods:refresh</h2>
+	<h3><strike>Link Buttons & Button Elements: Removed</strike></h3>
+		<a href="#" id="refreshA" data-role="button">Refresh: Nothing happened</a>
+		<script>
+			function testRefreshMethodA() {
+				$( "#refreshA" ).buttonMarkup( "refresh" );
+			}
+		</script>
+
+	<h3>Input Button</h3>
+		<input type="button" id="refreshI1" data-icon="star" data-iconpos="notext" title="Refresh before" value="Refresh before" />
+		<script>
+			function testRefreshMethodI1() {
+				var refreshI1_btn = $("#refreshI1");
+				refreshI1_btn.val( "Refresh after ");
+				refreshI1_btn.button( "refresh" );
+			}
+		</script>
+
+		<input type="button" id="refreshI2" data-icon="star" title="Refresh before" value="Refresh before" />
+		<script>
+			function testRefreshMethodI2() {
+				var refreshI2_btn = $("#refreshI2");
+				refreshI2_btn.val( "Refresh after ");
+				refreshI2_btn.button( "refresh" );
+			}
+		</script>
+
+		<input type="button" id="refreshI3" title="Refresh before" value="Refresh before" />
+		<script>
+			function testRefreshMethodI3() {
+				var refreshI3_btn = $("#refreshI3");
+				refreshI3_btn.val( "Refresh after ");
+				refreshI3_btn.button( "refresh" );
+			}
+		</script>
 
 </div><!-- /content -->
 </div><!-- /page -->

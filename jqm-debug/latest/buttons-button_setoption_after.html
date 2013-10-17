@@ -1,0 +1,53 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Button : set option</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="jquery.mobile-git_bugfix_button.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2 id="options_icon">Set the icon option to the star</h2>
+<input type="button" id="button1" value="Button1" />
+<span id="result1"></span><br/>
+
+<h2 id="options_iconpos">Change the iconpos option to the right</h2>
+<input type="button" id="button2" data-icon="star" value="Button2" />
+<span id="result2"></span><br/>
+
+<h2 id="options_iconshadow">Set the iconshadow option to "true"</h2>
+<input type="button" id="button3" data-icon="star" data-theme="b" value="Button3" />
+<span id="result3"></span><br/>
+<hr />
+<a href="javascript:setIconOption();">1. Set the icon option to the star</a><br/>
+<a href="javascript:setIconposOption();">2. Change the iconpos option to the right</a><br/>
+<a href="javascript:setIconshadowOption();">3. Set the iconshadow option to "true"</a>
+
+<script>
+	function setIconOption() {
+		$("#button1").button( "option", "icon", "star" );
+		$( "#result1" ).html("<font color='blue'>The star icon is applied.</font>");
+	}
+
+	function setIconposOption() {
+		$("#button2").button( "option", "iconpos", "right" );
+		$( "#result2" ).html("<font color='blue'>The icon position is changed to the right.</font>");
+	}
+
+	function setIconshadowOption() {
+		$("#button3").button( "option", "iconshadow", true );
+		$( "#result3" ).html("<font color='blue'>The icon shadow is applied.</font>");
+	}
+</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

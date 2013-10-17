@@ -1,0 +1,52 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Button: wrapperClass option</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<style type="text/css">
+		.orange {
+			background: orange !important;
+			color: white !important;
+		}
+	</style>
+</head>
+<body onload="testWrapperOption();">
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2 id="options_theme">Options:wrapperClass</h2>
+	<h3>Input Button</h3>
+		<input type="button" data-wrapper-class="orange" value="Wrapper: Orange" />
+		<input type="button" id="wrapper1" value="Wrapper: null --> Orange" />
+		<script>
+			function testWrapperOption() {
+				var wrapper1_btn = $( "#wrapper1" ),
+					result = "X";
+
+				if ( !wrapper1_btn.button( "option", "wrapperClass" ) ) {	// getter
+					wrapper1_btn.button( "option", "wrapperClass", "orange" );	// setter
+					if ( wrapper1_btn.button( "option", "wrapperClass" ) === "orange" ) {	// getter
+						result = "O";
+					}
+				}
+				wrapper1_btn.val( wrapper1_btn.val() + " (" + result + ")" );
+				wrapper1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="wrapper2" value='Initialize with { wrapperClass: "orange" }' />
+		<script>
+			var wrapper2_btn = $( "#wrapper2" );
+			wrapper2_btn.button( { wrapperClass: "orange" } );
+		</script>
+
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

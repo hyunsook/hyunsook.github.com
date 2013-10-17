@@ -22,6 +22,10 @@
 		.ui-icon-myemail-o:after {
 			background-image: url("buttons_e_mail.png");
 		}
+		.orange {
+			background: orange !important;
+			color: white !important;
+		}
 	</style>
 	<script>
 		function testButtons() {
@@ -56,6 +60,8 @@
 			testThemeOptionA();
 			testThemeOptionB();
 			testThemeOptionI();
+
+			testWrapperOption();
 		}
 	</script>
 </head>
@@ -897,6 +903,31 @@
 		<script>
 			var themeI2_btn = $( "#themeI2" );
 			themeI2_btn.button( { theme: "b" } );
+		</script>
+
+<h2 id="options_theme">Options:wrapperClass</h2>
+	<h3>Input Button</h3>
+		<input type="button" data-wrapper-class="orange" value="Wrapper: Orange" />
+		<input type="button" id="wrapper1" value="Wrapper: null --> Orange" />
+		<script>
+			function testWrapperOption() {
+				var wrapper1_btn = $( "#wrapper1" ),
+					result = "X";
+
+				if ( !wrapper1_btn.button( "option", "wrapperClass" ) ) {	// getter
+					wrapper1_btn.button( "option", "wrapperClass", "orange" );	// setter
+					if ( wrapper1_btn.button( "option", "wrapperClass" ) === "orange" ) {	// getter
+						result = "O";
+					}
+				}
+				wrapper1_btn.val( wrapper1_btn.val() + " (" + result + ")" );
+				wrapper1_btn.button( "refresh" );
+			}
+		</script>
+		<input type="button" id="wrapper2" value='Initialize with { wrapperClass: "orange" }' />
+		<script>
+			var wrapper2_btn = $( "#wrapper2" );
+			wrapper2_btn.button( { wrapperClass: "orange" } );
 		</script>
 
 <!--h2 id="methods_disable">Methods:disable()</h2>

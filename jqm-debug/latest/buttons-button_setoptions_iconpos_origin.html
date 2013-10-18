@@ -1,0 +1,34 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Button : set option</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2 id="options_iconpos">Change the iconpos option to the right</h2>
+<input type="button" id="button" data-icon="star" value="Target Button" />
+<span id="result"></span><br/>
+
+<hr />
+<a href="javascript:setIconposOption();">1. Change the iconpos option to the right</a><br/>
+
+<script>
+	function setIconposOption() {
+		$("#button").button( "option", "iconpos", "right" );
+		$( "#result" ).html("<font color='red'>The icon position is not changed.</font>");
+	}
+</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

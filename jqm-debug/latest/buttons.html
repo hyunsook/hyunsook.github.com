@@ -69,6 +69,7 @@
 			testDisabledOption2();
 
 			testRefreshMethodA();
+			testRefreshMethodI0();
 			testRefreshMethodI1();
 			testRefreshMethodI2();
 			testRefreshMethodI3();
@@ -1010,6 +1011,24 @@
 		</script>
 
 	<h3>Input Button</h3>
+		<input type="button" id="refreshI0" data-icon="star" data-iconpos="notext" title="target" value="Button" />
+		<span id="refresh_result0"></span><br/>
+		<script>
+			function testRefreshMethodI0() {
+				var refreshI0_btn = $( "#refreshI0" ),
+					result = "X";
+
+				if ( refreshI0_btn.attr("title") === "Button" ) {
+					refreshI0_btn.val( "Target" ).button( "refresh" );	
+					if ( refreshI0_btn.attr("title") === "Target" ) {
+						result = "O";
+					}
+				}
+
+				$("#refresh_result0").html( "<font color='blue'>Refresh value & title (" + result + ")</font>" );
+			}
+
+		</script>
 		<input type="button" id="refreshI1" data-icon="star" data-iconpos="notext" title="Refresh before" value="Refresh before" />
 		<script>
 			function testRefreshMethodI1() {
@@ -1036,6 +1055,15 @@
 				refreshI3_btn.button( "refresh" );
 			}
 		</script>
+
+<h2 id="events_create">Events:create</h2>
+	<input type="button" id="create_target" value="EventTarget" />
+	<span id="create_result"></span><br/>
+	<script>
+		$("#create_target").on( "buttoncreate", function() {
+			$("#create_result").html( "<font color='blue'>Event target buttons is created</font>" );
+		} );
+	</script>
 
 </div><!-- /content -->
 </div><!-- /page -->

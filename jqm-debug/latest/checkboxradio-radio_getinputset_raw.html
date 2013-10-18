@@ -1,0 +1,36 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Button : set option</title>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2 id="options_icon">Radio buttons without the name attribute</h2>
+<fieldset data-role="controlgroup">
+	<label><input type="radio" />bold</label>
+	<label><input type="radio" />italic</label>
+	<label><input type="radio" />underline</label>
+</fieldset>
+<span id="result"></span><br/>
+
+<hr />
+<a href="javascript:triggerClickEvents();">1. Trigger click event to radios</a><br/>
+
+<script>
+	function triggerClickEvents() {
+		$( "label" ).trigger( "click" );
+		$( "#result" ).html( "<font color='blue'>All radio buttons are checked.</font>" );
+	}
+</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CheckboxRadio</title>
+	<!--link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script-->
+	<link rel="stylesheet" href="http://172.21.100.252/jqm-latest/css/themes/default/jquery.mobile.css">
+	<script src="http://172.21.100.252/jqm-latest/js/jquery.js"></script>
+	<script src="http://172.21.100.252/jqm-latest/js/"></script>
+	<!--link rel="stylesheet" href="http://localhost/jqm-latest/css/themes/default/jquery.mobile.css">
+	<script src="http://localhost/jqm-latest/js/jquery.js"></script>
+	<script src="http://localhost/jqm-latest/js/"></script-->
+	<script>
+		function test() {
+		}
+	</script>
+</head>
+<body onload="test();">
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Checkboxes</h2>
+	<label><input type="checkbox" /> I agree </label>
+
+	<input type="checkbox" name="checkbox-1" id="checkbox-1" />
+	<label for="checkbox-1">I agree</label>
+
+<h3>Mini<h3>
+	<input type="checkbox" name="checkbox-mini-0" id="checkbox-mini-0" data-mini="true" />
+	<label for="checkbox-mini-0">I agree</label>
+
+	<label><input type="checkbox" data-mini="true" /> I agree </label>
+	
+<h3>Field containers & Legends</h3>
+	<legend>Agree to the terms:</legend>
+	<input type="checkbox" name="checkbox-2" id="checkbox-2" />
+	<label for="checkbox-2">I agree</label>
+
+	<div class="ui-field-contain">
+		<fieldset data-role="controlgroup">
+			<legend>Agree to the terms:</legend>
+			<input type="checkbox" name="checkbox-3" id="checkbox-3" />
+			<label for="checkbox-3">I agree</label>
+		</fieldset>
+	</div>
+
+<h3>Vertically grouped checkboxes</h3>
+	<div  class="ui-field-contain">
+		<fieldset data-role="controlgroup">
+			<legend>Choose as many snacks as you'd like:</legend>
+
+			<input type="checkbox" name="checkbox-1a" id="checkbox-1a" />
+			<label for="checkbox-1a">Cheetos</label>
+
+			<input type="checkbox" name="checkbox-2a" id="checkbox-2a" />
+			<label for="checkbox-2a">Doritos</label>
+
+			<input type="checkbox" name="checkbox-3a" id="checkbox-3a" />
+			<label for="checkbox-3a">Fritos</label>
+
+			<input type="checkbox" name="checkbox-4a" id="checkbox-4a" />
+			<label for="checkbox-4a">Sun Chips</label>
+		</fieldset>
+	</div>
+
+<h3>Horizontally grouped checkboxes</h3>
+	<div class="ui-field-contain">
+		<fieldset data-role="controlgroup" data-type="horizontal">
+			<legend>Font styling:</legend>
+
+			<input type="checkbox" name="checkbox-6" id="checkbox-6" />
+			<label for="checkbox-6">b</label>
+
+			<input type="checkbox" name="checkbox-7" id="checkbox-7" />
+			<label for="checkbox-7"><em>i</em></label>
+
+			<input type="checkbox" name="checkbox-8" id="checkbox-8" />
+			<label for="checkbox-8">u</label>
+		</fieldset>
+	</div>
+
+<h2>Radio buttons</h2>
+
+<fieldset data-role="controlgroup">
+	<label><input type="radio" />bold</label>
+	<label><input type="radio" />italic</label>
+	<label><input type="radio" />underline</label>
+</fieldset>
+<label><input type="radio" /> I agree a</label>
+
+	<input type="radio" name="radio-1" id="radio-1" />
+	<label for="radio-1">I agree</label>
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

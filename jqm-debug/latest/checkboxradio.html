@@ -84,15 +84,77 @@
 
 <h2>Radio buttons</h2>
 
-<fieldset data-role="controlgroup">
-	<label><input type="radio" />bold</label>
-	<label><input type="radio" />italic</label>
-	<label><input type="radio" />underline</label>
-</fieldset>
-<label><input type="radio" /> I agree a</label>
+<h3>Without names</h3>
+	<fieldset data-role="controlgroup">
+		<label><input type="radio" />bold</label>
+		<label><input type="radio" />italic</label>
+		<label><input type="radio" />underline</label>
+	</fieldset>
 
-	<input type="radio" name="radio-1" id="radio-1" />
-	<label for="radio-1">I agree</label>
+<h3>Vertically grouped radio buttons</h3>
+	<fieldset data-role="controlgroup">
+		<legend>Choose a pet:</legend>
+
+		<input type="radio" name="radio-pet" id="radio-pet-1a" value="choice-1" checked="checked"  />
+		<label for="radio-pet-1a">Cat</label>
+
+		<input type="radio" name="radio-pet" id="radio-pet-2a" value="choice-2"  />
+		<label for="radio-pet-2a">Dog</label>
+
+		<input type="radio" name="radio-pet" id="radio-pet-3a" value="choice-3"  />
+		<label for="radio-pet-3a">Hamster</label>
+
+		<input type="radio" name="radio-pet" id="radio-pet-4a" value="choice-4"  />
+		<label for="radio-pet-4a">Lizard</label>
+	</fieldset>
+
+<h3>Mini</h3>
+	<fieldset data-role="controlgroup" data-mini="true">
+		<input type="radio" name="radio-mini" id="radio-mini-1" value="choice-1" checked="checked" />
+		<label for="radio-mini-1">Credit</label>
+
+		<input type="radio" name="radio-mini" id="radio-mini-2" value="choice-2" />
+		<label for="radio-mini-2">Debit</label>
+
+		<input type="radio" name="radio-mini" id="radio-mini-3" value="choice-3" />
+		<label for="radio-mini-3">Cash</label>
+	</fieldset>
+
+<h3>Field containers</h3>
+	<div class="ui-field-contain">
+		<fieldset data-role="controlgroup">
+			<legend>Choose a pet:</legend>
+			<input type="radio" name="radio-choice-2" id="radio-choice-21" value="choice-1" checked="checked" />
+			<label for="radio-choice-21">Cat</label>
+
+			<input type="radio" name="radio-choice-2" id="radio-choice-22" value="choice-2" />
+			<label for="radio-choice-22">Dog</label>
+
+			<input type="radio" name="radio-choice-2" id="radio-choice-23" value="choice-3" />
+			<label for="radio-choice-23">Hamster</label>
+
+			<input type="radio" name="radio-choice-2" id="radio-choice-24" value="choice-4" />
+			<label for="radio-choice-24">Lizard</label>
+		</fieldset>
+	</div>
+
+<h3>Horizontal radio button sets</h3>
+	<div class="ui-field-contain">
+	    <fieldset data-role="controlgroup" data-type="horizontal">
+	     	<legend>Layout view:</legend>
+	         	<input type="radio" name="radio-view" id="radio-view-a" value="list"  />
+	         	<label for="radio-view-a">List</label>
+	         	<input type="radio" name="radio-view" id="radio-view-b" value="grid"  />
+	         	<label for="radio-view-b">Grid</label>
+	         	<input type="radio" name="radio-view" id="radio-view-c" value="gallery"  />
+	         	<label for="radio-view-c">Gallery</label>
+	    </fieldset>
+	</div>
+
+<h3>Absence of the ui-corner-all</h3>
+	<label><input type="checkbox" /> I agree </label>
+	<label><input type="checkbox" data-corners="false" /> I agree </label>
+
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

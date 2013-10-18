@@ -23,12 +23,18 @@
 <span id="result"></span><br/>
 
 <hr />
-<a href="javascript:triggerClickEvents();">1. Trigger click event to radios</a><br/>
+<a href="javascript:triggerClickEvents();">1. Trigger click events to the radio buttons</a><br/>
+<a href="javascript:refresh();">2. Refresh the radio buttons</a><br/>
 
 <script>
 	function triggerClickEvents() {
 		$( "label" ).trigger( "click" );
 		$( "#result" ).html( "<font color='red'>Any radio buttons are not checked.</font>" );
+	}
+
+	function refresh() {
+		$( "input" ).checkboxradio( "refresh" );
+		$( "#result" ).html( "<font color='red'>After calling the refresh method, the radios are checked.</font>" );
 	}
 </script>
 

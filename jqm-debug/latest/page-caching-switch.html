@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page - DOM caching / switch</title>
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header" data-add-back-btn="true">
+				<h1>dom-cache="<span class="cache-stat">&nbsp;</span>"</h1>
+			</div>
+			
+			<div data-role="content">
+				<ul>
+					<li>Press 'true' or 'false' button</li>
+					<li>Check the message in Header (dom-cache="what")</li>
+					<li>Press 'Go!' button</li>
+					<li>Go back and reenter this page</li>
+					<li>Confirm 'DOM changed' message is remaining when dom-cache="true"</li>
+					<li>Or confirm 'DOM changed' message is NOT remaining when dom-cache="false"</li>
+				</ul>
+				<a href="#" class="change-cache" data-role="button" data-inline="true" data-value="true">true</a>
+				<a href="#" class="change-cache" data-role="button" data-inline="true" data-value="false">false</a>
+				<a href="#" class="change-dom" data-role="button" data-inline="true">Go!</a>
+			</div>
+
+		</div>
+	</body>
+</html>

@@ -13,6 +13,11 @@
 					tmpTheme = $( this ).jqmData( "tmp" );
 				$page.page( "option", "theme", tmpTheme );
 				$page.find( ".current-theme" ).text( $page.page( "option", "theme" ) );
+			}).on( "click", ".change-cache", function() {
+				var $page = $.mobile.activePage,
+					value = $( this ).jqmData( "value" );
+				$page.page( "option", "domCache", value );
+				$page.find( ".cache-stat" ).text( $page.page( "option", "domCache" ) );
 			});
 		</script>
 	</head>
@@ -33,7 +38,10 @@
 					<li data-role="list-divider">domCache</li>
 					<li>	<a href="page-caching.html">true</a></li>
 					<li><a href="page-uncaching.html">false</a></li>
-					<li data-role="list-divider">keepNativeDefault - deprecated</li>
+					<li><a href="page-caching-switch.html">[Switch]</a></li>
+					<li data-role="list-divider">keepNative - deprecated</li>
+					<li data-role="list-divider">keepNativeDefault</li>
+					<li><a href="#page-do-not-enhance">.do-not-enhance</a></li>
 					<li data-role="list-divider">theme</li>
 					<li><a href="#page-theme-a">a</a></li>
 					<li><a href="#page-theme-b">b</a></li>
@@ -48,8 +56,8 @@
 				<h1>default theme="a"</h1>
 			</div>
 			<div data-role="content">
-				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="a">a</a>
-				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="b">b</a>
+				<a href="#" class="set-theme ui-btn ui-btn-inline ui-shadow" data-tmp="a">a</a>
+				<a href="#" class="set-theme ui-btn ui-btn-inline ui-corner-all" data-tmp="b">b</a>
 				<div class="current-theme"></div>
 			</div>
 		</div>	<!-- page theme a -->
@@ -64,5 +72,19 @@
 				<div class="current-theme"></div>
 			</div>
 		</div>	<!-- page theme b -->
+
+		<div data-role="page" id="page-do-not-enhance" data-keep-native-default=".do-not-enhance">
+			<div data-role="header" data-add-back-btn="true">
+				<h1>Page</h1>
+			</div>
+			<div data-role="content">
+				<div>
+					keepNativeDefault: ".do-not-enhance"
+				</div>
+				<ul data-role="listview" data-inset="true">
+					<li><a href="#">test</a></li>
+				</ul>
+			</div>
+		</div>	<!-- page do not enhance -->
 	</body>
 </html>

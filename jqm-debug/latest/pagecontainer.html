@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pagecontainer - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+		<style>
+			table { width:100%; border-bottom:1px solid #ccc; border-spacing: 0; }
+			th { text-align:left; }
+			th h3 { margin:.6em 0; }
+			th, td { vertical-align:top; border-top:1px solid #ccc; padding: 1px 3px; }
+			td .ui-btn { margin:.4em 0 .5em 0; }
+			td .ui-btn-inner { padding: .4em 15px; }
+		</style>
+		<script>
+			$( document ).bind("loadercreate", function ( event ) {
+				console.log("loadercreate")
+			}).on("click", ".getBtn",function(event){
+				 var theme = $( "body" ).pagecontainer( "option", "theme"),
+				 	$status = $( this ) .parents("tr").find(".status");
+				 alert("pagecontainertheme : " +theme);
+				 $status = $( this ) .parents("tr").find(".status").text(theme).css("color", "blue");
+			}).on("click", ".setBtn",function(event){
+				var theme = $( "body" ).pagecontainer( "option", "theme");
+				if( theme === "a" ) {
+					$( "body" ).pagecontainer( "option", "theme", "c");
+
+				} else if ( theme === "c") {
+					$( "body" ).pagecontainer( "option", "theme", "a");
+				}
+				$status = $( this ) .parents("tr").find(".status").text(theme +"->" +  $( "body" ).pagecontainer( "option", "theme") );
+			}).on( "click", ".cpBtn", function ( event ) {
+				var transitionType = this.textContent;
+				console.log( "Text : "+   transitionType );
+				var obj = $( "body" ).pagecontainer( "change", $("#page2"), { transition :transitionType, reloadPage:true });
+			} ).on ( "click", ".loadBtn", function ( event ) {
+				var url = $( this ) .parent().children(".urlClass").val(),
+					optionName = $( this ) .parent().children(".optionClass").val(),
+					optionValue = $( this ) .parent().children(".valueClass").val(),
+					$status = $( this ) .parents("tr").find(".status");
+				
+				if ( $("#dummyPage").length !== 0 ) {
+					$("#dummyPage").remove();
+				}
+				if ( optionName ) {
+					ret = $( "body" ).pagecontainer( "load", url, {optionName : optionValue});
+				} else {
+					ret = $( "body" ).pagecontainer( "load", url);
+				}
+				setTimeout( function () {
+					var $dummyPage = $("#dummyPage");
+					if ( $dummyPage.length === 1 ) {
+						//$("#loadStatus_default").attr("value", "Success").css("color", "blue");
+						$status.text( "Success" ).css("color", "blue");
+					} else {
+						$status.text( "Failed").css("color", "red");
+					}
+				}, 1000 );
+			}).on( "click", ".loadBtn-show", function ( event ) {
+				var $status = $( this ) .parents("tr").find(".status"),
+					timerId, count = 0;
+
+				timerId = setInterval(function () {
+					var $loader = $( ".ui-loader" );
+					if ( $loader.length !== 0 ) {
+						$status.text( "Success" ).css("color", "blue");
+						clearInterval(timerId);
+					} else if ( count === 200 ){
+						$status.text( "Failed").css("color", "red");
+						clearInterval(timerId);
+					} else {
+						count++;
+					}
+				}, 5);
+				$( "body" ).pagecontainer( "load", "./dummyPage2.html", { showLoadMsg: true, loadMsgDelay : 5 } );
+			}).on( "click", ".makeError", function( event ) {
+				var obj = $( "body" ).pagecontainer( "change", "./dummyPage2.html", { transition :"slid", reloadPage:true });
+			});
+			// page event checker.
+			$( document ).on("pagecontainerbeforeload", function ( event, data) {
+				$(".events").text( "none" ).css("color", "black");
+				if ( event.type === "pagecontainerbeforeload" ) {
+					$(".eventbeforeload").css("color", "blue").text("Checked");
+				}
+			}).on(" pagecontainerbeforetransition pagecontainerload pagecontainershow pagecontainerloadfailed pagecontainertransition pagecontainerhide pagecontainerchangefailed ", function (event, data) {
+				if ( event.type === "pagecontainerbeforetransition" ) {
+					$(".eventbeforetransition").css("color", "blue").text("Checked");
+				}
+				if ( event.type === "pagecontainerload" ) {
+					$(".eventload").css("color", "blue").text("Checked");
+				}
+				if ( event.type === "pagecontainershow" ) {
+					$(".eventshow").css("color", "blue").text("Checked");
+				}
+				if ( event.type === "pagecontainerloadfailed" ) {
+					$(".eventloadfailed").css("color", "blue").text("Checked");
+				}
+				if ( event.type === "pagecontainertransition" ) {
+					$(".eventtransition").css("color", "blue").text("Checked");
+				}
+				if ( event.type === "pagecontainerhide" ) {
+					$(".eventhide").css("color", "blue").text("Checked");
+				}
+				if ( event.type === "pagecontainerchangefailed" ) {
+					$(".eventchangefailed").css("color", "blue").text("Checked");
+				}
+			});
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page" id="page1">
+			<div data-role="header">
+				<h1>Demos</h1>
+			</div>
+			<div data-role="content">
+				<table margin="0">
+						<tr>
+							<th><h3>Change option - transition type</h3></th>
+							<td><h3>operation</h3></td>
+							<td><h3>result</h3></td>
+						</tr>
+						<tr>
+							<th><h3>get theme</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="getBtn">Getter</a></td>
+							<td><span type="text" data-disabled = "true"  class="status"  value ="load status "></td>
+						</tr>
+						<tr>
+							<th><h3>set theme</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="setBtn">Setter</a></td>
+							<td><span type="text" data-disabled = "true"  class="status"  value ="load status "></td>
+						</tr>
+						<tr>
+							<th><h3>Change method - transition type</h3></th>
+							<td><h3>operation</h3></td>
+							<td><h3>result</h3></td>
+						</tr>
+						<tr>
+							<th><h3>fade</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">fade</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>pop</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">pop</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>flip</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">flip</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>turn</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">turn</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>flow</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">flow</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>slide</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">slide</a></td>
+						</tr>
+						<tr>
+							<th><h3>slideup</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">slideup</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>slidedown</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">slidedown</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>none</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="cpBtn">none</a></td>
+							<td><span ></span></td>
+						</tr>
+						<tr>
+							<th><h3>Load method - transition type</h3></th>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th><h3>default</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="loadBtn">load</a>
+								<input type="hidden" class="urlClass" value="./dummyPage.html"/>
+							</td>
+							<td><span type="text" data-disabled = "true"  class="status"  value ="load status "></span></td>
+						</tr>
+						<tr>
+							<th><h3>default-failed</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="loadBtn">load</a>
+								<input type="hidden" class="urlClass" value="./dummyPage2.html"/>
+							</td>
+							<td><span type="text" data-disabled = "true"   class="status"  value ="load status "></span></td>
+
+						</tr>
+						<tr>
+							<th><h3>Post type</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="loadBtn">load</a>
+								<input type="hidden" class="urlClass" value="./dummyPage.html"/>
+								<input type="hidden" class="optionClass" value="type"/>
+								<input type="hidden" class="valueClass" value="post"/>
+							</td>
+							<td><span type="text" data-disabled = "true"  class="status"  value ="load status "></span></td>
+						</tr>
+						<tr>
+							<th><h3>load Message</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="loadBtn-show">load</a>
+							</td>
+							<td><span type="text" data-disabled = "true"  class="status"  value ="load status "></span></td>
+						</tr>
+						<tr>
+							<th><h3>Failed Event</h3></th>
+							<td>operation</td>
+							<td>result</td>
+						</tr>
+						<tr>
+							<th><h3>Changefailed</h3></th>
+							<td><a href="#" data-role="button" data-inline="true" class="makeError">Error</a></td>
+							<td><span type="text" class ="events eventchangefailed "></span></td>
+						</tr>
+						<tr>
+							<th><h3>loadfailed</h3></th>
+							<td></td>
+							<td><span type="text" data-disabled = "true"  class="events eventloadfailed "></span></td>
+						</tr>
+				</table>
+				
+			</div>
+		</div>
+
+		<div data-role="page" id="page2">
+			<div data-role="header">
+				<h1>Linked Page</h1>
+			</div>
+			<div data-role="content">
+				<table>
+					<tr>
+						<th><h3>Event</h3></th>
+						<td>operation</td>
+						<td>result</td>
+					</tr>
+					<tr>
+						<th><h3>Beforeload</h3></th>
+						<td></td>
+						<td><span type="text" class ="events eventbeforeload "></span></td>
+					</tr>
+					<tr>
+						<th><h3>Beforetransition</h3></th>
+						<td></td>
+						<td><span type="text"  class ="events eventbeforetransition "></span></td>
+					</tr>
+					<tr>
+						<th><h3>hide</h3></th>
+						<td></td>
+						<td><span type="text" data-disabled = "true"  class= "events eventhide "></span></td>
+					</tr>
+					<tr>
+						<th><h3>load</h3></th>
+						<td></td>
+						<td><span type="text" data-disabled = "true"  class="events eventload "></span></td>
+					</tr>
+					<tr>
+						<th><h3>show</h3></th>
+						<td></td>
+						<td><span type="text" data-disabled = "true"  class= "events eventshow "></span></td>
+					</tr>
+					<tr>
+						<th><h3>transition</h3></th>
+						<td></td>
+						<td><span type="text" data-disabled = "true"  class="events eventtransition "></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		
+	</body>
+</html>

@@ -83,7 +83,7 @@
 				if ( event.type === "pagecontainerbeforeload" ) {
 					$(".eventbeforeload").css("color", "blue").text("Checked");
 				}
-			}).on(" pagecontainerbeforetransition pagecontainerload pagecontainershow pagecontainerloadfailed pagecontainertransition pagecontainerhide pagecontainerchangefailed ", function (event, data) {
+			}).on(" pagecontainerbeforetransition pagecontainerload  pagecontainerload pagecontainershow pagecontainerloadfailed pagecontainertransition pagecontainerhide pagecontainerchangefailed ", function (event, data) {
 				if ( event.type === "pagecontainerbeforetransition" ) {
 					$(".eventbeforetransition").css("color", "blue").text("Checked");
 				}
@@ -193,14 +193,6 @@
 							<td><span type="text" data-disabled = "true"  class="status"  value ="load status "></span></td>
 						</tr>
 						<tr>
-							<th><h3>default-failed</h3></th>
-							<td><a href="#" data-role="button" data-inline="true" class="loadBtn">load</a>
-								<input type="hidden" class="urlClass" value="./dummyPage2.html"/>
-							</td>
-							<td><span type="text" data-disabled = "true"   class="status"  value ="load status "></span></td>
-
-						</tr>
-						<tr>
 							<th><h3>Post type</h3></th>
 							<td><a href="#" data-role="button" data-inline="true" class="loadBtn">load</a>
 								<input type="hidden" class="urlClass" value="./dummyPage.html"/>
@@ -214,6 +206,16 @@
 							<td><a href="#" data-role="button" data-inline="true" class="loadBtn-show">load</a>
 							</td>
 							<td><span type="text" data-disabled = "true"  class="status"  value ="load status "></span></td>
+						</tr>
+						<tr>
+							<th><h3>Load Event</h3></th>
+							<td>operation</td>
+							<td>result</td>
+						</tr>
+						<tr>
+							<th><h3>load</h3></th>
+							<td></td>
+							<td><span type="text" data-disabled = "true"  class="events eventload "></span></td>
 						</tr>
 						<tr>
 							<th><h3>Failed Event</h3></th>
@@ -260,11 +262,6 @@
 						<th><h3>hide</h3></th>
 						<td></td>
 						<td><span type="text" data-disabled = "true"  class= "events eventhide "></span></td>
-					</tr>
-					<tr>
-						<th><h3>load</h3></th>
-						<td></td>
-						<td><span type="text" data-disabled = "true"  class="events eventload "></span></td>
 					</tr>
 					<tr>
 						<th><h3>show</h3></th>

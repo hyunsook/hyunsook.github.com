@@ -1001,6 +1001,25 @@
 			}
 		</script>
 
+	<h3>Input Button: Methods:disable(), enable()</h3>
+		<input type="button" id="disabledI4" value="Target Button" />
+		<span id="result_disabledI4"></span><br/>
+		<a href="javascript:testDisableMethod();">Disable</a><br/>
+		<a href="javascript:testEnableMethod();">Enable</a><br/>
+		<script>
+			function testDisableMethod() {
+				var disabledI4_btn = $( "#disabledI4" );
+				disabledI4_btn.button( "disable" );
+				$( "#result_disabledI4" ).html( "<font color='blue'>" + disabledI4_btn.button( "option", "disabled" ) + "</font>")
+			}
+
+			function testEnableMethod() {
+				var disabledI4_btn = $( "#disabledI4" );
+				disabledI4_btn.button( "enable" );
+				$( "#result_disabledI4" ).html( "<font color='blue'>" + disabledI4_btn.button( "option", "disabled" ) + "</font>")
+			}
+		</script>
+
 <h2 id="methods_refresh">Methods:refresh</h2>
 	<h3><strike>Link Buttons & Button Elements: Removed</strike></h3>
 		<a href="#" id="refreshA" data-role="button">Refresh: Nothing happened</a>

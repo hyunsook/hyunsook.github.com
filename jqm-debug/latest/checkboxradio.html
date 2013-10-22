@@ -4,21 +4,23 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CheckboxRadio</title>
-	<!--link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script-->
-	<link rel="stylesheet" href="http://172.21.100.252/jqm-latest/css/themes/default/jquery.mobile.css">
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<!--link rel="stylesheet" href="http://172.21.100.252/jqm-latest/css/themes/default/jquery.mobile.css">
 	<script src="http://172.21.100.252/jqm-latest/js/jquery.js"></script>
-	<script src="http://172.21.100.252/jqm-latest/js/"></script>
+	<script src="http://172.21.100.252/jqm-latest/js/"></script-->
 	<!--link rel="stylesheet" href="http://localhost/jqm-latest/css/themes/default/jquery.mobile.css">
 	<script src="http://localhost/jqm-latest/js/jquery.js"></script>
 	<script src="http://localhost/jqm-latest/js/"></script-->
-	<script>
-		function test() {
+	<style type="text/css">
+		.orange, .orange label {
+			background: orange !important;
+			color: white !important;
 		}
-	</script>
+	</style>
 </head>
-<body onload="test();">
+<body>
 <div data-role="page">
 <div data-role="content" class="jqm-content">
 
@@ -154,6 +156,397 @@
 <h3>Absence of the ui-corner-all</h3>
 	<label><input type="checkbox" /> I agree </label>
 	<label><input type="checkbox" data-corners="false" /> I agree </label>
+
+<h2>Options:mini</h2>
+	<h3>Checkboxes</h3>
+		<label><input type="checkbox" data-mini="true" /> I agree </label>
+
+		<h4>Initialize with { mini: true } </h4>
+			<label><input id="mini0" type="checkbox" /> I agree </label>
+			<script>
+				$("#mini0").checkboxradio( { mini: true } );
+			</script>
+
+		<h4>Get/Set the mini option</h4>
+		<label><input id="mini1" type="checkbox" /> I agree </label>
+		<span id="result_mini1"></span><br/>
+
+		<hr />
+		<a href="javascript:getMini1Option();">1. Get the value of the mini option</a><br/>
+		<a href="javascript:setMini1Option();">2. Set the mini option</a><br/>
+		<a href="javascript:getMini1Option();">3. Get the value of the mini option again</a><br/>
+
+		<script>
+			function getMini1Option() {
+				$("#result_mini1").html("<font color='blue'>" + $("#mini1").checkboxradio( "option", "mini") + "</font>");
+			}
+			function setMini1Option() {
+				$("#mini1").checkboxradio( "option", "mini", true );
+				$( "#result_mini1" ).html("<font color='blue'>The mini option is applied.</font>");
+			}
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input type="radio" name="mini" data-mini="true" /> I agree </label>
+
+		<h4>Initialize with { mini: true } </h4>
+			<label><input type="radio" id="mini3" name="mini3" /> I agree </label>
+			<script>
+				$("#mini3").checkboxradio( { mini: true } );
+			</script>
+
+		<h4>Get/Set the mini option</h4>
+		<label><input type="radio" id="mini2" name="mini2" /> I agree </label>
+		<span id="result_mini2"></span><br/>
+
+		<hr />
+		<a href="javascript:getMini2Option();">1. Get the value of the mini option</a><br/>
+		<a href="javascript:setMini2Option();">2. Set the mini option</a><br/>
+		<a href="javascript:getMini2Option();">3. Get the value of the mini option again</a><br/>
+
+		<script>
+			function getMini2Option() {
+				$("#result_mini2").html("<font color='blue'>" + $("#mini2").checkboxradio( "option", "mini") + "</font>");
+			}
+			function setMini2Option() {
+				$("#mini2").checkboxradio( "option", "mini", true );
+				$( "#result_mini2" ).html("<font color='blue'>The mini option is applied.</font>");
+			}
+		</script>
+
+<h2>Options:theme</h2>
+	<h3>Checkboxes</h3>
+		<label><input type="checkbox" data-theme="b" /> I agree </label>
+
+		<h4>Initialize with { theme: "b" } </h4>
+			<label><input id="theme0" type="checkbox" /> I agree </label>
+			<script>
+				$("#theme0").checkboxradio( { theme: "b" } );
+			</script>
+
+		<h4>Get/Set the theme option</h4>
+		<label><input id="theme1" type="checkbox" /> I agree </label>
+		<span id="result_theme1"></span><br/>
+
+		<hr />
+		<a href="javascript:getTheme1Option();">1. Get value</a><br/>
+		<a href="javascript:setTheme1Option();">2. Set value</a><br/>
+		<a href="javascript:getTheme1Option();">3. Get value again</a><br/>
+
+		<script>
+			function getTheme1Option() {
+				$("#result_theme1").html("<font color='blue'>" + $("#theme1").checkboxradio( "option", "theme") + "</font>");
+			}
+			function setTheme1Option() {
+				$("#theme1").checkboxradio( "option", "theme", "b" );
+				$( "#result_theme1" ).html("<font color='blue'>The theme option is applied.</font>");
+			}
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input type="radio" name="theme" data-theme="b" /> I agree </label>
+
+		<h4>Initialize with { theme: "b" } </h4>
+			<label><input type="radio" id="theme3" name="theme3" /> I agree </label>
+			<script>
+				$("#theme3").checkboxradio( { theme: "b" } );
+			</script>
+
+		<h4>Get/Set the theme option</h4>
+		<label><input type="radio" id="theme2" name="theme2" /> I agree </label>
+		<span id="result_theme2"></span><br/>
+
+		<hr />
+		<a href="javascript:getTheme2Option();">1. Get value</a><br/>
+		<a href="javascript:setTheme2Option();">2. Set value</a><br/>
+		<a href="javascript:getTheme2Option();">3. Get value again</a><br/>
+
+		<script>
+			function getTheme2Option() {
+				$("#result_theme2").html("<font color='blue'>" + $("#theme2").checkboxradio( "option", "theme") + "</font>");
+			}
+			function setTheme2Option() {
+				$("#theme2").checkboxradio( "option", "theme", "b" );
+				$( "#result_theme2" ).html("<font color='blue'>The theme option is applied.</font>");
+			}
+		</script>
+
+<h2>Options:iconpos</h2>
+	<h3>Checkboxes</h3>
+		<label><input type="checkbox" data-iconpos="right" /> I agree </label>
+
+		<h4>Initialize with { iconpos: "right" } </h4>
+			<label><input id="iconpos0" type="checkbox" /> I agree </label>
+			<script>
+				$("#iconpos0").checkboxradio( { iconpos: "right" } );
+			</script>
+
+		<h4>Get/Set the iconpos option</h4>
+		<label><input id="iconpos1" type="checkbox" /> I agree </label>
+		<span id="result_iconpos1"></span><br/>
+
+		<hr />
+		<a href="javascript:getIconpos1Option();">1. Get the value of the iconpos option</a><br/>
+		<a href="javascript:setIconpos1Option();">2. Change the iconpos option to the right</a><br/>
+		<a href="javascript:getIconpos1Option();">3. Get the value of the iconpos option again</a><br/>
+
+		<script>
+			function getIconpos1Option() {
+				$("#result_iconpos1").html("<font color='blue'>" + $("#iconpos1").checkboxradio( "option", "iconpos") + "</font>");
+			}
+			function setIconpos1Option() {
+				$("#iconpos1").checkboxradio( "option", "iconpos", "right" );
+				$( "#result_iconpos1" ).html("<font color='blue'>The icon position is changed.</font>");
+			}
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input type="radio" name="iconpos" data-iconpos="right" /> I agree </label>
+
+
+		<h4>Initialize with { iconpos: "right" } </h4>
+			<label><input type="radio" id="iconpos3" name="iconpos3" /> I agree </label>
+			<script>
+				$("#iconpos3").checkboxradio( { iconpos: "right" } );
+			</script>
+
+		<h4>Get/Change the iconpos option to the right</h4>
+		<label><input id="iconpos2" name="iconpos2" type="radio" /> I agree </label>
+		<span id="result_iconpos2"></span><br/>
+
+		<hr />
+		<a href="javascript:getIconpos2Option();">1. Get the value of the iconpos option</a><br/>
+		<a href="javascript:setIconpos2Option();">2. Change the iconpos option to the right</a><br/>
+		<a href="javascript:getIconpos2Option();">3. Get the value of the iconpos option again</a><br/>
+
+		<script>
+			function getIconpos2Option() {
+				$("#result_iconpos2").html("<font color='blue'>" + $("#iconpos2").checkboxradio( "option", "iconpos") + "</font>");
+			}
+			function setIconpos2Option() {
+				$("#iconpos2").checkboxradio( "option", "iconpos", "right" );
+				$( "#result_iconpos2" ).html("<font color='blue'>The icon position is changed.</font>");
+			}
+		</script>
+
+<h2>Options:wrapperClass</h2>
+	<h3>Checkboxes</h3>
+		<label><input type="checkbox" data-wrapper-class="orange" /> I agree </label>
+
+		<h4>Initialize with { wrapperClass: "orange" } </h4>
+			<label><input type="checkbox" id="wrapperClass0" name="wrapperClass0" /> I agree </label>
+			<script>
+				$("#wrapperClass0").checkboxradio( { wrapperClass: "orange" } );
+			</script>
+
+		<h4>Get/set the wrapperClass option</h4>
+		<label><input id="wrapperClass1" type="checkbox" /> I agree </label>
+		<span id="result_wrapperClass1"></span><br/>
+
+		<hr />
+		<a href="javascript:getWrapperClass1Option();">1. Get the value of the wrapperClass option</a><br/>
+		<a href="javascript:setWrapperClass1Option();">2. Set the wrapperClass option</a><br/>
+		<a href="javascript:getWrapperClass1Option();">3. Get the value of the wrapperClass option again</a><br/>
+
+		<script>
+			function getWrapperClass1Option() {
+				$("#result_wrapperClass1").html("<font color='blue'>" + $("#wrapperClass1").checkboxradio( "option", "wrapperClass") + "</font>");
+			}
+			function setWrapperClass1Option() {
+				$("#wrapperClass1").checkboxradio( "option", "wrapperClass", "orange" );
+				$( "#result_wrapperClass1" ).html("<font color='blue'>The wrapperClass is changed.</font>");
+			}
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input type="radio" name="wrapperClass" data-wrapper-class="orange" /> I agree </label>
+
+		<h4>Initialize with { wrapperClass: "orange" } </h4>
+			<label><input type="radio" id="wrapperClass3" name="wrapperClass3" /> I agree </label>
+			<script>
+				$("#wrapperClass3").checkboxradio( { wrapperClass: "orange" } );
+			</script>
+
+		<h4>Get/set the wrapperClass option</h4>
+		<label><input id="wrapperClass2" name="wrapperClass2" type="radio" /> I agree </label>
+		<span id="result_wrapperClass2"></span><br/>
+
+		<hr />
+		<a href="javascript:getWrapperClass2Option();">1. Get the value of the wrapperClass option</a><br/>
+		<a href="javascript:setWrapperClass2Option();">2. Set the wrapperClass option</a><br/>
+		<a href="javascript:getWrapperClass2Option();">3. Get the value of the wrapperClass option again</a><br/>
+
+		<script>
+			function getWrapperClass2Option() {
+				$("#result_wrapperClass2").html("<font color='blue'>" + $("#wrapperClass2").checkboxradio( "option", "wrapperClass") + "</font>");
+			}
+			function setWrapperClass2Option() {
+				$("#wrapperClass2").checkboxradio( "option", "wrapperClass", "orange" );
+				$( "#result_wrapperClass2" ).html("<font color='blue'>The wrapperClass is changed.</font>");
+			}
+		</script>
+
+<h2>Options:disabled</h2>
+	<h3>Checkboxes</h3>
+		<label><input type="checkbox" da ta-disabled="true" /> I agree </label>
+
+		<h4>Initialize with { disabled: true } </h4>
+			<label><input type="checkbox" id="disabled0" name="disabled0" /> I agree </label>
+			<script>
+				$("#disabled0").checkboxradio( { disabled: true } );
+			</script>
+
+		<h4>Get/set the disabled option</h4>
+		<label><input id="disabled1" type="checkbox" /> I agree </label>
+		<span id="result_disabled1"></span><br/>
+
+		<hr />
+		<a href="javascript:getDisabled1Option();">1. Get value</a><br/>
+		<a href="javascript:setDisabled1Option();">2. Set value</a><br/>
+		<a href="javascript:getDisabled1Option();">3. Get value again</a><br/>
+
+		<script>
+			function getDisabled1Option() {
+				$("#result_disabled1").html("<font color='blue'>" + $("#disabled1").checkboxradio( "option", "disabled") + "</font>");
+			}
+			function setDisabled1Option() {
+				$("#disabled1").checkboxradio( "option", "disabled", true );
+				$("#result_disabled1").html("<font color='blue'>The disabled option is changed.</font>");
+			}
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input type="radio" name="wrapperClass" data-disabled="true" /> I agree </label>
+
+		<h4>Initialize with { disabled: true } </h4>
+			<label><input type="radio" id="disabled2" name="disabled2" /> I agree </label>
+			<script>
+				$("#disabled2").checkboxradio( { disabled: true } );
+			</script>
+
+		<h4>Get/set the disabled option</h4>
+		<label><input type="radio" id="disabled3" name="disabled3" /> I agree </label>
+		<span id="result_disabled3"></span><br/>
+
+		<hr />
+		<a href="javascript:getDisabled3Option();">1. Get value</a><br/>
+		<a href="javascript:setDisabled3Option();">2. Set value</a><br/>
+		<a href="javascript:getDisabled3Option();">3. Get value again</a><br/>
+
+		<script>
+			function getDisabled3Option() {
+				$("#result_disabled3").html("<font color='blue'>" + $("#disabled3").checkboxradio( "option", "disabled") + "</font>");
+			}
+			function setDisabled3Option() {
+				$("#disabled3").checkboxradio( "option", "disabled", true );
+				$("#result_disabled3").html("<font color='blue'>The disabled option is changed.</font>");
+			}
+		</script>
+
+<h2>Methods:disable()/enable()</h2>
+	<h3>Checkboxes</h3>
+		<label><input id="disable1" type="checkbox" /> I agree </label>
+		<span id="result_disable1"></span><br/>
+		<a href="javascript:toggleDisableEnable();">1. Toggle the disable/enable status</a><br/>
+		<script>
+			function toggleDisableEnable() {
+				var el = $( "#disable1" ),
+					disabled = el.checkboxradio( "option", "disabled" );
+
+				el.checkboxradio( disabled ? "enable" : "disable" );
+				$( "#result_disable1" ).html( "<font color='blue'>Disabled: " + disabled + "-->" + el.checkboxradio( "option", "disabled" ) + "</font>" );
+			}
+		</script>
+
+<h2>Methods:refresh</h2>
+	<h3>Checkboxes</h3>
+		<label><input id="refresh1" type="checkbox" /> I agree </label>
+		<span id="result_refresh1"></span><br/>
+
+		<hr />
+		<a href="javascript:getValue1();">1. Get the value</a><br/>
+		<a href="javascript:toggleValue1();">2. Toggle the value</a><br/>
+		<a href="javascript:getValue1();">3. Get the value</a><br/>
+		<a href="javascript:refresh1();">4. Refresh the widget</a><br/>
+
+		<script>
+			function getValue1() {
+				$( "#result_refresh1" ).html("<font color='blue'>" + $("#refresh1").attr( "checked" ) + "</font>");
+			}
+
+			function toggleValue1() {
+				var el = $("#refresh1");
+				el.attr( "checked", el.attr( "checked" ) ? false : true );
+			}
+
+			function refresh1() {
+				$("#refresh1").checkboxradio( "refresh" );
+				$( "#result_refresh1" ).html("<font color='blue'>Refreshed</font>");
+			}
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input id="refresh2" name="refresh2" type="radio" /> I agree </label>
+		<span id="result_refresh2"></span><br/>
+
+		<hr />
+		<a href="javascript:getValue2();">1. Get the value</a><br/>
+		<a href="javascript:toggleValue2();">2. Toggle the value</a><br/>
+		<a href="javascript:getValue2();">3. Get the value</a><br/>
+		<a href="javascript:refresh2();">4. Refresh the widget</a><br/>
+
+		<script>
+			function getValue2() {
+				$( "#result_refresh2" ).html("<font color='blue'>" + $("#refresh2").attr( "checked" ) + "</font>");
+			}
+
+			function toggleValue2() {
+				var el = $("#refresh2");
+				el.attr( "checked", el.attr( "checked" ) ? false : true );
+			}
+			function refresh2() {
+				$("#refresh2").checkboxradio( "refresh" );
+				$( "#result_refresh2" ).html("<font color='blue'>Refreshed</font>");
+			}
+		</script>
+
+<h2 id="events_create">Events:create</h2>
+	<h3>Checkboxes</h3>
+		<label><input id="create1" type="checkbox" /> I agree </label>
+		<span id="result_create1"></span><br/>
+		<script>
+			$("#create1").on( "checkboxradiocreate", function() {
+				$("#result_create1").html( "<font color='blue'>Event target is created</font>" );
+			} );
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input id="create2" name="create2" type="radio" /> I agree </label>
+		<span id="result_create2"></span><br/>
+		<script>
+			$("#create2").on( "checkboxradiocreate", function() {
+				$("#result_create2").html( "<font color='blue'>Event target is created</font>" );
+			} );
+		</script>
+
+<h2 id="events_click">Events:click</h2>
+	<h3>Checkboxes</h3>
+		<label><input id="click2" type="checkbox" /> I agree </label>
+		<span id="result_create1"></span><br/>
+		<script>
+			$("#create1").on( "checkboxradiocreate", function() {
+				$("#result_create1").html( "<font color='blue'>Event target is created</font>" );
+			} );
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input id="create2" name="create2" type="radio" /> I agree </label>
+		<span id="result_create2"></span><br/>
+		<script>
+			$("#create2").on( "checkboxradiocreate", function() {
+				$("#result_create2").html( "<font color='blue'>Event target is created</font>" );
+			} );
+		</script>
 
 </div><!-- /content -->
 </div><!-- /page -->

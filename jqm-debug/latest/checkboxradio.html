@@ -531,23 +531,52 @@
 
 <h2 id="events_click">Events:click</h2>
 	<h3>Checkboxes</h3>
-		<label><input id="click2" type="checkbox" /> I agree </label>
-		<span id="result_create1"></span><br/>
+		<label><input id="click1" type="checkbox" /> I agree </label>
+		click: <span id="result_click1"></span><br/>
+		mousedown: <span id="result_mousedown1"></span><br/>
+		mouseup: <span id="result_mouseup1"></span><br/>
+		vclick: <span id="result_vclick1"></span><br/>
+		vmousedown: <span id="result_vmousedown1"></span><br/>
+		vmouseup: <span id="result_vmouseup1"></span><br/>
 		<script>
-			$("#create1").on( "checkboxradiocreate", function() {
-				$("#result_create1").html( "<font color='blue'>Event target is created</font>" );
+			$("#click1").on( "click", function() {
+				$("#result_click1").html( "<font color='blue'>click is triggered</font>" );
+			} ).on ( "mousedown", function() {
+				$("#result_mousedown1").html( "<font color='blue'>mousedown is triggered</font>" );
+			} ).on ( "mouseup", function() {
+				$("#result_mouseup1").html( "<font color='blue'>mouseup is triggered</font>" );
+			} ).on ( "vclick", function() {
+				$("#result_vclick1").html( "<font color='blue'>vclick is triggered</font>" );
+			} ).on ( "vmousedown", function() {
+				$("#result_vmousedown1").html( "<font color='blue'>vmousedown is triggered</font>" );
+			} ).on ( "vmouseup", function() {
+				$("#result_vmouseup1").html( "<font color='blue'>vmouseup is triggered</font>" );
 			} );
 		</script>
 
 	<h3>Radio buttons</h3>
-		<label><input id="create2" name="create2" type="radio" /> I agree </label>
-		<span id="result_create2"></span><br/>
+		<label><input type="radio" id="click2" name="click2" /> I agree </label>
+		click: <span id="result_click2"></span><br/>
+		mousedown: <span id="result_mousedown2"></span><br/>
+		mouseup: <span id="result_mouseup2"></span><br/>
+		vclick: <span id="result_vclick2"></span><br/>
+		vmousedown: <span id="result_vmousedown2"></span><br/>
+		vmouseup: <span id="result_vmouseup2"></span><br/>
 		<script>
-			$("#create2").on( "checkboxradiocreate", function() {
-				$("#result_create2").html( "<font color='blue'>Event target is created</font>" );
+			$("#click2").on( "click", function() {
+				$("#result_click2").html( "<font color='blue'>click is triggered</font>" );
+			} ).on ( "mousedown", function() {
+				$("#result_mousedown2").html( "<font color='blue'>mousedown is triggered</font>" );
+			} ).on ( "mouseup", function() {
+				$("#result_mouseup2").html( "<font color='blue'>mouseup is triggered</font>" );
+			} ).on ( "vclick", function() {
+				$("#result_vclick2").html( "<font color='blue'>vclick is triggered</font>" );
+			} ).on ( "vmousedown", function() {
+				$("#result_vmousedown2").html( "<font color='blue'>vmousedown is triggered</font>" );
+			} ).on ( "vmouseup", function() {
+				$("#result_vmouseup2").html( "<font color='blue'>vmouseup is triggered</font>" );
 			} );
 		</script>
-
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

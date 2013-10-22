@@ -21,13 +21,13 @@
 			testCornersOption();
 			testIconOption();
 			testInitSelector();
-			testInline();
 		}
 	</script>
 </head>
 <body onload="testButtons();">
 <div data-role="page">
 <div data-role="content" class="jqm-content">
+
 <h2 id="custom_icons">Custom Icons</h2>
 	<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="myemail">Email</a>
 
@@ -159,6 +159,31 @@
 			});
 		}
 	</script>
+
+<h2>Events:click</h2>
+	<a href="#" id="btn_click1" data-role="button">Target</a>
+	click: <span id="result_btn_click1"></span><br/>
+	mousedown: <span id="result_btn_mousedown1"></span><br/>
+	mouseup: <span id="result_btn_mouseup1"></span><br/>
+	vclick: <span id="result_btn_vclick1"></span><br/>
+	vmousedown: <span id="result_btn_vmousedown1"></span><br/>
+	vmouseup: <span id="result_btn_vmouseup1"></span><br/>
+	<script>
+		$("#btn_click1").on( "click", function() {
+			$("#result_btn_click1").html( "<font color='blue'>click is triggered</font>" );
+		} ).on ( "mousedown", function() {
+			$("#result_btn_mousedown1").html( "<font color='blue'>mousedown is triggered</font>" );
+		} ).on ( "mouseup", function() {
+			$("#result_btn_mouseup1").html( "<font color='blue'>mouseup is triggered</font>" );
+		} ).on ( "vclick", function() {
+			$("#result_btn_vclick1").html( "<font color='blue'>vclick is triggered</font>" );
+		} ).on ( "vmousedown", function() {
+			$("#result_btn_vmousedown1").html( "<font color='blue'>vmousedown is triggered</font>" );
+		} ).on ( "vmouseup", function() {
+			$("#result_btn_vmouseup1").html( "<font color='blue'>vmouseup is triggered</font>" );
+		} );
+	</script>
+
 
 </div><!-- /content -->
 </div><!-- /page -->

@@ -38,6 +38,37 @@
 	}
 </script>
 
+<h2 id="events_click">Events:click</h2>
+	<h3>Checkboxes</h3>
+		<label><input id="click1" type="checkbox" /> I agree </label>
+		click: <span id="result_click1"></span><br/>
+		vclick: <span id="result_vclick1"></span><br/>
+		vmousedown: <span id="result_vmousedown1"></span><br/>
+		<script>
+			$("#click1").on( "click", function() {
+				$("#result_click1").html( "<font color='blue'>click is triggered</font>" );
+			} ).on ( "vclick", function() {
+				$("#result_vclick1").html( "<font color='blue'>vclick is triggered</font>" );
+			} ).on ( "vmousedown", function() {
+				$("#result_vmousedown1").html( "<font color='blue'>vmousedown is triggered</font>" );
+			} );
+		</script>
+
+	<h3>Radio buttons</h3>
+		<label><input type="radio" id="click2" name="click2" /> I agree </label>
+		click: <span id="result_click2"></span><br/>
+		vclick: <span id="result_vclick2"></span><br/>
+		vmousedown: <span id="result_vmousedown2"></span><br/>
+		<script>
+			$("#click2").on( "click", function() {
+				$("#result_click2").html( "<font color='blue'>click is triggered</font>" );
+			} ).on ( "vclick", function() {
+				$("#result_vclick2").html( "<font color='blue'>vclick is triggered</font>" );
+			} ).on ( "vmousedown", function() {
+				$("#result_vmousedown2").html( "<font color='blue'>vmousedown is triggered</font>" );
+			} );
+		</script>
+
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

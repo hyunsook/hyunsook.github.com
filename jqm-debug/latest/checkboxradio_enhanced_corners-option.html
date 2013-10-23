@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Checkboxradio</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+	<p>
+		1. data-enhanced="false" (default) : <br/>
+		<label for="my-checkbox-default-1">My Checkbox</label>
+		<input type="checkbox" id="my-checkbox-default-1" data-enhanced="false"></input>
+		<br/>
+		=> Classes which is added after runtime: "ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off"<br/>
+	</p>
+	<hr />
+	<p>
+		2. data-enhanced="false" and data-corners="false" : <br/>
+		<label for="my-checkbox-default-2">My Checkbox</label>
+		<input type="checkbox" id="my-checkbox-default-2" data-corners="false" data-enhanced="false"></input>
+		<br/>
+		=> Classes which is added after runtime: the same with the Case 1 above.<br/>
+		-> The checkboxradio widget doesn't the data-corners option yet. So, data-corners="false" isn't applied to the widget.<br/>
+	</p>
+	<hr />
+	<p>
+		3. data-enhanced="false" and add "ui-btn ui-btn-inherit ui-btn-icon-left ui-checkbox-off" class manually with  removing "ui-corner-all" class : <br/>
+		<label for="my-checkbox-default-3" class="ui-btn ui-btn-inherit ui-btn-icon-left ui-checkbox-off">My Checkbox</label>
+		<input type="checkbox" id="my-checkbox-default-3" data-enhanced="false"></input>
+		<br/>
+		=> Classes which is added after runtime: the same with the Case 1 above.<br/>
+		-> The "ui-corner-all" class doesn't exist in html tags, nevertheless, you can see that class is added after runtime.<br/>
+	</p>
+	<hr />
+	<p>
+		4. data-enhanced="true" (and set "ui-btn ui-btn-inherit ui-btn-icon-left ui-checkbox-off" classes ): <br/>
+		<div class="ui-checkbox">
+			<label for="my-checkbox-enhanced-1" class="ui-btn ui-btn-inherit ui-btn-icon-left ui-checkbox-off">My Checkbox</label>
+			<input type="checkbox" id="my-checkbox-enhanced-1" data-enhanced="true"></input>
+		</div>
+		<br/>
+		=> Classes which is added after runtime: the classes which is already specified in DOM. (i.e., Not exist ui-corner-all.)<br/>
+		-> Because the checkboxradio widget is set the attribute data-enhanced="true", that widget is skipped these DOM manipulations during instantiation and is applied the classes which is already specified in DOM. So, the "ui-corner-all" is not added after runtime.<br/>
+	</p>
+	<hr />
+	<p>
+		5. data-enhanced="true" and data-corners="false" (API): <br/>
+		<div class="ui-checkbox">
+			<label for="my-checkbox-enhanced-2" class="ui-btn ui-btn-inherit ui-btn-icon-left ui-checkbox-off">My Checkbox</label>
+			<input type="checkbox" id="my-checkbox-enhanced-2" data-corners="false" data-enhanced="true"></input>
+		</div>
+		=> Classes which is added after runtime: the same with the Case 4 above. (i.e., Not exist ui-corner-all.)<br/>
+		-> As you can see from the result, <a href="https://github.com/jquery/api.jquerymobile.com/blob/1-4/entries/checkboxradio.xml#L148">the description for "Providing pre-rendered markup"</a> of Checkboxradio in jQM 1.4 API is guided that user specifies the attribute data-corners="false" to explicit, I guess.<br/>
+	</p>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

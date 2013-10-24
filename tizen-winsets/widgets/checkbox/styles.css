@@ -1,0 +1,11 @@
+.my-check-button-style {
+	margin: 10px;
+}
+.my-check-inline-style {
+	display: inline;
+}
+
+.my-check-controlgroup div.ui-checkbox {
+	margin-top : 3px;
+	margin-bottom : 3px;
+}

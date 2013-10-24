@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<script src="tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+	<script src="configure.js"></script>
+	<script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.js"></script>
+	<script src="tizen-web-ui-fw/latest/js/tizen-web-ui-fw.js"
+		data-framework-theme="tizen-black"
+		data-framework-viewport-width="device-width">
+	</script>
+
+	<title>Tizen ui</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="icon-tizen.png" />
+</head>
+
+<body>
+	<div data-role="page" id="main">
+		<div data-role="header" data-position="fixed">
+			<h1>Tizen web ui</h1>
+		</div>
+		<div data-role="content">
+			<ul data-role="listview">
+				<li data-role="list-divider">Widgets</li>
+				<li><a href="widgets/list/lists-autodividers.html">Autodividers</a></li>
+				<li><a href="widgets/button/button.html">Button</a></li>
+				<li><a href="widgets/checkbox/checkbox.html">Checkbox</a></li>
+				<li><a href="widgets/ctxpopup.html">Context popup</a></li>
+				<li><a href="widgets/datefield.html">Date picker,Time picker,and Date time picker</a></li>
+				<li><a href="widgets/list/list-extendable.html">Extendable list</a></li>
+				<li><a href="widgets/fastscroll.html">Fast scroll</a></li>
+				<li><a href="widgets/switch/toggleswitch.html">Flip toggle switch</a></li>
+				<li><a href="widgets/gallery.html">Gallery</a></li>
+				<li><a href="widgets/handler.html">Handler</a></li>
+				<li><a href="widgets/naviframe/headerandfooter.html">Header and footer</a></li>
+				<li><a href="widgets/list/list.html">List</a></li>
+				<li><a href="widgets/list/list-divider.html">List divider</a></li>
+				<li><a href="widgets/multimediaview/multimediaview.html">Multimedia view</a></li>
+				<li><a href="widgets/tickernoti.html">Notification</a></li>
+				<li><a href="widgets/popupwindow/popup.html">Popup</a></li>
+				<li><a href="widgets/progress.html">Progress</a></li>
+				<li><a href="widgets/progressbar.html">Progress bar</a></li>
+				<li><a href="widgets/searchbar/searchbar.html">Search filter bar</a></li>
+				<li><a href="widgets/slider/slider.html">Slider</a></li>
+				<li><a href="widgets/tabbar/tabbar.html">Tabbar</a></li>
+				<li><a href="widgets/list/list-swipe.html">Swipe</a></li>
+				<li><a href="widgets/tokentextarea/tokentextarea.html" >Token text area</a></li>
+				<li><a href="widgets/list/virtuallist.html">Virtual list</a></li>
+				<li><a href="widgets/grid/virtualgrid.html">Virtual grid</a></li>
+			</ul>
+		</div>
+		<script>
+			$( "#main" ).on( "pageshow" , function() {
+				//bind callbacks to the H/W keys
+				$( window ).on( "tizenhwkey" , function( e ) {
+					if ( e.originalEvent.keyName == "back"
+							&& window.tizen 
+							&& window.tizen.application ) {
+						window.tizen.application.getCurrentApplication().exit();
+						return false;
+					}
+				} );
+			} );
+			$( "#main" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( window ).off( "tizenhwkey" );
+			} );
+		</script>
+
+	</div>
+</body>
+</html>

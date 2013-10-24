@@ -1,0 +1,69 @@
+<div data-role="page" id="switch-demo">
+	<div data-role="header">
+		<h1>Toggle switch</h1>
+	</div>
+
+	<div class="content" data-role="content">
+		<br>
+		<label for="flip-1">1. Tizen normal switch:</label>
+		<br><br>
+		<select name="flip-11" id="flip-11" data-role="slider">
+			<option value="off"></option>
+			<option value="on"></option>
+		</select>
+		<br>
+		<p>Tizen UX toggle switch has image button for on/off.<br>
+			To display image toggle switch, use jqueryMobile data-role="slider" <br>
+			then remove text for option tag</p>
+		<p style="margin-right:0.5em; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
+			 add element's width to css file <br>
+			&lt;select data-role="slider"&gt;<br>
+			&nbsp;&lt;option value="off"&gt;&lt;/option&gt;<br>
+			&nbsp;&lt;option value="on"&gt;&lt;/option&gt;<br>
+			&lt;/select&gt;<br>
+		</p><br><br>
+
+		<div data-role="fieldcontain">
+			<label for="flip-3">2. Text toggle switch:</label>
+			<br><br>
+			<select name="flip-3" id="flip-3" data-role="slider">
+				<option value="nope">Nope</option>
+				<option value="yep">Yep</option>
+			</select>
+			<br>
+			<p>To display jqm style swtich,<br>
+				set text for option tag</p>
+		</div>
+		<br><br>
+
+		<div class ="containing-element">
+			<label for="flip-2">Text toggle switch: set element width</label>
+			<select name="flip-2" id="flip-2" data-role="slider">
+				<option value="off">Long toggle off</option>
+				<option value="on">Long toggle on</option>
+			</select>
+		</div>
+		<p style="margin-right:0.5em; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
+			 add element's width to css file <br>
+			&nbsp;.containing-element .ui-slider-switch { <br>
+			&nbsp&nbsp;width : 9em;<br>
+			&nbsp;}<br>
+		</p>
+	</div> <!-- /content -->
+
+	<script>
+	$( "#switch-demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#switch-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<link rel="stylesheet" href="toggleswitch.css" />
+</div> <!-- page -->

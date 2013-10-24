@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+		<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+		<script src="../../configure.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+				data-framework-theme="tizen-white"
+				data-framework-viewport-width="device-width">
+		</script>
+		<script src="../../main.js"></script>
+		<title>Tizen UI - Bar control</title>
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+	</head>
+<body>
+
+<div data-role="page" id="pageUpdateDemo" data-add-back-btn="true">
+	<div data-role="header" data-position="fixed">
+		<h1>UPDATE PAGE </h1>
+	</div>
+	<div data-role="content">
+		<br>
+		<p> Use case :  <br>
+		In case, web Developer controls tizen bar(header/footer) without transitioning other page,
+		and web Developer use scrollview
+		Content in page needs to be updated because of scrollable area changed according to content, and changed fixed area need to be hide/show
+		<br><br>
+
+		<div>
+			<p style="margin-right:0.5em; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
+				var $elPage = $( ".ui-page-active" );<br><br>
+				$elPage.find( ".ui-header" ).hide();<br>
+				$elPage.page( "refresh" );<br><br>
+
+				$elPage.find( ".ui-header" ).show();<br>
+				$elPage.page( "refresh" );<br>
+			</p>
+		</div>
+		<div data-role="button" id="hideheader" data-inline="true">Hide header</div>
+		<div data-role="button" id="showheader" data-inline="true">Show header</div><br>
+
+		<br>
+		<br>
+		<div>
+			<p style="margin-right:0.5em; padding:1em; background-color:whitesmoke; color:black; border-width:3px; border-style:inset">
+				var $elPage = $( ".ui-page-active" );<br><br>
+				$elPage.find( ".ui-footer" ).hide();<br>
+				$elPage.page( "refresh" );<br><br>
+
+				$elPage.find( ".ui-footer" ).show();<br>
+				$elPage.page( "refresh" );<br>
+			</p><br>
+		</div>
+
+		<div data-role="button" id="hidefooter" data-inline="true">Hide footer</div>
+		<div data-role="button" id="showfooter" data-inline="true">Show footer</div>
+	</div>
+	<div data-role="footer">
+	</div>
+	<script src="barcontrol.js"></script>
+</div>
+</body>
+</html>

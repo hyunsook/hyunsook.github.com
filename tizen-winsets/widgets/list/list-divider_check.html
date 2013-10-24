@@ -1,0 +1,36 @@
+<div data-role="page" id="list_divider_check">
+	<div data-role="header" data-position="fixed">
+		<h1>Check divider</h1>
+	</div>
+	<div class="content" data-role="content" data-scroll="y">
+		<ul data-role="listview">
+			<li data-role="list-divider" data-style="check"><form><input type="checkbox"  name="c2line-check1" /></form>Test</li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li data-role="list-divider" data-style="check"><form><input type="checkbox"  name="c2line-check1" /></form>Test divider</li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li data-role="list-divider" data-style="check"><form><input type="checkbox"  name="c2line-check1" /></form>Divider</li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+			<li><a href="#" ><form><input type="checkbox"  name="c2line-check1" /></form>Normal lists</a></li>
+		</ul>
+	</div>
+	<script>
+	$( "#list_divider_check" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#list_divider_check" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>
+

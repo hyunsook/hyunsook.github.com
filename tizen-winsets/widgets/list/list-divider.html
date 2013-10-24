@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+	<div data-role="page" id="list">
+			<div data-role="header" data-position="fixed">
+				<h1>List divider</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview">
+					<li data-role="list-divider">Divider style</li>
+					<li><a href="list-divider_normal.html">Normal divider</a></li>
+					<li><a href="list-divider_groupped.html">Groupped divider</a></li>
+					<li><a href="list-divider_check.html">Check divider</a></li>
+				</ul>
+			</div>
+			<script>
+			$( "#list" ).on( "pageshow" , function() {
+				$( window ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#list" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( window ).off( "tizenhwkey" );
+			});
+			</script>
+		</div>
+	</div>
+	</body>
+</html>

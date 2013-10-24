@@ -1,0 +1,39 @@
+<div data-role="page" id="virtuallist-normal_1line" class="virtuallist_demo_page">
+	<div data-role="header" data-position="fixed">
+		<h1>Virtual list - Normal style 1line</h1>
+	</div>
+	<style type="text/css">
+#virtuallist-normal_1line_ul li .ui-li-text-main {
+	max-width:95%;
+	display:inline-block;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+	</style>
+	<div data-role="content">
+		<script id="tmp-1line" type="text/x-jquery-tmpl">
+			<li class="ui-li-1line">
+				<span class="ui-li-text-main">${NAME}</span>
+			</li>
+		</script>
+
+		<ul id="virtuallist-normal_1line_ul" data-role="virtuallistview" data-template="tmp-1line" data-row="100">
+		</ul>
+	</div>
+	<script>
+	$( "#virtuallist-normal_1line" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#virtuallist-normal_1line" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script type="text/javascript" src="virtuallist.js"></script>
+</div>

@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+	<script src="../../configure.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+			data-framework-theme="tizen-white"
+			data-framework-viewport-width="device-width">
+	</script>
+	<script src="../../main.js"></script>
+	<title>Tizen UI - Searchbar</title>
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+</head>
+<body>
+<div data-role="page" id="searchbar-demo-page-cancel">
+	<div data-role="header" data-position ="fixed" >
+		<h1>Searchbar</h1>
+
+		<input type="search" data-cancel-btn=true name="search" id="searchbar-demo-page-cancel-search" value=""  />
+	</div><!-- /header -->
+	<div data-role="content" id="searchbar-content">
+		<p>Hairston</p>
+		<p>Hansbrough</p>
+		<p>Allred</p>
+		<p>Hanrahan</p>
+		<p>Egan</p>
+		<p>Dare</p>
+		<p>Edmonson</p>
+		<p>Calip</p>
+		<p>Baker</p>
+		<p>Fazekas</p>
+		<p>Garrity</p>
+		<p>Hansen</p>
+		<p>Feigenbaum</p>
+		<p>Fillmore</p>
+		<p>Darden</p>
+		<p>Davis</p>
+		<p>Fitzgerald</p>
+		<p>Carr</p>
+		<p>Danilovic</p>
+		<p>Dark</p>
+		<p>Alexander</p>
+		<p>Allen</p>
+		<p>Edwards</p>
+		<p>Garrett</p>
+		<p>Gardner</p>
+		<p>Carroll</p>
+		<p>Garner</p>
+		<p>Finn</p>
+		<p>Edelin</p>
+		<p>Gay</p>
+	</div>
+	<script>
+	$( "#searchbar-demo-page-cancel" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#searchbar-demo-page-cancel" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script src="searchbar.js"></script>
+</div><!-- /page -->
+</body>
+</html>

@@ -1,0 +1,51 @@
+
+<div data-role="page" id="virtuallist-normal_2line-star1" class="virtuallist_demo_page">
+	<div data-role="header" data-position="fixed">
+		<h1>Virtual list - 2line-star1</h1>
+	</div>
+	<style type="text/css">
+	#virtuallist-normal_2line-star1_ul > li .ui-li-text-main {
+		max-width:95%;
+		display:inline-block;
+		overflow:hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	#virtuallist-normal_2line-star1_ul > li .ui-li-text-sub2 {
+		max-width:60%;
+		width: auto;
+		margin-right:1em;
+		top: 1.59rem;
+	}
+	</style>
+	<div data-role="content">
+		<script id="tmp-2line-star1" type="text/x-jquery-tmpl">
+			<li class="ui-li-has-multiline">
+				<span class="ui-li-text-main">${NAME}</span>
+				<span class="ui-li-text-sub">${ACTIVE}
+					<img src="00_winset_icon_favorite_on.png" alt="favorite" class="ui-li-icon-sub">
+				</span>
+				<span class="ui-li-text-sub2">${FROM}</span>
+			</li>
+
+			</script>
+
+		<ul id="virtuallist-normal_2line-star1_ul" data-role="virtuallistview" data-template="tmp-2line-star1" data-row="100">
+		</ul>
+	</div>
+	<script>
+	$( "#virtuallist-normal_2line-star1" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#virtuallist-normal_2line-star1" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script type="text/javascript" src="virtuallist.js"></script>
+</div>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+	<script src="../../configure.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+			data-framework-theme="tizen-white"
+			data-framework-viewport-width="device-width">
+	</script>
+	<script src="../../main.js"></script>
+	<title>Tizen UI - Dialogue list</title>
+
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+</head>
+<body>
+<div data-role="page" id="genlist-dialog-edit">
+	<div data-role="header" data-position="fixed">
+		<h1>Dialogue list - Edit mode</h1>
+	</div>
+	<div class="content" data-role="content" data-scroll="y">
+		<ul data-role="listview">
+			<li data-role="list-divider" data-style="dialogue">Contact sample</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Name </div>
+				<input placeholder="Input your name" />
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Tel.</div>
+				<input placeholder="Input your tel number" type="tel" />
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Address </div>
+				<input placeholder="Input your address" />
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">City </div>
+				<input placeholder="Input your city" />
+			</li>
+
+			<li data-role="list-divider" data-style="dialogue">Contact sample ( button )</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Name </div>
+				<input placeholder="Input your name" />
+				<div data-role="button" data-style="edit">Delete</div>
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Tel.</div>
+				<input placeholder="Input your tel number" type="tel" />
+				<div data-role="button" data-style="edit">Delete</div>
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Address </div>
+				<input placeholder="Input your address" />
+				<div data-role="button" data-style="edit">Delete</div>
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">City </div>
+				<input placeholder="Input your city" />
+				<div data-role="button" data-style="edit">Delete</div>
+			</li>
+
+			<li data-role="list-divider" data-style="dialogue">Contact sample ( disable )</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Name </div>
+				<input value="Tizen" disabled />
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Tel.</div>
+				<input value="0000000" disabled />
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">Address </div>
+				<input value="777-77" disabled />
+			</li>
+			<li class="ui-li-dialogue ui-li-dialogue-edit">
+				<div class="ui-edit-title">City </div>
+				<input value="Seoul, Korea" disabled />
+			</li>
+
+		</ul>
+	</div>
+	<script>
+	$( "#genlist-dialog-edit" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist-dialog-edit" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script src="list-edit.js"></script>
+</div>
+</body>
+</html>

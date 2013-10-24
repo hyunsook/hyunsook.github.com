@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+	<script src="../../configure.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+			data-framework-theme="tizen-white"
+			data-framework-viewport-width="device-width">
+	</script>
+	<script src="../../main.js"></script>
+	<title>Tizen UI - Button</title>
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+</head>
+<body>
+
+<div data-role="page" id="ButtonNolist">
+        <div data-role="header" data-position="fixed">
+                <h1>BUTTONS</h1>
+        </div>
+        <div data-role="content">
+		*Default Button
+		<div data-role="button">Button</div>
+		HTML Code:
+		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset" class="formfield" readonly="readonly" disabled><div data-role="button">Button</div></textarea>
+		<br/><br/>
+		*Inline Button, Inline Button With Icon<br/>
+		<div data-role="button" data-inline="true">DataInline True</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-iconpos="right">Icon Text</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-iconpos="left">Icon Text</div>
+		<div data-role="button" data-inline="true" data-icon="favorite" data-style="nobg"></div>
+		<div data-role="button" data-inline="true" data-icon="rename" data-style="circle"></div><br/>
+		 HTML Code:
+                <textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset" readonly="readonly" disabled><div data-role="button" data-inline="true">DataInline True</div>
+<div data-role="button" data-inline="true" data-icon="call" data-iconpos="right">Icon Text</div>
+<div data-role="button" data-inline="true" data-icon="call" data-iconpos="left">Icon Text</div>
+<div data-role="button" data-inline="true" data-icon="favorite" data-style="nobg"></div>
+<div data-role="button" data-inline="true" data-icon="rename" data-style="circle"></div></textarea><br/><br/>
+		*Default Button (A tag)
+		<a href="#buttonTest" data-role="button">A Tag Button</a>
+		HTML Code:
+                <textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"  readonly="readonly" disabled><a href="#buttonTest" data-role="button">A Tag Button</a></textarea>
+		<br/><br/>
+		*Button Icon Position top, bottom (with inline)
+		<div data-role="button" data-icon="call" data-iconpos="top">PositionTop</div><br/>
+		<div data-role="button" data-icon="call" data-iconpos="bottom">PositionBottom</div><br/>
+		<div data-role="button" data-icon="call" data-iconpos="top" data-inline="true">PositionTop</div>
+		<div data-role="button" data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</div><br/>
+		 HTML Code:
+		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"  readonly="readonly" disabled><div data-role="button" data-icon="call" data-iconpos="top">PositionTop</div>
+<div data-role="button" data-icon="call" data-iconpos="bottom">PositionBottom</div>
+<div data-role="button" data-icon="call" data-iconpos="top" data-inline="true">PositionTop</div>
+<div data-role="button" data-icon="call" data-iconpos="bottom" data-inline="true">PositionBottom</div></textarea><br/><br/>
+		*Custom Button:<br/>
+		<div data-role="button" data-inline="true" data-icon="call">0</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-iconpos="top">1</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-iconpos="bottom">2</div>
+		<div data-role="button" data-inline="true" data-icon="call" style="width:150px;height:150px">3</div>
+		<div data-role="button" data-inline="true" data-icon="call" data-style="circle"></div><br/>
+		HTML Code:
+		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"  readonly="readonly" disabled><div data-role="button" data-inline="true" data-icon="call">0</div>
+<div data-role="button" data-inline="true" data-icon="call" data-iconpos="top">1</div>
+<div data-role="button" data-inline="true" data-icon="call" data-iconpos="bottom">2</div>
+<div data-role="button" data-inline="true" data-icon="call" style="width:150px;height:150px">3</div></textarea>
+		CSS Code:<br/>
+		<textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"  readonly="readonly" disabled>.ui-icon-test{
+        background-size: 100% 100%;
+        background-image: url(00_button_call);
+}
+
+.ui-icon-test2{
+        background-position:0% 0%;
+        background-size:50% 50%;
+        background-image: url(00_button_call);
+}</textarea>
+		*Input Type = "Button"
+		<input type="button" value="test button"/>
+		HTML Code:
+                <textarea style="width:80%;padding:1em;background-color:whitesmoke;color:black;border-style:inset"  readonly="readonly" disabled><input type="button" value="test button"/></textarea>
+		<br/><br/>
+		Button No text
+		<div data-role="button" id="button1test" data-corners="false" data-inline="false" data-style="circle"></div>
+		<br/><br/>
+		<div data-role="button" id="button1test2" data-corners="false" data-inline="false" ></div>
+		<br/><br/>
+		<div data-role="button" id="button1test3" data-corners="false" data-inline="true" data-style="circle"></div>
+		<br/><br/>
+		<div data-role="button" id="button1test4" data-corners="false" data-inline="true" ></div>
+	</div>
+	<script>
+	$( "#ButtonNolist" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+			//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#ButtonNolist" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<link rel="stylesheet" href="styles.css" />
+	<script type="text/javascript" src="buttonNolist.js"></script>
+</div>
+</body>
+</html>

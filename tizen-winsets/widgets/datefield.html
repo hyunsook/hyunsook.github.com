@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<script src="../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+	<script src="../configure.js"></script>
+	<script src="../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+			data-framework-theme="tizen-white"
+			data-framework-viewport-width="device-width">
+	</script>
+	<title>Tizen UI - Datefield</title>
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="../icon-tizen.png" />
+</head>
+<body>
+<div data-role="page" id="datetimepicker-demo">
+	<div data-role="header" data-position="fixed">
+		<h1>Date/Time picker</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li data-role="list-divider" data-line="false" class="ui-datetime-text-sub" ><span id="selected-date1"><em>(select a date first)</em></span></li>
+			<li class="ui-li-dialogue ui-datetime">
+				<div class="ui-datetime-text-main">
+					<input type="datetime" name="demo-date" id="demo-date"
+						data-format="MMM dd yyyy	hh:mm tt" value="2012-06-30T00:00:00+09:00" />
+				</div>
+			</li>
+			<li data-role="list-divider" data-line="false"  class="ui-datetime-text-sub" ><span id="selected-date2"><em>(select a date first)</em></span></li>
+			<li class="ui-li-dialogue ui-datetime ui-datetime">
+				<div class="ui-datetime-text-main">
+					<input type="datetime" name="demo-date2" id="demo-date2" />
+				</div>
+			</li>
+			<li data-role="list-divider" data-line="false" class="ui-datetime-text-sub" ><span id="selected-date3"><em>(select a date first)</em></span></li>
+			<li class="ui-li-dialogue ui-datetime ui-datetime">
+				<div class="ui-datetime-text-main">
+					<input type="date" name="demo-date3" value="2012-06-30" id="demo-date3"/>
+				</div>
+			</li>
+			<li data-role="list-divider" data-line="false"  class="ui-datetime-text-sub" ><span id="selected-date4"><em>(select a time first)</em></span> </li>
+			<li class="ui-li-dialogue ui-datetime ui-datetime">
+				<div class="ui-datetime-text-main">
+					<input type="time" name="demo-date4" id="demo-date4" />
+				</div>
+			</li>
+			<li data-role="list-divider" data-line="false"  class="ui-datetime-text-sub" ><span id="selected-date5"><em>(select a date first)</em></span> </li>
+			<li class="ui-li-dialogue ui-datetime ui-datetime">
+				<div class="ui-datetime-text-main">
+					<input data-format="MM/dd/yyyy hh:mm tt" value="2013/1/31 15:08:44" type="datetime" id="demo-date5">
+				</div>
+			</li>
+			<li data-role="list-divider" data-line="false"  class="ui-datetime-text-sub" ><span id="selected-date6"><em>(select a date first)</em></span> </li>
+			<li class="ui-li-dialogue ui-datetime ui-datetime">
+				<div class="ui-datetime-text-main">
+					<input data-format="MMMM/dd/yyyy" value="2013/1/31" type="date" id="demo-date6">
+				</div>
+			</li>
+		</ul>
+	</div><!-- /content -->
+	<script src="datefield.js"></script>
+	<script>
+	$( "#datetimepicker-demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#datetimepicker-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div> <!-- /page -->
+</body>
+</html>
+

@@ -1,0 +1,32 @@
+<div data-role="page" id="genlist-bubble">
+	<div data-role="header" data-position="fixed">
+		<h1>Bubble list (Message bubble)</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-style="bubble">
+			<li class="ui-li-bubble-receive">short receive<span class="ui-li-bubble-time">9:20 PM</span></li>
+			<li class="ui-li-bubble-sent">But I have no choice. I have a big exam tomorrow. (bubble sent)<span class="ui-li-bubble-time">9:26 PM</span></li>
+
+			<li class="ui-li-bubble-receive">Don't worry... I'm free. You're gonna get sick. (bubble receive)<span class="ui-li-bubble-time">9:30 PM</span></li>
+			<li class="ui-li-bubble-date"><span style="">2010. 05. 20 (bubble date)</span></li>
+			<li class="ui-li-bubble-sent">Sorry I'm late. (bubble sent)<span class="ui-li-bubble-time">9:26 PM</span></li>
+			<li class="ui-li-bubble-receive ui-li-bubble-sos">Don't worry... I'm free. You're gonna get sick. (bubble sos)<span class="ui-li-bubble-time">9:30 PM</span></li>
+			<li class="ui-li-bubble-receive"><p>Picture test</p><img src="list-bubble-sample1.png" /><span class="ui-li-bubble-time">9:40 PM</span></li>
+		</ul>
+	</div>
+	<script>
+	$( "#genlist-bubble" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist-bubble" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>
+

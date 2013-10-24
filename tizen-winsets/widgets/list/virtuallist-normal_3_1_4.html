@@ -1,0 +1,41 @@
+<div data-role="page" id="virtuallist-normal_1line-btn1" class="virtuallist_demo_page">
+	<div data-role="header" data-position="fixed">
+		<h1>Virtual list - Normal 1line-btn1</h1>
+	</div>
+	<style type="text/css">
+#virtuallist-normal_1line-btn1_ul li .ui-li-text-main {
+	max-width:62%;
+	display:inline-block;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+#virtuallist-normal_1line-btn1_ul li .ui-btn {
+}
+	</style>
+	<div data-role="content">
+		<script id="tmp-1line-btn1" type="text/x-jquery-tmpl">
+			<li class="ui-li-1line-btn1">
+				<span class="ui-li-text-main">${NAME}</span>
+				<div data-role="button" data-inline="true">${ACTIVE}</div>
+			</li>
+		</script>
+		<ul id="virtuallist-normal_1line-btn1_ul" data-role="virtuallistview" data-template="tmp-1line-btn1" data-row="100">
+		</ul>
+	</div>
+	<script>
+	$( "#virtuallist-normal_1line-btn1" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#virtuallist-normal_1line-btn1" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script type="text/javascript" src="virtuallist.js"></script>
+</div>

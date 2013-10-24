@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<div data-role="page" id="splitview-demo">
+	<div data-role="header" data-position="fixed">
+		<h1>Splitview</h1>
+	</div>
+	<div data-role="content">
+		<div data-role="splitview" data-divider-vertical="true" data-fixed="false" data-ratio="0.5, 0.5">
+			<div class="ui-pane" id="menu" data-scroll="y">
+				<ul data-role="listview">
+					<li><a id="testSetRatio"><h2>Ratio setting</h2></a></li>
+					<li><a id="testGetRatio" href="#splitview_popup" data-rel="popup" data-position-to="window"><h2>Current ratio</h2></a></li>
+					<li><a id="testSetContents"><h2>Set contents of "Up"</h2></a></li>
+					<li><a id="testGetContents" href="#splitview_popup" data-rel="popup" data-position-to="window"><h2>Get contents</h2></a></li>
+					<li><a id="testFixed"><h2>Fixed / Flexible</h2></a></li>
+					<li><a id="testDirection"><h2>Divider: Vertical / Horizontal</h2></a></li>
+					<li><a id="testMaximize"><h2>Maximize "Up" / Restore</h2></a></li>
+				</ul>
+			</div>
+			<div class="ui-pane" id="main" data-scroll="y">
+				<div id="test" data-role="splitview" data-divider-vertical="false" data-ratio="0.6, 0.4">
+					<div class="ui-pane" id="up" data-scroll="y">
+						<h4>"Up" pane</h4>
+					</div>
+					<div class="ui-pane" id="down" data-scroll="y">
+						<h4>"Down" pane</h4>
+					</div>
+				</div>
+			</div>
+
+			<div id="splitview_popup" data-role="popup" class="splitview-popup">
+				<div class="ui-popup-text">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	$( "#splitview-demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#splitview-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+
+	<script>
+	$( document ).ready( function () {
+		var mainSplitview = $( ":jqmData(role='splitview'):first" ),
+			testSplitview = $( "#test" ),
+			fixed = false,
+			dividerVertical = false,
+			maximize = false;
+
+		$( "#testSetRatio" ).bind( "vclick", function () {
+			mainSplitview.splitview( "option", "ratio", [ 0.5, 0.5 ] );
+			testSplitview.splitview( "option", "ratio", [ 0.5, 0.5 ] );
+		});
+
+		$( "#testGetRatio" ).bind( "vclick", function () {
+			var ratio = testSplitview.splitview( "option", "ratio" );
+			$( ".splitview-popup" ).text( "Up : Down = \n" + ratio[ 0 ].toFixed( 2 ) + " : " + ratio[ 1 ].toFixed( 2 ) );
+		});
+
+		$( "#testSetContents" ).bind( "vclick", function () {
+			var element = $( "<div><h4>Changed \"Up\" pane</h4> Contents changed!!</div>" );
+			testSplitview.splitview( "pane", "#up", element );
+		});
+
+		$( "#testGetContents" ).bind( "vclick", function () {
+			var contents = "",
+				upContents = testSplitview.splitview( "pane", "#up" ),
+				downContents = testSplitview.splitview( "pane", "#down" );
+
+			contents = "* Up pane: \n" +
+						( ( typeof upContents === "undefined" || !upContents ) ? "" : upContents[ 0 ].text() ) + "\n" +
+						"* Down pane: \n" +
+						( ( typeof downContents === "undefined" || !downContents ) ? "" : downContents[ 0 ].text() );
+
+			contents = contents.substring(0, 120) + "..." ;
+			$( ".splitview-popup" ).text( contents );
+
+		});
+
+		$( "#testFixed" ).bind( "vclick", function () {
+			fixed = !fixed;
+			mainSplitview.splitview( "option", "fixed", fixed );
+			testSplitview.splitview( "option", "fixed", fixed );
+		});
+
+		$( "#testDirection" ).bind( "vclick", function () {
+			dividerVertical = !dividerVertical;
+			testSplitview.splitview( "option", "dividerVertical", dividerVertical );
+		});
+
+		$( "#testMaximize" ).bind( "vclick", function () {
+			maximize = !maximize;
+			if ( maximize ) {
+				testSplitview.splitview( "maximize", "#up");
+			} else {
+				testSplitview.splitview( "restore" );
+			}
+		});
+	});
+	</script>
+</div>

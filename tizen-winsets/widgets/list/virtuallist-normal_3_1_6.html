@@ -1,0 +1,31 @@
+
+<div data-role="page" id="virtuallist-normal_1line-toggle" class="virtuallist_demo_page">
+	<div data-role="header" data-position="fixed">
+		<h1>VIRTUAL LIST - NORMAL STYLE 1LINE-TOGGLE</h1>
+	</div>
+	<div data-role="content">
+		<script id="tmp-1line-toggle" type="text/x-jquery-tmpl">
+			<li class="ui-li-1line-toggle">
+				<span class="ui-li-text-main">${NAME}</span>
+				<div data-role="toggleswitch"/></div>
+			</li>
+		</script>
+		<ul id="virtuallist-normal_1line-toggle_ul" data-role="virtuallistview" data-template="tmp-1line-toggle" data-row="100">
+		</ul>
+	</div>
+	<script>
+	$( "#virtuallist-normal_1line-toggle" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#virtuallist-normal_1line-toggle" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script type="text/javascript" src="virtuallist.js"></script>
+</div>

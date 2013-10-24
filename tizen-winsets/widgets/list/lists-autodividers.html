@@ -1,0 +1,50 @@
+	<div data-role="page" id="page-list-autodivider">
+
+		<div data-role="header" data-position="fixed">
+			<h1>Autodividers</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">
+			<ul data-role="listview" data-autodividers="true">
+				<li>Adam Kinkaid</li>
+				<li>Alex Wickerham</li>
+				<li>Avery Johnson</li>
+				<li>Bob Cabot</li>
+				<li>Caleb Booth</li>
+				<li>Christopher Adams</li>
+				<li>Culver James</li>
+				<li>David Walsh</li>
+				<li>Drake Alfred</li>
+				<li>Elizabeth Bacon</li>
+				<li>Emery Parker</li>
+				<li>Enid Voldon</li>
+				<li>Francis Wall</li>
+				<li>Graham Smith</li>
+				<li>Greta Peete</li>
+				<li>Harvey Walls</li>
+				<li>Mike Farnsworth</li>
+				<li>Murray Vanderbuilt</li>
+				<li>Nathan Williams</li>
+				<li>Paul Baker</li>
+				<li>Pete Mason</li>
+				<li>Rod Tarker</li>
+				<li>Sawyer Wakefield</li>
+			</ul>
+		</div><!-- /content -->
+		<script>
+		$( "#page-list-autodivider" ).on( "pageshow" , function() {
+			$( window ).on( "tizenhwkey", function ( ev ) {
+				if ( ev.originalEvent.keyName === "back" ) {
+					//bind callbacks to the H/W keys
+					window.history.back();
+				}
+			});
+		});
+		$( "#page-list-autodivider" ).on( "pagebeforehide" , function() {
+			//unbind callbacks to the H/W keys
+			$( window ).off( "tizenhwkey" );
+		});
+		</script>
+
+	</div><!-- /page -->
+

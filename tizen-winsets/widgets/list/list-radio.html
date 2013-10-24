@@ -1,0 +1,73 @@
+<div data-role="page" id="genlist-radio">
+	<div data-role="header" data-position="fixed">
+		<h1>Radio button lists</h1>
+	</div>
+	<div class="content" data-role="content" data-scroll="y">
+		<form>
+		<ul data-role="listview">
+			<li class="ui-li-has-radio ui-list-link">
+				<a href="#">
+					<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked"/>
+				Radio</a>
+			</li>
+			<li class="ui-li-has-radio ui-list-link">
+				<a href="#">
+					<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"/>
+				Radio 2</a>
+			</li>
+			<li class="ui-li-has-radio ui-list-link">
+				<a href="#">
+					<input type="radio" name="radio-choice-1" id="radio-choice-3" value="choice-3"/>
+				Radio3</a>
+			</li>
+			<li class="ui-li-has-radio">
+				<input type="radio" name="radio-choice-1" id="radio-choice-4" value="choice-4"/>
+				Radio Item 4
+				<div data-role="button" data-inline="true" data-icon="plus" data-style="circle"></div>
+			</li>
+			<li class="ui-li-has-radio">
+				<input type="radio" name="radio-choice-1" id="radio-choice-5" value="choice-5"/>
+				<img src="thumbnail.jpg" alt="icon" class="ui-li-bigicon">
+				Radio Item 5
+			</li>
+			<li class="ui-li-has-radio">
+				<input type="radio" name="radio-choice-1" id="radio-choice-6" value="choice-6"/>
+				Radio Item 6
+			</li>
+			<li class="ui-li-has-radio">
+				<input type="radio" name="radio-choice-1" id="radio-choice-7" value="choice-7"/>
+				Radio Item 7
+			</li>
+			<li class="ui-li-has-radio">
+				<input type="radio" name="radio-choice-1" id="radio-choice-8" value="choice-8"/>
+				Radio Item 8
+			</li>
+			<li class="ui-li-has-radio">
+				<input type="radio" name="radio-choice-1" id="radio-choice-9" value="choice-9"/>
+				Radio Item 9
+				<div data-role="button" data-inline="true" data-icon="plus" data-style="circle"></div>
+			</li>
+			<li class="ui-li-has-radio">
+				<input type="radio" name="radio-choice-1" id="radio-choice-10" value="choice-10"/>
+				Radio Item 10
+				<img src="thumbnail.jpg" alt="icon" class="ui-li-bigicon">
+			</li>
+		</ul>
+	</form>
+	</div>
+	<script>
+	$( "#genlist-radio" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist-radio" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>
+

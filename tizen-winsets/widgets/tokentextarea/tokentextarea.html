@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+		<script src="../../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+		<script src="../../configure.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+				data-framework-theme="tizen-white"
+				data-framework-viewport-width="device-width">
+		</script>
+		<script src="../../main.js"></script>
+		<title>Tizen UI - Tokentextarea</title>
+
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="../../icon-tizen.png" />
+	</head>
+	<body>
+		<div data-role="page" id="tokentextarea" data-dom-cache="true">
+			<div data-role="header" data-position="fixed">
+				<h1>Token text area</h1>
+			</div>
+			<div data-role="content">
+				<div data-role="tokentextarea" data-link="addressbook.html"></div>
+				<br>
+				<ul data-role="listview">
+					<li><a id='MBTaddItemTest'>Append Item</a></li>
+					<li><a id='MBTremoveItemTest'>Remove first Item</a></li>
+					<li><a id='MBTinputTextTest'>Input 'Hello'</a></li>
+					<li><a id='MBTgetInputTextTest' href='#tta_popup' data-rel='popup' data-position-to='window'>Get input text</a></li>
+					<li><a id='MBTselectItemTest'>Select 1</a></li>
+					<li><a id='MBTgetSelectedItemTest' href='#tta_popup' data-rel='popup' data-position-to='window'>Selected item</a></li>
+					<li><a id='MBTlengthTest' href='#tta_popup' data-rel='popup' data-position-to='window'>Length</a></li>
+					<li><a id='MBTfocusOutTest'>Grouping On</a></li>
+					<li><a id='MBTfocusInTest'>Grouping Off</a></li>
+					<li><a id='MBTremoveAllItemTest'>Remove All Item</a></li>
+				</ul>
+
+				<div id="tta_popup" data-role="popup" class="tta-popup">
+					<div class="ui-popup-text">
+					</div>
+					<div class="ui-popup-button-bg">
+						<a data-role="button" data-rel="back" data-inline="true">OK</a>
+					</div>
+				</div>
+			</div>
+			<script>
+			$( "#tokentextarea" ).on( "pageshow" , function() {
+				$( window ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#tokentextarea" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( window ).off( "tizenhwkey" );
+			});
+			</script>
+			<script src="tokentextarea-demo.js"></script>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+	<body>
+
+
+<div data-role="page" id="list">
+	<div data-role="header" data-position="fixed">
+		<h1>List</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li data-role="list-divider">Item styles</li>
+			<li><a href="list-normal_anchor.html">Normal lists add anchor</a></li>
+			<li><a href="list-normal_no_anchor.html">Normal lists no anchor</a></li>
+			<li data-role="list-divider">Divider styles</li>
+			<li><a href="list-divider_normal.html">Normal divider</a></li>
+			<li><a href="list-divider_groupped.html">Groupped divider</a></li>
+			<li><a href="list-divider_check.html">Check divider</a></li>
+
+			<li data-role="list-divider">Etc...</li>
+			<li><a href="list-bubble.html">bubble</a></li>
+			<li><a href="list-collapsible.html">collapsible list (jqm1.2)</a></li>
+			<li><a href="list-radio.html">Radio Button list</a></li>
+			<li><a href="list-dialogue.html">Dialogue list</a></li>
+			<li><a href="list-dialogue-edit.html">Dialogue list ( Edit mode )</a></li>
+			<li><a href="list-swipe.html">Swipe list</a></li>
+			<li><a href="list-extendable.html">Extendable list</a></li>
+			<li><a href="list-vi.html">List vi</a></li>
+			<li data-role="list-divider">Virtual list</li>
+			<li><a href="virtuallist-normal.html">Virtual List Normal Style 1line</a></li>
+			<li><a href="virtuallist-normal_3_1_4.html">Virtual List Normal Style 1line-btn1</a></li>
+			<li><a href="virtuallist-normal_3_1_14.html">Virtual List Normal Style 1line-bigicon5</a></li>
+			<li><a href="virtuallist-normal_3_2_7.html">Virtual List Normal Style 2line-star1</a></li>
+		</ul>
+	</div>
+	<script>
+	$( "#list" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#list" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>
+
+
+
+<div data-role="page" id="3">
+	<div data-role="header" data-position="fixed">
+		<h1></h1>
+	</div>
+	<div data-role="content">
+		<ul-data-role="listview">
+		</ul>
+	</div>
+	<script>
+	$( "#3" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#3" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>
+
+
+</body>
+</html>

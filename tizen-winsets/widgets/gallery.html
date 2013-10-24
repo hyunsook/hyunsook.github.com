@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+	<script src="../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+	<script src="../configure.js"></script>
+	<script src="../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+	<script src="../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+			data-framework-theme="tizen-white"
+			data-framework-viewport-width="device-width">
+	</script>
+	<title>Tizen UI - Gallery</title>
+	<!-- for compatibility test -->
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="../icon-tizen.png" />
+</head>
+<body>
+<div data-role="page" id="gallery-demo">
+	<div data-role="header" data-position="fixed">
+		<h1>Gallery</h1>
+	</div>
+	<div data-role="content" data-scroll="none">
+		<div data-role="gallery" id="gallery" data-vertical-align="middle">
+		</div>
+	</div> <!-- /content -->
+	<div data-role="footer" data-position ="fixed">
+		<div data-role="tabbar">
+			<ul>
+				<li id="gallery-add"><a href="#">ADD</a></li>
+				<li id="gallery-del"><a href="#">DELETE</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div>
+	<script src="gallery.js"></script>
+	<script>
+	$( "#gallery-demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#gallery-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div> <!-- /page -->
+</body>
+</html>

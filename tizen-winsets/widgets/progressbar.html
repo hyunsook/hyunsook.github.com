@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8" >
+		<script src="../tizen-web-ui-fw/latest/js/jquery.min.js"></script>
+		<script src="../configure.js"></script>
+		<script src="../tizen-web-ui-fw/latest/js/tizen-web-ui-fw-libs.min.js"></script>
+		<script src="../tizen-web-ui-fw/latest/js/tizen-web-ui-fw.min.js"
+				data-framework-theme="tizen-white"
+				data-framework-viewport-width="device-width">
+		</script>
+		<script src="../main.js"></script>
+		<title>Tizen UI - Progressbar</title>
+
+		<!-- for compatibility test -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-icon" href="../icon-tizen.png" />
+	</head>
+	<body>
+		<div data-role="page" id="progressbar-demo">
+			<div data-role="header" data-position="fixed">
+				<h1>Progress bar</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview">
+					<li data-role="list-divider">Progress bar</li>
+					<li>When you click progress bar, it starts updating values...</li>
+					<li id="progressbarTest" ><div data-role="progressbar" id="progressbar"></div></li>
+
+					<li data-role="list-divider">Progress pending</li>
+					<li id="pendingTest" ><div data-role="progress" data-style="pending" id="pending"></div></li>
+
+					<li data-role="list-divider">Progress ~ing</li>
+					<li id="progressingTest" >
+						<div data-role="progress" data-style="circle" id="progressing" style="right:10px"></div>
+						Loading..
+					</li>
+				</ul>
+			</div> <!-- /content -->
+			<script>
+			$( "#progressbar-demo" ).on( "pageshow" , function() {
+				$( window ).on( "tizenhwkey", function ( ev ) {
+					if ( ev.originalEvent.keyName === "back" ) {
+						//bind callbacks to the H/W keys
+						window.history.back();
+					}
+				});
+			});
+			$( "#progressbar-demo" ).on( "pagebeforehide" , function() {
+				//unbind callbacks to the H/W keys
+				$( window ).off( "tizenhwkey" );
+			});
+			</script>
+			<script src="progressbar.js"></script>
+		</div> <!-- /page -->
+	</body>
+</html>

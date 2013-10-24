@@ -1,0 +1,32 @@
+<div data-role="page" id="genlist_extendable_page">
+	<script id="tmp-1line" type="text/x-jquery-tmpl">
+		<li class="ui-li-1line"><span class="ui-li-text-main">${NAME}</span></li>
+	</script>
+	<script id="tmp_load_more" type="text/x-jquery-tmpl">
+		<li class="ui-li-1line" style="text-align:center; margin-right:13px auto">
+			<div data-role="button">Load ${NUM_MORE_ITEMS} more items</div>
+		</li>
+	</script>
+
+	<div data-role="header" data-position="fixed">
+		<h1>Extendable list</h1>
+	</div>
+	<div data-role="content">
+		<ul id = "extendable_list_main" data-role="extendablelist" data-extenditems="50" data-template="tmp-1line"></ul>
+	</div>
+	<script>
+	$( "#genlist_extendable_page" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist_extendable_page" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+	<script type="text/javascript" src="list-extendable.js"></script>
+</div>

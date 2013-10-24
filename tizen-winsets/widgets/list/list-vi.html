@@ -1,0 +1,35 @@
+<div data-role="page" id="list_vi_demo">
+	<script type="text/javascript">
+		var add = function() {
+			$("#listvi").listview( 'addItem', '<li>Test<div data-role="button" data-inline="true">TEST</div></li>', $("#listvi li").length );
+		}
+		var del = function() {
+			$("#listvi").listview( 'removeItem' , $("#listvi li").length - 1 );
+		}
+	</script>
+	<div data-role="header" data-position="fixed">
+		<h1>LIST VI</h1>
+		<div data-role="button" onclick="del()" data-inline="true">Del</div>
+		<div data-role="button" onclick="add()" data-inline="true">Add</div>
+	</div>
+	<div class="content" data-role="content" data-scroll="y">
+		<ul id="listvi" data-role="listview">
+			<li><a href="#">Normal lists</a></li>
+			<li><a href="#">Normal lists</a></li>
+		</ul>
+	</div>
+	<script>
+	$( "#list_vi_demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#list_vi_demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>

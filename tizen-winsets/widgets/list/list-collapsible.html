@@ -1,0 +1,78 @@
+<div data-role="page" id="genlist-expandable">
+	<div data-role="header" data-position="fixed">
+		<h1>Collapsible list (JQM)</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li data-style="dialogue">1line</li>
+		</ul>
+		<div data-role="collapsible" data-inset="false">
+			<h6>1line</h6>
+			<ul data-role="listview">
+				<li data-style="dialogue">2line</li>
+			</ul>
+		</div>
+		<div data-role="collapsible" data-inset="false">
+			<h6>1line</h6>
+			<ul data-role="listview">
+				<li data-style="dialogue">exp1-sub 1</li>
+				<li data-style="dialogue">exp1-sub 2</li>
+				<li data-style="dialogue">exp1-sub 3</li>
+				<li data-style="dialogue">exp1-sub 4</li>
+				<li data-style="dialogue">exp1-sub 5</li>
+			</ul>
+			<div data-role="collapsible" data-inset="false">
+				<h6>exp1-sub 2 (exp2)</h6>
+				<ul data-role="listview">
+					<li data-style="dialogue">exp2-sub 1</li>
+					<li data-style="dialogue">exp2-sub 2</li>
+				</ul>
+				<div data-role="collapsible" data-inset="false">
+					<h6>exp2-sub 3</h6>
+					<ul data-role="listview">
+						<li data-style="dialogue">
+							<span class="ui-li-text-main">2line</span>
+							<span class="ui-li-text-sub">Subtext</span>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+		</div>
+		<ul data-role="listview">
+			<li data-style="dialogue">level 1</li>
+			<li data-style="expandable" id="exp4">
+				<span class="ui-li-text-main">2line-sub-main</span>
+				<span class="ui-li-text-sub">Subtext</span>
+			</li>
+			<li class="ui-li-has-radio" data-style="expandable" id="exp5">
+				<form>
+					<input type="radio" name="collapsible-radio" />
+					<span class="ui-li-text-main">2line-radio1</span>
+					<span class="ui-li-text-sub">Subtext</span>
+				</form>
+			</li>
+			<li data-style="data-expandable" id="exp6">
+				<span class="ui-li-color-bar" style="background-color:rgba(72, 136, 42, 1);"></span>
+				<span class="ui-li-text-main">2line-colorbar3</span>
+				<span class="ui-li-text-sub">Subtext</span>
+<!--				<div data-role="button" data-inline="true" data-icon="call" data-style="circle"></div> -->
+				<img src="thumbnail.jpg" alt="icon" class="ui-li-bigicon">
+			</li>
+		</ul>
+	</div>
+	<script>
+	$( "#genlist-expandable" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#genlist-expandable" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>

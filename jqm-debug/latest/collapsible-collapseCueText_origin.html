@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapsible</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Default value of the collapseCueText option</h2>
+
+	<div id="target" data-role="collapsible" data-collapsed="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result"></span><br/>
+	Status: <span id="status"></span><br/>
+
+	<hr />
+	<a href="javascript:getCollapseCueText(true);">1. Get the collapseCueText</a><br/>
+	<a href="javascript:setCollapseCueText();">2. Change the collapseCueText</a><br/>
+	<a href="javascript:getCollapseCueText(false);">3. Get the collapseCueText again</a><br/>
+
+	<script>
+		function getCollapseCueText(first) {
+			var result = $("#result");
+			result.html("<font color='blue'>" + $("#target").collapsible( "option", "collapseCueText" ) + "</font>");
+			if ( first ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
+			}
+			$("#status").html("<font color='blue'>" + $("#target .ui-collapsible-heading-status").text() + "</font>");		
+		}
+
+		function setCollapseCueText() {
+			$("#target").collapsible( "option", "collapseCueText", "collapses with a click" );
+			$("#result").html("<font color='blue'>The collapseCueText option is changed.</font>");
+		}
+	</script>
+
+</div>
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

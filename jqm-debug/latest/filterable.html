@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>Filterable - jQM 1.4.0-beta</title>
-		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.css"></script>
 		<script>
@@ -22,19 +22,19 @@
 					alert("read value (input) : " + value );
 				}).delegate(".writeTheme", "click", function (event) {
 					$(".ui-page-active [data-filter='true']").filterable( "option", "filterTheme", "a" );
-					return true;
+					$(".ui-page-active [data-filter='true']").filterable( "refresh" );
 				}).delegate(".writePlaceholder", "click", function (event) {
 					$(".ui-page-active [data-filter='true']").filterable( "option", "filterPlaceholder", "find items." );
 				}).delegate(".refresh", "click", function (event) {
 					$(".ui-page-active [data-filter='true']").filterable( "refresh" );
 				}).delegate(".toggleType", "click", function (event) {
-					var value = $(".ui-page-active [data-filter='true']").filterable( "option", "filterRevel" );
+					var value = $(".ui-page-active [data-filter='true']").filterable( "option", "filterReveal" );
 					if ( value == true ) {
 						console.log( value + " -> false ..... ");
-						$(".ui-page-active [data-filter='true']").filterable( "option", "filterRevel", false );
+						$(".ui-page-active [data-filter='true']").filterable( "option", "filterReveal", false );
 					} else  {
 						console.log( value + " -> true ..... ");
-						$(".ui-page-active [data-filter='true']").filterable( "option", "filterRevel", true );
+						$(".ui-page-active [data-filter='true']").filterable( "option", "filterReveal", true );
 					}
 					$(".ui-page-active [data-filter='true']").filterable( "refresh" );
 				})

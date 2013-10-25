@@ -21,46 +21,46 @@
 <h2>Collapsible content</h2>
 
 	<div data-role="collapsible">
-		<h3>I'm a header</h3>
-		<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+		<h3>header</h3>
+		<p>collapsible contents</p>
 	</div>
 
 	<div data-role="collapsible">
-		<legend>I'm a legend</legend>
-		<p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
+		<legend>legend</legend>
+		<p>collapsible contents</p>
 	</div>
 
 <h2>Initially expanded collapsibles</h2>
 	<div data-role="collapsible" data-collapsed="false">
-		<h3>I'm a header</h3>
-		<p>I'm the collapsible content. I'm expanded by default because I have the "collapsed" state set to false.</p>
+		<h3>header</h3>
+		<p>collapsible contents</p>
 	</div>
 
 	<div data-role="collapsible" data-collapsed="false">
-		<legend>I'm a legend</legend>
-		<p>I'm the collapsible content. I'm expanded by default because I have the "collapsed" state set to false.</p>
+		<legend>legend</legend>
+		<p>collapsible contents</p>
 	</div>
 
 <h2>Non-inset collapsibles</h2>
 	<div data-role="collapsible" data-inset="false">
-		<h3>I'm a header</h3>
-		<p>I'm the collapsible content. I'm expanded by default because I have the "collapsed" state set to false.</p>
+		<h3>header</h3>
+		<p>collapsible contents</p>
 	</div>
 
 	<div data-role="collapsible" data-inset="false">
-		<legend>I'm a legend</legend>
-		<p>I'm the collapsible content. I'm expanded by default because I have the "collapsed" state set to false.</p>
+		<legend>legend</legend>
+		<p>collapsible contents</p>
 	</div>
 
 <h2>Mini</h2>
 	<div data-role="collapsible" data-mini="true">
-		<h3>I'm a header</h3>
-		<p>I'm the collapsible content. I'm expanded by default because I have the "collapsed" state set to false.</p>
+		<h3>header</h3>
+		<p>collapsible contents</p>
 	</div>
 
 	<div data-role="collapsible" data-mini="true">
-		<legend>I'm a legend</legend>
-		<p>I'm the collapsible content. I'm expanded by default because I have the "collapsed" state set to false.</p>
+		<legend>legend</legend>
+		<p>collapsible contents</p>
 	</div>
 
 <h2>Custom icons</h2>
@@ -71,7 +71,7 @@
 
 <h2>Icon positioning</h2>
 	<div data-role="collapsible" data-iconpos="right">
-		<h3>I'm a header</h3>
+		<h3>header</h3>
 		<p><code>data-iconpos="right"</code></p>
 	</div>
 
@@ -89,12 +89,12 @@
 
 <h2>Nested Collapsibles</h2>
 	<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="a">
-		<h3>I'm a header</h3>
+		<h3>header</h3>
 		<p>I'm the collapsible content. By default I'm open and displayed on the page, but you can click the header to hide me.</p>
 
 		<div data-role="collapsible" data-theme="b" data-content-theme="a">
-			<h3>I'm a nested collapsible with a child collapsible</h3>
-			<p>I'm a child collapsible.</p>
+			<h3>nested collapsible with a child collapsible</h3>
+			<p>child collapsible.</p>
 				<div data-role="collapsible" data-theme="b" data-content-theme="a">
 					<h3>Nested inside again.</h3>
 					<p>Three levels deep now.</p>
@@ -138,17 +138,57 @@
 
 <h2>Pre-rendered markup</h2>
 	<div data-role="collapsible" data-enhanced="true" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-collapsed" data-collapsed-icon="arrow-r">
-	<h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
-		<a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-arrow-r">
-			Pre-rendered collapsible
-			<span class="ui-collapsible-heading-status"> click to expand contents</span>
-		</a>
-	</h2>
-	<div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
-		<p>This is the collapsible-content</p>
+		<h2 class="ui-collapsible-heading ui-collapsible-heading-collapsed">
+			<a href="#" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left ui-icon-arrow-r">
+				Pre-rendered collapsible
+				<span class="ui-collapsible-heading-status"> click to expand contents</span>
+			</a>
+		</h2>
+		<div class="ui-collapsible-content ui-collapsible-content-collapsed" aria-hidden="true">
+			<p>This is the collapsible-content</p>
+		</div>
 	</div>
 
 <h2>Options:collapseCueText</h2>
+	<div data-role="collapsible" data-collapse-cue-text="collapses with a click" data-collapsed="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
+	<h3>Initialize with { collapseCueText: "collapse with a click" } </h3>
+		<div id="collapseCueText0" data-role="collapsible" data-collapsed="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		Status: <span id="result_collapseCueText0"></span><br/>
+		<script>
+			$("#collapseCueText0").on("collapsiblecreate", function() {
+				$("#collapseCueText0").collapsible( { collapseCueText: "collapse with a click" } );
+				$("#result_collapseCueText0").html("<font color='blue'>" + $("#collapseCueText0 .ui-collapsible-heading-status").text() + "</font>");
+			});
+		</script>
+
+	<h4>Get/Set the collapseCueText option</h4>
+	<div id="collapseCueText1" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_collapseCueText1"></span><br/>
+
+	<hr />
+	<a href="javascript:getCollapseCueText1Option();">1. Get</a><br/>
+	<a href="javascript:setCollapseCueText1Option();">2. Set</a><br/>
+	<a href="javascript:getCollapseCueText1Option();">3. Get again</a><br/>
+
+	<script>
+		function getCollapseCueText1Option() {
+			$("#result_collapseCueText1").html("<font color='blue'>" + $("#collapseCueText1").collapsible( "option", "collapseCueText") + "</font>");
+		}
+		function setCollapseCueText1Option() {
+			$("#collapseCueText1").collapsible( "option", "collapseCueText", "collapses with a click" );
+			$("#result_collapseCueText1").html("<font color='blue'>The collapseCueText option is applied.</font>");
+		}
+	</script>
 
 </div>
 </div><!-- /content -->

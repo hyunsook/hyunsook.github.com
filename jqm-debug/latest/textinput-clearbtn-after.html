@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="./jquery.mobile-git-clearbtn-modified.js"></script>
+		
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+		<script>
+			$( document ).on("click", ".toggleClearBtn", function ( event ) {
+				var $input = $("#clearBtnInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				value = $input.textinput("option", "clearBtn");
+				msg = value = value === true ? true : false;
+				$input.textinput("option", "clearBtn", !value );
+				msg +=  "->" + $input.textinput("option", "clearBtn");
+				$container.find(".toggleStatus").text(msg);
+				$input.textinput("refresh");
+				if ( $container.find(".ui-input-clear").length !== 0 ) {
+					$container.find( ".status" ).text("true").css("color", "blue");
+				} else {
+					$container.find( ".status" ).text("false").css("color", "red");
+				}
+			});
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page" data-theme="a" id="optionPage">
+			<div data-role="header" >
+				<h1>Default TextInput</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-left" data-icon="back">Back</a>
+			</div>
+			<div data-role="content">
+				<H1>Option Test</H1>
+				
+				<div class="container">
+					<label for="miniInput"><h1>Option - clearBtn:</h1></label>
+					<input type="text" id="clearBtnInput" value="This is a message." style ="font-weight:bold;"/>
+					<a data-role="button" class="toggleClearBtn"> toggleClearBtn  </a>
+					<p style="font-weight : bold ">status change : <span class="toggleStatus">-</span> <br> it has ui-input-clear : <span class="status">-</span></p>
+				</div><br>
+				
+			</div>
+		</div>	<!-- page theme a -->
+		
+	</body>
+</html>

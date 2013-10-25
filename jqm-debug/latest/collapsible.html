@@ -160,20 +160,25 @@
 			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
-		Status: <span id="result_collapseCueText0"></span><br/>
+		Status: <span id="status_collapseCueText0"></span><br/>
 		<script>
 			$("#collapseCueText0").on("collapsiblecreate", function() {
 				$("#collapseCueText0").collapsible( { collapseCueText: "collapse with a click" } );
-				$("#result_collapseCueText0").html("<font color='blue'>" + $("#collapseCueText0 .ui-collapsible-heading-status").text() + "</font>");
+				printStatus( "collapseCueText0", "status_collapseCueText0" );
 			});
+
+			function printStatus( el, status ) {
+				$("#" + status).html("<font color='blue'>" + $("#" + el + " .ui-collapsible-heading-status").text() + "</font>");				
+			}
 		</script>
 
 	<h4>Get/Set the collapseCueText option</h4>
-	<div id="collapseCueText1" data-role="collapsible">
+	<div id="collapseCueText1" data-role="collapsible" data-collapsed="false">
 		<h3>header</h3>
 		<p>collapsible contents</p>
 	</div>
 	<span id="result_collapseCueText1"></span><br/>
+	Status: <span id="status_collapseCueText1"></span><br/>
 
 	<hr />
 	<a href="javascript:getCollapseCueText1Option();">1. Get</a><br/>
@@ -183,10 +188,11 @@
 	<script>
 		function getCollapseCueText1Option() {
 			$("#result_collapseCueText1").html("<font color='blue'>" + $("#collapseCueText1").collapsible( "option", "collapseCueText") + "</font>");
+			printStatus( "collapseCueText1", "status_collapseCueText1" );
 		}
 		function setCollapseCueText1Option() {
 			$("#collapseCueText1").collapsible( "option", "collapseCueText", "collapses with a click" );
-			$("#result_collapseCueText1").html("<font color='blue'>The collapseCueText option is applied.</font>");
+			$("#result_collapseCueText1").html("<font color='blue'>The collapseCueText option is changed.</font>");
 		}
 	</script>
 

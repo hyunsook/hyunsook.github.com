@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Listview</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script>
+		// test option: filterCallback
+		$( document ).on( "mobileinit", function() {
+			$.mobile.listview.prototype.options.filterCallback = function( text, searchValue ) {
+				console.log( "filterCallback:" + text + ", " + searchValue );
+			};
+		});
+	</script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>-->
+	<!--<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"></link>-->
+
+</head>
+<body>
+
+<div data-role="page" id="listviewFront">
+	<div data-role="header" data-position="fixed">
+		<h1>Listview</h1>
+	</div>
+
+	<div data-role="content">
+		<ul id="filter-list" data-role="listview" data-inset="true" >
+			<li><a href="#listviewNormal">Default</a></li>
+			<li><a href="#listviewAPI">API</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<div data-role="page" id="listviewNormal">
+	<div data-role="header" data-position="fixed">
+		<a href="#listviewFront" class="hide-loading ui-btn-left" data-icon="back">Back</a>
+		<h1>Listview - Default</h1>
+		<a href="#" class="hide-loading ui-btn-right" data-icon="refresh">Refresh</a>
+	</div>
+	<div data-role="content">
+		<h2>Basic linked lists</h2>
+		<ul data-role="listview">
+			<li><a href="#">Acura</a></li>
+			<li><a href="#">Audi</a></li>
+			<li><a href="#">BMW</a></li>
+		</ul>
+		<br>
+
+		<h2>Numbered lists</h2>
+		<ol data-role="listview">
+			<li><a href="#">The Godfather</a></li>
+			<li><a href="#">Inception</a></li>
+			<li><a href="#">The Good, the Bad and the Ugly </a></li>
+		</ol>
+		<br>
+
+		<h2>Read-only lists</h2>
+			<h3>Simple list:no inset</h3>
+			<ul data-role="listview">
+				<li>Acura</li>
+				<li>Audi</li>
+				<li>BMW</li>
+				<li>Cadillac</li>
+				<li>Ferrari</li>
+			</ul>
+
+			<h3>Simple list:inset</h3>
+			<ul data-role="listview" data-inset="true">
+				<li>Acura</li>
+				<li>Audi</li>
+				<li>BMW</li>
+				<li>Cadillac</li>
+				<li>Ferrari</li>
+			</ul>
+
+			<h3>Count bubbles:no inset</h3>
+			<ul data-role="listview">
+				<li>Inbox <span class="ui-li-count">12</span></li>
+				<li>Outbox <span class="ui-li-count">0</span></li>
+				<li>Drafts <span class="ui-li-count">4</span></li>
+				<li>Sent <span class="ui-li-count">328</span></li>
+				<li>Trash <span class="ui-li-count">62</span></li>
+			</ul>
+
+			<h3>Count bubbles:inset</h3>
+			<ul data-role="listview" data-inset="true">
+				<li>Inbox <span class="ui-li-count">12</span></li>
+				<li>Outbox <span class="ui-li-count">0</span></li>
+				<li>Drafts <span class="ui-li-count">4</span></li>
+				<li>Sent <span class="ui-li-count">328</span></li>
+				<li>Trash <span class="ui-li-count">62</span></li>
+			</ul>
+
+			<h3>Numbered list:no inset</h3>
+			<ol data-role="listview">
+				<li>The Godfather</li>
+				<li>Inception</li>
+				<li>The Good, the Bad and the Ugly </li>
+				<li>Pulp Fiction</li>
+				<li>Schindler's List</li>
+			</ol>
+
+			<h3>Numbered list:inset</h3>
+			<ol data-role="listview" data-inset="true">
+				<li>The Godfather</li>
+				<li>Inception</li>
+				<li>The Good, the Bad and the Ugly </li>
+				<li>Pulp Fiction</li>
+				<li>Schindler's List</li>
+			</ol>
+
+			<h3>Divided, formatted content:no inset</h3>
+			<ul data-role="listview">
+				<li>
+					<h3>Stephen Weber</h3>
+					<p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+					<p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+					<p class="ui-li-aside"><strong>6:24</strong>PM</p>
+				</li>
+				<li>
+					<h3>jQuery Team</h3>
+					<p><strong>Boston Conference Planning</strong></p>
+					<p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
+					<p class="ui-li-aside"><strong>9:18</strong>AM</p>
+				</li>
+			</ul>
+
+			<h3>Divided, formatted content:inset</h3>
+			<ul data-role="listview" data-inset="true">
+				<li>
+					<h3>Stephen Weber</h3>
+					<p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+					<p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+					<p class="ui-li-aside"><strong>6:24</strong>PM</p>
+				</li>
+				<li>
+					<h3>jQuery Team</h3>
+					<p><strong>Boston Conference Planning</strong></p>
+					<p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
+					<p class="ui-li-aside"><strong>9:18</strong>AM</p>
+				</li>
+			</ul>
+
+			<h3>Icon list:no inset</h3>
+			<ul data-role="listview">
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/gf.png" alt="France" class="ui-li-icon">France <span class="ui-li-count">4</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/de.png" alt="Germany" class="ui-li-icon">Germany <span class="ui-li-count">4</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/gb.png" alt="Great Britain" class="ui-li-icon">Great Britain <span class="ui-li-count">0</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/fi.png" alt="Finland" class="ui-li-icon">Finland <span class="ui-li-count">12</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/sj.png" alt="Norway" class="ui-li-icon">Norway <span class="ui-li-count">328</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/us.png" alt="United States" class="ui-li-icon">United States <span class="ui-li-count">62</span></li>
+			</ul>
+
+			<h3>Icon list:inset</h3>
+			<ul data-role="listview" data-inset="true">
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/gf.png" alt="France" class="ui-li-icon">France <span class="ui-li-count">4</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/de.png" alt="Germany" class="ui-li-icon">Germany <span class="ui-li-count">4</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/gb.png" alt="Great Britain" class="ui-li-icon">Great Britain <span class="ui-li-count">0</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/fi.png" alt="Finland" class="ui-li-icon">Finland <span class="ui-li-count">12</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/sj.png" alt="Norway" class="ui-li-icon">Norway <span class="ui-li-count">328</span></li>
+				<li><img src="http://api.jquerymobile.com/resources/listview/images/us.png" alt="United States" class="ui-li-icon">United States <span class="ui-li-count">62</span></li>
+			</ul>
+
+			<h3>Thumbnail list:no inset</h3>
+			<ul data-role="listview">
+				<li>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-bb.jpg" />
+					<h3>Broken Bells</h3>
+					<p>Broken Bells</p>
+				</li>
+				<li>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-hc.jpg" />
+					<h3>Warning</h3>
+					<p>Hot Chip</p>
+				</li>
+				<li>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-p.jpg" />
+					<h3>Wolfgang Amadeus Phoenix</h3>
+					<p>Phoenix</p>
+				</li>
+			</ul>
+
+
+			<h3>Thumbnail list:inset</h3>
+			<ul data-role="listview" data-inset="true">
+				<li>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-bb.jpg" />
+					<h3>Broken Bells</h3>
+					<p>Broken Bells</p>
+				</li>
+				<li>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-hc.jpg" />
+					<h3>Warning</h3>
+					<p>Hot Chip</p>
+				</li>
+				<li>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-p.jpg" />
+					<h3>Wolfgang Amadeus Phoenix</h3>
+					<p>Phoenix</p>
+				</li>
+			</ul>
+
+			<h3>Divided, filterable list:no inset</h3>
+			<ul data-role="listview" data-filter="true">
+				<li data-role="list-divider">A</li>
+				<li>Adam Kinkaid</li>
+				<li>Alex Wickerham</li>
+				<li>Avery Johnson</li>
+				<li data-role="list-divider">B</li>
+				<li>Bob Cabot</li>
+				<li data-role="list-divider">C</li>
+				<li>Caleb Booth</li>
+				<li>Christopher Adams</li>
+			</ul>
+
+			<h3>Divided, filterable list:inset</h3>
+			<ul data-role="listview" data-filter="true" data-inset="true">
+				<li data-role="list-divider">A</li>
+				<li>Adam Kinkaid</li>
+				<li>Alex Wickerham</li>
+				<li>Avery Johnson</li>
+				<li data-role="list-divider">B</li>
+				<li>Bob Cabot</li>
+				<li data-role="list-divider">C</li>
+				<li>Caleb Booth</li>
+				<li>Christopher Adams</li>
+			</ul>
+		<br>
+
+		<h2>Split button lists</h2>
+		<ul data-role="listview" data-split-icon="gear" data-split-theme="d">
+			<li><a href="#">
+				<img src="http://api.jquerymobile.com/resources/listview/images/album-bb.jpg" />
+				<h3>Broken Bells</h3>
+				<p>Broken Bells</p>
+				</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+			</li>
+			<li><a href="#">
+				<img src="http://api.jquerymobile.com/resources/listview/images/album-hc.jpg" />
+				<h3>Warning</h3>
+				<p>Hot Chip</p>
+				</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+			</li>
+		</ul>
+		<br>
+
+		<h2>Split button lists:theme b</h2>
+		<ul data-role="listview" data-split-icon="gear" data-split-theme="b">
+			<li><a href="#">
+				<img src="http://api.jquerymobile.com/resources/listview/images/album-bb.jpg" />
+				<h3>Broken Bells</h3>
+				<p>Broken Bells</p>
+				</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+			</li>
+			<li><a href="#">
+				<img src="http://api.jquerymobile.com/resources/listview/images/album-hc.jpg" />
+				<h3>Warning</h3>
+				<p>Hot Chip</p>
+				</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+			</li>
+		</ul>
+		<br>
+
+		<h2>Split button lists:inset</h2>
+		<ul data-role="listview" data-split-icon="arrow-r" data-split-theme="a" data-inset="true">
+			<li><a href="#">
+				<img src="http://api.jquerymobile.com/resources/listview/images/album-bb.jpg" />
+				<h3>Broken Bells</h3>
+				<p>Broken Bells</p>
+				</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+			</li>
+			<li><a href="#">
+				<img src="http://api.jquerymobile.com/resources/listview/images/album-hc.jpg" />
+				<h3>Warning</h3>
+				<p>Hot Chip</p>
+				</a><a href="#purchase" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>
+			</li>
+		</ul>
+		<br>
+
+		<h2>List dividers:theme a</h2>
+		<ul data-role="listview" data-divider-theme="a">
+			<li data-role="list-divider">A</li>
+			<li><a href="index.html">Adam Kinkaid</a></li>
+			<li data-role="list-divider">B</li>
+			<li><a href="index.html">Bob Cabot</a></li>
+		</ul>
+		<br>
+
+		<h2>List dividers:theme b</h2>
+		<ul data-role="listview" data-divider-theme="b">
+			<li data-role="list-divider">A</li>
+			<li><a href="index.html">Adam Kinkaid</a></li>
+			<li data-role="list-divider">B</li>
+			<li><a href="index.html">Bob Cabot</a></li>
+		</ul>
+		<br>
+
+		<h2>List dividers:theme c</h2>
+		<ul data-role="listview" data-divider-theme="c">
+			<li data-role="list-divider">A</li>
+			<li><a href="index.html">Adam Kinkaid</a></li>
+			<li data-role="list-divider">B</li>
+			<li><a href="index.html">Bob Cabot</a></li>
+		</ul>
+		<br>
+
+		<h2>Autodividers:custom</h2>
+		<ul id="mylistview">
+			<li><a href="index.html">Adam Kinkaid</a></li>
+			<li><a href="index.html">Bob Cabot</a></li>
+			<li><a href="index.html">bob</a></li>
+		</ul>
+		<br>
+		<script>
+			$( "#mylistview" ).listview({
+				autodividers: true,
+
+				// the selector function is passed a <li> element from the listview;
+				// it should return the appropriate divider text for that <li>
+				// element as a string
+				autodividersSelector: function ( li ) {
+					var out = $.trim( li.text() ) || null;
+
+					if ( !out ) {
+						return null;
+					}
+
+					return out.slice( 0, 1 ).toLowerCase();
+				}
+			});
+		</script>
+
+		<h2>Autodividers:auto</h2>
+		<ul data-role="listview" id="mylistview" data-autodividers="true">
+			<li><a href="index.html">Adam Kinkaid</a></li>
+			<li><a href="index.html">Bob Cabot</a></li>
+			<li><a href="index.html">bob</a></li>
+		</ul>
+		<br>
+
+		<h2>Filter reveal</h2>
+		<ul data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search fruits...">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Remote autocomplete with listview filter</h2>
+		<script>
+			$( "#autocomplete" ).on( "filterablebeforefilter", function ( e, data ) {
+				var $ul = $( this ),
+					$input = $( data.input ),
+					value = $input.val(),
+					html = "";
+				$ul.html( "" );
+				if ( value && value.length > 2 ) {
+					$ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
+					$ul.listview( "refresh" );
+					$.ajax({
+						url: "http://gd.geobytes.com/AutoCompleteCity",
+						dataType: "jsonp",
+						crossDomain: true,
+						data: {
+							q: $input.val()
+						}
+					})
+					.then( function ( response ) {
+						$.each( response, function ( i, val ) {
+							html += "<li>" + val + "</li>";
+						});
+						$ul.html( html );
+						$ul.listview( "refresh" );
+						$ul.trigger( "updatelayout");
+					});
+				}
+			});
+		</script>
+		<ul id="autocomplete" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Find a city..." data-filter-theme="b"></ul>
+		<br>
+
+		<h2>Text formatting &amp; counts</h2>
+			<h3>count</h3>
+			<ul data-role="listview">
+				<li><a href="index.html">Inbox <span class="ui-li-count">12</span></a></li>
+				<li><a href="index.html">Outbox <span class="ui-li-count">0</span></a></li>
+				<li><a href="index.html">Drafts <span class="ui-li-count">4</span></a></li>
+				<li><a href="index.html">Sent <span class="ui-li-count">328</span></a></li>
+				<li><a href="index.html">Trash <span class="ui-li-count">62</span></a></li>
+			</ul>
+
+			<h3>sub text</h3>
+			<ul data-role="listview">
+				<li><a href="index.html">
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-bb.jpg" />
+					<h3>Broken Bells</h3>
+					<p>Broken Bells</p>
+				</a></li>
+				<li><a href="index.html">
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-hc.jpg" />
+					<h3>Warning</h3>
+					<p>Hot Chip</p>
+				</a></li>
+				<li><a href="index.html">
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-p.jpg" />
+					<h3>Wolfgang Amadeus Phoenix</h3>
+					<p>Phoenix</p>
+				</a></li>
+			</ul>
+		<br>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="page" id="listviewAPI" >
+	<div data-role="header" data-position="fixed">
+		<a href="#listviewFront" class="hide-loading ui-btn-left" data-icon="back">Back</a>
+		<h1>Listview - Option</h1>
+		<a href="#" class="hide-loading ui-btn-right" data-icon="refresh">Refresh</a>
+	</div>
+	<div data-role="content">
+		<h2>Option:autodividers</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#autodividers" ).listview( "option", "autodividers", true ).listview( "refresh" )
+					.after( "<h4>autodividers:" + $( "#autodividers" ).listview( "option", "autodividers" ) + "</h4>" );
+			});
+		</script>
+		<ul id="autodividers" data-role="listview">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:autodividersSelector</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#autodividersSelector" ).listview( "option", "autodividers", "true" )
+					.append( "<li><a href=\"#\">Peach</a></li>" )
+					.listview( "option", "autodividersSelector", function ( elt ) {
+						var text = $.trim( elt.text() ) || null;
+
+						if ( !text ) {
+							return null;
+						}
+
+						// create the text for the divider (first uppercased letter)
+						text = text.slice( 0, 2 ).toUpperCase();
+
+						return text;
+					})
+					.listview( "refresh" )
+					.after( "<h4>autodividersSelector:" + $( "#autodividersSelector" ).listview( "option", "autodividersSelector" ) + "</h4>" );
+			});
+		</script>
+		<ul id="autodividersSelector" data-role="listview">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:dividerTheme</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#dividerTheme" ).listview( "option", "autodividers", true )
+					.listview( "option", "dividerTheme", "b" )
+					.listview( "refresh" )
+					.after( "<h4>dividerTheme:" + $( "#dividerTheme" ).listview( "option", "dividerTheme" ) + "</h4>" );
+			});
+		</script>
+		<ul id="dividerTheme" data-role="listview">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:filter</h2>
+		<!-- wrong -->
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#filter" ).listview( "option", "filter", true )
+					.listview( "refresh" )
+					.after( "<h4>filter:" + $( "#filter" ).listview( "option", "filter" ) + "</h4>" );
+			});
+		</script>
+		<ul id="filter" data-role="listview">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+
+		<!-- normal -->
+		<ul data-filter="true" data-role="listview">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:filterCallback</h2>
+		<ul id="filterCallback" data-role="listview" data-filter="true">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:filterPlaceholder</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#filterPlaceholder" ).listview( "option", "filterPlaceholder", "test" )
+					.listview( "refresh" )
+					.after( "<h4>filterPlaceholder :" + $( "#filterPlaceholder" ).listview( "option", "filterPlaceholder" ) + "</h4>" );
+				//$( "#filterPlaceholder" ).filterable( "option", "filterPlaceholder", "test" )
+				// 	.filterable( "refresh" )
+				// 	.after( "<h4>filterPlaceholder :" + $( "#filterPlaceholder" ).filterable( "option", "filterPlaceholder" ) + "</h4>" );
+			});
+		</script>
+		<ul id="filterPlaceholder" data-role="listview" data-filter="true" data-filter-placeholder="...">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:filterReveal</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#filterReveal" ).listview( "option", "filterReveal", true )
+					.listview( "refresh" )
+					.after( "<h4>filterReveal:" + $( "#filterReveal" ).listview( "option", "filterReveal" ) + "</h4>" );
+			});
+		</script>
+		<ul id="filterReveal" data-role="listview" data-filter="true">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:filterTheme</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#filterTheme" ).listview( "option", "filterTheme", "b" )
+					.listview( "refresh" )
+					.after( "<h4>filterTheme:" + $( "#filterTheme" ).listview( "option", "filterTheme" ) + "</h4>" );
+			});
+		</script>
+		<ul id="filterTheme" data-role="listview" data-filter="true">
+			<li><a href="#">Apple</a></li>
+			<li><a href="#">Banana</a></li>
+			<li><a href="#">Cherry</a></li>
+			<li><a href="#">Cranberry</a></li>
+			<li><a href="#">Grape</a></li>
+			<li><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:hideDividers</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#hideDividers" ).listview( "option", "hideDividers", true );
+				$( "#hideDividers li.banana" ).remove( "* li.banana" ) // remove Banana
+				$( "#hideDividers" ).listview( "refresh" )
+					.after( "<h4>hideDividers:" + $( "#hideDividers" ).listview( "option", "hideDividers" ) + "</h4>" );
+			});
+		</script>
+		<ul id="hideDividers" data-role="listview" data-autodividers="true">
+			<li class="apple"><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:icon</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#icon" ).listview( "option", "icon", "gear" )
+					.listview( "refresh" )
+					.after( "<h4>icon:" + $( "#icon" ).listview( "option", "icon" ) + "</h4>" );
+			});
+		</script>
+		<ul id="icon" data-role="listview">
+			<li class="apple"><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:inset</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#inset" ).listview( "option", "inset", true )
+					.listview( "refresh" )
+					.after( "<h4>inset:" + $( "#inset" ).listview( "option", "inset" ) + "</h4>" );
+			});
+		</script>
+		<ul id="inset" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Option:splitIcon</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#splitIcon" ).listview( "option", "splitIcon", "gear" )
+					.listview( "refresh" )
+					.after( "<h4>splitIcon:" + $( "#splitIcon" ).listview( "option", "splitIcon" ) + "</h4>" );
+			});
+		</script>
+		<ul id="splitIcon" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a><a></a></li>
+			<li class="banana"><a href="#">Banana</a><a></a></li>
+			<li class="cherry"><a href="#">Cherry</a><a></a></li>
+			<li class="cranberry"><a href="#">Cranberry</a><a></a></li>
+			<li class="grape"><a href="#">Grape</a><a></a></li>
+			<li class="orange"><a href="#">Orange</a><a></a></li>
+		</ul>
+		<br>
+
+		<h2>Option:splitTheme</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#splitTheme" ).listview( "option", "splitTheme", "b" )
+					.listview( "refresh" )
+					.after( "<h4>splitTheme:" + $( "#splitTheme" ).listview( "option", "splitTheme" ) + "</h4>" );
+			});
+		</script>
+		<ul id="splitIcon" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a><a></a></li>
+			<li class="banana"><a href="#">Banana</a><a></a></li>
+			<li class="cherry"><a href="#">Cherry</a><a></a></li>
+			<li class="cranberry"><a href="#">Cranberry</a><a></a></li>
+			<li class="grape"><a href="#">Grape</a><a></a></li>
+			<li class="orange"><a href="#">Orange</a><a></a></li>
+		</ul>
+		<br>
+
+		<h2>Method:refresh</h2>
+		<script>
+			$.mobile.document.on( "pageinit", "#listviewAPI", function () {
+				$( "#refresh" ).append( "<li class=\"orange\"><a href=\"#\">Orange</a>" )
+					.listview( "refresh" );
+			});
+		</script>
+		<ul id="refresh" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
+		<br>
+
+		<h2>Event:create</h2>
+		<ul id="create" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
+		<script>
+			$( "#create" ).on( "listviewcreate", function ( event, ui ) {
+				$( "#create" ).after( "<h4>target:" + event.target.id + "</h4>" );
+			});
+		</script>
+		<br>
+
+	</div><!-- /content -->
+
+</div><!-- /page -->
+</body>
+</html>

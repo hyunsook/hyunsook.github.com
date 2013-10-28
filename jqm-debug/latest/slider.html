@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Slider - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+		<script>
+			$( document ).on("click", ".toggleHigh", function ( event ) {
+				var $slider = $( "#hSlider" ),
+					isHighlight = $slider.slider("option", "highlight");
+				isHighlight = isHighlight === true ? true : false;
+				
+				$slider.slider("option", "highlight", !isHighlight);
+				isHighlight = $slider.slider("option", "highlight");
+				$(this).find("span").text( isHighlight ).css("color", (isHighlight? "blue" : "red"));
+			}).on("click", ".toggleTrackTheme", function (event) {
+				var $slider = $( "#trackSlider")
+					currentTrackTheme = $slider.slider("option", "trackTheme");
+				currentTrackTheme = currentTrackTheme === "c" ? "c" : "a";
+				if ( currentTrackTheme === "a" ) {
+					$slider.slider("option", "trackTheme", "c");
+				} else {
+					$slider.slider("option", "trackTheme", "a");
+				}
+				$(this).find("span").text( currentTrackTheme );
+			}).on("click", ".toggleDisabled", function (event) {
+				var $slider = $( "#disabledSlider")
+					currentDisabled = $slider.slider("option", "disabled");
+				currentDisabled = currentDisabled === true ? true : false;
+				if ( currentDisabled ) {
+					$slider.slider("option", "disabled", false);
+				} else {
+					$slider.slider("option", "disabled", true);
+				}
+				currentDisabled = $slider.slider("option", "disabled");
+				$(this).find("span").text( currentDisabled ).css("color", currentDisabled ? "blue":"red");
+			}).on("click", ".toggleMini", function (event) {
+				var $slider = $( "#miniSlider")
+					currentMini = $slider.slider("option", "mini");
+				currentMini = currentMini === true ? true : false;
+				if ( currentMini ) {
+					$slider.slider("option", "mini", false);
+				} else {
+					$slider.slider("option", "mini", true);
+				}
+				currentMini = $slider.slider("option", "mini");
+				$(this).find("span").text( currentMini ).css("color", currentMini ? "blue":"red");
+			}).on("click", ".refreshToggleBtn", function (event ) {
+				var $slider = $( "#refreshSlider")
+					value = $slider.val();
+				console.log("value : " + value );
+				if ( value == 100 ) {
+					$slider.val(0);
+				} else {
+					// inputValue = 100;
+					$slider.val(100);
+				}
+			}).on("click", ".refreshBtn", function (event ) {
+				var $slider = $( "#refreshSlider"),
+					value = parseInt( $slider.val(), 10),
+					preValue = parseInt( $slider.parent().find(".ui-slider-handle").attr("title") , 10 );
+				$slider.slider( "refresh");
+				curValue = parseInt( $slider.parent().find(".ui-slider-handle").attr("title") , 10 );
+				if ( preValue !== curValue ) {
+					$( this ).find("span").text( "refreshed" ).css("color", "blue");
+				} else {
+					if ( value !== curValue ) {
+						$( this ).find("span").text( "refresh fail" ).css("color", "red");
+					}
+				}
+			});
+			// event test
+			$( document ).on("pagebeforeshow", function ( event ) {
+				$( "#eventSlider ").on("slidestart", function ( event ){
+					console.log(" start : ")
+					$(".startValue").text( this.value );
+				}).on("slidestop", function (event ) {
+					console.log(" end : ")
+					$(".endValue").text(this.value );
+				});
+			});
+			// Flip
+			$( document ).on("click", ".toggleMiniFlip", function (event) {
+				var $slider = $( "#miniFlip")
+					currentMini = $slider.slider("option", "mini");
+				currentMini = currentMini === true ? true : false;
+				if ( currentMini ) {
+					$slider.slider("option", "mini", false);
+				} else {
+					$slider.slider("option", "mini", true);
+				}
+				currentMini = $slider.slider("option", "mini");
+				$(this).find("span").text( currentMini ).css("color", currentMini ? "blue":"red");
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="frontPage" data-role="page">
+			<div data-role="header">
+				<h1>Slider Demos</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					<li><a href="#sliderPage" >Slider Demos</a></li>
+					<li><a href="#flipPage"  >Flip Demos</a></li>
+				</ul>
+			</div>
+		</div><!--Front Page -->
+
+		<div id="sliderPage" data-role="page">
+
+			<div data-role="header" data-position="fixed">
+				<h1>Slider</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-right" data-icon="back">back</a>
+			</div>
+
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider">Default Slider</li>
+					<li> <label for="slider-1">Input slider:</label>
+					<input type="range" name="slider-1" id="slider-1" value="60" min="0" max="100" /> </li>
+					
+					<!-- Option Test -->
+					<li data-role="list-divider">Highlight Test</li>
+					<li>
+						<label for="hSlider">Input slider:</label>
+						<input type="range" name="hSlider" id="hSlider" value="60" min="0" max="100" data-highlight="true"/>
+					</li>
+					<li>	
+						<a href="#" data-role="button" class="toggleHigh" >
+							<h3>Toggle Highlight</h3>
+							<p>Current Toggle status : <span style="color:blue">true</span></p> 
+						</a>
+					</li>
+					<li data-role="list-divider">Disabled Test</li>
+					<li>
+						<label for="disabledSlider">Disabled slider:</label>
+						<input type="range" name="disabledSlider" id="disabledSlider" value="60" min="0" max="100"/>
+					</li>
+					<li>						
+						<a href="#" data-role="button" class="toggleDisabled" >
+							<h3>Toggle Disabled</h3>
+							<p>Current disabled status : <span style="color:red">false</span></p> 
+						</a>
+					</li>
+					<li data-role="list-divider">Mini Test</li>
+					<li>
+						<label for="miniSlider">Mini slider:</label>
+						<input type="range" name="miniSlider" id="miniSlider" value="60" min="0" max="100"/>
+					</li>
+					<li>						
+						<a href="#" data-role="button" class="toggleMini" >
+							<h3>Toggle Mini</h3>
+							<p>Current mini status : <span style="color:red">false</span></p> 
+						</a>
+					</li>
+					<li data-role="list-divider">Highlight Test</li>
+					<li>
+						<label for="trackSlider">Input slider:</label>
+						<input type="range" name="trackSlider" id="trackSlider" value="60" min="0" max="100" data-track-theme="a" />
+					</li>
+					<li>						
+						<a href="#" data-role="button" class="toggleTrackTheme" >
+							<h3>Toggle Track Theme</h3>
+							<p>Current Track Theme : 
+								<span class="value" style="font-weight:bold;" >a</span>
+							</p>
+						</a>
+					</li>
+					<!-- Event Test -->
+					<li data-role="list-divider">Event Test</li>
+					<li>
+						<label for="eventSlider">Event slider:</label>
+						<input type="range" name="eventSlider" id="eventSlider" value="60" min="0" max="100" />
+					</li>
+					<li>	
+						<p>
+							Start position : 
+							<span class="startValue" style="font-weight:bold;" >60</span>
+							Stop position : 
+							<span class="endValue" style="font-weight:bold;" >-</span>
+						</p>
+					</li>
+				</ul>
+				<ul data-role="listview" data-inset="true">
+					<!-- Method Test -->
+					<li data-role="list-divider">Method Test</li>
+					<li>
+						<label for="refreshSlider">Refresh slider:</label>
+						<input type="range" name="refreshSlider" id="refreshSlider" value="60" min="0" max="100" />
+					</li>
+					<li>	
+						<a href="#" data-role="button" class="refreshToggleBtn" >toggleValue</a>
+					</li>
+					<li>	
+						<a href="#" data-role="button" class="refreshBtn" >
+							<h3>refresh()</h3>
+							<p> Status : 
+								<span style="font-weight:bold;" > - </span>
+							</p>
+						</a>
+					</li>
+				</ul>
+			</div>	<!-- content -->
+
+		</div>	<!-- page-->
+		<div id="flipPage" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<h1>Flip Demos</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-right" data-icon="back">back</a>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider">Default Flip</li>
+					<li>
+						<label for="flip">Flip switch:</label>
+						<select name="flip" id="flip" data-role="slider">
+							<option value="off">Off</option>
+							<option value="on">On</option>
+						</select>
+					</li>
+					<li data-role="list-divider">Filedcontainers Flip</li>
+					<li>
+						<div data-role="fieldcontain">
+							<label for="flip">Flip switch:</label>
+							<select name="flip" id="flip" data-role="slider">
+								<option value="off">Off</option>
+								<option value="on">On</option>
+							</select>
+						</div>
+					</li>
+					<li data-role="list-divider">Theming Flip switch</li>
+					<li>
+						<label for="flip">Flip switch:</label>
+						<select name="flip" id="flip" data-role="slider" data-theme="a" data-track-theme="b">
+							<option value="off">Off</option>
+							<option value="on">On</option>
+						</select>
+					</li>
+				</ul>
+				<H2>Option Test </H2>
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider">Option Flip</li>
+					<li>
+						<label for="miniFlip">mini switch:</label>
+						<select name="miniFlip" id="miniFlip" data-role="slider">
+							<option value="off">Off</option>
+							<option value="on">On</option>
+						</select>
+					</li>
+					<li>	
+						<a href="#" data-role="button" class="toggleMiniFlip" >
+							<h3>Toggle Mini</h3>
+							<p>Current mini status : <span style="color:red; font-weight:bold;">false</span></p> 
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div><!--Front Page -->
+	</body>
+</html>

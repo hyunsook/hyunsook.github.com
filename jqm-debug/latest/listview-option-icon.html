@@ -20,9 +20,9 @@
 					.listview( "refresh" );
 
 				if ( $( "#icon a:eq(0)" ).hasClass( "ui-icon-gear" ) ) {
-					$( ".result" ).html( "<h4 style='color:blue;'>Test Success.</h4>" );
+					$( ".result" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
 				} else {
-					$( ".result" ).html( "<h4 style='color:red;'>Test failaure.</h4>" );
+					$( ".result" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
 				}
 				$( ".result" ).append( "<h4>Current icon option:" + $( "#icon" ).listview( "option", "icon" ) + "</h4>" );
 			});

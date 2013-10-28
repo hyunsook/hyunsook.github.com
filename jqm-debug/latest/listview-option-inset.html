@@ -20,9 +20,9 @@
 					.listview( "refresh" );
 
 				if ( $( "#inset" ).hasClass( "ui-listview-inset" ) ) {
-					$( ".result" ).html( "<h4 style='color:blue;'>Test Success.</h4>" );
+					$( ".result" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
 				} else {
-					$( ".result" ).html( "<h4 style='color:red;'>Test failaure.</h4>" );
+					$( ".result" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
 				}
 				$( ".result" ).append( "<h4>Current inset option:" + $( "#inset" ).listview( "option", "inset" ) + "</h4>" );
 			});

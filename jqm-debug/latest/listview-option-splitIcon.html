@@ -20,9 +20,9 @@
 					.listview( "refresh" );
 
 				if ( $( "#splitIcon a:eq(1)" ).hasClass( "ui-icon-gear" ) ) {
-					$( ".result" ).html( "<h4 style='color:blue;'>Test Success.</h4>" );
+					$( ".result" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
 				} else {
-					$( ".result" ).html( "<h4 style='color:red;'>Test failaure.</h4>" );
+					$( ".result" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
 				}
 				$( ".result" ).append( "<h4>Current splitIcon option:" + $( "#splitIcon" ).listview( "option", "splitIcon" ) + "</h4>" );
 			});

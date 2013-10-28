@@ -203,6 +203,87 @@
 		}
 	</script>
 
+<h2>Options:collapsed</h2>
+	<div data-role="collapsible" data-collapsed="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
+	<h3>Initialize with { collapsed: false } </h3>
+		<div id="collapsed0" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#collapsed0").collapsible( { collapsed: false } );
+		</script>
+
+	<h4>Get/Set the collapsed option</h4>
+	<div id="collapsed1" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_collapsed1"></span><br/>
+
+	<hr />
+	<a href="javascript:toggleCollapsed1Option();">1. Toggle</a><br/>
+
+	<script>
+		$("#collapsed1").on("collapsiblecreate", function() {
+			getCollapsed1Option();
+		});
+
+		function getCollapsed1Option() {
+			$("#result_collapsed1").html("<font color='blue'>" + $("#collapsed1").collapsible( "option", "collapsed" ) + "</font>");
+		}
+		function toggleCollapsed1Option() {
+			$("#collapsed1").collapsible( "option", "collapsed", !($("#collapsed1").collapsible( "option", "collapsed" )) );
+			getCollapsed1Option();
+		}
+	</script>
+
+<h2>Options:collapsedIcon</h2>
+	<div data-role="collapsible" data-collapsed-icon="arrow-r">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
+	<h3>Initialize with { collapsedIcon: "arrow-r" } </h3>
+		<div id="collapsedIcon0" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#collapsedIcon0").collapsible( { collapsedIcon: "arrow-r" } );
+		</script>
+
+	<h4>Get/Set the collapsed option</h4>
+	<div id="collapsedIcon1" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_collapsedIcon1"></span><br/>
+
+	<hr />
+	<a href="javascript:getCollapseIcon1Option(true);">1. Get</a><br/>
+	<a href="javascript:setCollapseIcon1Option();">2. Set</a><br/>
+	<a href="javascript:getCollapseIcon1Option(false);">3. Get again</a><br/>
+
+	<script>
+		function getCollapseIcon1Option( first ) {
+			var result = $( "#result_collapsedIcon1" ),
+				target = $( "#collapsedIcon1" ),
+				value = target.collapsible( "option", "collapsedIcon" );
+
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( first && !value ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
+			}
+		}
+		function setCollapseIcon1Option() {
+			$("#collapsedIcon1").collapsible( "option", "collapsedIcon", "arrow-r");
+		}
+	</script>
 </div>
 </div><!-- /content -->
 </div><!-- /page -->

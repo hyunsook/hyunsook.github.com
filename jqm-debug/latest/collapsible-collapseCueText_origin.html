@@ -27,10 +27,13 @@
 	<a href="javascript:getCollapseCueText(false);">3. Get the collapseCueText again</a><br/>
 
 	<script>
-		function getCollapseCueText(first) {
-			var result = $("#result");
-			result.html("<font color='blue'>" + $("#target").collapsible( "option", "collapseCueText" ) + "</font>");
-			if ( first ) {
+		function getCollapseCueText( first ) {
+			var result = $("#result"),
+				target = $("#target"),
+				value = target.collapsible( "option", "collapseCueText" );
+
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( first && !value ) {
 				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
 			}
 			$("#status").html("Status Text: <font color='blue'>" + $("#target .ui-collapsible-heading-status").text() + "</font>");	

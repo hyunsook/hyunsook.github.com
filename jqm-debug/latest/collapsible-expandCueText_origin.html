@@ -27,10 +27,13 @@
 	<a href="javascript:getExpandCueText(false);">3. Get the expandCueText again</a><br/>
 
 	<script>
-		function getExpandCueText(first) {
-			var result = $("#result");
-			result.html("<font color='blue'>" + $("#target").collapsible( "option", "expandCueText" ) + "</font>");
-			if ( first ) {
+		function getExpandCueText( first ) {
+			var result = $("#result"),
+				target = $("#target"),
+				value = target.collapsible( "option", "expandCueText" );
+
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( first && !value ) {
 				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
 			}
 			$("#status").html("Status Text: <font color='blue'>" + $("#target .ui-collapsible-heading-status").text() + "</font>");		

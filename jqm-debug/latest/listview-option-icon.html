@@ -14,6 +14,7 @@
 		<h1>Listview<br>Option:icon</h1>
 	</div>
 	<div data-role="content">
+		<h2>Option method</h2>
 		<script>
 			$.mobile.document.delegate(".test", "click", function () {
 				$( "#icon" ).listview( "option", "icon", "gear" )
@@ -38,8 +39,18 @@
 			<li class="grape"><a href="#">Grape</a></li>
 			<li class="orange"><a href="#">Orange</a></li>
 		</ul>
-
 		<div class="result"></div>
+		<br><br>
+
+		<h2>data-icon="gear"</h2>
+		<ul data-icon="gear" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
 
 	</div><!-- /content -->
 

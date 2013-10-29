@@ -14,6 +14,7 @@
 		<h1>Listview<br>Option:splitIcon</h1>
 	</div>
 	<div data-role="content">
+		<h2>option method</h2>
 		<script>
 			$.mobile.document.delegate(".test", "click", function () {
 				$( "#splitIcon" ).listview( "option", "splitIcon", "gear" )
@@ -39,8 +40,18 @@
 			<li class="grape"><a href="#">Grape</a><a></a></li>
 			<li class="orange"><a href="#">Orange</a><a></a></li>
 		</ul>
-
 		<div class="result"></div>
+
+		<br><br>
+		<h2>data-split-icon="gear"</h2>
+		<ul data-split-icon="gear" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a><a></a></li>
+			<li class="banana"><a href="#">Banana</a><a></a></li>
+			<li class="cherry"><a href="#">Cherry</a><a></a></li>
+			<li class="cranberry"><a href="#">Cranberry</a><a></a></li>
+			<li class="grape"><a href="#">Grape</a><a></a></li>
+			<li class="orange"><a href="#">Orange</a><a></a></li>
+		</ul>
 
 	</div><!-- /content -->
 

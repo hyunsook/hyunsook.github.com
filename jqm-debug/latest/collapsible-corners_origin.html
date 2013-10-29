@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapsible-corners: default value</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Default value of the corners option</h2>
+
+	<div id="target" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result"></span><br/>
+
+	<hr />
+	<a href="javascript:getCornersOption(true);">1. Get the default value of corners option</a><br/>
+	<a href="javascript:toggleCornersOption();">2. Toggle the corners option</a><br/>
+
+	<script>
+		function getCornersOption( first ) {
+			var result = $("#result"),
+				target = $("#target"),
+				value = target.collapsible( "option", "corners" );
+
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( first && !value ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs. (default: true)</font>");
+			}
+		}
+
+		function toggleCornersOption() {
+			var target = $("#target"),
+				value = target.collapsible( "option", "corners" );
+
+			target.collapsible( "option", "corners", !value );
+			getCornersOption();
+		}
+	</script>
+
+</div>
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

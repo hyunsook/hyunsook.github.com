@@ -304,6 +304,116 @@
 		}
 	</script>
 
+<h2>Options:corners</h2>
+	<div data-role="collapsible" data-corners="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
+	<div data-role="collapsible" data-collapsed="false" data-corners="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
+	<h3>Initialize with { corners: false } </h3>
+		<div id="corners0" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#corners0").collapsible( { corners: false } );
+		</script>
+
+	<h4>Get/Set the corners option</h4>
+	<div id="corners1" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_corners1"></span><br/>
+
+	<hr />
+	<a href="javascript:getCorners1Option( true );">1. Get default value</a><br/>
+	<a href="javascript:toggleCorners1Option();">2. Toggle</a><br/>
+
+	<script>
+		function getCorners1Option( first ) {
+			var result = $( "#result_corners1" ),
+				target = $( "#corners1" ),
+				value = target.collapsible( "option", "corners" );
+
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( first && !value ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
+			}			
+		}
+		function toggleCorners1Option() {
+			$("#corners1").collapsible( "option", "corners", !($("#corners1").collapsible( "option", "corners" )) );
+			getCorners1Option( false );
+		}
+	</script>
+
+<h2>Options:expandedIcon</h2>
+	<div data-role="collapsible" data-collapsed="false" data-expanded-icon="arrow-d">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
+	<div data-role="collapsible" data-collapsed="false" data-expanded-icon="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
+	<h3>Initialize with { expandedIcon: "arrow-d" } </h3>
+		<div id="expandedIcon0" data-role="collapsible" data-collapsed="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#expandedIcon0").collapsible( { expandedIcon: "arrow-d" } );
+		</script>
+
+	<h3>Initialize with { expandedIcon: false } </h3>
+		<div id="expandedIcon00" data-role="collapsible" data-collapsed="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#expandedIcon00").collapsible( { expandedIcon: false } );
+		</script>
+
+	<h4>Get/Set the expanded option</h4>
+	<div id="expandedIcon1" data-role="collapsible" data-collapsed="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_expandedIcon1"></span><br/>
+
+	<hr />
+	<a href="javascript:getCollapseIcon1Option(true);">1. Get</a><br/>
+	<a href="javascript:setCollapseIcon1Option();">2. Set</a><br/>
+	<a href="javascript:getCollapseIcon1Option(false);">3. Get again</a><br/>
+	<a href="javascript:setCollapseIconFalse1Option();">4. Set false</a><br/>
+	<a href="javascript:getCollapseIcon1Option(false);">5. Get again</a><br/>
+
+	<script>
+		function getCollapseIcon1Option( first ) {
+			var result = $( "#result_expandedIcon1" ),
+				target = $( "#expandedIcon1" ),
+				value = target.collapsible( "option", "expandedIcon" );
+
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( first && !value ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
+			}
+		}
+		function setCollapseIcon1Option() {
+			$("#expandedIcon1").collapsible( "option", "expandedIcon", "arrow-d" );
+		}
+		function setCollapseIconFalse1Option() {
+			$("#expandedIcon1").collapsible( "option", "expandedIcon", false );
+		}
+	</script>
+
 
 </div>
 </div><!-- /content -->

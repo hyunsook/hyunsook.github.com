@@ -248,6 +248,11 @@
 		<p>collapsible contents</p>
 	</div>
 
+	<div data-role="collapsible" data-collapsed-icon="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+
 	<h3>Initialize with { collapsedIcon: "arrow-r" } </h3>
 		<div id="collapsedIcon0" data-role="collapsible">
 			<h3>header</h3>
@@ -255,6 +260,15 @@
 		</div>
 		<script>
 			$("#collapsedIcon0").collapsible( { collapsedIcon: "arrow-r" } );
+		</script>
+
+	<h3>Initialize with { collapsedIcon: false } </h3>
+		<div id="collapsedIcon00" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#collapsedIcon00").collapsible( { collapsedIcon: false } );
 		</script>
 
 	<h4>Get/Set the collapsed option</h4>
@@ -268,6 +282,8 @@
 	<a href="javascript:getCollapseIcon1Option(true);">1. Get</a><br/>
 	<a href="javascript:setCollapseIcon1Option();">2. Set</a><br/>
 	<a href="javascript:getCollapseIcon1Option(false);">3. Get again</a><br/>
+	<a href="javascript:setCollapseIconFalse1Option();">4. Set false</a><br/>
+	<a href="javascript:getCollapseIcon1Option(false);">5. Get again</a><br/>
 
 	<script>
 		function getCollapseIcon1Option( first ) {
@@ -281,9 +297,14 @@
 			}
 		}
 		function setCollapseIcon1Option() {
-			$("#collapsedIcon1").collapsible( "option", "collapsedIcon", "arrow-r");
+			$("#collapsedIcon1").collapsible( "option", "collapsedIcon", "arrow-r" );
+		}
+		function setCollapseIconFalse1Option() {
+			$("#collapsedIcon1").collapsible( "option", "collapsedIcon", false );
 		}
 	</script>
+
+
 </div>
 </div><!-- /content -->
 </div><!-- /page -->

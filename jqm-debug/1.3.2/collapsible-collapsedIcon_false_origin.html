@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapsible-collapsedIcon:false</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Setting the collapsedIcon option with false</h2>
+
+<h3>Expected: <u>data-collapsed-icon="false"</u></h3>
+	<div id="expected" data-role="collapsible" data-collapsed-icon="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="expected_classes"></span><br/>
+	<span id="expected_icon_classes"></span><br/>
+
+<br/>
+<h3>Test: <span id="result"></span></h3>
+	<div id="target" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="classes"></span><br/>
+	<span id="icon_classes"></span><br/>
+	<span id="result2"></span><br/>
+
+<hr/>
+	<a href="javascript:getClassNames( true )">1. Get the class names of the each example</a><br/>
+	<a href="javascript:setCollapsedIcon()">2. Set the collapsedIcon option of the test with false</a><br/>
+	<a href="javascript:getClassNames( false )">3. Get the class names of the each example</a><br/>
+	<script>
+		function setCollapsedIcon() {
+			$( "#target" ).collapsible( "option", "collapsedIcon", false );
+			$( "#result" ).html( "<font color='red'>The icon background is not removed.</font>" );
+		}
+
+		function getClassNames( first ) {
+			getClasses( "expected", "expected_classes", "expected_icon_classes" );
+			getClasses( "target", "classes", "icon_classes" );
+
+			if ( !first ) {
+				$( "#result2" ).html( "<font color='red'>==> The ui-btn-icon-left class is not changed.</font>" );
+			}
+		}
+
+		function getClasses( el, result, subresult ) {
+			var classes = $( "#" + el + " a" ).attr( "class" );
+			$( "#" + result ).html( "Classes: <font color='blue'>" + classes + "</font>" );
+			$( "#" + subresult ).html( "The icon classes: <font color='blue'>" + getIconClass( classes ) + "</font>" );
+		}
+
+		function getIconClass( classNames ) {
+			var classes = classNames.split( " " ),
+				iconClasses = [],
+				length = classes.length,
+				iconClass = /-icon-/,
+				i;
+
+			for ( i = 0 ; i < length; ++i ) {
+				if ( iconClass.test( classes[ i ] ) ) {
+					iconClasses.push( classes[ i ] );
+				}
+			}
+
+			return iconClasses;
+		}
+	</script>
+
+</div>
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

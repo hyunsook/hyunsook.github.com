@@ -2,22 +2,24 @@
 <html>
 	<head>
 		<title>Page - jQM latest</title>
-		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
 		<script>
 			$( document ).on( "click", ".change-dom", function() {
-				var tmpElement = $( "<div>DOM changed</div>").insertAfter( this );
+				var tmpElement = $( "<div>New DOM is added.</div>").insertAfter( this );
 			}).on( "click", ".set-theme", function() {
 				var $page = $.mobile.activePage,
-					tmpTheme = $( this ).jqmData( "tmp" );
-				$page.page( "option", "theme", tmpTheme );
-				$page.find( ".current-theme" ).text( $page.page( "option", "theme" ) );
+					value = $( this ).jqmData( "value" );
+				$page.page( "option", "theme", value );
+				$page.find( ".theme-stat" ).text( $page.page( "option", "theme" ) );
 			}).on( "click", ".change-cache", function() {
 				var $page = $.mobile.activePage,
 					value = $( this ).jqmData( "value" );
 				$page.page( "option", "domCache", value );
 				$page.find( ".cache-stat" ).text( $page.page( "option", "domCache" ) );
+			}).on( "click", ".change-enhance", function() {
+				// TODO
 			});
 		</script>
 	</head>
@@ -39,8 +41,8 @@
 					<li>	<a href="page-caching.html">true</a></li>
 					<li><a href="page-uncaching.html">false</a></li>
 					<li><a href="page-caching-switch.html">[Switch]</a></li>
-					<li data-role="list-divider">keepNative - deprecated</li>
-					<li data-role="list-divider">keepNativeDefault</li>
+					<li data-role="list-divider">keepNative - deprecated: 1.4.0</li>
+					<li data-role="list-divider">keepNativeDefault - deprecated: 1.4.0</li>
 					<li><a href="#page-do-not-enhance">.do-not-enhance</a></li>
 					<li data-role="list-divider">theme</li>
 					<li><a href="#page-theme-a">a</a></li>
@@ -56,9 +58,9 @@
 				<h1>default theme="a"</h1>
 			</div>
 			<div data-role="content">
-				<a href="#" class="set-theme ui-btn ui-btn-inline ui-shadow" data-tmp="a">a</a>
-				<a href="#" class="set-theme ui-btn ui-btn-inline ui-corner-all" data-tmp="b">b</a>
-				<div class="current-theme"></div>
+				<a href="#" class="set-theme ui-btn ui-btn-inline ui-shadow" data-value="a">a</a>
+				<a href="#" class="set-theme ui-btn ui-btn-inline ui-corner-all" data-value="b">b</a>
+				<div class="theme-stat"></div>
 			</div>
 		</div>	<!-- page theme a -->
 
@@ -67,13 +69,13 @@
 				<h1>default theme="b"</h1>
 			</div>
 			<div data-role="content">
-				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="a">a</a>
-				<a href="#" data-role="button" data-inline="true" class="set-theme" data-tmp="b">b</a>
-				<div class="current-theme"></div>
+				<a href="#" data-role="button" data-inline="true" class="set-theme" data-value="a">a</a>
+				<a href="#" data-role="button" data-inline="true" class="set-theme" data-value="b">b</a>
+				<div class="theme-stat"></div>
 			</div>
 		</div>	<!-- page theme b -->
 
-		<div data-role="page" id="page-do-not-enhance" data-keep-native-default=".do-not-enhance">
+		<div data-role="page" id="page-do-not-enhance">
 			<div data-role="header" data-add-back-btn="true">
 				<h1>Page</h1>
 			</div>
@@ -81,9 +83,9 @@
 				<div>
 					keepNativeDefault: ".do-not-enhance"
 				</div>
-				<ul data-role="listview" data-inset="true">
-					<li><a href="#">test</a></li>
-				</ul>
+				<a href="#" class="change-enhance ui-btn ui-btn-inline ui-shadow" data-value="true">True</a>
+				<a href="#" class="change-enhance ui-btn ui-btn-inline ui-shadow" data-value="false">False</a>
+				<div class="enhance-stat">&nbsp;</div>
 			</div>
 		</div>	<!-- page do not enhance -->
 	</body>

@@ -12,17 +12,23 @@
 			</div>
 			
 			<div data-role="content">
-				<ul>
-					<li>Press 'true' or 'false' button</li>
-					<li>Check the message in Header (dom-cache="what")</li>
-					<li>Press 'Go!' button</li>
-					<li>Go back and reenter this page</li>
-					<li>Confirm 'DOM changed' message is remaining when dom-cache="true"</li>
-					<li>Or confirm 'DOM changed' message is NOT remaining when dom-cache="false"</li>
-				</ul>
+				<ol>
+					<li>Press the 'true' or 'false' button below.</li>
+					<li>Check the set dom-cache value through the dom-cache="what" message in header.</li>
+					<li>Press 'Add new DOM' button. (To check whether keeping previously-visited page in the DOM, 'New DOM is added.' message is added in this page.)</li>
+					<li>Press the 'Go external page' button and press the 'Back' button of the top of the 'External' page.</li>
+					<li>Check whether the DOM is kept when revisiting this page. :</li>
+					<ul>
+						<li>If the page is set to 'dom-cache="true"':
+							<br>Check whether the 'New DOM is added.' message is kept.</li>
+						<li>Or if the page is set to 'dom-cache="false"':
+							<br>Check whether the 'New DOM is added.' message is NOT kept and is removed.</li>
+					</ul>
+				</ol>
 				<a href="#" class="change-cache" data-role="button" data-inline="true" data-value="true">true</a>
 				<a href="#" class="change-cache" data-role="button" data-inline="true" data-value="false">false</a>
-				<a href="#" class="change-dom" data-role="button" data-inline="true">Go!</a>
+				<a href="#" class="change-dom" data-role="button">Add new DOM</a>
+				<a href="page-caching-external.html" data-role="button">Go external page</a>
 			</div>
 
 		</div>

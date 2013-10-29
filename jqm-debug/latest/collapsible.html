@@ -124,14 +124,14 @@
 			<h3>Section 4: Collapsed list</h3>
 			<p>Here is an inset list:</p>
 			<ul data-role="listview" data-inset="true" data-theme="b">
-				<li><a href="index.html">Acura</a></li>
-				<li><a href="index.html">Audi</a></li>
-				<li><a href="index.html">BMW</a></li>
-				<li><a href="index.html">Cadillac</a></li>
-				<li><a href="index.html">Chrysler</a></li>
-				<li><a href="index.html">Dodge</a></li>
-				<li><a href="index.html">Ferrari</a></li>
-				<li><a href="index.html">Ford</a></li>
+				<li><a href="#">Acura</a></li>
+				<li><a href="#">Audi</a></li>
+				<li><a href="#">BMW</a></li>
+				<li><a href="#">Cadillac</a></li>
+				<li><a href="#">Chrysler</a></li>
+				<li><a href="#">Dodge</a></li>
+				<li><a href="#">Ferrari</a></li>
+				<li><a href="#">Ford</a></li>
 			</ul>
 		</div><!-- /section 3 -->
 	</div>
@@ -150,21 +150,15 @@
 	</div>
 
 <h2>Options:collapseCueText</h2>
-	<div data-role="collapsible" data-collapse-cue-text="collapses with a click" data-collapsed="false">
-		<h3>header</h3>
-		<p>collapsible contents</p>
-	</div>
-
-	<h3>Initialize with { collapseCueText: "collapse with a click" } </h3>
-		<div id="collapseCueText0" data-role="collapsible" data-collapsed="false">
+	<h3>data-collapse-cue-text="collapses with a click"</h3>
+		<div id="collapseCueText" data-role="collapsible" data-collapse-cue-text="collapses with a click" data-collapsed="false">
 			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
-		Status: <span id="status_collapseCueText0"></span><br/>
+		<span id="status_collapseCueText"></span><br/>
 		<script>
-			$("#collapseCueText0").on("collapsiblecreate", function() {
-				$("#collapseCueText0").collapsible( { collapseCueText: "collapse with a click" } );
-				printStatus( "collapseCueText0", "status_collapseCueText0" );
+			$("#collapseCueText").on("collapsiblecreate", function() {
+				printStatus( "collapseCueText", "status_collapseCueText" );
 			});
 
 			function printStatus( el, status ) {
@@ -172,7 +166,20 @@
 			}
 		</script>
 
-	<h4>Get/Set the collapseCueText option</h4>
+	<h3>Initialize with { collapseCueText: "collapse with a click" } </h3>
+		<div id="collapseCueText0" data-role="collapsible" data-collapsed="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<span id="status_collapseCueText0"></span><br/>
+		<script>
+			$("#collapseCueText0").on("collapsiblecreate", function() {
+				$("#collapseCueText0").collapsible( { collapseCueText: "collapse with a click" } );
+				printStatus( "collapseCueText0", "status_collapseCueText0" );
+			});
+		</script>
+
+	<h3>Get/Set the collapseCueText option</h3>
 	<div id="collapseCueText1" data-role="collapsible" data-collapsed="false">
 		<h3>header</h3>
 		<p>collapsible contents</p>
@@ -218,7 +225,7 @@
 			$("#collapsed0").collapsible( { collapsed: false } );
 		</script>
 
-	<h4>Get/Set the collapsed option</h4>
+	<h3>Get/Set the collapsed option</h3>
 	<div id="collapsed1" data-role="collapsible">
 		<h3>header</h3>
 		<p>collapsible contents</p>
@@ -271,7 +278,7 @@
 			$("#collapsedIcon00").collapsible( { collapsedIcon: false } );
 		</script>
 
-	<h4>Get/Set the collapsed option</h4>
+	<h3>Get/Set the collapsed option</h3>
 	<div id="collapsedIcon1" data-role="collapsible">
 		<h3>header</h3>
 		<p>collapsible contents</p>
@@ -294,6 +301,9 @@
 			result.html("<font color='blue'>" + value + "</font>");
 			if ( first && !value ) {
 				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
+			}
+			if ( !first && !value ) {
+				result.append(" <font color='red'> ==> The icon background is not removed.</font>");	
 			}
 		}
 		function setCollapseIcon1Option() {
@@ -324,7 +334,7 @@
 			$("#corners0").collapsible( { corners: false } );
 		</script>
 
-	<h4>Get/Set the corners option</h4>
+	<h3>Get/Set the corners option</h3>
 	<div id="corners1" data-role="collapsible">
 		<h3>header</h3>
 		<p>collapsible contents</p>
@@ -349,6 +359,63 @@
 		function toggleCorners1Option() {
 			$("#corners1").collapsible( "option", "corners", !($("#corners1").collapsible( "option", "corners" )) );
 			getCorners1Option( false );
+		}
+	</script>
+
+<h2>Options:expandCueText</h2>
+	<h3>data-collapse-cue-text="collapses with a click"</h3>
+		<div id="expandCueText" data-role="collapsible" data-expand-cue-text="expand with a click">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<span id="status_expandCueText"></span><br/>
+		<script>
+			$("#expandCueText").on("collapsiblecreate", function() {
+				printStatus( "expandCueText", "status_expandCueText" );
+			});
+		</script>
+
+	<h3>Initialize with { expandCueText: "expand with a click" } </h3>
+		<div id="expandCueText0" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		Status: <span id="status_expandCueText0"></span><br/>
+		<script>
+			$("#expandCueText0").on("collapsiblecreate", function() {
+				$("#expandCueText0").collapsible( { expandCueText: "expand with a click" } );
+				printStatus( "expandCueText0", "status_expandCueText0" );
+			});
+		</script>
+
+	<h3>Get/Set the expandCueText option</h3>
+	<div id="expandCueText1" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_expandCueText1"></span><br/>
+	<span id="status_expandCueText1"></span><br/>
+
+	<hr />
+	<a href="javascript:getExpandCueText1Option(true);">1. Get</a><br/>
+	<a href="javascript:setExpandCueText1Option();">2. Set</a><br/>
+	<a href="javascript:getExpandCueText1Option(false);">3. Get again</a><br/>
+
+	<script>
+		function getExpandCueText1Option( first ) {
+			var result = $("#result_expandCueText1"),
+				target = $("#expandCueText1"),
+				value = target.collapsible( "option", "expandCueText");
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( first && !value ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
+			}
+			printStatus( "expandCueText1", "status_expandCueText1" );
+		}
+		function setExpandCueText1Option() {
+			$("#expandCueText1").collapsible( "option", "expandCueText", "expand with a click" );
+			$("#status_expandCueText1").empty();
+			$("#result_expandCueText1").html("<font color='blue'>The expandCueText option is changed.</font>");
 		}
 	</script>
 
@@ -381,7 +448,7 @@
 			$("#expandedIcon00").collapsible( { expandedIcon: false } );
 		</script>
 
-	<h4>Get/Set the expanded option</h4>
+	<h3>Get/Set the expandedIcon option</h3>
 	<div id="expandedIcon1" data-role="collapsible" data-collapsed="false">
 		<h3>header</h3>
 		<p>collapsible contents</p>
@@ -389,14 +456,14 @@
 	<span id="result_expandedIcon1"></span><br/>
 
 	<hr />
-	<a href="javascript:getCollapseIcon1Option(true);">1. Get</a><br/>
-	<a href="javascript:setCollapseIcon1Option();">2. Set</a><br/>
-	<a href="javascript:getCollapseIcon1Option(false);">3. Get again</a><br/>
-	<a href="javascript:setCollapseIconFalse1Option();">4. Set false</a><br/>
-	<a href="javascript:getCollapseIcon1Option(false);">5. Get again</a><br/>
+	<a href="javascript:getExpandIcon1Option(true);">1. Get</a><br/>
+	<a href="javascript:setExpandIcon1Option();">2. Set</a><br/>
+	<a href="javascript:getExpandIcon1Option(false);">3. Get again</a><br/>
+	<a href="javascript:setExpandIconFalse1Option();">4. Set false</a><br/>
+	<a href="javascript:getExpandIcon1Option(false);">5. Get again</a><br/>
 
 	<script>
-		function getCollapseIcon1Option( first ) {
+		function getExpandIcon1Option( first ) {
 			var result = $( "#result_expandedIcon1" ),
 				target = $( "#expandedIcon1" ),
 				value = target.collapsible( "option", "expandedIcon" );
@@ -405,15 +472,66 @@
 			if ( first && !value ) {
 				result.append(" <font color='red'> ==> The default value is different from the API docs.</font>");
 			}
+
+			if ( !first && !value ) {
+				result.append(" <font color='red'> ==> The icon background is not removed.</font>");	
+			}
 		}
-		function setCollapseIcon1Option() {
+		function setExpandIcon1Option() {
 			$("#expandedIcon1").collapsible( "option", "expandedIcon", "arrow-d" );
 		}
-		function setCollapseIconFalse1Option() {
+		function setExpandIconFalse1Option() {
 			$("#expandedIcon1").collapsible( "option", "expandedIcon", false );
 		}
 	</script>
 
+<h2>Options:heading</h2>
+	<h3>data-heading=".block2"</h3>
+		<div data-role="collapsible" data-heading=".block2" data-collapsed="false">
+			<h3 class="block1">Block1</h3>
+			<p class="block2">Block2</p>
+			<p class="block3">Block3</p>
+		</div>
+
+	<h3>Initialize with { heading: ".block2" } </h3>
+		<div id="heading0" data-role="collapsible" data-collapsed="false">
+			<h3 class="block1">Block1</h3>
+			<p class="block2">Block2</p>
+			<p class="block3">Block3</p>
+		</div>
+		<script>
+			$("#heading0").collapsible( { heading: ".block2" } );
+		</script>
+
+	<h3>Get/Set the heading option</h3>
+		<div id="heading1" data-role="collapsible" data-collapsed="false">
+			<h3 class="block1">Block1</h3>
+			<p class="block2">Block2</p>
+			<p class="block3">Block3</p>
+		</div>
+		<span id="result_heading1"></span><br/>
+
+	<hr />
+	<a href="javascript:getHeading1Option( true );">1. Get</a><br/>
+	<a href="javascript:setHeading1Option();">2. Set</a><br/>
+	<a href="javascript:getHeading1Option( false );">3. Get again</a><br/>
+
+	<script>
+		function getHeading1Option( first ) {
+			var result = $( "#result_heading1" ),
+				target = $( "#heading1" ),
+				value = target.collapsible( "option", "heading" );
+
+			result.html("<font color='blue'>" + value + "</font>");
+			if ( !first ) {
+				result.append(" <font color='red'> ==> The header is not changed.</font>");	
+			}
+		}
+
+		function setHeading1Option() {
+			$("#heading1").collapsible( "option", "heading", "block2" );
+		}
+	</script>
 
 </div>
 </div><!-- /content -->

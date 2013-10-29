@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Page - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<!--
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		-->
+		<script src="./jquery.mobile-git-131023.js"></script>
+		<style type="text/css">
+			.custom-wrapper {
+				background-color: blue !important;
+			}
+		</style>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+		<script>
+			$( document ).on("click", ".toggleMini", function ( event ) {
+				var $input = $("#miniInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				value = $input.textinput("option", "mini");
+				msg = value = value === true ? true : false;
+				$input.textinput("option", "mini", !value );
+				msg +=  "->" + $input.textinput("option", "mini");
+				$input.val(msg);
+				if ( $container.find(".ui-mini").length !== 0 ) {
+					$container.find( ".status" ).text("true").css("color", "blue");
+				} else {
+					$container.find( ".status" ).text("false").css("color", "red");
+				}
+			}).on("click", ".toggleClearBtn", function ( event ) {
+				var $input = $("#clearBtnInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				value = $input.textinput("option", "clearBtn");
+				msg = value = value === true ? true : false;
+				$input.textinput("option", "clearBtn", !value );
+				msg +=  "->" + $input.textinput("option", "clearBtn");
+				$container.find(".toggleStatus").text(msg);
+				$input.textinput("refresh");
+				if ( $container.find(".ui-input-clear").length !== 0 ) {
+					$container.find( ".status" ).text("true").css("color", "blue");
+				} else {
+					$container.find( ".status" ).text("false").css("color", "red");
+				}
+			}).on("click", ".toggleBtnText", function ( event ) {
+				var $input = $("#clearBtnInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				if ( $container.find(".ui-input-clear").length !== 0 ) {
+					msg = value = $input.textinput("option", "clearBtnText");
+					value = value === "Clear text" ? "New Text" : "Clear text";
+					$input.textinput("option", "clearBtnText", value );
+					msg +=  "->" + $input.textinput("option", "clearBtnText");
+					$container.find(".toggleStatus-2").text(msg);
+					$input.textinput("refresh");
+					if ( $container.find(".ui-input-clear").length !== 0 ) {
+						$container.find( ".status-2" ).text("true").css("color", "blue");
+					} else {
+						$container.find( ".status-2" ).text("false").css("color", "red");
+					}
+				} else {
+					$container.find(".toggleStatus-2").text( "Please active the option('clearBtn')." );
+				}
+			}).on("click", ".toggleCorners", function ( event ) {
+				var $input = $("#conersInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				value = $input.textinput("option", "corners");
+				msg = value = value === true ? true : false;
+				$input.textinput("option", "corners", !value );
+				msg +=  "->" + $input.textinput("option", "corners");
+				$container.find(".toggleStatus").text(msg);
+				
+				$input.textinput("refresh");
+				if ( $container.find(".ui-corner-all").length > 1 ) {
+					$container.find( ".status" ).text("true").css("color", "blue");
+				} else {
+					$container.find( ".status" ).text("false").css("color", "red");
+				}
+			}).on("click", ".toggleAutogrow", function ( event ) {
+				var $input = $("#autogrouwInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				value = $input.textinput("option", "autogrow");
+				msg = value = value === true ? true : false;
+				$input.textinput("option", "autogrow", !value );
+				if ( value ) {
+					$input.css("height", "");
+				}
+				msg +=  "->" + $input.textinput("option", "autogrow");
+				$input.textinput("refresh");
+				$container.find(".toggleStatus").text( msg );
+				$container.find( ".status" ).text(  $input.css("height") ).css("color", "blue");
+				
+			}).on("click", ".toggleTimebuffer", function ( event ) {
+				var $input = $("#autogrouwInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				msg = value = parseInt( $input.textinput("option", "keyupTimeoutBuffer"), 10 );
+				value = value === 1000 ? 10 : 1000;
+				$input.textinput("option", "keyupTimeoutBuffer", value );
+				
+				msg +=  "->" + $input.textinput("option", "keyupTimeoutBuffer");
+				//$input.textinput("refresh");
+				$container.find(".toggleStatus-2").text( msg );
+				$container.find( ".status-2" ).text(  $input.css("height") ).css("color", "blue");
+				
+			}).on("click", ".toggleWrapper", function ( event ) {
+				var $input = $("#wrapperInput"),
+					$container = $( this ).parents(".container:first"),
+					value, msg;
+				msg = value = $input.textinput("option", "wrapperClass");
+				value = value === "" ? "custom-wrapper" : "";
+				$input.textinput("option", "wrapperClass", value );
+				msg +=  "->" + $input.textinput("option", "wrapperClass");
+				$container.find(".toggleStatus").text(msg);
+				
+				$input.textinput("refresh");
+				if ( $container.find(".custom-wrapper").length > 0 ) {
+					$container.find( ".status" ).text("Add a class.").css("color", "blue");
+				} else {
+					$container.find( ".status" ).text("Remove a class.").css("color", "red");
+				}
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="frontPage" data-role="page">
+
+			<div data-role="header">
+				<h1>TextInput</h1>
+			</div>
+
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					<li><a href="#default">Default</a></li>
+					<li><a href="#optionPage">OptionTest</a></li>
+					<li><a href="page-caching-switch.html">[Switch]</a></li>
+				</ul>
+			</div><!-- content -->
+
+		</div>	<!-- page-->
+
+		<div data-role="page" data-theme="a" id="default">
+			<div data-role="header" >
+				<h1>Default TextInput</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-left" data-icon="back">Back</a>
+			</div>
+			<div data-role="content">
+				<h3>Text Input</h3>
+				<label for="basic">Text Input:</label>
+				<input type="text" id="basic" value="" />
+				<H3>Text Input(No Label)</H3>
+				<input type="text" id="noLabel" value="" />
+				<br><br>
+				<H3>Other Style</H3>
+				<div data-role="fieldcontain">
+					<label for="password">Password:</label>
+					<input type="password" name="password" id="password" value="" />
+				</div>
+				<div data-role="fieldcontain">
+					<label for="number">Number:</label>
+					<input type="number" name="number" id="number" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="number-pattern">Number + pattern:</label>
+					<input type="number" name="number" pattern="[0-9]*" id="number-pattern" value="" placeholder="Pattern attribute [0-9]* for a numeric keypad" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="email">Email:</label>
+					<input type="email" name="email" id="email" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="url">Url:</label>
+					<input type="url" name="url" id="url" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="tel">Tel:</label>
+					<input type="tel" name="tel" id="tel" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="time">Time:</label>
+					<input type="time" name="time" id="time" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="date">Date:</label>
+					<input type="date" name="date" id="date" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="month">Month:</label>
+					<input type="month" name="month" id="month" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="week">Week:</label>
+					<input type="week" name="week" id="week" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="datetime">Datetime:</label>
+					<input type="datetime" name="datetime" id="datetime" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="datetime-l">Datetime local:</label>
+					<input type="datetime-local" name="datetime-l" id="datetime-l" value="" />
+				</div>
+					
+				<div data-role="fieldcontain">
+					<label for="color">Color:</label>
+					<input type="color" name="color" id="color" value="" />
+				</div>
+			</div>
+		</div>	<!-- page theme a -->
+
+		<div data-role="page" data-theme="a" id="optionPage">
+			<div data-role="header" >
+				<h1>Default TextInput</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-left" data-icon="back">Back</a>
+			</div>
+			<div data-role="content">
+				<H1>Option Test</H1>
+				<div class="container">
+					<label for="miniInput">Option - autogrow:</label>
+					<textarea name="textarea" id="autogrouwInput" data-autogrow="false">
+I'm a basic textarea. If this is pre-populated with content, the height will be automatically adjusted to fit without needing to scroll.
+That is a pretty handy usability feature.
+I'm a basic textarea. If this is pre-populated with content, the height will be automatically adjusted to fit without needing to scroll.
+That is a pretty handy usability feature.
+I'm a basic textarea. If this is pre-populated with content, the height will be automatically adjusted to fit without needing to scroll.
+That is a pretty handy usability feature.
+I'm a basic textarea. If this is pre-populated with content, the height will be automatically adjusted to fit without needing to scroll.
+That is a pretty handy usability feature.</textarea>
+					<a data-role="button" class="toggleAutogrow"> toggle autogrow  </a>
+					<p style="font-weight : bold ">status change : <span class="toggleStatus">-</span> <br> it has ui-class : <span class="status">-</span></p>
+					<a data-role="button" class="toggleTimebuffer"> toggle timeoutbuffer  </a>
+					<p style="font-weight : bold ">status change : <span class="toggleStatus-2">-</span> <br> it has ui-class : <span class="status-2">-</span></p>
+				</div><br>
+				<div class="container">
+					<label for="miniInput"><h1>Option - mini:</h1></label>
+					<input type="text" id="miniInput" value="" style ="font-weight:bold;"/>
+					<a data-role="button" class="toggleMini"> toggleMini </a>
+					<p style="font-weight : bold ">it has ui-class : <span class="status">-</span> </p>
+				</div><br>
+				<div class="container">
+					<label for="miniInput"><h1>Option - clearBtn:</h1></label>
+					<input type="text" id="clearBtnInput" value="This is a message." style ="font-weight:bold;"/>
+					<a data-role="button" class="toggleClearBtn"> toggleClearBtn  </a>
+					<p style="font-weight : bold ">status change : <span class="toggleStatus">-</span> <br> it has ui-class : <span class="status">-</span></p>
+					<a data-role="button" class="toggleBtnText"> toggle clearBtnText  </a>
+					<p style="font-weight : bold ">status change : <span class="toggleStatus-2">-</span> <br> it has ui-class : <span class="status-2">-</span></p>
+				</div><br>
+				<div class="container">
+					<label for="miniInput"><h1>Option - corners:</h1></label>
+					<input type="text" id="conersInput" value="" style ="font-weight:bold;" data-coners="false"/>
+					<a data-role="button" class="toggleCorners"> toggleCorners </a>
+					<p style="font-weight : bold ">
+						status change : <span class="toggleStatus">-</span><br>
+						it has ui-corner-all : <span class="status">-</span>
+					</p>
+				</div><br>
+				<div class="container">
+					<label for="miniInput"><h1>Option - wrapperClass:</h1></label>
+					<input type="text" id="wrapperInput" value="" style ="font-weight:bold;" data-coners="false"/>
+					<a data-role="button" class="toggleWrapper"> toggle wrapperClass </a>
+					<p style="font-weight : bold ">
+						status change : <span class="toggleStatus">-</span><br>
+						it has ui-corner-all : <span class="status">-</span>
+					</p>
+				</div><br>
+			</div>
+		</div>	<!-- page theme a -->
+		
+	</body>
+</html>

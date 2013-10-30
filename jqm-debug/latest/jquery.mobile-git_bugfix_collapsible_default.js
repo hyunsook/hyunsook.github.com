@@ -6677,7 +6677,7 @@ $.widget( "mobile.collapsible", {
 		//drop heading in before content
 		ui.heading.insertBefore( ui.content );
 
-		this._setOptions( opts );
+		this.options = opts;
 		this._handleExpandCollapse( this.options.collapsed );
 
 		return ui;

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Toolbar</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>-->
+	<!--<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"></link>-->
+
+</head>
+<body>
+
+<div data-role="page" id="toolbarFront">
+	<div data-role="header" data-position="fixed">
+		<h1>Toolbar</h1>
+	</div>
+
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true" >
+			<li><a href="#toolbarDefault">Default</a></li>
+			<li><a href="#toolbarAPI">API</a></li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="toolbarDefault">
+	<div data-role="header" data-position="fixed">
+		<h1>Default</h1>
+	</div>
+
+	<div data-role="content">
+		<h2>Header structure</h2>
+		<div data-role="header">
+			<h1> Page Title </h1>
+		</div>
+		<br>
+
+		<h2>Default button positioning</h2>
+		<div data-role="header">
+			<a href="index.html" data-role="button" data-icon="delete">Cancel</a>
+			<h1>Edit Contact</h1>
+			<a href="index.html" data-role="button" data-icon="check">Save</a>
+		</div>
+		<br>
+
+		<h2>Making buttons visually stand out</h2>
+		<div data-role="header">
+			<a href="index.html" data-role="button" data-icon="delete">Cancel</a>
+			<h1>Edit Contact</h1>
+			<a href="index.html" data-role="button" data-icon="check" data-theme="b">Save</a>
+		</div>
+		<br>
+
+		<h2>Controlling button position with classes</h2>
+		<div data-role="header">
+			<h1>Page Title</h1>
+			<a href="index.html" data-role="button" data-icon="gear" class="ui-btn-right">Options</a>
+		</div>
+		<br>
+
+		<h2>Adding buttons to toolbar widgets without heading</h2>
+		<div data-role="header">
+			<a href="index.html" data-role="button" data-icon="gear" class="ui-btn-right">Options</a>
+			<span class="ui-title" />
+		</div>
+		<br>
+
+		<h2>Adding Back buttons</h2>
+		<div data-role="header" data-add-back-btn="true">
+			<h1>Edit Contact</h1>
+		</div>
+		<br>
+
+		<h2>Custom header configurations</h2>
+		<div class="ui-bar ui-bar-b">
+			<h3>I'm just a div with bar classes and a mini inline <a href="#" data-role="button" data-mini="true">Button</a></h3>
+		</div>
+		<br>
+		<div class="ui-bar ui-bar-b">
+			<h3>I'm just a div with bar classes and a mini inline <a href="#" data-role="button" data-inline="true" data-mini="true">Button</a></h3>
+		</div>
+		<br>
+
+		<div class="ui-bar ui-bar-a">
+			<h3 style="display:inline-block; width:92%; margin-top:5px;">This is an alert message. </h3><div style="display:inline-block; width:8%; margin-top:0px;"><a href="#" data-role="button" data-icon="delete" data-iconpos="notext">Dismiss</a></div><p style="font-size:85%; margin:-.3em 0 1em;">And here's some additional text in a paragraph.</p>
+		</div>
+
+		<h2>Footer bar structure</h2>
+		<div data-role="footer">
+			<h4>Footer content</h4>
+		</div>
+		<br>
+
+		<h2>Adding buttons</h2>
+		<div data-role="footer" class="ui-bar">
+			<a href="index.html" data-role="button" data-icon="plus">Add</a>
+			<a href="index.html" data-role="button" data-icon="arrow-u">Up</a>
+			<a href="index.html" data-role="button" data-icon="arrow-d">Down</a>
+		</div>
+		<br>
+		<p>controlgroup:horizontal</p>
+		<div data-role="footer" class="ui-bar">
+			<div data-role="controlgroup" data-type="horizontal">
+				<a href="index.html" data-role="button" data-icon="plus">Add</a>
+				<a href="index.html" data-role="button" data-icon="arrow-u">Up</a>
+				<a href="index.html" data-role="button" data-icon="arrow-d">Down</a>
+			</div>
+		</div>
+		<br>
+		<p>controlgroup:vertical</p>
+		<div data-role="footer" class="ui-bar">
+			<div data-role="controlgroup" data-type="vertical">
+				<a href="index.html" data-role="button" data-icon="plus">Add</a>
+				<a href="index.html" data-role="button" data-icon="arrow-u">Up</a>
+				<a href="index.html" data-role="button" data-icon="arrow-d">Down</a>
+			</div>
+		</div>
+		<br>
+
+		<h2>Adding form elements</h2>
+		<p> data-mini="true" </p>
+		<div data-role="footer" class="ui-bar">
+			<label for="select-choice-1">Shipping:</label>
+			<select name="select-choice-1" id="select-choice-1" data-theme="a" data-mini="true">
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+
+		<p> normal </p>
+		<div data-role="footer" class="ui-bar">
+			<label for="select-choice-1">Shipping:</label>
+			<select name="select-choice-1" id="select-choice-1" data-theme="a">
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<br>
+
+	</div>
+</div>
+
+<div data-role="page" id="toolbarAPI">
+	<div data-role="header" data-position="fixed">
+		<h1>API</h1>
+	</div>
+
+	<div data-role="content">
+		<h2>Option:addBackBtn</h2>
+		<h4> data-add-back-btn="true"</h4>
+		<div id="addBackBtn1" data-role="header" data-add-back-btn="true">
+			<h1> Page Title </h1>
+		</div>
+		<br>
+
+		<h4> option method</h4>
+		<button class="addBackBtn" data-inline="true" >Dynamic Test( addBackBtn )</button>
+		<div id="addBackBtn" data-role="header">
+			<h1> Page Title </h1>
+		</div>
+		<div class="resultaddBackBtn"></div>
+		<script>
+			$.mobile.document.delegate(".addBackBtn", "click", function () {
+				$( "#addBackBtn" ).toolbar( "option", "addBackBtn", true )
+					.toolbar( "refresh" );
+
+				if ( $( "#addBackBtn a:contains(Back)" ).length > 0 ) {
+					$( ".resultaddBackBtn" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultaddBackBtn" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultaddBackBtn" ).append( "<h4>Current addBackBtn option:" + $( "#addBackBtn" ).toolbar( "option", "addBackBtn" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:backBtnText</h2>
+		<div data-role="header" data-add-back-btn="true" data-back-btn-text="Previous">
+			<h1> Page Title </h1>
+		</div>
+		<br>
+
+		<h4> option method</h4>
+		<button class="backBtnText" data-inline="true" >Dynamic Test( backBtnText )</button>
+		<div id="backBtnText" data-role="header" data-add-back-btn="true">
+			<h1> Page Title </h1>
+		</div>
+		<div class="resultbackBtnText"></div>
+		<script>
+			$.mobile.document.delegate(".backBtnText", "click", function () {
+				$( "#backBtnText" ).toolbar( "option", "backBtnText", "Previous" )
+					.toolbar( "refresh" );
+
+				if ( $( "#backBtnText a:contains(Previous)" ).length > 0 ) {
+					$( ".resultbackBtnText" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultbackBtnText" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultbackBtnText" ).append( "<h4>Current backBtnText option:" + $( "#backBtnText" ).toolbar( "option", "backBtnText" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:backBtnTheme</h2>
+		<div data-role="header" data-add-back-btn="true" data-back-btn-theme="b">
+			<h1> Page Title </h1>
+		</div>
+		<br>
+	</div>
+</div>
+
+</body>
+</html>

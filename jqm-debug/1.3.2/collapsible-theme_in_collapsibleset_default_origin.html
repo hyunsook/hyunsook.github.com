@@ -12,21 +12,22 @@
 <div data-role="page">
 <div data-role="content" class="jqm-content">
 
-<h2>Default value of the theme option when it is part of a collapsible set</h2>
+<h2>Default value of the theme option when a collapsible widget is part of a collapsible set</h2>
+	The theme of the parent collapsible set was defined as &quot;b&quot;.
 	<div data-role="collapsible-set" data-theme="b">
 		<div id="target" data-role="collapsible">
-			<h3>Collapsible A</h3>
+			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
 		<div data-role="collapsible">
-			<h3>Collapsible B</h3>
+			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
 	</div>
 	<span id="result"></span><br/>
 
 	<hr />
-	<a href="javascript:getThemeOption();">1. Collapsible A: Get default value of the theme option</a><br/>
+	<a href="javascript:getThemeOption();">1. Get default value of the theme option of the child collapsible widget</a><br/>
 
 	<script>
 		function getThemeOption() {

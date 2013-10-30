@@ -658,11 +658,59 @@
 					( value === "none" ) ? "notext" :
 					( value === "notext" ) ? "left" : "left";
 
-			$( "#iconpos1" ).collapsible( "option", "iconpos", value );
+			target.collapsible( "option", "iconpos", value );
 
 			getIconpos1Option( false );
 		}
 	</script>
+
+<h2>Options:inset</h2>
+	<h3>data-inset="false"</h3>
+		<div data-role="collapsible" data-inset="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+
+	<h3>Initialize with { inset: false } </h3>
+		<div id="inset0" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#inset0").collapsible( { inset: false } );
+		</script>
+
+	<h3>Get/Set the iconpos option</h3>
+		<div id="inset1" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<span id="result_inset1"></span><br/>
+
+	<hr />
+	<a href="javascript:getInset1Option( true );">1. Get</a><br/>
+	<a href="javascript:setInset1Option();">2. Set</a><br/>
+
+	<script>
+		function getInset1Option( first ) {
+			var result = $( "#result_inset1" ),
+				target = $( "#inset1" ),
+				value = target.collapsible( "option", "inset" );
+
+			result.html( "<font color='blue'>" + value + "</font>" );
+			if ( first && !value ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs. (default: true)</font> ");
+			}
+		}
+
+		function setInset1Option() {
+			$( "#inset1" ).collapsible( "option", "inset", false );
+
+			getInset1Option( false );
+			$( "#result_inset1" ).append(" <font color='blue'> ==> The changed value is applied.</font> ");
+		}
+	</script>
+
 </div>
 </div><!-- /content -->
 </div><!-- /page -->

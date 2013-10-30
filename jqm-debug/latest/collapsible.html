@@ -764,6 +764,90 @@
 		}
 	</script>
 
+<h2>Options:theme</h2>
+	<h3>data-theme="b"</h3>
+		<div data-role="collapsible" data-theme="b">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+
+	<h3>Initialize with { theme: "b" } </h3>
+		<div id="theme0" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#theme0").collapsible( { theme: "b" } );
+		</script>
+
+	<h3>Get/Set the theme option</h3>
+		<h4>Individual</h4>
+			<div id="theme1" data-role="collapsible">
+				<h3>header</h3>
+				<p>collapsible contents</p>
+			</div>
+			<span id="result_theme1"></span><br/>
+
+		<hr />
+		<a href="javascript:getTheme1Option( true );">1. Get</a><br/>
+		<a href="javascript:setTheme1Option();">2. Toggle</a><br/>
+
+		<script>
+			function getTheme1Option( first ) {
+				var result = $( "#result_theme1" ),
+					target = $( "#theme1" ),
+					value = target.collapsible( "option", "theme" );
+
+				result.html( "<font color='blue'>" + value + "</font>" );
+			}
+
+			function setTheme1Option() {
+				var target = $( "#theme1" ),
+					value = target.collapsible( "option", "theme" );
+
+				target.collapsible( "option", "theme", !value || value === "a" ? "b" : "a" );
+
+				getTheme1Option( false );
+				$( "#result_theme1" ).append(" <font color='blue'> ==> The changed value is applied.</font> ");
+			}
+		</script>
+
+		<h4>Part of a collapsible set</h4>
+			<div data-role="collapsibleset" data-theme="b">
+				<div id="theme2" data-role="collapsible">
+					<h3>header</h3>
+					<p>collapsible contents</p>
+				</div>
+				<div data-role="collapsible">
+					<h3>header</h3>
+					<p>collapsible contents</p>
+				</div>
+			</div>
+			<span id="result_theme2"></span><br/>
+
+		<hr />
+		<a href="javascript:getTheme2Option( true );">1. Get</a><br/>
+		<a href="javascript:setTheme2Option();">2. Toggle</a><br/>
+
+		<script>
+			function getTheme2Option( first ) {
+				var result = $( "#result_theme2" ),
+					target = $( "#theme2" ),
+					value = target.collapsible( "option", "theme" );
+
+				result.html( "<font color='blue'>" + value + "</font>" );
+			}
+
+			function setTheme2Option() {
+				var target = $( "#theme2" ),
+					value = target.collapsible( "option", "theme" );
+
+				target.collapsible( "option", "theme", !value || value === "a" ? "b" : "a" );
+
+				getTheme2Option( false );
+				$( "#result_theme2" ).append(" <font color='blue'> ==> The changed value is applied.</font> ");
+			}
+		</script>
 
 </div>
 </div><!-- /content -->

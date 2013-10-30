@@ -6635,7 +6635,6 @@ $.widget( "mobile.collapsible", {
 			opts = this._getOptions( this.options ),
 			contentThemeClass = this._themeClassFromOption( "ui-body-", opts.contentTheme );
 
-		this.options = opts;
 		elem.addClass( "ui-collapsible " +
 			( opts.inset ? "ui-collapsible-inset " : "" ) +
 			( opts.inset && opts.corners ? "ui-corner-all " : "" ) +
@@ -6678,6 +6677,7 @@ $.widget( "mobile.collapsible", {
 		//drop heading in before content
 		ui.heading.insertBefore( ui.content );
 
+		this._setOptions( opts );
 		this._handleExpandCollapse( this.options.collapsed );
 
 		return ui;

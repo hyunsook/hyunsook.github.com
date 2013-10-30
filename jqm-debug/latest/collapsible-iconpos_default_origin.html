@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapsible: iconpos - defalut</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Default value of the iconpos option</h2>
+	<div id="target" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result"></span><br/>
+
+	<hr />
+	<a href="javascript:getIconposOption();">1. Get default value of the iconpos option</a><br/>
+
+	<script>
+		function getIconposOption() {
+			var result = $( "#result" );
+
+			result.html( "Value: <font color='blue'>" + $( "#target" ).collapsible( "option", "iconpos" ) + "</font>" );
+			result.append(" <font color='red'> ==> The default value is different from the API docs. (default: &quot;left&quot;)</font>" );
+		}
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

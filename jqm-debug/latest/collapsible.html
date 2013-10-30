@@ -546,30 +546,123 @@
 			<p>collapsible contents</p>
 		</div>
 
-	<h3>data-iconpos="top"</h3>
+	<h3 style="color:red;">data-iconpos="top"</h3>
 		<div data-role="collapsible" data-iconpos="top">
 			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
 		
-	<h3>data-iconpos="bottom"</h3>
+	<h3 style="color:red;">data-iconpos="bottom"</h3>
 		<div data-role="collapsible" data-iconpos="bottom">
 			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
 
-	<h3>data-iconpos="none"</h3>
+	<h3 style="color:red;">data-iconpos="none"</h3>
 		<div data-role="collapsible" data-iconpos="none">
 			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
 
-	<h3>data-iconpos="notext"</h3>
+	<h3 style="color:red;">data-iconpos="notext"</h3>
 		<div data-role="collapsible" data-iconpos="notext">
 			<h3>header</h3>
 			<p>collapsible contents</p>
 		</div>
 
+	<h3>Initialize with { iconpos: "left" } </h3>
+		<div id="iconpos00" data-role="collapsible" data-iconpos="right">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#iconpos00").collapsible( { iconpos: "left" } );
+		</script>
+
+	<h3>Initialize with { iconpos: "right" } </h3>
+		<div id="iconpos01" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#iconpos01").collapsible( { iconpos: "right" } );
+		</script>
+
+	<h3 style="color:red;">Initialize with { iconpos: "top" } </h3>
+		<div id="iconpos02" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#iconpos02").collapsible( { iconpos: "top" } );
+		</script>
+
+	<h3 style="color:red;">Initialize with { iconpos: "bottom" } </h3>
+		<div id="iconpos03" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#iconpos03").collapsible( { iconpos: "bottom" } );
+		</script>
+
+	<h3 style="color:red;">Initialize with { iconpos: "none" } </h3>
+		<div id="iconpos04" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#iconpos04").collapsible( { iconpos: "none" } );
+		</script>
+
+	<h3 style="color:red;">Initialize with { iconpos: "notext" } </h3>
+		<div id="iconpos05" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#iconpos05").collapsible( { iconpos: "notext" } );
+		</script>
+
+	<h3>Get/Set the iconpos option</h3>
+		<div id="iconpos1" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<span id="result_iconpos1"></span><br/>
+
+	<hr />
+	<a href="javascript:getIconpos1Option( true );">1. Get</a><br/>
+	<a href="javascript:changeIconpos1Option();">2. Change the values</a><br/>
+
+	<script>
+		function getIconpos1Option( first ) {
+			var result = $( "#result_iconpos1" ),
+				target = $( "#iconpos1" ),
+				value = target.collapsible( "option", "iconpos" );
+
+			result.html( "<font color='blue'>" + value + "</font>" );
+			if ( first && !value ) {
+				result.append(" <font color='red'> ==> The default value is different from the API docs. (default: &quot;left&quot;)</font> ");
+			}
+		}
+
+		function changeIconpos1Option() {
+			var target = $( "#iconpos1" ),
+				value = target.collapsible( "option", "iconpos" );
+
+			value = ( value === "left" ) ? "right" :
+					( value === "right" ) ? "top" :
+					( value === "top" ) ? "bottom" :
+					( value === "bottom" ) ? "none" :
+					( value === "none" ) ? "notext" :
+					( value === "notext" ) ? "left" : "left";
+
+			$( "#iconpos1" ).collapsible( "option", "iconpos", value );
+
+			getIconpos1Option( false );
+		}
+	</script>
 </div>
 </div><!-- /content -->
 </div><!-- /page -->

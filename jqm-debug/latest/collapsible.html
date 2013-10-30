@@ -836,6 +836,10 @@
 					value = target.collapsible( "option", "theme" );
 
 				result.html( "<font color='blue'>" + value + "</font>" );
+
+				if ( !value ) {
+					result.append(" <font color='red'> ==> The default value is different from the API docs. (default: inherited from parent)</font>" );
+				}			
 			}
 
 			function setTheme2Option() {
@@ -848,6 +852,20 @@
 				$( "#result_theme2" ).append(" <font color='blue'> ==> The changed value is applied.</font> ");
 			}
 		</script>
+
+<!--h2>Events:collapse</h2>
+	<div id="collapsiblecollapse" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_collapsiblecollapse"></span><br/>
+
+	<script>
+		$( "#collapsiblecollapse" ).on( "collapsiblecollapse", function( event, ui ) {
+			console.log( event );
+			$( "#result_collapsiblecollapse" ).html( event );
+		});
+	</script-->
 
 </div>
 </div><!-- /content -->

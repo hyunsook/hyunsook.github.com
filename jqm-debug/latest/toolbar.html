@@ -25,7 +25,8 @@
 	<div data-role="content">
 		<ul data-role="listview" data-inset="true" >
 			<li><a href="#toolbarDefault">Default</a></li>
-			<li><a href="#toolbarAPI">API</a></li>
+			<li><a href="#toolbarAPI">API (Same page)</a></li>
+			<li><a href="./toolbar-sub.html">API (New page)</a></li>
 		</ul>
 	</div>
 </div>
@@ -152,35 +153,34 @@
 </div>
 
 <div data-role="page" id="toolbarAPI">
-	<div data-role="header" data-position="fixed">
-		<h1>API</h1>
+	<div id="testHeader" data-role="header" data-position="fixed">
+		<h1>API(Same page)</h1>
 	</div>
 
 	<div data-role="content">
 		<h2>Option:addBackBtn</h2>
 		<h4> data-add-back-btn="true"</h4>
-		<div id="addBackBtn1" data-role="header" data-add-back-btn="true">
+		<div data-role="header" data-add-back-btn="true">
 			<h1> Page Title </h1>
 		</div>
 		<br>
 
 		<h4> option method</h4>
-		<button class="addBackBtn" data-inline="true" >Dynamic Test( addBackBtn )</button>
-		<div id="addBackBtn" data-role="header">
+		<button class="addBackBtn1" data-inline="true" >Dynamic Test( addBackBtn )</button>
+		<div id="addBackBtn1" data-role="header">
 			<h1> Page Title </h1>
 		</div>
-		<div class="resultaddBackBtn"></div>
+		<div class="resultaddBackBtn1"></div>
 		<script>
-			$.mobile.document.delegate(".addBackBtn", "click", function () {
-				$( "#addBackBtn" ).toolbar( "option", "addBackBtn", true )
-					.toolbar( "refresh" );
+			$.mobile.document.delegate(".addBackBtn1", "click", function () {
+				$( "#addBackBtn1" ).toolbar( "option", "addBackBtn", true );
 
-				if ( $( "#addBackBtn a:contains(Back)" ).length > 0 ) {
-					$( ".resultaddBackBtn" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				if ( $( "#addBackBtn1 a:contains(Back)" ).length > 0 ) {
+					$( ".resultaddBackBtn1" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
 				} else {
-					$( ".resultaddBackBtn" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+					$( ".resultaddBackBtn1" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
 				}
-				$( ".resultaddBackBtn" ).append( "<h4>Current addBackBtn option:" + $( "#addBackBtn" ).toolbar( "option", "addBackBtn" ) + "</h4>" );
+				$( ".resultaddBackBtn1" ).append( "<h4>Current addBackBtn option:" + $( "#addBackBtn1" ).toolbar( "option", "addBackBtn" ) + "</h4>" );
 			});
 		</script>
 		<br>
@@ -192,22 +192,21 @@
 		<br>
 
 		<h4> option method</h4>
-		<button class="backBtnText" data-inline="true" >Dynamic Test( backBtnText )</button>
-		<div id="backBtnText" data-role="header" data-add-back-btn="true">
+		<button class="backBtnText1" data-inline="true" >Dynamic Test( backBtnText )</button>
+		<div id="backBtnText1" data-role="header" data-add-back-btn="true">
 			<h1> Page Title </h1>
 		</div>
-		<div class="resultbackBtnText"></div>
+		<div class="resultbackBtnText1"></div>
 		<script>
-			$.mobile.document.delegate(".backBtnText", "click", function () {
-				$( "#backBtnText" ).toolbar( "option", "backBtnText", "Previous" )
-					.toolbar( "refresh" );
+			$.mobile.document.delegate(".backBtnText1", "click", function () {
+				$( "#backBtnText1" ).toolbar( "option", "backBtnText", "Previous" );
 
-				if ( $( "#backBtnText a:contains(Previous)" ).length > 0 ) {
-					$( ".resultbackBtnText" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				if ( $( "#backBtnText1 a:contains(Previous)" ).length > 0 ) {
+					$( ".resultbackBtnText1" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
 				} else {
-					$( ".resultbackBtnText" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+					$( ".resultbackBtnText1" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
 				}
-				$( ".resultbackBtnText" ).append( "<h4>Current backBtnText option:" + $( "#backBtnText" ).toolbar( "option", "backBtnText" ) + "</h4>" );
+				$( ".resultbackBtnText1" ).append( "<h4>Current backBtnText option:" + $( "#backBtnText1" ).toolbar( "option", "backBtnText" ) + "</h4>" );
 			});
 		</script>
 		<br>
@@ -217,6 +216,44 @@
 			<h1> Page Title </h1>
 		</div>
 		<br>
+
+		<h4> option method</h4>
+		<button class="backBtnTheme1" data-inline="true" >Dynamic Test( backBtnTheme )</button>
+		<div id="backBtnTheme1" data-role="header" data-add-back-btn="true">
+			<h1> Page Title </h1>
+		</div>
+		<div class="resultbackBtnTheme1"></div>
+		<script>
+			$.mobile.document.delegate(".backBtnTheme1", "click", function () {
+				$( "#backBtnTheme1" ).toolbar( "option", "backBtnTheme", "b" );
+
+				if ( $( "#backBtnTheme1 a.ui-btn-b" ).length > 0 ) {
+					$( ".resultbackBtnTheme1" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultbackBtnTheme1" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultbackBtnTheme1" ).append( "<h4>Current backBtnTheme option:" + $( "#backBtnTheme1" ).toolbar( "option", "backBtnTheme" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:disablePageZoom</h2>
+		<button class="disablePageZoom" data-inline="true" >Dynamic Test( disablePageZoom )</button>
+		<div class="resultdisablePageZoom"></div>
+		<script>
+			$.mobile.document.delegate(".disablePageZoom", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "disablePageZoom", false );
+
+				if ( $( "meta[name=viewport]" ).attr( "content" ).indexOf( ",maximum-scale=1, user-scalable=no" ) < 0 ) {
+					$( ".resultdisablePageZoom" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultdisablePageZoom" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultdisablePageZoom" ).append( "<h4>Current disablePageZoom option:" + $( "#testHeader" ).toolbar( "option", "disablePageZoom" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
 	</div>
 </div>
 

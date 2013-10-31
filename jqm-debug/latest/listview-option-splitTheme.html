@@ -11,23 +11,11 @@
 <body>
 <div data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h1>Listview<br>Option:splitTheme</h1>
+		<h1>Listview<br>Option: splitTheme</h1>
 	</div>
 	<div data-role="content">
-		<h2>option method</h2>
-		<script>
-			$.mobile.document.delegate(".test", "click", function () {
-				$( "#splitTheme" ).listview( "option", "splitTheme", "b" )
-					.listview( "refresh" );
 
-				if ( $( "#splitTheme a:eq(1)" ).hasClass( "ui-btn-b" ) ) {
-					$( ".result" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
-				} else {
-					$( ".result" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
-				}
-				$( ".result" ).append( "<h4>Current splitTheme option:" + $( "#splitTheme" ).listview( "option", "splitTheme" ) + "</h4>" );
-			});
-		</script>
+		<h2>Set the splitTheme option and Refresh</h2>
 
 		<button class="test" data-inline="true" >Change "a" theme to "b" theme</button>
 		<br><br>
@@ -40,10 +28,12 @@
 			<li class="grape"><a href="#">Grape</a><a></a></li>
 			<li class="orange"><a href="#">Orange</a><a></a></li>
 		</ul>
-		<div class="result"></div>
+		<div class="result" style="height:40px;"></div>
+		<br/>
 
-		<br><br>
-		<h2>data-split-theme="b"</h2>
+		<hr/>		
+
+		<h3>Expected: data-split-theme="b"</h3><br/>
 		<ul data-split-theme="b" data-role="listview">
 			<li class="apple" ><a href="#">Apple</a><a></a></li>
 			<li class="banana"><a href="#">Banana</a><a></a></li>
@@ -51,7 +41,21 @@
 			<li class="cranberry"><a href="#">Cranberry</a><a></a></li>
 			<li class="grape"><a href="#">Grape</a><a></a></li>
 			<li class="orange"><a href="#">Orange</a><a></a></li>
-		</ul>
+		</ul><br/>
+
+		<script>
+			$.mobile.document.delegate(".test", "click", function () {
+				$( "#splitTheme" ).listview( "option", "splitTheme", "b" )
+					.listview( "refresh" );
+
+				if ( $( "#splitTheme a:eq(1)" ).hasClass( "ui-btn-b" ) ) {
+					$( ".result" ).html( "<h4 style='color:blue;'>refresh() success.</h4>" );
+				} else {
+					$( ".result" ).html( "<h4 style='color:red;'>refresh() failure.</h4>" );
+				}
+				$( ".result" ).append( "<h4>(The splitTheme option value : " + $( "#splitTheme" ).listview( "option", "splitTheme" ) + ")</h4>" );
+			});
+		</script>
 
 	</div><!-- /content -->
 

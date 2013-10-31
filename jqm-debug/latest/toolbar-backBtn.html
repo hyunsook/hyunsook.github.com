@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Toolbar</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="toolbarFront">
+	<div data-role="header" data-position="fixed">
+		<h1>Toolbar backBtn test</h1>
+	</div>
+
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true" >
+			<li><a href="#toolbarAPI">Same page</a></li>
+			<li><a href="./toolbar-backBtn-sub.html">New page</a></li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="toolbarAPI">
+	<div id="testHeader" data-role="header" data-position="fixed">
+		<h1>backBtn test<br>(Same page)</h1>
+	</div>
+
+	<div data-role="content">
+		<h2>Option:addBackBtn</h2>
+		<h4> data-add-back-btn="true"</h4>
+		<div data-role="header" data-add-back-btn="true">
+			<h1> Page Title </h1>
+		</div>
+		<br>
+
+		<h4> option method</h4>
+		<button class="addBackBtn1" data-inline="true" >Dynamic Test( addBackBtn )</button>
+		<div id="addBackBtn1" data-role="header">
+			<h1> Page Title </h1>
+		</div>
+		<div class="resultaddBackBtn1"></div>
+		<script>
+			$.mobile.document.delegate(".addBackBtn1", "click", function () {
+				$( "#addBackBtn1" ).toolbar( "option", "addBackBtn", true );
+
+				if ( $( "#addBackBtn1 a:contains(Back)" ).length > 0 ) {
+					$( ".resultaddBackBtn1" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultaddBackBtn1" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultaddBackBtn1" ).append( "<h4>Current addBackBtn option:" + $( "#addBackBtn1" ).toolbar( "option", "addBackBtn" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:backBtnText</h2>
+		<div data-role="header" data-add-back-btn="true" data-back-btn-text="Previous">
+			<h1> Page Title </h1>
+		</div>
+		<br>
+
+		<h4> option method</h4>
+		<button class="backBtnText1" data-inline="true" >Dynamic Test( backBtnText )</button>
+		<div id="backBtnText1" data-role="header" data-add-back-btn="true">
+			<h1> Page Title </h1>
+		</div>
+		<div class="resultbackBtnText1"></div>
+		<script>
+			$.mobile.document.delegate(".backBtnText1", "click", function () {
+				$( "#backBtnText1" ).toolbar( "option", "backBtnText", "Previous" );
+
+				if ( $( "#backBtnText1 a:contains(Previous)" ).length > 0 ) {
+					$( ".resultbackBtnText1" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultbackBtnText1" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultbackBtnText1" ).append( "<h4>Current backBtnText option:" + $( "#backBtnText1" ).toolbar( "option", "backBtnText" ) + "</h4>" );
+			});
+		</script>
+		<br>
+	</div>
+</div>
+
+</body>
+</html>

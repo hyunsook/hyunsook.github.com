@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapsible: options - defalut</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="jquery.mobile-git_bugfix_collapsible_default_plus_theme.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Default value of the options</h2>
+
+<h3>Individual</h3>
+	<div id="individual" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_individual"></span><br/>
+
+<h3>Part of a collapsible set</h3>
+	The theme of the parent collapsible set was defined as &quot;b&quot;.
+	<div data-role="collapsibleset" data-theme="b">
+		<div id="part" data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<div data-role="collapsible">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+	</div>
+	<span id="result_part"></span><br/>
+	<hr />
+
+	<a href="javascript:getDefalutValues();">1. Get default values of the options</a><br/>
+
+	<script>
+		function getDefalutValues() {
+			getValues( "#individual", "#result_individual" );
+			getValues( "#part", "#result_part" );
+		}
+
+		function getValues( el, result ) {
+			var result = $( result ),
+				target = $( el ),
+				collapseCueText = target.collapsible( "option", "collapseCueText" ),
+				expandCueText = target.collapsible( "option", "expandCueText" ),
+				collapsed = target.collapsible( "option", "collapsed" ),
+				heading = target.collapsible( "option", "heading" ),
+				collapsedIcon = target.collapsible( "option", "collapsedIcon" ),
+				expandedIcon = target.collapsible( "option", "expandedIcon" ),
+				corners = target.collapsible( "option", "corners" ),
+				iconpos = target.collapsible( "option", "iconpos" ),
+				inset = target.collapsible( "option", "inset" ),
+				mini = target.collapsible( "option", "mini" ),
+				theme = target.collapsible( "option", "theme" );
+
+			result.html(
+				getResultHtml( "collapseCueText", collapseCueText ) + "<br/>" +
+				getResultHtml( "expandCueText", expandCueText ) + "<br/>" +
+				getResultHtml( "collapsed", collapsed ) + "<br/>" +
+				getResultHtml( "heading", heading ) + "<br/>" +
+				getResultHtml( "collapsedIcon", collapsedIcon ) + "<br/>" +
+				getResultHtml( "expandedIcon", expandedIcon ) + "<br/>" +
+				getResultHtml( "corners", corners ) + "<br/>" +
+				getResultHtml( "iconpos", iconpos ) + "<br/>" +
+				getResultHtml( "inset", inset ) + "<br/>" +
+				getResultHtml( "mini", mini ) + "<br/>" +
+				getResultHtml( "theme", theme, target ) + "<br/>"
+			);
+		}
+
+		function getResultHtml( key, value, el ) {
+			return key + ": <font color='" + getResultColor( key, value, el ) + "'>" + 
+					value + " (default: " + defaultValues[ key ] + ")</font>";
+		}
+
+		function getResultColor( key, value, el ) {
+			return getResult( key, value, el ) ? "blue" : "red";
+		}
+
+		function getResult( key, value, el ) {
+			if ( key != "theme" ) {
+				return value === defaultValues[ key ];
+			}
+
+			if ( !el )
+				return false;
+
+			var parent = el.closest( ":jqmData(role='collapsible-set'), :mobile-collapsibleset" );
+			return !parent.length ? value === null : value === parent.data( "theme" );
+		}
+
+		var defaultValues = {
+			expandCueText: " click to expand contents",
+			collapseCueText: " click to collapse contents",
+			collapsed: true,
+			heading: "h1,h2,h3,h4,h5,h6,legend",
+			collapsedIcon: "plus",
+			contentTheme: "inherit",
+			expandedIcon: "minus",
+			iconpos: "left",
+			inset: true,
+			corners: true,
+			theme: "inherit",
+			mini: false
+		};
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Listview</title>
+	<title>Listview : options</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
@@ -11,25 +11,15 @@
 <body>
 <div data-role="page">
 	<div data-role="header" data-position="fixed">
-		<h1>Listview<br>Option:icon</h1>
+		<h1>Listview<br>Option: icon</h1>
 	</div>
 	<div data-role="content">
-		<h2>Option method</h2>
-		<script>
-			$.mobile.document.delegate(".test", "click", function () {
-				$( "#icon" ).listview( "option", "icon", "gear" )
-					.listview( "refresh" );
 
-				if ( $( "#icon a:eq(0)" ).hasClass( "ui-icon-gear" ) ) {
-					$( ".result" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
-				} else {
-					$( ".result" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
-				}
-				$( ".result" ).append( "<h4>Current icon option:" + $( "#icon" ).listview( "option", "icon" ) + "</h4>" );
-			});
-		</script>
+		<h2>Set the icon option and Refresh</h2>
+
+		If you click the following button, you can see that the option value is changed and Listview is refreshed.<br/>
 		<button class="test" data-inline="true" >Change "carat-r" to "gear"</button>
-		<br><br>
+		<br/><br/>
 
 		<ul id="icon" data-role="listview">
 			<li class="apple" ><a href="#">Apple</a></li>
@@ -39,10 +29,13 @@
 			<li class="grape"><a href="#">Grape</a></li>
 			<li class="orange"><a href="#">Orange</a></li>
 		</ul>
-		<div class="result"></div>
-		<br><br>
+		<div class="result" style="height:40px;"></div>
+		<br/>
 
-		<h2>data-icon="gear"</h2>
+		<hr/>		
+
+		<h3>Expected: data-icon="gear"</h3><br/>
+
 		<ul data-icon="gear" data-role="listview">
 			<li class="apple" ><a href="#">Apple</a></li>
 			<li class="banana"><a href="#">Banana</a></li>
@@ -50,7 +43,21 @@
 			<li class="cranberry"><a href="#">Cranberry</a></li>
 			<li class="grape"><a href="#">Grape</a></li>
 			<li class="orange"><a href="#">Orange</a></li>
-		</ul>
+		</ul><br/>
+
+		<script>
+			$.mobile.document.delegate(".test", "click", function () {
+				$( "#icon" ).listview( "option", "icon", "gear" )
+					.listview( "refresh" );
+
+				if ( $( "#icon a:eq(0)" ).hasClass( "ui-icon-gear" ) ) {
+					$( ".result" ).html( "<h4 style='color:blue;'>refresh() success.</h4>" );
+				} else {
+					$( ".result" ).html( "<h4 style='color:red;'>refresh() failure.</h4>" );
+				}
+				$( ".result" ).append( "<h4>(The icon option value : " + $( "#icon" ).listview( "option", "icon" ) + ")</h4>" );
+			});
+		</script>
 
 	</div><!-- /content -->
 

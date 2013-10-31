@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Listview</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<!-- <script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script> -->
+	<script src="./jquery.mobile-git_bugfix_listview_refresh.js"></script>
+</head>
+<body>
+<div data-role="page">
+	<div data-role="header" data-position="fixed">
+		<h1>Listview<br>Option: splitIcon</h1>
+	</div>
+	<div data-role="content">
+		<h3>Expected : (data-split-icon="gear")</h3>
+		<ul data-split-icon="gear" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a><a></a></li>
+			<li class="banana"><a href="#">Banana</a><a></a></li>
+			<li class="cherry"><a href="#">Cherry</a><a></a></li>
+			<li class="cranberry"><a href="#">Cranberry</a><a></a></li>
+			<li class="grape"><a href="#">Grape</a><a></a></li>
+			<li class="orange"><a href="#">Orange</a><a></a></li>
+		</ul>
+		<br><br>
+		<hr/>
+
+		<h2>Set the splitIcon option and Refresh</h2>
+		<script>
+			$.mobile.document.delegate(".test", "click", function () {
+				$( "#splitIcon" ).listview( "option", "splitIcon", "gear" )
+					.listview( "refresh" );
+
+				if ( $( "#splitIcon a:eq(1)" ).hasClass( "ui-icon-gear" ) ) {
+					$( ".result" ).html( "<h4 style='color:blue;'>refresh() success.</h4>" );
+				} else {
+					$( ".result" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".result" ).append( "<h4>The splitIcon option : " + $( "#splitIcon" ).listview( "option", "splitIcon" ) + "</h4>" );
+			});
+		</script>
+
+		Test case 1: <button class="test" data-inline="true" >Change "carat-r" to "gear"</button>
+		<br><br>
+
+		<ul id="splitIcon" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a><a></a></li>
+			<li class="banana"><a href="#">Banana</a><a></a></li>
+			<li class="cherry"><a href="#">Cherry</a><a></a></li>
+			<li class="cranberry"><a href="#">Cranberry</a><a></a></li>
+			<li class="grape"><a href="#">Grape</a><a></a></li>
+			<li class="orange"><a href="#">Orange</a><a></a></li>
+		</ul>
+		<div class="result"></div>
+
+		<br><br>
+		<script>
+			$.mobile.document.delegate(".test2", "click", function () {
+				$( ".testcase" ).listview( "option", "splitIcon", "gear" )
+					.listview( "refresh" );
+			});
+		</script>
+		Test case 2: Check the fixed code on several features of Listview as follows:<br/><button class="test2" data-inline="true" >Change "carat-r" to "gear".</button>
+		<h2>Basic linked lists</h2>
+		<ul class="testcase" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
+
+		<h2>Numbered lists</h2>
+		<ol class="testcase" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ol>
+
+		<h2>AutoDividers</h2>
+		<ul class="testcase" data-role="listview" data-autodividers="true">
+			<li class="apple" ><a href="#">Apple</a></li>
+			<li class="banana"><a href="#">Banana</a></li>
+			<li class="cherry"><a href="#">Cherry</a></li>
+			<li class="cranberry"><a href="#">Cranberry</a></li>
+			<li class="grape"><a href="#">Grape</a></li>
+			<li class="orange"><a href="#">Orange</a></li>
+		</ul>
+
+		<h2>Split button lists</h2>
+		<ol class="testcase" data-role="listview">
+			<li class="apple" ><a href="#">Apple</a><a></a></li>
+			<li class="banana"><a href="#">Banana</a><a></a></li>
+			<li class="cherry"><a href="#">Cherry</a><a></a></li>
+			<li class="cranberry"><a href="#">Cranberry</a><a></a></li>
+			<li class="grape"><a href="#">Grape</a><a></a></li>
+			<li class="orange"><a href="#">Orange</a><a></a></li>
+		</ol>
+
+		<h2>Count bubbles</h2>
+		<ul class="testcase" data-role="listview">
+			<li><a>Inbox <span class="ui-li-count">12</span></a></li>
+			<li><a>Outbox <span class="ui-li-count">0</span></a></li>
+			<li><a>Drafts <span class="ui-li-count">4</span></a></li>
+			<li><a>Sent <span class="ui-li-count">328</span></a></li>
+			<li><a>Trash <span class="ui-li-count">62</span></a></li>
+		</ul>
+
+		<h2>Read only</h2>
+		<ul class="testcase" data-role="listview">
+			<li class="apple" >Apple</li>
+			<li class="banana">Banana</li>
+			<li class="cherry">Cherry</li>
+			<li class="cranberry">Cranberry</li>
+			<li class="grape">Grape</li>
+			<li class="orange">Orange</li>
+		</ul>
+
+		<h2>Divided, formatted content</h2>
+		<ul class="testcase" data-role="listview">
+			<li>
+				<h3>Stephen Weber</h3>
+				<p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+				<p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+				<p class="ui-li-aside"><strong>6:24</strong>PM</p>
+			</li>
+			<li>
+				<h3>jQuery Team</h3>
+				<p><strong>Boston Conference Planning</strong></p>
+				<p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
+				<p class="ui-li-aside"><strong>9:18</strong>AM</p>
+			</li>
+		</ul>
+
+		<h2>Thumbnail list</h2>
+		<ul class="testcase" data-role="listview">
+			<li>
+				<a>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-bb.jpg" />
+					<h3>Broken Bells</h3>
+					<p>Broken Bells</p>
+				</a>
+			</li>
+			<li>
+				<a>
+					<img src="http://api.jquerymobile.com/resources/listview/images/album-hc.jpg" />
+					<h3>Warning</h3>
+					<p>Hot Chip</p>
+				</a>
+			</li>
+		</ul>
+
+		<h2>Divided, filterable list</h2>
+		<ul class="testcase" data-role="listview" data-filter="true">
+			<li data-role="list-divider">A</li>
+			<li>Adam Kinkaid</li>
+			<li>Alex Wickerham</li>
+			<li>Avery Johnson</li>
+		</ul>
+
+	</div><!-- /content -->
+
+</div><!-- /page -->
+</body>
+</html>

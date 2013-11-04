@@ -13,7 +13,6 @@
 	<!--<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"></link>-->
-
 </head>
 <body>
 
@@ -153,7 +152,7 @@
 </div>
 
 <div data-role="page" id="toolbarAPI">
-	<div id="testHeader" data-role="header" data-position="fixed">
+	<div id="testHeader" data-role="header">
 		<h1>API(Same page)</h1>
 	</div>
 
@@ -254,6 +253,164 @@
 		</script>
 		<br>
 
+		<h2>Option:position</h2>
+		<button class="position" data-inline="true" >Dynamic Test( position )</button>
+		<div class="resultposition"></div>
+		<script>
+			$.mobile.document.delegate(".position", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" );
+
+				if ( $( "#testHeader" ).hasClass( "ui-header-fixed" ) ) {
+					$( ".resultposition" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultposition" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultposition" ).append( "<h4>Current position option:" + $( "#testHeader" ).toolbar( "option", "position" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:fullscreen</h2>
+		<button class="fullscreen" data-inline="true" >Dynamic Test( fullscreen )</button>
+		<div class="resultfullscreen"></div>
+		<script>
+			$.mobile.document.delegate(".fullscreen", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" )
+					.toolbar( "option", "fullscreen", true );
+
+				if ( $( "#testHeader" ).hasClass( "ui-header-fullscreen" ) ) {
+					$( ".resultfullscreen" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultfullscreen" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+				$( ".resultfullscreen" ).append( "<h4>Current fullscreen option:" + $( "#testHeader" ).toolbar( "option", "fullscreen" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:hideDuringFocus</h2>
+		<button class="hideDuringFocus" data-inline="true" >Dynamic Test( hideDuringFocus )</button>
+		<input value="test" />
+		<div class="resulthideDuringFocus"></div>
+		<script>
+			$.mobile.document.delegate(".hideDuringFocus", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" )
+					.toolbar( "option", "hideDuringFocus", "button" );
+
+				$( ".resulthideDuringFocus" ).html( "" ).append( "<h4>Current hideDuringFocus option:" + $( "#testHeader" ).toolbar( "option", "hideDuringFocus" ) + "</h4>" );
+				$( ".resulthideDuringFocus" ).append( "<h4>screenwidth:" + screen.width + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:tapToggle</h2>
+		<button class="tapToggle" data-inline="true" >Dynamic Test( tapToggle )</button>
+		<div class="resulttapToggle"></div>
+		<script>
+			$.mobile.document.delegate(".tapToggle", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" )
+					.toolbar( "option", "tapToggle", false );
+
+				$( ".resulttapToggle" ).html( "" )
+					.append( "<h4>Current tapToggle option:" + $( "#testHeader" ).toolbar( "option", "tapToggle" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:tapToggleBlacklist</h2>
+		<button class="tapToggleBlacklist" data-inline="true" >Dynamic Test( tapToggleBlacklist )</button>
+		<div class="resulttapToggleBlacklist"></div>
+		<script>
+			$.mobile.document.delegate(".tapToggleBlacklist", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" )
+					.toolbar( "option", "tapToggleBlacklist", "" );
+
+				$( ".resulttapToggleBlacklist" ).html( "" )
+					.append( "<h4>Current tapToggleBlacklist option:" + $( "#testHeader" ).toolbar( "option", "tapToggleBlacklist" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:transition</h2>
+		<button class="transitionnone" data-name="none" data-inline="true" >Dynamic Test( transition:None )</button>
+		<button class="transitionfade" data-name="fade" data-inline="true" >Dynamic Test( transition:Fade )</button>
+		<button class="transitionslide" data-name="slide" data-inline="true" >Dynamic Test( transition:Slide )</button>
+		<div class="resulttransition"></div>
+		<script>
+			$.mobile.document.delegate(".transitionnone, .transitionfade, .transitionslide", "click", function ( e ) {
+				// $( "#testHeader, #testFooter" ).fixedtoolbar()
+				// 	.fixedtoolbar( "option", "position", "fixed" )
+				// 	.fixedtoolbar( "option", "transition", $( e.target ).attr( "data-name" ) );
+				$( "#testHeader, #testFooter" ).toolbar( "option", "position", "fixed" )
+					.toolbar( "option", "transition", $( e.target ).attr( "data-name" ) );
+
+				$( ".resulttransition" ).html( "" )
+					.append( "<h4>Current transition option:" + $( "#testHeader" ).toolbar( "option", "transition" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:updatePagePadding</h2>
+		<button class="updatePagePadding" data-name="none" data-inline="true" >Dynamic Test( option:updatePagePadding )</button>
+		<div class="resultupdatePagePadding"></div>
+		<script>
+			$.mobile.document.delegate(".updatePagePadding", "click", function ( e ) {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" )
+					.toolbar( "option", "updatePagePadding", false )
+					.css( { "padding": "100px" } );
+
+				$( ".resultupdatePagePadding" ).html( "" )
+					.append( "<h4>Current updatePagePadding option:" + $( "#testHeader" ).toolbar( "option", "updatePagePadding" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Option:visibleOnPageShow</h2>
+		<button class="visibleOnPageShow" data-name="none" data-inline="true" >Dynamic Test( visibleOnPageShow )</button>
+		<div class="resultvisibleOnPageShow"></div>
+		<script>
+			$.mobile.document.delegate(".visibleOnPageShow", "click", function ( e ) {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" )
+					.toolbar( "option", "visibleOnPageShow", false );
+				$( ".ui-page-active" ).trigger( "pagebeforeshow" )
+
+				$( ".resultvisibleOnPageShow" ).html( "" )
+					.append( "<h4>Current visibleOnPageShow option:" + $( "#testHeader" ).toolbar( "option", "visibleOnPageShow" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+		<h2>Method:refresh</h2>
+		<button class="refresh" data-inline="true" >Dynamic Test( refresh )</button>
+		<div id="refresh" data-role="header">
+			<h1> Page Title </h1>
+		</div>
+		<script>
+			$.mobile.document.delegate(".refresh", "click", function ( e ) {
+				$( "#refresh" ).append( "<a href='#' data-role='button' data-icon='gear' class='ui-btn-right'>Options</a>" )
+					.toolbar( "refresh" );
+			});
+		</script>
+		<br>
+
+		<h2>Method:updatePagePadding</h2>
+		<button class="updatePagePaddingm" data-inline="true" >Dynamic Test( method: updatePagePadding )</button>
+		<script>
+			$.mobile.document.delegate(".updatePagePaddingm", "click", function ( e ) {
+				$( "#testHeader" ).toolbar( "option", "position", "fixed" ).css( { "padding": "100px" } )
+					.toolbar( "updatePagePadding" );
+			});
+		</script>
+		<br>
+
+	</div>
+
+	<div id="testFooter" data-role="footer">
+		<div data-role="controlgroup" data-type="horizontal">
+			<a href="index.html" data-role="button" data-icon="plus">Add</a>
+			<a href="index.html" data-role="button" data-icon="arrow-u">Up</a>
+			<a href="index.html" data-role="button" data-icon="arrow-d">Down</a>
+		</div>
 	</div>
 </div>
 

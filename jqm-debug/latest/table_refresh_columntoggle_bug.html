@@ -53,8 +53,9 @@
 					$rTable = $( "#ctResultTable");
 				// initialize.... show all.
 				$textarea.text("---------------------------------------\n");
+				$(".ui-table-columntoggle-popup").popup( "close" );
 				$textarea.text( $textarea.text() + "> initialize widget.\n");
-				$(".ui-checkbox input[locked='true']").trigger("click");				
+				$(".ui-checkbox input[locked='true']").trigger("click");
 				$table.table( "refresh" );
 				$textarea.trigger("keyup");
 
@@ -67,13 +68,13 @@
 				// click check box.
 				setTimeout( function () {
 					$textarea.text( $textarea.text() + "> click event trigger.\n");
-					$(".ui-checkbox:eq(2) .ui-btn").trigger("click");
+					$(".ui-checkbox:eq(2) .ui-btn").trigger( "click" );
 				}, 1000);
 				setTimeout( function() {
 					$textarea.trigger("keyup");
 					$textarea.text($textarea.text() + "> begin refresh.\n");
 					$table.table( "refresh" );
-					$(".ui-table-columntoggle-popup").popup("close")
+					$(".ui-table-columntoggle-popup").popup("close");
 					// refresh table.
 					if ( $table.find( ".ui-table-cell-hidden, .ui-table-cell-visible" ).length <= 0 ) {
 						$textarea.text($textarea.text() + "> Success : widget refresh.\n");

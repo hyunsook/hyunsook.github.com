@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Table - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<!--
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		-->
+		<script src="./jquery.mobile-git-reflow-option.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+		<style type="text/css">
+			.table-stroke thead th {
+				border-bottom: 1px solid rgba(0, 0, 0, .1);
+			}
+			.table-stroke tbody th,.table-stroke tbody td {
+				border-bottom: 1px solid rgba(0, 0, 0, .05);
+			}
+
+			@media only all {
+				/* Make the label elements a percentage width */ 
+				.ui-table-reflow td .custom-cell-lable,
+				.ui-table-reflow th .custom-cell-lable { 
+					padding: .4em; 
+					min-width: 30%; 
+					display: inline-block;
+					margin: -.4em 1em -.4em -.4em;
+					color : blue;
+				}
+
+			}
+
+			/* Breakpoint to show as a standard table at 560px (35em x 16px) or wider */ 
+			@media ( min-width: 35em ) {
+				/* Hide the labels in each cell */ 
+				.ui-table-reflow.ui-responsive td .custom-cell-lable,
+				.ui-table-reflow.ui-responsive th .custom-cell-lable { 
+					display: none;
+				}
+			}
+
+
+		</style>
+		<script>
+			var defaultTable = "";
+			$( document ).on( "tablecreate", ".ui-active #my-table", function ( event, ui ) {
+				var $table = $( "#my-table" ),
+					classes;
+				if ( $table.length === 1 ) {
+					classes = $table.table( "option", "classes" );
+					if ( typeof ui === "object" ) {
+						$("#eventStatus").text("True").css("color", "blue");
+					}
+					defaultTable =  classes.table;
+					$( "#optionWhenCreate" ).text( defaultTable ).css( "font-weight","bold" );
+				}
+			});
+
+			//
+			$( document ).on("pagecreate", function ( event ){
+				var $table = $( ".ui-active #movie-table" ),
+					classes;
+				if ( $table.length === 1 ) {
+					console.log("reflow table create......");
+					$table.table( { mode : "reflow" } );
+					classes = $table.table("option", "classes");
+					$( "#reflow-option1 .initValue").text( classes.cellLabels ).css("color", "blue");
+					$( "#reflow-option2 .initValue").text( classes.reflowTable ).css("color", "blue");
+				}
+			}).on("click", "#toggleCellLabel", function( event ) {
+				var $table = $( "#movie-table" ),
+					classes = $table.table("option", "classes"),
+					newValue;
+
+				if ( classes.cellLabels === "ui-table-cell-label" ) {
+					newValue = "custom-cell-lable";
+				} else {
+					newValue = "ui-table-cell-label";
+				}
+				$table.table("option", "classes", { cellLabels: newValue} );
+
+				classes = $table.table("option", "classes");
+				$( "#reflow-option1 .currentValue").text( classes.cellLabels ).css("color", "red");
+				$table.table("refresh").table("rebuild");
+				console.log("event >> toggleCellLabel")
+
+			}).on("click", "#toggleTable", function( event ) {
+				var $table = $( "#movie-table" ),
+					classes = $table.table("option", "classes"),
+					newValue;
+
+				if ( classes.reflowTable === "ui-table-reflow" ) {
+					newValue = "custom-table-reflow";
+				} else {
+					newValue = "ui-table-reflow";
+				}
+				$table.table("option", "classes", { reflowTable: newValue} );
+
+				classes = $table.table("option", "classes");
+				$( "#reflow-option2 .currentValue").text( classes.reflowTable ).css("color", "red");
+				$table.table("refresh");
+				console.log("event >> toggleTable")
+
+			}).on("click", "#refrshRefolw", function( event ) {
+				var $table = $( "#movie-table" );
+				$table.table("refresh");
+			}).on( "click" , ".ui-active #changeTalbe", function ( event, ui ) {
+				var $table = $( "#my-table" ),
+					classes = $table.table( "option", "classes" );
+				
+				if ( defaultTable ===  classes.table ) {
+					classes.table = "custom-table";
+				} else {
+					classes.table = defaultTable;
+				}
+				$table.table( "option", "classes", classes );
+				$( "#toggledOptionValue" ).text( $table.table( "option", "classes").table ).css( "font-weight","bold" )
+			});
+			// column test script
+			// //
+			$( document ).on("pagecreate", function ( event ){
+				var $table = $( "#movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					classes;
+				if ( $table.length === 1 ) {
+					console.log("column table create......");
+					$table.table( { mode : "columntoggle" } );
+					// $table.table( { mode : "reflow" } );
+					classes = $.extend( {}, $table.table("option", "classes") );
+					// optClassesCBtn
+					$rTable.find("#optBtnText .first").text( $table.table("option", "columnBtnText") );
+					$rTable.find("#optCBTheme .first").text( $table.table("option", "columnBtnTheme") );
+					$rTable.find("#optCPTheme .first").text( $table.table("option", "columnPopupTheme") );
+					$rTable.find("#optClassesCBtn .first").text( classes.columnBtn );
+					$rTable.find("#optClassesCTT .first").text( classes.columnToggleTable );
+					$rTable.find("#optClassesP .first").text( classes.popup );
+					$rTable.find("#optClassesPP .first").text( classes.priorityPrefix );
+				}
+			}).on( "click", "#toggleCBTheme", function ( event ) {
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, isChanged = false;
+				console.log("toggleCBtnText clicked");
+				value =  $table.table("option", "columnBtnTheme");
+				isReady = $(".ui-table-columntoggle-btn").hasClass( "ui-btn-" + value ) ;
+				if ( value === "a" ) {
+					value = "b";
+				} else {
+					value = "a";
+				}
+				$table.table("option", "columnBtnTheme", value );
+				console.log(" >>>> columnBtnTheme : " + $table.table("option", "columnBtnTheme"))
+
+				if ( isReady && $(".ui-table-columntoggle-btn").hasClass( "ui-btn-" + value ) ) {
+					msg = "Success : is changed.";
+					style = "blue";
+				} else {
+					msg = isReady ? "Fail : is not changed." : "Fail : is not ready.";
+					style = "red";
+				}
+				$rTable.find( "#optCBTheme .current" ).text( value );
+				$rTable.find( "#optCBTheme .result" ).text( msg ).css("color", style );
+			}).on( "click", "#toggleCPTheme", function ( event ) {
+				// columnPopupTheme.....
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, isReady = false;
+				value =  $table.table("option", "columnPopupTheme");
+				console.log("toggleCBtnText clicked");
+				isReady = $(".ui-table-columntoggle-popup .ui-btn-" + value ).length === 0 ? false : true ;
+				if ( value === "a" ) {
+					value = "b";
+				} else {
+					value = "a";
+				}
+				$table.table("option", "columnPopupTheme", value );
+				console.log(" >>>> columnBtnTheme : " + $table.table("option", "columnPopupTheme"))
+
+				if ( isReady && $(".ui-table-columntoggle-popup").hasClass( "ui-btn-" + value ) ) {
+					msg = "Success : is changed.";
+					style = "blue";
+				} else {
+					msg = isReady ? "Fail : is not changed." : "Fail : is not ready.";
+					style = "red";
+				}
+				$rTable.find( "#optCPTheme .current" ).text( value );
+				$rTable.find( "#optCPTheme .result" ).text( msg ).css("color", style );
+			}).on( "click", "#toggleCBtnText", function ( event ) {
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, isChanged = false;
+				console.log("toggleCBtnText clicked");
+				value =  $( ".ui-table-columntoggle-btn ").text();
+				if ( value !== "Items..." ) {
+					value = "Items...";
+				} else {
+					value = "Columns...";
+				}
+				$table.table( "option", "columnBtnText", value ).table("rebuild");
+				$table.table("refresh");
+				isChanged = $( ".ui-table-columntoggle-btn ").text() === value;
+				console
+				if ( $button.length === 1 && isChanged ) {
+					msg = "Success : is changed.";
+					style = "blue";
+				} else if ( $button.length === 1 && !isChanged ) {
+					msg = "Fail : is not changed.";
+					style = "red";
+				} else {
+					msg = "Can not find button.";
+					style = "red";
+				}
+				$rTable.find( "#optBtnText .current" ).text( value );
+				$rTable.find("#optBtnText .result").text( msg).css("color", style );
+
+			}).on( "click", "#optClassesCBtn", function ( event ) {
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, classes, isReady = false;
+				console.log("optClassesCBtn clicked");
+				// Get
+				classes = $.extend( {}, $table.table("option", "classes") );
+				// Toggle
+				if (  classes.columnBtnType !== "ui-table-columntoggle-btn" ) {
+					value = "ui-table-columntoggle-btn";
+				} else {
+					value = "ui-cto-table-columntoggle-btn";
+				}
+				isReady = $( "."+classes.columnBtnType ).length > 0 ? true : false ;
+
+				// Set
+				classes.columnBtnType = value;
+				$table.table("option", "classes", classes ).table("rebuild");
+				$table.table("refresh");
+
+
+				if ( $( "."+value ).length > 0 && isReady ) {
+					msg = "Success : is changed.";
+					style = "blue";
+				} else if ( $( "."+value ).length > 0 && !isReady ) {
+					msg = "Fail : is not ready.";
+					style = "red";
+				} else {
+					msg = "Fail : is not changed.";
+					style = "red";
+				}
+				$rTable.find( "#optClassesCBtn .current" ).text( value );
+				$rTable.find("#optClassesCBtn .result").text( msg).css("color", style );
+
+			}).on( "click", "#toggleClassesCTT", function ( event ) {
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, classes, isReady = false;
+				console.log("toggleClassesCTT clicked");
+				// Get
+				classes = $.extend( {}, $table.table("option", "classes") );
+				// Toggle
+				isReady = $( "."+classes.columnToggleTable ).length > 0 ? true : false ;
+				if (  classes.columnToggleTable !== "ui-table-columntoggle" ) {
+					value = "ui-table-columntoggle";
+				} else {
+					value = "ui-cto-table-columntoggle";
+				}
+
+				// Set
+				classes.columnToggleTable = value;
+				$table.table("option", "classes", classes ).table("rebuild");
+				$table.table("refresh");
+
+				if ( $( "."+value ).length > 0 && isReady ) {
+					msg = "Success : is changed.";
+					style = "blue";
+				} else if ( $( "."+value ).length > 0 && !isReady ) {
+					msg = "Fail : is not ready.";
+					style = "red";
+				} else {
+					msg = "Fail : is not changed.";
+					style = "red";
+				}
+				$rTable.find( "#optClassesCTT .current" ).text( value );
+				$rTable.find("#optClassesCTT .result").text( msg).css("color", style );
+
+			}).on( "click", "#toggleClassesP", function ( event ) {
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, classes, isReady = false;
+				console.log("toggleClassesP clicked");
+				// Get
+				classes = $.extend( {}, $table.table("option", "classes") );
+				// Toggle
+				isReady = $( "."+classes.popup ).length > 0 ? true : false ;
+				if (  classes.popup !== "ui-table-columntoggle-popup" ) {
+					value = "ui-table-columntoggle-popup";
+				} else {
+					value = "ui-cto-table-columntoggle-popup";
+				}
+
+				// Set
+				classes.popup = value;
+				$table.table("option", "classes", classes ).table("rebuild");
+				$table.table("refresh");
+
+				if ( $( "."+value ).length > 0 && isReady ) {
+					msg = "Success : is changed.";
+					style = "blue";
+				} else if ( $( "."+value ).length > 0 && !isReady ) {
+					msg = "Fail : is not ready.";
+					style = "red";
+				} else {
+					msg = "Fail : is not changed.";
+					style = "red";
+				}
+				$rTable.find( "#optClassesP .current" ).text( value );
+				$rTable.find("#optClassesP .result").text( msg).css("color", style );
+
+			}).on( "click", "#togglePP", function ( event ) {
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, classes, isReady = false;
+				console.log("togglePP clicked");
+				// Get
+				classes = $.extend( {}, $table.table("option", "classes") );
+				// Toggle
+				isReady = $( "."+classes.priorityPrefix +"persist").length > 0 ? true : false ;
+				if (  classes.priorityPrefix !== "ui-table-priority-" ) {
+					value = "ui-table-priority-";
+				} else {
+					value = "ui-cto-table-priority-";
+				}
+
+				// Set
+				classes.priorityPrefix = value;
+				$table.table("option", "classes", classes ).table("rebuild");
+				$table.table("refresh");
+
+				if ( $( "."+value + "persist" ).length > 0 && isReady ) {
+					msg = "Success : is changed.";
+					style = "blue";
+				} else if ( $( "."+value + "persist").length > 0 && !isReady ) {
+					msg = "Fail : is not ready.";
+					style = "red";
+				} else {
+					msg = "Fail : is not changed.";
+					style = "red";
+				}
+				$rTable.find( "#optClassesPP .current" ).text( value );
+				$rTable.find("#optClassesPP .result").text( msg).css("color", style );
+
+			}).on( "click", "#refreshBtn", function ( event ) {
+				var $table = $( " #movie-column-table" ),
+					$rTable = $( "#ctResultTable"),
+					$button = $( ".ui-table-columntoggle-btn "),
+					value, msg, style, isChanged = false;
+
+				$table.table( "refresh" );
+
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="frontPage" data-role="page">
+			<div data-role="header">
+				<h1>Table Demos</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					<li><a href="#tablePage" >Table Demos</a></li>
+					<li><a href="#reflowTable" >Reflow Demos</a></li>
+					<li><a href="#columnToggleTable" >ColumnToggle Demos</a></li>
+				</ul>
+			</div>
+		</div><!--Front Page -->
+
+		<div id="tablePage" data-role="page">
+
+			<div data-role="header" data-position="fixed">
+				<h1>Table</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-right" data-icon="back">back</a>
+			</div>
+
+			<div data-role="content">
+				<table data-role="table" id="my-table" data-mode="reflow">
+					<thead>
+					<tr>
+						<th>Rank</th>
+						<th>Movie Title</th>
+						<th>Year</th>
+						<th><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+						<th>Reviews</th>
+					</tr>
+					</thead>
+						<tbody>
+						<tr>
+							<th>1</th>
+							<td><a href="http://en.wikipedia.org/wiki/Citizen_Kane" data-rel="external">Citizen Kane</a></td>
+							<td>1941</td>
+							<td>100%</td>
+							<td>74</td>
+						</tr>
+						<tr>
+							<th>2</th>
+							<td><a href="http://en.wikipedia.org/wiki/Casablanca_(film)" data-rel="external">Casablanca</a></td>
+							<td>1942</td>
+							<td>97%</td>
+							<td>64</td>
+						</tr>
+						<tr>
+							<th>3</th>
+							<td><a href="http://en.wikipedia.org/wiki/The_Godfather" data-rel="external">The Godfather</a></td>
+							<td>1972</td>
+							<td>97%</td>
+							<td>87</td>
+						</tr>
+						<tr>
+							<th>4</th>
+							<td><a href="http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)" data-rel="external">Gone with the Wind</a></td>
+							<td>1939</td>
+							<td>96%</td>
+							<td>87</td>
+						</tr>
+					</tbody>
+				</table><br><br>
+				<div>
+					<H1>Event check.</H1>
+					<p>
+					'tablecreate' event is catched : <span id="eventStatus" style="color:red;">False</span>
+					</p>
+				</div>
+				<div>
+					<H1>Option check.</H1>
+					<p>
+					classes.table : <span id="optionWhenCreate" ></span>
+					</p>
+					<p>
+					changed  classes.table : <span id="toggledOptionValue" > - </span>
+					</p>
+					<button id="changeTalbe">changeTable</button>
+				</div>
+			</div>	<!-- content -->
+
+		</div>	<!-- page-->
+		<div id="reflowTable" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<h1>Reflow Demos</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-right" data-icon="back">back</a>
+			</div>
+			<div data-role="content">
+				<div>
+					<P style="font-size:25px;font-weight:bold"> Option  : <span style="font-size:15px;"> ( reflow-table ) </span></P>
+					<p id="reflow-option1" style="font-weight:bold"><span>cellLabels </span>- init value : <span class="initValue"></span> current value : <span class="currentValue"></span></p>
+					<button value="" id="toggleCellLabel">toggle option 'cellLabels'</button><br>
+					<p id="reflow-option2" style="font-weight:bold"><span>reflowTable </span>- init value : <span class="initValue"></span> current value : <span class="currentValue"></span></p>
+					<button value="" id="toggleTable">toggle option 'reflowTable'</button>
+				</div>
+				<button value="" id="refrshRefolw">Call method 'refresh'</button>
+				<table id="movie-table" class="ui-responsive table-stroke">
+					<thead>
+						<tr>
+							<th data-priority="1">Rank</th>
+							<th data-priority="persist">Movie Title</th>
+							<th data-priority="2">Year</th>
+							<th data-priority="3"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+							<th data-priority="4">Reviews</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>1</th>
+							<td><a href="http://en.wikipedia.org/wiki/Citizen_Kane" data-rel="external">Citizen Kane</a></td>
+							<td>1941</td>
+							<td>100%</td>
+							<td>74</td>
+						</tr>
+						<tr>
+							<th>2</th>
+							<td><a href="http://en.wikipedia.org/wiki/Casablanca_(film)" data-rel="external">Casablanca</a></td>
+							<td>1942</td>
+							<td>97%</td>
+							<td>64</td>
+						</tr>
+						<tr>
+							<th>3</th>
+							<td><a href="http://en.wikipedia.org/wiki/The_Godfather" data-rel="external">The Godfather</a></td>
+							<td>1972</td>
+							<td>97%</td>
+							<td>87</td>
+						</tr>
+						<tr>
+							<th>4</th>
+							<td><a href="http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)" data-rel="external">Gone with the Wind</a></td>
+							<td>1939</td>
+							<td>96%</td>
+							<td>87</td>
+						</tr>
+						<tr>
+							<th>5</th>
+							<td><a href="http://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)" data-rel="external">Lawrence of Arabia</a></td>
+							<td>1962</td>
+							<td>94%</td>
+							<td>87</td>
+						</tr>
+						<tr>
+							<th>6</th>
+							<td><a href="http://en.wikipedia.org/wiki/Dr._Strangelove" data-rel="external">Dr. Strangelove</a></td>
+							<td>1964</td>
+							<td>92%</td>
+							<td>74</td>
+						</tr>
+						<tr>
+							<th>7</th>
+							<td><a href="http://en.wikipedia.org/wiki/The_Graduate" data-rel="external">The Graduate</a></td>
+							<td>1967</td>
+							<td>91%</td>
+							<td>122</td>
+						</tr>
+						<tr>
+							<th>8</th>
+							<td><a href="http://en.wikipedia.org/wiki/The_Wizard_of_Oz_(1939_film)" data-rel="external">The Wizard of Oz</a></td>
+							<td>1939</td>
+							<td>90%</td>
+							<td>72</td>
+						</tr>
+						<tr>
+							<th>9</th>
+							<td><a href="http://en.wikipedia.org/wiki/Singin%27_in_the_Rain" data-rel="external">Singin' in the Rain</a></td>
+							<td>1952</td>
+							<td>89%</td>
+							<td>85</td>
+						</tr>
+						<tr>
+							<th>10</th>
+							<td class="title"><a href="http://en.wikipedia.org/wiki/Inception" data-rel="external">Inception</a></td>
+							<td>2010</td>
+							<td>84%</td>
+							<td>78</td>
+						</tr>
+					</tbody>
+				</table>
+				<br><br>
+
+			</div>
+		</div><!--Reflow Page -->
+
+		<div id="columnToggleTable" data-role="page">
+			<div data-role="header" data-position="fixed">
+				<h1>Column Demos</h1>
+				<a href="#frontPage" class="hide-loading ui-btn-right" data-icon="back">back</a>
+			</div>
+			<div data-role="content">
+				
+
+				<table id="ctResultTable" data-role="table" data-mode="reflow" class="ui-responsive table-stroke">
+					<thead>
+						<tr>
+							<th data-priority="1">Name</th>
+							<th data-priority="persist">Message</th>
+							<th data-priority="2">Init</th>
+							<th data-priority="3">Current</th>
+							<th data-priority="4">Result</th>
+							<th data-priority="5">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="optBtnText">
+							<th>Option</th>
+							<td>columnBtnText</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="toggleCBtnText" data-mini="true">toggle option</button></td>
+						</tr>
+						<tr id="optCBTheme">
+							<th>Option</th>
+							<td>columnBtnTheme</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="toggleCBTheme" data-mini="true">toggle option</button></td>
+						</tr>
+						<tr id="optCPTheme">
+							<th>Option</th>
+							<td>columnPopupTheme</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="toggleCPTheme" data-mini="true">toggle option</button></td>
+						</tr>
+						<tr id="optClassesCBtn">
+							<th>Option</th>
+							<td>classes.columnBtn</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="toggleClassesCBtn" data-mini="true">toggle option</button></td>
+						</tr>
+						<tr id="optClassesCTT">
+							<th>Option</th>
+							<td>classes.columnToggleTable</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="toggleClassesCTT" data-mini="true">toggle option</button></td>
+						</tr>
+						<tr id="optClassesP">
+							<th>Option</th>
+							<td>classes.popup</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="toggleClassesP" data-mini="true">toggle option</button></td>
+						</tr>
+						<tr id="optClassesPP">
+							<th>Option</th>
+							<td>classes.priorityPrefix</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="togglePP" data-mini="true">toggle option</button></td>
+						</tr>
+						<tr id="mthRefresh">
+							<th>Method</th>
+							<td>Refresh</td>
+							<td class="first"> - </td>
+							<td class="current"> - </td>
+							<td class="result"> - </td>
+							<td><button id="refreshBtn" data-mini="true">Do refresh</button></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<hr>
+				<br>
+				<table id="movie-column-table" class="ui-responsive table-stroke" data-column-btn-theme="a" data-column-popup-theme="a">
+					<thead>
+						<tr>
+							<th data-priority="1">Rank</th>
+							<th data-priority="persist">Movie Title</th>
+							<th data-priority="2">Year</th>
+							<th data-priority="3"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+							<th data-priority="4">Reviews</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>1</th>
+							<td><a href="http://en.wikipedia.org/wiki/Citizen_Kane" data-rel="external">Citizen Kane</a></td>
+							<td>1941</td>
+							<td>100%</td>
+							<td>74</td>
+						</tr>
+						<tr>
+							<th>2</th>
+							<td><a href="http://en.wikipedia.org/wiki/Casablanca_(film)" data-rel="external">Casablanca</a></td>
+							<td>1942</td>
+							<td>97%</td>
+							<td>64</td>
+						</tr>
+						<tr>
+							<th>3</th>
+							<td><a href="http://en.wikipedia.org/wiki/The_Godfather" data-rel="external">The Godfather</a></td>
+							<td>1972</td>
+							<td>97%</td>
+							<td>87</td>
+						</tr>
+						<tr>
+							<th>4</th>
+							<td><a href="http://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)" data-rel="external">Gone with the Wind</a></td>
+							<td>1939</td>
+							<td>96%</td>
+							<td>87</td>
+						</tr>
+						<tr>
+							<th>5</th>
+							<td><a href="http://en.wikipedia.org/wiki/Lawrence_of_Arabia_(film)" data-rel="external">Lawrence of Arabia</a></td>
+							<td>1962</td>
+							<td>94%</td>
+							<td>87</td>
+						</tr>
+						<tr>
+							<th>6</th>
+							<td><a href="http://en.wikipedia.org/wiki/Dr._Strangelove" data-rel="external">Dr. Strangelove</a></td>
+							<td>1964</td>
+							<td>92%</td>
+							<td>74</td>
+						</tr>
+						<tr>
+							<th>7</th>
+							<td><a href="http://en.wikipedia.org/wiki/The_Graduate" data-rel="external">The Graduate</a></td>
+							<td>1967</td>
+							<td>91%</td>
+							<td>122</td>
+						</tr>
+						<tr>
+							<th>8</th>
+							<td><a href="http://en.wikipedia.org/wiki/The_Wizard_of_Oz_(1939_film)" data-rel="external">The Wizard of Oz</a></td>
+							<td>1939</td>
+							<td>90%</td>
+							<td>72</td>
+						</tr>
+						<tr>
+							<th>9</th>
+							<td><a href="http://en.wikipedia.org/wiki/Singin%27_in_the_Rain" data-rel="external">Singin' in the Rain</a></td>
+							<td>1952</td>
+							<td>89%</td>
+							<td>85</td>
+						</tr>
+						<tr>
+							<th>10</th>
+							<td class="title"><a href="http://en.wikipedia.org/wiki/Inception" data-rel="external">Inception</a></td>
+							<td>2010</td>
+							<td>84%</td>
+							<td>78</td>
+						</tr>
+					</tbody>
+				</table>
+				<br><br>
+			</div>
+		</div><!--column Page -->
+	</body>
+</html>

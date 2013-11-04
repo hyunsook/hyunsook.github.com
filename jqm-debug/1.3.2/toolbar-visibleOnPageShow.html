@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Toolbar</title>
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"></link>
+</head>
+<body>
+
+<div data-role="page">
+	<div id="testHeader" data-role="header" data-position="fixed" data-visible-on-page-show="false">
+		<h1>visibleOnPageShow test(1.4.0)</h1>
+	</div>
+
+	<div data-role="content">
+		<h2>Option:visibleOnPageShow</h2>
+		<button class="visibleOnPageShow" data-inline="true" >Dynamic Test( visibleOnPageShow )</button>
+		<div class="resultvisibleOnPageShow"></div>
+		<script>
+			$.mobile.document.delegate(".visibleOnPageShow", "click", function () {
+				$( "#testHeader" ).fixedtoolbar( "option", "visibleOnPageShow", false );
+				$( ".ui-page-active" ).trigger( "pagebeforeshow" );
+
+				if (  $( "#testHeader" ).is(':hidden') ) {
+					$( ".resultvisibleOnPageShow" ).html( "<h4 style='color:blue;'>Test success.</h4>" );
+				} else {
+					$( ".resultvisibleOnPageShow" ).html( "<h4 style='color:red;'>Test failure.</h4>" );
+				}
+
+				$( ".resultvisibleOnPageShow" ).append( "<h4>Current visibleOnPageShow option:" + $( "#testHeader" ).fixedtoolbar( "option", "visibleOnPageShow" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+	</div>
+</div>
+
+</body>
+</html>

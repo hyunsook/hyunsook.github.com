@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Toolbar</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+	<div id="testHeader" data-role="header" data-position="fixed">
+		<h1>hideDuringFocus test(1.4.0)</h1>
+	</div>
+
+	<div data-role="content">
+		<div style="width:100%;height:800px;">Please scroll down.</div>
+		<h2>Option:hideDuringFocus</h2>
+		<button class="hideDuringFocus" data-inline="true" >Dynamic Test( hideDuringFocus:button )</button>
+		<button class="hideDuringFocus2" data-inline="true" >Dynamic Test( hideDuringFocus:input )</button>
+		<input value="test" />
+		<div class="resulthideDuringFocus"></div>
+		<script>
+			$.mobile.document.delegate(".hideDuringFocus", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "hideDuringFocus", "button" );
+
+				$( ".resulthideDuringFocus" ).html( "" ).append( "<h4>Current hideDuringFocus option:" + $( "#testHeader" ).toolbar( "option", "hideDuringFocus" ) + "</h4>" ).append( "<h4>screenwidth:" + screen.width + "</h4>" );
+			}).delegate(".hideDuringFocus2", "click", function () {
+				$( "#testHeader" ).toolbar( "option", "hideDuringFocus", "input" );
+
+				$( ".resulthideDuringFocus" ).html( "" ).append( "<h4>Current hideDuringFocus option:" + $( "#testHeader" ).toolbar( "option", "hideDuringFocus" ) + "</h4>" ).append( "<h4>screenwidth:" + screen.width + "</h4>" );
+			});
+		</script>
+		<br>
+
+	</div>
+</div>
+
+</body>
+</html>

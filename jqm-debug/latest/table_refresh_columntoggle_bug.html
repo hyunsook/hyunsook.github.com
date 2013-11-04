@@ -73,6 +73,7 @@
 					$textarea.trigger("keyup");
 					$textarea.text($textarea.text() + "> begin refresh.\n");
 					$table.table( "refresh" );
+					$(".ui-table-columntoggle-popup").popup("close")
 					// refresh table.
 					if ( $table.find( ".ui-table-cell-hidden, .ui-table-cell-visible" ).length <= 0 ) {
 						$textarea.text($textarea.text() + "> Success : widget refresh.\n");

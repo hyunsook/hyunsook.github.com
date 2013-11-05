@@ -18,7 +18,7 @@
 	<div data-role="collapsible" data-heading=".block2" data-collapsed="false">
 		<h3 class="block1">Block1</h3>
 		<p class="block2">Block2</p>
-		<p class="block3">Block3</p>
+		<legend class="block3">Block3</legend>
 	</div>
 	<br/>
 
@@ -26,13 +26,14 @@
 	<div id="target" data-role="collapsible" data-collapsed="false">
 		<h3 class="block1">Block1</h3>
 		<p class="block2">Block2</p>
-		<p class="block3">Block3</p>
+		<legend class="block3">Block3</legend>
 	</div>
 	<span id="result"></span><br/>
 
 	<hr />
 	<a href="javascript:getHeadingOption(true);">1. Get the heading option</a><br/>
-	<a href="javascript:setHeadingOption();">2. Change the heading block to Block2</a><br/>
+	<a href="javascript:setHeadingOption( ".block2" );">2. Change the heading block to Block2</a><br/>
+	<a href="javascript:setHeadingOption( ".block3" );">2. Change the heading block to Block3</a><br/>
 
 	<script>
 		function getHeadingOption( first ) {
@@ -46,8 +47,8 @@
 			}	
 		}
 
-		function setHeadingOption() {
-			$("#target").collapsible( "option", "heading", ".block2" );
+		function setHeadingOption( selector ) {
+			$("#target").collapsible( "option", "heading", selector );
 			getHeadingOption( false );
 		}
 	</script>

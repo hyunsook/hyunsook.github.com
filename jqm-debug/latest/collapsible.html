@@ -849,23 +849,130 @@
 				target.collapsible( "option", "theme", !value || value === "a" ? "b" : "a" );
 
 				getTheme2Option( false );
-				$( "#result_theme2" ).append(" <font color='blue'> ==> The changed value is applied.</font> ");
+				$( "#result_theme2" ).append( "<font color='blue'> ==> The changed value is applied.</font>" );
 			}
 		</script>
 
-<!--h2>Events:collapse</h2>
-	<div id="collapsiblecollapse" data-role="collapsible">
+<h2>Options:conentTheme</h2>
+	<h3>data-content-theme="b"</h3>
+		<div data-role="collapsible" data-content-theme="b" data-collapsed="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+
+	<h3>Initialize with { contentTheme: "b" } </h3>
+		<div id="contentTheme0" data-role="collapsible" data-collapsed="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<script>
+			$("#contentTheme0").collapsible( { contentTheme: "b" } );
+		</script>
+
+	<h3>Get/Set the theme option</h3>
+		<h4>Individual</h4>
+			<div id="contentTheme1" data-role="collapsible" data-collapsed="false">
+				<h3>header</h3>
+				<p>collapsible contents</p>
+			</div>
+			<span id="result_contentTheme1"></span><br/>
+
+		<hr />
+		<a href="javascript:getContentTheme1Option( true );">1. Get</a><br/>
+		<a href="javascript:setContentTheme1Option();">2. Toggle</a><br/>
+
+		<script>
+			function getContentTheme1Option( first ) {
+				var result = $( "#result_contentTheme1" ),
+					target = $( "#contentTheme1" ),
+					value = target.collapsible( "option", "contentTheme" );
+
+				result.html( "<font color='blue'>" + value + "</font>" );
+			}
+
+			function setContentTheme1Option() {
+				var target = $( "#contentTheme1" ),
+					value = target.collapsible( "option", "contentTheme" );
+
+				target.collapsible( "option", "contentTheme", !value || value === "a" ? "b" : "a" );
+
+				getContentTheme1Option( false );
+				$( "#result_contentTheme1" ).append(" <font color='blue'> ==> The changed value is applied.</font> ");
+			}
+		</script>
+
+		<h4>Part of a collapsible set</h4>
+			<div data-role="collapsibleset" data-content-theme="b">
+				<div id="contentTheme2" data-role="collapsible" data-collapsed="false">
+					<h3>header</h3>
+					<p>collapsible contents</p>
+				</div>
+				<div data-role="collapsible">
+					<h3>header</h3>
+					<p>collapsible contents</p>
+				</div>
+			</div>
+			<span id="result_contentTheme2"></span><br/>
+
+		<hr />
+		<a href="javascript:getContentTheme2Option( true );">1. Get</a><br/>
+		<a href="javascript:setContentTheme2Option();">2. Toggle</a><br/>
+
+		<script>
+			function getContentTheme2Option( first ) {
+				var result = $( "#result_contentTheme2" ),
+					target = $( "#contentTheme2" ),
+					value = target.collapsible( "option", "contentTheme" );
+
+				result.html( "<font color='blue'>" + value + "</font>" );
+
+				if ( !value ) {
+					result.append(" <font color='red'> ==> The default value is different from the API docs. (default: inherited from parent)</font>" );
+				}			
+			}
+
+			function setContentTheme2Option() {
+				var target = $( "#contentTheme2" ),
+					value = target.collapsible( "option", "contentTheme" );
+
+				target.collapsible( "option", "contentTheme", !value || value === "a" ? "b" : "a" );
+
+				getContentTheme2Option( false );
+				$( "#result_contentTheme2" ).append( "<font color='blue'> ==> The changed value is applied.</font>" );
+			}
+		</script>
+
+<h2>Events:collapse/expand</h2>
+	<div id="event1" data-role="collapsible">
 		<h3>header</h3>
 		<p>collapsible contents</p>
 	</div>
-	<span id="result_collapsiblecollapse"></span><br/>
+	<span id="result_event1"></span><br/>
 
 	<script>
-		$( "#collapsiblecollapse" ).on( "collapsiblecollapse", function( event, ui ) {
-			console.log( event );
-			$( "#result_collapsiblecollapse" ).html( event );
+		$( "#event1" ).on( "collapsiblecollapse", function( event, ui ) {
+			$( "#result_event1" ).html( "<font color='blue'>" + event.type + "</font>" );
+		}).on( "collapsibleexpand", function( event, ui ) {
+			$( "#result_event1" ).html( "<font color='blue'>" + event.type + "</font>" );
 		});
-	</script-->
+	</script>
+
+	<div id="event2" data-role="collapsible">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="result_event2"></span><br/>
+
+	<script>
+		$( "#event2" ).collapsible( {
+			collapse: function( event, ui ) {
+				$( "#result_event2" ).html( "<font color='blue'>" + event.type + "</font>" );	
+			},
+			expand: function( event, ui ) {
+				$( "#result_event2" ).html( "<font color='blue'>" + event.type + "</font>" );
+			}
+		});
+	</script>
 
 </div>
 </div><!-- /content -->

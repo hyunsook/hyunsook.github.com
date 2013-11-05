@@ -28,6 +28,17 @@
 			<li><a href="./toolbar-sub.html">API (New page)</a></li>
 		</ul>
 	</div>
+
+	<div data-id="testFooter" data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="./toolbar.html#toolbarFront" class="ui-state-persist">Home</a></li>
+				<li><a href="./toolbar.html#toolbarDefault">Default</a></li>
+				<li>	<a href="./toolbar.html#toolbarAPI">API (Same page)</a></li>
+				<li><a href="./toolbar-sub.html">API (New page)</a></li>
+			</ul>
+		</div>
+	</div>
 </div>
 
 <div data-role="page" id="toolbarDefault">
@@ -148,6 +159,16 @@
 		</div>
 		<br>
 
+	</div>
+	<div data-id="testFooter" data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="./toolbar.html#toolbarFront">Home</a></li>
+				<li><a href="./toolbar.html#toolbarDefault" class="ui-state-persist">Default</a></li>
+				<li>	<a href="./toolbar.html#toolbarAPI">API (Same page)</a></li>
+				<li><a href="./toolbar-sub.html">API (New page)</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
 
@@ -331,6 +352,18 @@
 		</script>
 		<br>
 
+		<h2>Option:trackPersistentToolbars</h2>
+		<button class="trackPersistentToolbars" data-inline="true" >Dynamic Test( trackPersistentToolbars )</button>
+		<div class="resulttrackPersistentToolbars"></div>
+		<script>
+			$.mobile.document.delegate(".trackPersistentToolbars", "click", function () {
+				$( ".ui-page-active :jqmData(id=testFooter)" ).toolbar( "option", "trackPersistentToolbars", "false" );
+
+				$( ".resulttrackPersistentToolbars" ).html( "" ).append( "<h4>Current trackPersistentToolbars option:" + $( ".ui-page-active :jqmData(id=testFooter)" ).toolbar( "option", "trackPersistentToolbars" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
 		<h2>Option:transition</h2>
 		<button class="transitionnone" data-name="none" data-inline="true" >Dynamic Test( transition:None )</button>
 		<button class="transitionfade" data-name="fade" data-inline="true" >Dynamic Test( transition:Fade )</button>
@@ -338,9 +371,6 @@
 		<div class="resulttransition"></div>
 		<script>
 			$.mobile.document.delegate(".transitionnone, .transitionfade, .transitionslide", "click", function ( e ) {
-				// $( "#testHeader, #testFooter" ).fixedtoolbar()
-				// 	.fixedtoolbar( "option", "position", "fixed" )
-				// 	.fixedtoolbar( "option", "transition", $( e.target ).attr( "data-name" ) );
 				$( "#testHeader, #testFooter" ).toolbar( "option", "position", "fixed" )
 					.toolbar( "option", "transition", $( e.target ).attr( "data-name" ) );
 
@@ -404,14 +434,17 @@
 		<br>
 
 	</div>
-
-	<div id="testFooter" data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="index.html" data-role="button" data-icon="plus">Add</a>
-			<a href="index.html" data-role="button" data-icon="arrow-u">Up</a>
-			<a href="index.html" data-role="button" data-icon="arrow-d">Down</a>
+	<div data-id="testFooter" data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="./toolbar.html#toolbarFront">Home</a></li>
+				<li><a href="./toolbar.html#toolbarDefault">Default</a></li>
+				<li>	<a href="./toolbar.html#toolbarAPI" class="ui-state-persist">API (Same page)</a></li>
+				<li><a href="./toolbar-sub.html">API (New page)</a></li>
+			</ul>
 		</div>
 	</div>
+
 </div>
 
 </body>

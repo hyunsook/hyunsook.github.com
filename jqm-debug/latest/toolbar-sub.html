@@ -196,6 +196,19 @@
 		</script>
 		<br>
 
+		<h2>Option:trackPersistentToolbars</h2>
+		<button class="trackPersistentToolbars2" data-inline="true" >Dynamic Test( trackPersistentToolbars )</button>
+		<div class="resulttrackPersistentToolbars"></div>
+		<script>
+			$.mobile.document.delegate(".trackPersistentToolbars2", "click", function () {
+				$( ".ui-page-active :jqmData(id=testFooter)" ).toolbar( "option", "trackPersistentToolbars", "false" );
+
+				$( ".resulttrackPersistentToolbars" ).html( "" ).append( "<h4>Current trackPersistentToolbars option:" + $( ".ui-page-active :jqmData(id=testFooter)" ).toolbar( "option", "trackPersistentToolbars" ) + "</h4>" );
+			});
+		</script>
+		<br>
+
+
 		<h2>Option:transition</h2>
 		<button class="transitionnone2" data-name="none" data-inline="true" >Dynamic Test( transition:None )</button>
 		<button class="transitionfade2" data-name="fade" data-inline="true" >Dynamic Test( transition:Fade )</button>
@@ -203,7 +216,7 @@
 		<div class="resulttransition2"></div>
 		<script>
 			$.mobile.document.delegate(".transitionnone2, .transitionfade2, .transitionslide2", "click", function ( e ) {
-				$( "#testHeader2, #testFooter2" ).toolbar( "option", "position", "fixed" )
+				$( "#testHeader2" ).toolbar( "option", "position", "fixed" )
 					.toolbar( "option", "transition", $( e.target ).attr( "data-name" ) );
 
 				$( ".resulttransition2" ).html( "" )
@@ -251,11 +264,14 @@
 		<br>
 
 	</div>
-	<div id="testfooter2" data-role="footer">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="index.html" data-role="button" data-icon="plus">Add</a>
-			<a href="index.html" data-role="button" data-icon="arrow-u">Up</a>
-			<a href="index.html" data-role="button" data-icon="arrow-d">Down</a>
+	<div data-id="testFooter" data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="./toolbar.html#toolbarFront">Home</a></li>
+				<li><a href="./toolbar.html#toolbarDefault">Default</a></li>
+				<li>	<a href="./toolbar.html#toolbarAPI">API (Same page)</a></li>
+				<li><a href="./toolbar-sub.html" class="ui-state-persist">API (New page)</a></li>
+			</ul>
 		</div>
 	</div>
 </div>

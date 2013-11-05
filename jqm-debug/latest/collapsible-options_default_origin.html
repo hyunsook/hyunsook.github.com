@@ -23,7 +23,7 @@
 
 <h3>Part of a collapsible set</h3>
 	The theme of the parent collapsible set was defined as &quot;b&quot;.
-	<div data-role="collapsibleset" data-theme="b">
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b">
 		<div id="part" data-role="collapsible">
 			<h3>header</h3>
 			<p>collapsible contents</p>
@@ -57,7 +57,8 @@
 				iconpos = target.collapsible( "option", "iconpos" ),
 				inset = target.collapsible( "option", "inset" ),
 				mini = target.collapsible( "option", "mini" ),
-				theme = target.collapsible( "option", "theme" );
+				theme = target.collapsible( "option", "theme" ),
+				contentTheme = target.collapsible( "option", "contentTheme" );
 
 			result.html(
 				getResultHtml( "collapseCueText", collapseCueText ) + "<br/>" +
@@ -70,7 +71,8 @@
 				getResultHtml( "iconpos", iconpos ) + "<br/>" +
 				getResultHtml( "inset", inset ) + "<br/>" +
 				getResultHtml( "mini", mini ) + "<br/>" +
-				getResultHtml( "theme", theme, target ) + "<br/>"
+				getResultHtml( "theme", theme, target ) + "<br/>" +
+				getResultHtml( "contentTheme", contentTheme, target ) + "<br/>"
 			);
 		}
 
@@ -84,7 +86,7 @@
 		}
 
 		function getResult( key, value, el ) {
-			if ( key != "theme" ) {
+			if ( key != "theme" && key !== "contentTheme" ) {
 				return value === defaultValues[ key ];
 			}
 

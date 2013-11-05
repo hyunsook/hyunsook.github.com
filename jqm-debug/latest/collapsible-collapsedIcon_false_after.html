@@ -3,19 +3,19 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Collapsible-expandedIcon:false</title>
+	<title>Collapsible-collapsedIcon:false</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<script src="jquery.mobile-git_bugfix_collapsible_collapsedIcon_expandedIcon_false.js"></script>
 </head>
 <body>
 <div data-role="page">
 <div data-role="content" class="jqm-content">
 
-<h2>Setting the expandedIcon option with false</h2>
+<h2>Setting the collapsedIcon option with false</h2>
 
-<h3>Expected: <u>data-expanded-icon="false"</u></h3>
-	<div id="expected" data-role="collapsible" data-collapsed="false" data-expanded-icon="false">
+<h3>Expected: <u>data-collapsed-icon="false"</u></h3>
+	<div id="expected" data-role="collapsible" data-collapsed-icon="false">
 		<h3>header</h3>
 		<p>collapsible contents</p>
 	</div>
@@ -25,7 +25,7 @@
 
 <br/>
 <h3>Test: <span id="result"></span></h3>
-	<div id="target" data-role="collapsible" data-collapsed="false">
+	<div id="target" data-role="collapsible">
 		<h3>header</h3>
 		<p>collapsible contents</p>
 	</div>
@@ -36,11 +36,11 @@
 
 <hr/>
 	<a href="javascript:getClassNames( true )">1. Get the class names of the each example</a><br/>
-	<a href="javascript:setExpandedIcon()">2. Set the expandedIcon option of the test with false</a><br/>
-	<a href="javascript:getClassNames( false )">3. Get the class names of the each example</a><br/>
+	<a href="javascript:setCollapsedIcon()">2. Set the collapsedIcon option of the test with false</a><br/>
+	<a href="javascript:getClassNames( false )">3. Get the class names of the each example again</a><br/>
 	<script>
-		function setExpandedIcon() {
-			$( "#target" ).collapsible( "option", "expandedIcon", false );
+		function setCollapsedIcon() {
+			$( "#target" ).collapsible( "option", "collapsedIcon", false );
 		}
 
 		function getClassNames( first ) {

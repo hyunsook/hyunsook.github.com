@@ -21,6 +21,7 @@
 	</div>
 	<span id="expected_classes"></span><br/>
 	<span id="expected_icon_classes"></span><br/>
+	<span id="expected_iconpos"></span><br/>
 
 <br/>
 <h3>Test: <span id="result"></span></h3>
@@ -30,31 +31,35 @@
 	</div>
 	<span id="classes"></span><br/>
 	<span id="icon_classes"></span><br/>
+	<span id="iconpos"></span><br/>
 	<span id="result2"></span><br/>
 
 <hr/>
 	<a href="javascript:getClassNames( true )">1. Get the class names of the each example</a><br/>
 	<a href="javascript:setCollapsedIcon()">2. Set the collapsedIcon option of the test with false</a><br/>
-	<a href="javascript:getClassNames( false )">3. Get the class names of the each example</a><br/>
+	<a href="javascript:getClassNames( false )">3. Get the class names of the each example again</a><br/>
 	<script>
 		function setCollapsedIcon() {
 			$( "#target" ).collapsible( "option", "collapsedIcon", false );
-			$( "#result" ).html( "<font color='red'>The icon background is not removed.</font>" );
 		}
 
 		function getClassNames( first ) {
-			getClasses( "expected", "expected_classes", "expected_icon_classes" );
-			getClasses( "target", "classes", "icon_classes" );
+			getClasses( "expected", "expected_classes", "expected_icon_classes", "expected_iconpos" );
+			getClasses( "target", "classes", "icon_classes", "iconpos" );
 
 			if ( !first ) {
-				$( "#result2" ).html( "<font color='red'>==> The ui-btn-icon-left class is not changed.</font>" );
+				if ( $( "#target a" ).hasClass( "ui-btn-icon-left" ) ) {
+					$( "#result" ).html( "<font color='red'>The icon background is not removed.</font>" );
+					$( "#result2" ).html( "<font color='red'>==> The ui-btn-icon-left class is not changed.</font>" );
+				}
 			}
 		}
 
-		function getClasses( el, result, subresult ) {
+		function getClasses( el, result, subresult, info ) {
 			var classes = $( "#" + el + " a" ).attr( "class" );
 			$( "#" + result ).html( "Classes: <font color='blue'>" + classes + "</font>" );
 			$( "#" + subresult ).html( "The icon classes: <font color='blue'>" + getIconClass( classes ) + "</font>" );
+			$( "#" + info ).html( "The iconpos option: <font color='blue'>" + $( "#" + el ).collapsible( "option", "iconpos" ) + "</font>" );
 		}
 
 		function getIconClass( classNames ) {

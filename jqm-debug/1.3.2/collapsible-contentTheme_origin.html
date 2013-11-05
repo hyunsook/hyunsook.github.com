@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapsible-contentTheme</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Options:conentTheme</h2>
+
+<h3>Individual</h3>
+
+<h4>Expected: <u>data-content-theme=&quot;b&quot;</u></h4>
+	<div id="expected" data-role="collapsible" data-content-theme="b" data-collapsed="false">
+		<h3>header</h3>
+		<p>collapsible contents</p>
+	</div>
+	<span id="expected_classes"></span><br/>
+	<span id="expected_content_classes"></span><br/>
+	<span id="expected_contentTheme"></span><br/>
+
+<h4>Test:</h4>
+		<div id="target" data-role="collapsible" data-collapsed="false">
+			<h3>header</h3>
+			<p>collapsible contents</p>
+		</div>
+		<span id="target_classes"></span><br/>
+		<span id="target_content_classes"></span><br/>
+		<span id="target_contentTheme"></span><br/>
+		<span id="result_contentTheme1"></span><br/>
+
+<hr/>
+	<a href="javascript:getClassNames( true )">1. Get the class names of the each example</a><br/>
+	<a href="javascript:toggleContentTheme()">2. Set the collapsedIcon option of the test with false</a><br/>
+	<a href="javascript:getClassNames( false )">3. Get the class names of the each example again</a><br/>
+	<script>
+		function toggleContentTheme() {
+			var target = $( "#target" ),
+				value = target.collapsible( "option", "contentTheme" );
+
+			target.collapsible( "option", "contentTheme", !value || value === "a" ? "b" : "a" );
+		}
+
+		function getClassNames( first ) {
+			getClasses( "expected", "expected_classes", "expected_content_classes", "expected_contentTheme" );
+			getClasses( "target", "target_classes", "target_content_classes", "target_contentTheme" );
+
+			if ( !first ) {
+				if ( getThemeClass( $( "#target .ui-collapsible-content" ).attr( "class" ) ).length === 0 ) {
+					$( "#result_contentTheme1" ).html( "<font color='red'>==&gt;The content theme is not applied.</font>" );
+				}
+			}
+		}
+
+		function getClasses( el, classNames, contentClasses, option ) {
+			var classes = $( "#" + el ).attr( "class" );
+			$( "#" + classNames ).html( "Classes (collapsible): <font color='blue'>" + classes + "</font>" );
+
+			classes = $( "#" + el + " .ui-collapsible-content" ).attr( "class" );
+			$( "#" + contentClasses ).html( "Classes (content): <font color='blue'>" + classes + "</font>" +
+											", Theme Classes: <font color='blue'>" + getThemeClass(classes) + "</font>" );
+			$( "#" + option ).html( "The contentTheme option: <font color='blue'>" + $( "#" + el ).collapsible( "option", "contentTheme" ) + "</font>" );
+		}
+
+		function getThemeClass( classNames ) {
+			var classes = classNames.split( " " ),
+				themeClasses = [],
+				length = classes.length,
+				themeClass = /-[a,b]\b/,
+				i;
+
+			for ( i = 0 ; i < length; ++i ) {
+				if ( themeClass.test( classes[ i ] ) ) {
+					themeClasses.push( classes[ i ] );
+				}
+			}
+
+			return themeClasses;
+		}
+	</script>
+
+</div>
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

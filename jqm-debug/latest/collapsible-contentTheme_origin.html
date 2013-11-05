@@ -14,9 +14,7 @@
 
 <h2>Options:conentTheme</h2>
 
-<h3>Individual</h3>
-
-<h4>Expected: <u>data-content-theme=&quot;b&quot;</u></h4>
+<h3>Expected: <u>data-content-theme=&quot;b&quot;</u></h3>
 	<div id="expected" data-role="collapsible" data-content-theme="b" data-collapsed="false">
 		<h3>header</h3>
 		<p>collapsible contents</p>
@@ -25,7 +23,7 @@
 	<span id="expected_content_classes"></span><br/>
 	<span id="expected_contentTheme"></span><br/>
 
-<h4>Test:</h4>
+<h3>Test:</h3>
 		<div id="target" data-role="collapsible" data-collapsed="false">
 			<h3>header</h3>
 			<p>collapsible contents</p>
@@ -37,7 +35,7 @@
 
 <hr/>
 	<a href="javascript:getClassNames( true )">1. Get the class names of the each example</a><br/>
-	<a href="javascript:toggleContentTheme()">2. Set the collapsedIcon option of the test with false</a><br/>
+	<a href="javascript:toggleContentTheme()">2. Toggle the contentTheme option</a><br/>
 	<a href="javascript:getClassNames( false )">3. Get the class names of the each example again</a><br/>
 	<script>
 		function toggleContentTheme() {

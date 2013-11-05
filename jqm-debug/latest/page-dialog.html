@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dialog page - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		<!--<script src="jquery.mobile-git.js"></script>-->
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+		<script>
+			$.mobile.document.on( "pagebeforeshow", "#dialog-page", function() {
+				var $this = $( this );
+				$( ".closeBtn-stat" ).text( $this.page( "option", "closeBtn" ) );
+				$( ".closeBtnText-stat" ).text( $this.page( "option", "closeBtnText" ) );
+				$( ".corners-stat" ).text( $this.page( "option", "corners" ) );
+				$( ".overlayTheme-stat" ).text( $this.page( "option", "overlayTheme" ) );
+			});
+
+			$.mobile.document.on( "pageinit", "#dialog-page", function() {
+				$.mobile.document.on( "click", ".set-closeBtn", function() {
+					var $this = $( this ),
+						$dialog = $( "#dialog-page" );
+					$dialog.page( "option", "closeBtn", $this.jqmData( "value" ) );
+					$( ".closeBtn-stat" ).text( $dialog.page( "option", "closeBtn" ) );
+				}).on( "click", ".set-closeBtnText", function() {
+					var $this = $( this ),
+						$dialog = $( "#dialog-page" );
+					$dialog.page( "option", "closeBtnText", $this.jqmData( "value" ) );
+					$( ".closeBtnText-stat" ).text( $dialog.page( "option", "closeBtnText" ) );
+				}).on( "click", ".set-corners", function() {
+					var $this = $( this ),
+						$dialog = $( "#dialog-page" );
+					$dialog.page( "option", "corners", $this.jqmData( "value" ) );
+					$( ".corners-stat" ).text( $dialog.page( "option", "corners" ) );
+				}).on( "click", ".set-overlayTheme", function() {
+					var $this = $( this ),
+						$dialog = $( "#dialog-page" );
+					$dialog.page( "option", "overlayTheme", $this.jqmData( "value" ) );
+					$( ".overlayTheme-stat" ).text( $dialog.page( "option", "overlayTheme" ) );
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header">
+				<h1>Dialog page</h1>
+			</div>
+
+			<div data-role="content">
+				<a href="#dialog-page" class="ui-shadow ui-btn ui-corner-all ui-btn-inline" data-transition="pop">Open dialog</a>
+			</div>	<!-- content -->
+
+		</div>	<!-- page -->
+
+		<div data-role="page" data-dialog="true" id="dialog-page">
+			<div data-role="header">
+				<h2>Dialog page</h2>
+			</div>
+			<div class="ui-content" role="main">
+				<h3>Show options</h3>
+				<div class="ui-grid-a">
+					<div class="ui-block-a"><div class="ui-bar ui-bar-b">closeBtn</div></div>
+					<div class="ui-block-b"><div class="ui-bar ui-bar-a closeBtn-stat">&nbsp;</div></div>
+
+					<div class="ui-block-a"><div class="ui-bar ui-bar-b">closeBtnText</div></div>
+					<div class="ui-block-b"><div class="ui-bar ui-bar-a closeBtnText-stat">&nbsp;</div></div>
+
+					<div class="ui-block-a"><div class="ui-bar ui-bar-b">corners</div></div>
+					<div class="ui-block-b"><div class="ui-bar ui-bar-a corners-stat">&nbsp;</div></div>
+
+					<div class="ui-block-a"><div class="ui-bar ui-bar-b">overlayTheme</div></div>
+					<div class="ui-block-b"><div class="ui-bar ui-bar-a overlayTheme-stat">&nbsp;</div></div>
+				</div>	<!-- show current options -->
+
+				<ul data-role="listview" data-inset="true">
+					<li data-role="list-divider">closeBtn - default: "left"</li>
+					<li><a href="#" class="set-closeBtn" data-value="left">set "left"</a></li>
+					<li><a href="#" class="set-closeBtn" data-value="right">set "right"</a></li>
+					<li><a href="#" class="set-closeBtn" data-value="right">set "none"</a></li>
+					<li data-role="list-divider">closeBtnText - default: "Close"</li>
+					<li><a href="#" class="set-closeBtnText" data-value="test">set "test"</a></li>
+					<li><a href="#" class="set-closeBtnText" data-value="Close">set "Close"</a></li>
+					<li data-role="list-divider">contentType - deprecated: 1.4.0
+					<li data-role="list-divider">corners - default: true</li>
+					<li><a href="#" class="set-corners" data-value="true">set "true"</a></li>
+					<li><a href="#" class="set-corners" data-value="false">set "false"</a></li>
+					<li data-role="list-divider">degradeInputs - deprecated: 1.4.0</li>
+					<li data-role="list-divider">overlayTheme - default: "a"</li>
+					<li><a href="#" class="set-overlayTheme" data-value="a">set "a"</a></li>
+					<li><a href="#" class="set-overlayTheme" data-value="b">set "b"</a></li>
+				</ul>
+
+				<a href="#" data-rel="back" class="ui-btn ui-shadow ui-corner-all">Exit</a>
+			</div>
+		</div>	<!-- dialog page -->
+	</body>
+</html>

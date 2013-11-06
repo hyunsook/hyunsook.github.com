@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Collapsible: options - defalut</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Default value of the options</h2>
+
+<h3>Individual</h3>
+	Parent class: &quot;ui-body ui-body-b&quot;
+	<div class="ui-body ui-body-b">
+		<div id="target0" data-role="collapsible-set">
+			<div data-role="collapsible">
+				<h3>Section 1</h3>
+				<p>I'm the collapsible set content for section 1.</p>
+			</div>
+			<div data-role="collapsible">
+				<h3>Section 2</h3>
+				<p>I'm the collapsible set content for section 2.</p>
+			</div>
+		</div>
+	</div>
+	<span id="result0"></span><br/>
+
+<h3>Nested</h3>
+	Parent theme: data-theme=&quot;b&quot; data-content-theme=&quot;a&quot;
+	<div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="a">
+		<h3>Section 0</h3>
+		<div id="target1" data-role="collapsible-set">
+			<div data-role="collapsible">
+				<h3>Section 1</h3>
+				<p>I'm the collapsible set content for section 1.</p>
+			</div>
+			<div data-role="collapsible">
+				<h3>Section 2</h3>
+				<p>I'm the collapsible set content for section 2.</p>
+			</div>
+		</div>
+	</div>
+	<span id="result1"></span><br/>
+
+	<hr />
+	<a href="javascript:getDefalutValues();">1. Get default values of the options</a><br/>
+
+	<script>
+		function getDefalutValues() {
+			var options = [ "collapsedIcon", "corners", "expandedIcon", "iconpos", "inset", "mini", "theme", "contentTheme" ];
+
+			$( "#result0" ).html( getResultHtml( $( "#target0" ), options ) );
+			$( "#result1" ).html( getResultHtml( $( "#target1" ), options ) );
+		}
+
+		function getResultHtml( target, options ) {
+			var value, html = "";
+
+			for ( key in options ) {
+				key = options[ key ];
+				value = getOption( target, key );
+				html += getOptionHtml( key, value ) + "<br/>";
+			}
+
+			return html;
+		}
+
+		function getOption( target, option ) {
+			return target.collapsibleset( "option", option );
+		}
+
+		function getOptionHtml( key, value )	{
+			return key + ": <font color='" + getResultColor( key, value ) + "'>" + 
+					value + " (default: " + defaultValues[ key ] + ")</font>";
+		}
+
+		function getResultColor( key, value ) {
+			return getResult( key, value ) ? "blue" : "red";
+		}
+
+		function getResult( key, value ) {
+			return value === defaultValues[ key ];
+		}
+
+		var defaultValues = {
+			collapsedIcon: "plus",
+			corners: true,
+			expandedIcon: "minus",
+			iconpos: "left",
+			inset: true,
+			mini: false,
+			theme: "inherit",
+			contentTheme: "inherit",
+		};
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

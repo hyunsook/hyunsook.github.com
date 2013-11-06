@@ -942,26 +942,28 @@
 			}
 		</script>
 
-<h2>Events:collapse/expand</h2>
+<h2>Events:collapse/expand/create</h2>
+	<span id="result_event1"></span><br/>
 	<div id="event1" data-role="collapsible">
 		<h3>header</h3>
 		<p>collapsible contents</p>
 	</div>
-	<span id="result_event1"></span><br/>
 
 	<script>
 		$( "#event1" ).on( "collapsiblecollapse", function( event, ui ) {
 			$( "#result_event1" ).html( "<font color='blue'>" + event.type + "</font>" );
 		}).on( "collapsibleexpand", function( event, ui ) {
 			$( "#result_event1" ).html( "<font color='blue'>" + event.type + "</font>" );
+		}).on( "collapsiblecreate", function( event, ui ) {
+			$( "#result_event1" ).html( "<font color='blue'>" + event.type + "</font>" );
 		});
 	</script>
 
+	<span id="result_event2"></span><br/>
 	<div id="event2" data-role="collapsible">
 		<h3>header</h3>
 		<p>collapsible contents</p>
 	</div>
-	<span id="result_event2"></span><br/>
 
 	<script>
 		$( "#event2" ).collapsible( {
@@ -969,6 +971,9 @@
 				$( "#result_event2" ).html( "<font color='blue'>" + event.type + "</font>" );	
 			},
 			expand: function( event, ui ) {
+				$( "#result_event2" ).html( "<font color='blue'>" + event.type + "</font>" );
+			},
+			create: function( event, ui ) {
 				$( "#result_event2" ).html( "<font color='blue'>" + event.type + "</font>" );
 			}
 		});

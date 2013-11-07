@@ -69,7 +69,7 @@
 				corners: {
 					value: false,
 					classLength: 0,
-					target: "a",
+					target: "self",
 					prefix: "ui-corner",
 					pattern: "*"
 				},
@@ -150,7 +150,9 @@
 		}
 
 		function getClassTarget( target, key ) {
-			return target.find( values[ key ].target );
+			var classTarget = values[ key ].target;
+
+			return ( classTarget === "self" ) ? target : target.find( classTarget );
 		}
 
 		function getClasses( classes, key ) {

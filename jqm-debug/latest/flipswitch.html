@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Flipswitch</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>-->
+	<!--<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"></link>-->
+
+	<style>
+		.custom-class {
+			background-color: orange !important;
+		}
+	</style>
+</head>
+<body>
+
+<div data-role="page" id="flipswitchFront">
+	<div data-role="header" data-position="fixed">
+		<h1>Flipswitch</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true" >
+			<li><a href="#flipswitchDefault">Default</a></li>
+			<li><a href="#flipswitchAPI">API</a></li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="flipswitchDefault">
+	<div data-role="header" data-position="fixed">
+		<h1>Default</h1>
+	</div>
+	<div data-role="content">
+		<h2>Document examples</h2>
+		<fieldset>
+			<div data-role="fieldcontain">
+				<label for="checkbox-based-flipswitch">Checkbox-based:</label>
+				<input type="checkbox" id="checkbox-based-flipswitch" data-role="flipswitch"></input>
+			</div>
+		</fieldset>
+
+		<br>
+		<fieldset>
+			<div data-role="fieldcontain">
+				<label for="select-based-flipswitch">Select-based:</label>
+				<select id="select-based-flipswitch" data-role="flipswitch">
+					<option value="leave">Bye</option>
+					<option value="arrive">Hi</option>
+				</select>
+			</div>
+		</fieldset>
+
+		<br>
+		<div class="ui-flipswitch ui-shadow-inset ui-bar-inherit">
+			<span tabindex="1" class="ui-flipswitch-on ui-btn ui-shadow ui-btn-inherit">On</span>
+			<span class="ui-flipswitch-off">Off</span>
+			<input type="checkbox" data-role="flipswitch" data-enhanced="true" data-corners="false" name="flip-checkbox" class="ui-flipswitch-input">
+		</div>
+
+		<br>
+		<h2>No fieldset, No fieldcontain</h2>
+		<input type="checkbox" data-role="flipswitch" data-corners="false" name="flip-checkbox"></input>
+
+		<br>
+		<h2>Fieldcontain &amp; mini</h2>
+		<div data-role="fieldcontain">
+			<label for="select-based-flipswitch">Select-based:</label>
+			<input type="checkbox" data-role="flipswitch" data-mini="true" name="flip-checkbox"></input>
+		</div>
+
+		<br>
+		<h2>Fieldcontain &amp; mini</h2>
+		<div data-role="fieldcontain">
+			<label for="select-based-flipswitch">Select-based:</label>
+			<input type="checkbox" data-role="flipswitch" data-mini="true" name="flip-checkbox" checked="checked"></input>
+		</div>
+
+	</div>
+</div>
+
+
+<div data-role="page" id="flipswitchAPI">
+	<div data-role="header" data-position="fixed">
+		<h1>API</h1>
+	</div>
+	<div data-role="content">
+		<h2>Option:corners </h2>
+		<h4>data-corners="false"</h4>
+		<div data-role="fieldcontain">
+			<label>Checkbox-based:</label>
+			<input type="checkbox" data-role="flipswitch" data-corners="false" name="flip-checkbox"></input>
+		</div>
+		<div data-role="fieldcontain">
+			<label>Select-based:</label>
+			<select data-role="flipswitch" data-corners="false" >
+				<option value="leave">Bye</option>
+				<option value="arrive">Hi</option>
+			</select>
+		</div>
+
+		<br>
+		<h4>data-corners="true"</h4>
+		<div data-role="fieldcontain">
+			<label>Checkbox-based:</label>
+			<input type="checkbox" data-role="flipswitch" data-corners="true" name="flip-checkbox"></input>
+		</div>
+		<div data-role="fieldcontain">
+			<label>Select-based:</label>
+			<select data-role="flipswitch" data-corners="true" >
+				<option value="leave">Bye</option>
+				<option value="arrive">Hi</option>
+			</select>
+		</div>
+		<br>
+
+		<h4>option method</h4>
+		<button class="corners" data-inline="true" >Dynamic Test( corners )</button><br>
+		<div data-role="fieldcontain">
+			<label>Checkbox-based:</label>
+			<input class="testCorners" type="checkbox" data-role="flipswitch" name="flip-checkbox"></input>
+		</div>
+		<div data-role="fieldcontain">
+			<label>Select-based:</label>
+			<select class="testCorners" data-role="flipswitch">
+				<option value="leave">Bye</option>
+				<option value="arrive">Hi</option>
+			</select>
+		</div>
+		<div class="resultcorners"></div>
+		<script>
+			$.mobile.document.delegate(".corners", "click", function () {
+				$( ".testCorners" ).flipswitch( "option", "corners", false );
+
+				if ( !$( ".testCorners" ).parent().hasClass( "ui-corner-all" ) ) {
+					$( ".resultcorners" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultcorners" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultcorners h4" ).append( "<br>Current corners option:" + $( ".testCorners" ).flipswitch( "option", "corners" ) );
+			});
+		</script>
+		<br>
+
+		<h2>Option:wrapperClass </h2>
+		<h4>data-wrapper-class="custom-class"</h4>
+		<div data-role="fieldcontain">
+			<label>Checkbox-based:</label>
+			<input class="testCorners" type="checkbox" data-role="flipswitch" name="flip-checkbox" data-wrapper-class="custom-class"></input>
+		</div>
+		<div data-role="fieldcontain">
+			<label>Select-based:</label>
+			<select class="testCorners" data-role="flipswitch" data-wrapper-class="custom-class">
+				<option value="leave">Bye</option>
+				<option value="arrive">Hi</option>
+			</select>
+		</div>
+		<br>
+
+		<h4>option method</h4>
+		<button class="wrapperClass" data-inline="true" >Dynamic Test( wrapperClass )</button><br>
+		<div data-role="fieldcontain">
+			<label>Checkbox-based:</label>
+			<input class="testWrapperClass" type="checkbox" data-role="flipswitch" name="flip-checkbox"></input>
+		</div>
+		<div data-role="fieldcontain">
+			<label>Select-based:</label>
+			<select class="testWrapperClass" data-role="flipswitch" >
+				<option value="leave">Bye</option>
+				<option value="arrive">Hi</option>
+			</select>
+		</div>
+		<div class="resultWrapperClass"></div>
+		<script>
+			$.mobile.document.delegate(".wrapperClass", "click", function () {
+				$( ".testWrapperClass" ).flipswitch( "option", "wrapperClass", "custom-class" );
+
+				if ( ( $( ".testWrapperClass" ).parent().hasClass( "custom-class" ) ) ) {
+					$( ".resultWrapperClass" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultWrapperClass" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultWrapperClass h4" ).append( "<br>Current wrapperClass option:" + $( ".testWrapperClass" ).flipswitch( "option", "wrapperClass" ) );
+			});
+		</script>
+		<br>
+
+		<h4>method: refresh</h4>
+		<button class="refresh1" data-inline="true" >Dynamic Test( refresh() - checkbox )</button><br>
+		<div data-role="fieldcontain">
+			<label>Checkbox-based:</label>
+			<input class="testRefresh1" disabled="disabled" type="checkbox" data-role="flipswitch" name="flip-checkbox"></input>
+		</div>
+		<div class="resultrefresh1"></div>
+		<script>
+			$.mobile.document.delegate(".refresh1", "click", function () {
+				$( ".testRefresh1" ).attr( "checked", "checked" ).flipswitch( "refresh" );
+
+				if ( ( $( ".testRefresh1" ).parent().hasClass( "ui-flipswitch-active" ) ) ) {
+					$( ".resultrefresh1" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultrefresh1" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+			});
+		</script>
+		<br>
+
+		<button class="refresh2" data-inline="true" >Dynamic Test( refresh() - select )</button><br>
+		<div data-role="fieldcontain">
+			<label>Select-based:</label>
+			<select class="testRefresh2" disabled="disabled" data-role="flipswitch" >
+				<option value="leave">Bye</option>
+				<option value="arrive">Hi</option>
+			</select>
+		</div>
+		<div class="resultrefresh2"></div>
+		<script>
+			$.mobile.document.delegate(".refresh2", "click", function () {
+				$( ".testRefresh2 option[value=arrive]" ).attr( "selected", "selected" );
+				$( ".testRefresh2" ).flipswitch( "refresh" );
+
+				if ( ( $( ".testRefresh2" ).parent().hasClass( "ui-flipswitch-active" ) ) ) {
+					$( ".resultrefresh2" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultrefresh2" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+			});
+		</script>
+		<br>
+	</div>
+</div>

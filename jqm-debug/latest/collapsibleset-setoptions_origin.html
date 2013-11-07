@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CollapsibleSet: setOptions </title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+	<div id="target" data-role="collapsible-set">
+		<div data-role="collapsible" data-collapsed="false">
+			<h3>Section 1</h3>
+			<p>I'm the collapsible set content for section 1.</p>
+		</div>
+		<div data-role="collapsible">
+			<h3>Section 2</h3>
+			<p>I'm the collapsible set content for section 2.</p>
+		</div>
+	</div>
+	<span id="result_collapsedIcon"></span><br/>
+	<span id="result_expandedIcon"></span><br/>
+	<span id="result_corners"></span><br/>
+	<span id="result_iconpos"></span><br/>
+	<span id="result_inset"></span><br/>
+	<span id="result_mini"></span><br/>
+	<span id="result_theme"></span><br/>
+	<span id="result_contentTheme"></span><br/>
+
+	<hr />
+	<a href="javascript:setOption( 'collapsedIcon' );">1. Set the collapsedIcon with &quot;arrow-r&quot;</a><br/>
+	<a href="javascript:setOption( 'expandedIcon' );">2. Set the expandedIcon with &quot;arror-d&quot;</a><br/>
+	<a href="javascript:setOption( 'corners' );">3. Set the corners with &quot;false&quot;</a><br/>
+	<a href="javascript:setOption( 'iconpos' );">4. Set the iconpos with &quot;right&quot;</a><br/>
+	<a href="javascript:setOption( 'inset' );">5. Set the inset with &quot;false&quot;</a><br/>
+	<a href="javascript:setOption( 'mini' );">6. Set the mini with &quot;true&quot;</a><br/>
+	<a href="javascript:setOption( 'theme' );">7. Set the theme with &quot;b&quot;</a><br/>
+	<a href="javascript:setOption( 'contentTheme' );">8. Set the contentTheme with &quot;a&quot;</a><br/>
+
+	<script>
+		var target = $( "#target" ),
+			values = {
+				collapsedIcon: {
+					value: "arrow-r",
+					classLength: 1,
+					target: ":jqmData(role='collapsible'):jqmData(collapsed!='false') a",
+					prefix: "ui-icon-",
+					pattern: "*"
+				},
+				corners: {
+					value: false,
+					classLength: 0,
+					target: "a",
+					prefix: "ui-corner",
+					pattern: "*"
+				},
+				expandedIcon: {
+					value: "arrow-d",
+					classLength: 1,
+					target: ":jqmData(role='collapsible'):jqmData(collapsed='false') a",
+					prefix: "ui-icon-",
+					pattern: "*"				
+				},
+				iconpos: {
+					value: "right",
+					classLength: 1,
+					target: ":jqmData(role='collapsible') a",
+					prefix: "ui-btn-icon-",
+					pattern: "*"
+				},
+				inset: {
+					value: false,
+					classLength: 0,
+					target: ":jqmData(role='collapsible')",
+					prefix: "ui-collapsible-inset",
+					pattern: "*"
+				},
+				mini: {
+					value: true,
+					classLength: 1,
+					target: ":jqmData(role='collapsible') a",
+					prefix: "ui-mini",
+					pattern: "*"
+				},
+				theme: {
+					value: "b",
+					classLength: 1,
+					target: ":jqmData(role='collapsible') a",
+					prefix: "ui-btn-",
+					pattern: "[a,b]"
+				},
+				contentTheme: {
+					value: "a",
+					classLength: 1,
+					target: ":jqmData(role='collapsible') .ui-collapsible-content",
+					prefix: "ui-body-",
+					pattern: "[a,b]"
+				}
+			};
+		function setOption( key ) {
+			target.collapsibleset( "option", key, values[ key ].value );
+
+			var val = getOption( target, key ),
+				result = $( "#result_" + key ),
+				el = getClassTarget( target, key ),
+				classes = el.attr( "class" ).split( " " ),
+				classNames= getClasses( classes, key );
+
+			result.html( key + ": <font color='" + getResultColor( getOptionResult( key, val ) ) + "'>" + val + "</font>" );
+			result.append( ", class: <font color='" + getResultColor( getClassResult( classNames, key ) ) + "'>(" + classNames + ")</font>" );
+		}
+
+		function getOption( target, option ) {
+			return target.collapsibleset( "option", option );
+		}
+
+		function getClassTarget( target, key ) {
+			return target.find( values[ key ].target );
+		}
+
+		function getClasses( classes, key ) {
+			var result = [],
+				pattern = values[ key ].prefix + values[ key ].pattern,
+				i;
+
+			pattern = new RegExp( pattern );
+			for ( i in classes ) {
+				if ( pattern.test( classes[ i ] ) ) {
+					result.push( classes[ i ] );
+				}
+			}
+
+			return result;
+		}
+
+		function getResultColor( result ) {
+			return result ? "blue" : "red";
+		}
+
+		function getOptionResult( key, value ) {
+			return value === values[ key ].value;
+		}
+
+		function getClassResult( classes, key ) {
+			if ( classes.length !== values[ key ].classLength ) {
+				return false;
+			}
+
+			if ( classes.length === 0 ) {
+				return true;
+			}
+
+			var i,
+				val = ( typeof values[ key ].value === "string" ) ?
+						values[ key ].prefix + values[ key ].value : values[ key ].prefix;
+
+			for ( i in classes )	{
+				if ( classes[ i ] === val ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

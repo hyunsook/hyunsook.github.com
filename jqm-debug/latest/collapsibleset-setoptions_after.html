@@ -6,15 +6,16 @@
 	<title>CollapsibleSet: setOptions </title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="jquery.mobile-git_bugfix_collapsibleset_inset.js"></script>
+	<script src="jquery.mobile-git_bugfix_collapsibleset_selector.js"></script>
 </head>
 <body>
 <div data-role="page">
 <div data-role="content" class="jqm-content">
 
-<h2>Setting the options</h2>
+<h2>Setting options</h2>
 
-	<div id="target" data-role="collapsible-set">
+<h3>data-role=&quot;collapsibleset&quot;</h3>
+	<div id="target" data-role="collapsibleset">
 		<div data-role="collapsible" data-collapsed="false">
 			<h3>Section 1</h3>
 			<p>I'm the collapsible set content for section 1.</p>
@@ -33,19 +34,31 @@
 	<span id="result_theme"></span><br/>
 	<span id="result_contentTheme"></span><br/>
 
+<h3>data-role=&quot;collapsible-set&quot;</h3>
+	<div id="target1" data-role="collapsible-set">
+		<div data-role="collapsible" data-collapsed="false">
+			<h3>Section 1</h3>
+			<p>I'm the collapsible set content for section 1.</p>
+		</div>
+		<div data-role="collapsible">
+			<h3>Section 2</h3>
+			<p>I'm the collapsible set content for section 2.</p>
+		</div>
+	</div>
+	<span id="result1_collapsedIcon"></span><br/>
+	<span id="result1_expandedIcon"></span><br/>
+	<span id="result1_corners"></span><br/>
+	<span id="result1_iconpos"></span><br/>
+	<span id="result1_inset"></span><br/>
+	<span id="result1_mini"></span><br/>
+	<span id="result1_theme"></span><br/>
+	<span id="result1_contentTheme"></span><br/>
+
 	<hr />
-	<a href="javascript:setOption( 'collapsedIcon' );">1. Set the collapsedIcon with &quot;arrow-r&quot;</a><br/>
-	<a href="javascript:setOption( 'expandedIcon' );">2. Set the expandedIcon with &quot;arror-d&quot;</a><br/>
-	<a href="javascript:setOption( 'corners' );">3. Set the corners with &quot;false&quot;</a><br/>
-	<a href="javascript:setOption( 'iconpos' );">4. Set the iconpos with &quot;right&quot;</a><br/>
-	<a href="javascript:setOption( 'inset' );">5. Set the inset with &quot;false&quot;</a><br/>
-	<a href="javascript:setOption( 'mini' );">6. Set the mini with &quot;true&quot;</a><br/>
-	<a href="javascript:setOption( 'theme' );">7. Set the theme with &quot;b&quot;</a><br/>
-	<a href="javascript:setOption( 'contentTheme' );">8. Set the contentTheme with &quot;a&quot;</a><br/>
+	<a href="javascript:setAllOptions();">1. Set all options</a><br/>
 
 	<script>
-		var target = $( "#target" ),
-			values = {
+		var values = {
 				collapsedIcon: {
 					value: "arrow-r",
 					classLength: 1,
@@ -98,16 +111,32 @@
 				contentTheme: {
 					value: "a",
 					classLength: 1,
-					target: ":jqmData(role='collapsible') a",
-					prefix: "ui-btn-",
+					target: ":jqmData(role='collapsible') .ui-collapsible-content",
+					prefix: "ui-body-",
 					pattern: "[a,b]"
 				}
 			};
-		function setOption( key ) {
+
+		function setAllOptions() {
+			for ( key in values ) {
+				setOptions( key );
+			}
+		}
+
+		function setOptions( key ) {
+			var target0 = $( "#target" ),
+				target1 = $( "#target1" ),
+				result0 = $( "#result_" + key ),
+				result1 = $( "#result1_" + key );
+
+			setOption( key, target0, result0 );
+			setOption( key, target1, result1 );
+		}
+
+		function setOption( key, target, result ) {
 			target.collapsibleset( "option", key, values[ key ].value );
 
 			var val = getOption( target, key ),
-				result = $( "#result_" + key ),
 				el = getClassTarget( target, key ),
 				classes = el.attr( "class" ).split( " " ),
 				classNames= getClasses( classes, key );
@@ -169,7 +198,7 @@
 			return false;
 		}
 	</script>
-
+	
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CollapsibleSet: iconpos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="jquery.mobile-git_bugfix_collapsibleset_iconpos.js"></script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+	<h2>Collapsible set: Setting the iconpos options</h2>
+
+	<div id="target" data-role="collapsible-set">
+		<div data-role="collapsible">
+			<h3>Section 1</h3>
+			<p>I'm the collapsible set content for section 1.</p>
+		</div>
+		<div data-role="collapsible">
+			<h3>Section 2</h3>
+			<p>I'm the collapsible set content for section 2.</p>
+		</div>
+	</div>
+	<span id="result"></span><br/>
+	<span id="subresult"></span><br/>
+
+	<hr />
+	<a href="javascript:setOption( 'iconpos', 'right' );">1. Set the iconpos with &quot;right&quot;</a><br/>
+
+	<script>
+		function setOption( key, value ) {
+			var target = $( "#target" );
+			target.collapsibleset( "option", key, value );
+
+			var val = getOption( target, key ),
+				result = $( "#result" ),
+				el = target.find( "a" ),
+				classes = el.attr( "class" ).split( " " ),
+				classNames = getClasses( classes, key );
+
+			result.html( key + ": <font color='" + getResultColor( getOptionResult( key, val, value ) ) + "'>" + val + "</font>" );
+			result.append( ", class: <font color='" + getResultColor( getClassResult( classNames, key, value ) ) + "'>(" + classNames + ")</font>" );
+
+			if ( classNames.length !== 1 ) {
+				$( "#subresult" ).html( "<font color='red'>==&gt; The old class is not removed.</font>" )
+			}
+		}
+
+		function getOption( target, option ) {
+			return target.collapsibleset( "option", option );
+		}
+
+		function getClasses( classes, key, value ) {
+			var result = [],
+				pattern = new RegExp( "ui-btn-icon-" ),
+				i;
+
+			for ( i in classes ) {
+				if ( pattern.test( classes[ i ] ) ) {
+					result.push( classes[ i ] );
+				}
+			}
+
+			return result;
+		}
+
+		function getResultColor( result ) {
+			return result ? "blue" : "red";
+		}
+
+		function getOptionResult( key, value, check ) {
+			return value === check;
+		}
+
+		function getClassResult( classes, key, value ) {
+			if ( classes.length !== 1 ) {
+				return false;
+			}
+
+			return classes[0] === "ui-btn-icon-" + value;
+		}
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

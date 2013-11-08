@@ -12,56 +12,54 @@
 <div data-role="page">
 <div data-role="content" class="jqm-content">
 
-	<h2>Collapsible: Side effect after applying the bugfix about the default values</h2>
+	<h2>Collapsible: Fix the side-effect for the bugfix about the default values</h2>
 
 	<div id="target" data-role="collapsible" data-collapsed="false">
 		<h3>Header</h3>
 		<p>Collapsible contents</p>
 	</div>
-	<span id="result"></span><br/>
-	<span id="subresult"></span><br/>
+	<span id="result"></span><br/><br/>
+
+	<div class="ui-body ui-body-b">
+		<div id="target1" data-role="collapsible" data-collapsed="false">
+			<h3>Header</h3>
+			<p>Collapsible contents</p>
+		</div>
+	</div>
+	<span id="result1"></span><br/><br/>
+
+	<div data-role="collapsibleset" data-content-theme="b">
+		<div data-role="collapsible">
+			<h3>Header</h3>
+			<p>Collapsible contents</p>
+		</div>
+		<div id="target2" data-role="collapsible" data-collapsed="false">
+			<h3>Header</h3>
+			<p>Collapsible contents</p>
+		</div>
+	</div>
+	<span id="result2"></span><br/><br/>
 
 	<hr />
-	<a href="javascript:printOption( 'contentTheme', null );">1. Get the default value</a><br/>
-	<a href="javascript:setOption( 'contentTheme', 'b' );">1. Set the contentTheme with &quot;b&quot;</a><br/>
+	<a href="javascript:printOptions();">1. Get the default value</a><br/>
 
 	<script>
-		function printOption( key, value ) {
-			var target = $( "#target" ),
-				val = getOption( target, key ),
-				result = $( "#result" ),
-				el = target.find( ".ui-collapsible-content" ),
-				classes = el.attr( "class" ).split( " " ),
-				classNames = getClasses( classes, key );
-
-			result.html( key + ": <font color='" + getResultColor( getOptionResult( key, val, value ) ) + "'>" + val + "</font>" );
-			result.append( ", class: <font color='" + getResultColor( getClassResult( classNames, key, value ) ) + "'>(" + classNames + ")</font>" );
-
-			if ( classNames.length !== 1 ) {
-				$( "#subresult" ).html( "<font color='red'>==&gt; The old class is not removed.</font>" );
-			} else if ( !RegExp( value ).test( classNames[0] ) ) {
-				$( "#subresult" ).html( "<font color='red'>==&gt; The option value is not applied.</font>" );
-			}			
+		function printOptions() {
+			printOption( "target", "result", "contentTheme", null, "inherit" );
+			printOption( "target1", "result1", "contentTheme", null, "inherit" );
+			printOption( "target2", "result2", "contentTheme", "b", "b" );
 		}
 
-		function setOption( key, value ) {
-			var target = $( "#target" );
-			target.collapsibleset( "option", key, value );
-
-			var val = getOption( target, key ),
-				result = $( "#result" ),
+		function printOption( target, result, key, expected1, expected2 ) {
+			var target = $( "#" + target ),
+				result = $( "#" + result ),
+				val = getOption( target, key ),
 				el = target.find( ".ui-collapsible-content" ),
 				classes = el.attr( "class" ).split( " " ),
 				classNames = getClasses( classes, key );
 
-			result.html( key + ": <font color='" + getResultColor( getOptionResult( key, val, value ) ) + "'>" + val + "</font>" );
-			result.append( ", class: <font color='" + getResultColor( getClassResult( classNames, key, value ) ) + "'>(" + classNames + ")</font>" );
-
-			if ( classNames.length !== 1 ) {
-				$( "#subresult" ).html( "<font color='red'>==&gt; The old class is not removed.</font>" );
-			} else if ( !RegExp( value ).test( classNames[0] ) ) {
-				$( "#subresult" ).html( "<font color='red'>==&gt; The option value is not applied.</font>" );
-			}
+			result.html( key + ": <font color='" + getResultColor( getOptionResult( key, val, expected1 ) ) + "'>" + val + "</font>" );
+			result.append( ", class: <font color='" + getResultColor( getClassResult( classNames, key, expected2 ) ) + "'>(" + classNames + ")</font>" );
 		}
 
 		function getOption( target, option ) {
@@ -86,16 +84,16 @@
 			return result ? "blue" : "red";
 		}
 
-		function getOptionResult( key, value, check ) {
-			return value === check;
+		function getOptionResult( key, value, expected ) {
+			return value === expected;
 		}
 
-		function getClassResult( classes, key, value ) {
+		function getClassResult( classes, key, expected ) {
 			if ( classes.length !== 1 ) {
 				return false;
 			}
 
-			return classes[0] === "ui-body-" + value;
+			return classes[0] === "ui-body-" + expected;
 		}
 	</script>
 

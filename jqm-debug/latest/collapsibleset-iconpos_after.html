@@ -45,7 +45,9 @@
 			result.append( ", class: <font color='" + getResultColor( getClassResult( classNames, key, value ) ) + "'>(" + classNames + ")</font>" );
 
 			if ( classNames.length !== 1 ) {
-				$( "#subresult" ).html( "<font color='red'>==&gt; The old class is not removed.</font>" )
+				$( "#subresult" ).html( "<font color='red'>==&gt; The old class is not removed.</font>" );
+			} else if ( !RegExp( value ).test( classNames[0] ) ) {
+				$( "#subresult" ).html( "<font color='red'>==&gt; The value of the iconpos is not applied.</font>" );
 			}
 		}
 

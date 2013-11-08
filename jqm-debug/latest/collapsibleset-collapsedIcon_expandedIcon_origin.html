@@ -40,7 +40,7 @@
 
 			var val = getOption( target, key ),
 				result = $( "#result_" + key ),
-				el = $( target.find( "a" )[ collapsed ? 1 : 0 ] ),
+				el = $( target.find( "a" )[ collapsed ? 0 : 1 ] ),
 				classes = el.attr( "class" ).split( " " ),
 				classNames = getClasses( classes, key );
 

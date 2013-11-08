@@ -36,12 +36,21 @@
 
 <hr/>
 	<a href="javascript:getClassNames( true )">1. Get the class names of the each example</a><br/>
-	<a href="javascript:setCollapsedIcon()">2. Set the collapsedIcon option of the test with false</a><br/>
+	<a href="javascript:setCollapsedIconBool()">2 - 1. Set the collapsedIcon option of the test with false</a><br/>
+	<a href="javascript:setCollapsedIconString()">2 - 2. Set the collapsedIcon option of the test with "false"</a><br/>
+	<a href="javascript:setCollapsedIconPlus()">2 - 3. Set the collapsedIcon option of the test with "plus"</a><br/>
 	<a href="javascript:getClassNames( false )">3. Get the class names of the each example again</a><br/>
 	<script>
-		function setCollapsedIcon() {
+		function setCollapsedIconBool() {
 			$( "#target" ).collapsible( "option", "collapsedIcon", false );
 		}
+		function setCollapsedIconString() {
+			$( "#target" ).collapsible( "option", "collapsedIcon", "false" );
+		}
+		function setCollapsedIconPlus() {
+			$( "#target" ).collapsible( "option", "collapsedIcon", "plus" );
+		}
+
 
 		function getClassNames( first ) {
 			getClasses( "expected", "expected_classes", "expected_icon_classes", "expected_iconpos" );

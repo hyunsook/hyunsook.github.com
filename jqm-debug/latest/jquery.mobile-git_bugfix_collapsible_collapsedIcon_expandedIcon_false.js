@@ -6699,6 +6699,7 @@ $.widget( "mobile.collapsible", {
 			ui = this._ui,
 			anchor = ui.anchor,
 			status = ui.status,
+
 			opts = this._getOptions( options );
 
 		// First and foremost we need to make sure the collapsible is in the proper
@@ -6720,9 +6721,15 @@ $.widget( "mobile.collapsible", {
 				if ( currentOpts.collapsedIcon ) {
 					anchor.removeClass( "ui-icon-" + currentOpts.collapsedIcon );
 				}
-				anchor.addClass( "ui-icon-" + opts.collapsedIcon );
-				if ( !opts.collapsedIcon ) {
+				// anchor.addClass( "ui-icon-" + opts.collapsedIcon );
+				// if ( !opts.collapsedIcon ) {
+				// 	anchor.removeClass( "ui-btn-icon-" + ( currentOpts.iconPos === "right" ? "right" : "left" ) );
+				// }
+				if ( /false/i.test( opts.collapsedIcon ) ) {
 					anchor.removeClass( "ui-btn-icon-" + ( currentOpts.iconPos === "right" ? "right" : "left" ) );
+				} else {
+					anchor.addClass( "ui-icon-" + opts.collapsedIcon );
+					anchor.toggleClass( "ui-btn-icon-" + ( currentOpts.iconPos === "right" ? "right" : "left" ) , true );
 				}
 			}
 		} else {

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Popup - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+
+		<script>
+			$.mobile.document.on( "pageinit", function() {
+				$( ".arrow-stat" ).text( $( "#popup-arrow" ).popup( "option", "arrow" ) );
+				$( ".corners-stat" ).text( $( "#popup-corners" ).popup( "option", "corners" ) );
+				$( ".dismissible-stat" ).text( $( "#popup-dismissible" ).popup( "option", "dismissible" ) );
+				$( ".history-stat" ).text( $( "#popup-history" ).popup( "option", "history" ) );
+				$( ".overlayTheme-stat" ).text( $( "#popup-overlayTheme" ).popup( "option", "overlayTheme" ) );
+				$( ".positionTo-stat" ).text( $( "#popup-positionTo" ).popup( "option", "positionTo" ) );
+				$( ".shadow-stat" ).text( $( "#popup-shadow" ).popup( "option", "shadow" ) );
+				$( ".theme-stat" ).text( $( "#popup-theme" ).popup( "option", "theme" ) );
+				$( ".tolerance-stat" ).text( $( "#popup-tolerance" ).popup( "option", "tolerance" ) );
+				$( ".transition-stat" ).text( $( "#popup-transition" ).popup( "option", "transition" ) );
+			});
+
+			$.mobile.document.on( "click", ".set-arrow", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-arrow" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "arrow", value );
+				$( ".arrow-stat" ).text( $popup.popup( "option", "arrow" ) );
+			}).on( "click", ".set-corners", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-corners" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "corners", value );
+				$( ".corners-stat" ).text( $popup.popup( "option", "corners" ) );
+			}).on( "click", ".set-dismissible", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-dismissible" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "dismissible", value );
+				$( ".dismissible-stat" ).text( $popup.popup( "option", "dismissible" ) );
+			}).on( "click", ".set-history", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-history" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "history", value );
+				$( ".history-stat" ).text( $popup.popup( "option", "history" ) );
+			}).on( "click", ".set-overlayTheme", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-overlayTheme" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "overlayTheme", value );
+				$( ".overlayTheme-stat" ).text( $popup.popup( "option", "overlayTheme" ) );
+			}).on( "click", ".set-positionTo", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-positionTo" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "positionTo", value );
+				$( ".positionTo-stat" ).text( $popup.popup( "option", "positionTo" ) );
+			}).on( "click", ".set-shadow", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-shadow" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "shadow", value );
+				$( ".shadow-stat" ).text( $popup.popup( "option", "shadow" ) );
+			}).on( "click", ".set-theme", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-theme" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "theme", value );
+				$( ".theme-stat" ).text( $popup.popup( "option", "theme" ) );
+			}).on( "click", ".set-tolerance", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-tolerance" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "tolerance", value );
+				$( ".tolerance-stat" ).text( $popup.popup( "option", "tolerance" ) );
+			}).on( "click", ".set-transition", function() {
+				var $this = $( this ),
+					$popup = $( "#popup-transition" ),
+					value = $this.jqmData( "value" );
+
+				$popup.popup( "option", "transition", value );
+				$( ".transition-stat" ).text( $popup.popup( "option", "transition" ) );
+			});
+		</script>
+
+		<style>
+			div.ui-popup {
+				width: 400px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header">
+				<h1>Popup</h1>
+			</div>
+
+			<div data-role="content">
+
+				<h1>Popup - jQM latest</h1>
+
+				<a href="#popup-default" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">Basic popup - default options</a>
+
+				<h3>Options</h3>
+				<p>arrow - string or boolean, default: ""</p>
+				<a href="#popup-arrow" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">arrow: <span class="arrow-stat">&nbsp;</span></a>
+				<div class="ui-grid-c">
+					<div class="ui-block-a">
+						<a class="ui-btn ui-shadow ui-corner-all set-arrow" data-value="l">"l"</a>
+					</div>
+					<div class="ui-block-b">
+						<a class="ui-btn ui-shadow ui-corner-all set-arrow" data-value="t">"t"</a>
+					</div>
+					<div class="ui-block-c">
+						<a class="ui-btn ui-shadow ui-corner-all set-arrow" data-value="r">"r"</a>
+					</div>
+					<div class="ui-block-a">
+						<a class="ui-btn ui-shadow ui-corner-all set-arrow" data-value="b">"b"</a>
+					</div>
+					<div class="ui-block-b">
+						<a class="ui-btn ui-shadow ui-corner-all set-arrow" data-value="l,t,r,b">"l,t,r,b"</a>
+					</div>
+					<div class="ui-block-c">
+						<a class="ui-btn ui-shadow ui-corner-all set-arrow" data-value="false">false</a>
+					</div>
+				</div>
+
+				<p>corners - boolean, default: true</p>
+				<a href="#popup-corners" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">corners: <span class="corners-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-corners" data-value="true">true</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-corners" data-value="false">false</a>
+
+				<p>dismissible - boolean, default: true</p>
+				<a href="#popup-dismissible" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">dismissible: <span class="dismissible-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-dismissible" data-value="true">true</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-dismissible" data-value="false">false</a>
+
+				<p>history - boolean, default: true</p>
+				<a href="#popup-history" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">history: <span class="history-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-history" data-value="true">true</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-history positionTo-support" data-value="false">false</a>
+
+				<p>overlayTheme - string, default: null</p>
+				<a href="#popup-overlayTheme" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">overlayTheme: <span class="overlayTheme-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-overlayTheme" data-value="a">a</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-overlayTheme" data-value="b">b</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-overlayTheme" data-value="null">null</a>
+
+				<p>positionTo - string, default: origin</p>
+				<a href="#popup-positionTo" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">positionTo: <span class="positionTo-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-positionTo" data-value="origin">origin</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-positionTo" data-value="window">window</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-positionTo" data-value=".positionTo-support">.positionTo-support (history: false button)</a>
+
+				<p>shadow - boolean, default: true</p>
+				<a href="#popup-shadow" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">shadow: <span class="shadow-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-shadow" data-value="true">true</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-shadow" data-value="false">false</a>
+
+				<p>theme - string, default: null, inherited from parent</p>
+				<a href="#popup-theme" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">theme: <span class="theme-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-theme" data-value="a">a</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-theme" data-value="b">b</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-theme" data-value="none">none</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-theme" data-value="null">null</a>
+
+				<p>tolerance - boolean, default: true</p>
+				<a href="#popup-tolerance" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">tolerance: <span class="tolerance-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-tolerance" data-value="30,15,30,15">30,15,30,15</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-tolerance" data-value="0,0">0,0</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-tolerance" data-value="30">30</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-tolerance" data-value="null">null</a>
+
+				<p>transition - string, default: none</p>
+				<a href="#popup-transition" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">transition: <span class="transition-stat">&nbsp;</span></a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="fade">fade</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="pop">pop</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="slide">slide</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="slidefade">slidefade</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="slidedown">slidedown</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="slideup">slideup</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="flip">flip</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="turn">turn</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="flow">flow</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-inline set-transition" data-value="none">none</a>
+
+			</div>	<!-- content -->
+
+			<div data-role="popup" id="popup-default">
+				<p>This is a completely basic popup, no options set.</p>
+			</div>
+
+			<div data-role="popup" id="popup-arrow">
+				<h3>arrow: <span class="arrow-stat">&nbsp;</span></h3>
+				<p>Sets whether to draw the popup with an arrow.</p>
+				<p>The following values are valid: true, false, or a string containing a comma-separated list of the letters "l", "t", "r", and "b".<br>The list may be empty, in which case it corresponds to a value of false.<br>The value true corresponds to the list "l,t,r,b". This list indicates along which edges the code should attempt to place the arrow. The code tries to place the arrow along each edge given in the list in the left-to-right order given in the list until one such placement would result in the arrow pointing exactly at the desired coordinates.<br>If no arrows can be displayed the popup is positioned as though the value of this option were false.</p>
+			</div>
+
+			<div data-role="popup" id="popup-corners">
+				<h3>corners: <span class="corners-stat">&nbsp;</span></h3>
+				<p>Sets whether to draw the popup with rounded corners.</p>
+			</div>
+
+			<div data-role="popup" id="popup-dismissible">
+				<h3>dismissible: <span class="dismissible-stat">&nbsp;</span></h3>
+				<p>Sets whether clicking outside the popup or pressing Escape while the popup is open will close the popup.</p>
+				<p>Pressing the browser's "back" button will dismiss the popup even if this option is set to false.</p>
+				<a data-rel="back" class="ui-btn ui-shadow ui-corner-all">Close</a>
+			</div>
+
+			<div data-role="popup" id="popup-history">
+				<h3>history: <span class="history-stat">&nbsp;</span></h3>
+				<p>Sets whether to alter the url when a popup is open to support the back button.</p>
+			</div>
+
+			<div data-role="popup" id="popup-overlayTheme">
+				<h3>overlayTheme: <span class="overlayTheme-stat">&nbsp;</span></h3>
+				<p>Sets the color scheme (swatch) for the popup background, which covers the entire window. If not explicitly set, the background will be transparent.</p>
+			</div>
+
+			<div data-role="popup" id="popup-positionTo">
+				<h3>positionTo: <span class="positionTo-stat">&nbsp;</span></h3>
+				<p>Sets the element relative to which the popup will be centered. It has the following values:</p>
+				<ul>
+					<li><b>"origin"</b> When the popup opens, center over the coordinates passed to the open() call.</li>
+					<li><b>"window"</b> When the popup opens, center in the window.</li>
+					<li><b>jQuery selector</b> When the popup opens, create a jQuery object based on the selector, and center over it. The selector is filtered for elements that are visible with ":visible". If the result is empty, the popup will be centered in the window.</li>
+				</ul>
+			</div>
+
+			<div data-role="popup" id="popup-shadow">
+				<h3>shadow: <span class="shadow-stat">&nbsp;</span></h3>
+				<p>Sets whether to draw a shadow around the popup.</p>
+			</div>
+
+			<div data-role="popup" id="popup-theme">
+				<h3>theme: <span class="theme-stat">&nbsp;</span></h3>
+				<p>Sets the color scheme (swatch) for the popup contents. Unless explicitly set to 'none', the theme for the popup will be assigned the first time the popup is shown by inheriting the page theme or, failing that, by the hard-coded value 'a'. If you set it to 'none', the popup will not have any theme at all, and will be transparent.</p>
+			</div>
+
+			<div data-role="popup" id="popup-tolerance">
+				<h3>tolerance: <span class="tolerance-stat">&nbsp;</span></h3>
+				<p>Sets the minimum distance from the edge of the window for the corresponding edge of the popup. By default, the values above will be used for the distance from the top, right, bottom, and left edge of the window, respectively.</p>
+				<p>You can specify a value for this option in one of four ways:</p>
+				<ol>
+					<li>Empty string, null, or some other falsy value. This will cause the popup to revert to the above default values.</li>
+					<li>A single number. This number will be used for all four edge tolerances.</li>
+					<li>Two numbers separated by a comma. The first number will be used for tolerances from the top and bottom edge of the window, and the second number will be used for tolerances from the left and right edge of the window.</li>
+					<li>Four comma-separated numbers. The first will be used for tolerance from the top edge, the second for tolerance from the right edge, the third for tolerance from the bottom edge, and the fourth for tolerance from the left edge.</li>
+				</ol>
+			</div>
+
+			<div data-role="popup" id="popup-transition">
+				<h3>transition: <span class="transition-stat">&nbsp;</span></h3>
+				<p>Sets the default transition for the popup. The default value will result in no transition.</p>
+				<p>If the popup is opened from a link, and the link has the data-transition attribute set, the value specified therein will override the value of this option at the time the popup is opened from the link.</p>
+			</div>
+
+		</div>	<!-- page-->
+
+	</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Congrolgroup</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<style>
+		a {
+			border-color:green !important;
+		}
+	</style>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+<h2>Congrolgroup</h2>
+
+<div data-role="controlgroup">
+	<a href="#" data-role="button">Yes</a>
+	<a href="#" data-role="button">No</a>
+	<a href="#" data-role="button">Maybe</a>
+</div>
+
+<h2>Horizontal</h2>
+
+<div data-role="controlgroup" data-type="horizontal">
+	<a href="#" data-role="button">Yes</a>
+	<a href="#" data-role="button">No</a>
+	<a href="#" data-role="button">Maybe</a>
+</div>
+
+<div class="ui-field-contain"> 
+	<fieldset data-role="controlgroup">
+		<legend>Label: </legend>
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</fieldset>
+</div>
+
+<h2>Options: corners</h2>
+	<h3>data-corners="false"</h3>
+	<div data-role="controlgroup" data-corners="false">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div data-role="controlgroup" data-corners="false" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+
+	<h3>Initialize with { corners: false } </h3>
+	<div id="corners_v0" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div id="corners_h0" data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<script>
+		$("#corners_v0").controlgroup( { corners: false } );
+		$("#corners_h0").controlgroup( { corners: false } );
+	</script>
+
+	<h3>Get/Set</h3>
+	<div id="corners_v1" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div id="corners_h1" data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result_corners_v1"></span><br/>
+	<span id="result_corners_h1"></span><br/>
+
+	<hr />
+	<a href="javascript:toggleCorners();">1. Toggle</a><br/>
+
+	<script>
+		function getOption( target, key ) {
+			return target.controlgroup( "option", key );
+		}
+
+		function toggleCorners() {
+			toggleCornersOption( "#corners_v1" );
+			toggleCornersOption( "#corners_h1" );
+		}
+
+		function toggleCornersOption( id ) {
+			var target = $( id ),
+				value = getOption( target, "corners" );
+
+			target.controlgroup( "option", "corners", !value );
+		}
+	</script>
+
+<h2>Options: excludeInvisible</h2>
+	<h3>data-excludeInvisible="false"</h3>
+	<div data-role="controlgroup" data-exclude-invisible="false">
+		<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div data-role="controlgroup" data-corners="false" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+
+	<h3>Initialize with { corners: false } </h3>
+	<div id="corners_v0" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div id="corners_h0" data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<script>
+		$("#corners_v0").controlgroup( { corners: false } );
+		$("#corners_h0").controlgroup( { corners: false } );
+	</script>
+
+	<h3>Get/Set</h3>
+	<div id="corners_v1" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div id="corners_h1" data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result_corners_v1"></span><br/>
+	<span id="result_corners_h1"></span><br/>
+
+	<hr />
+	<a href="javascript:toggleCorners();">1. Toggle</a><br/>
+
+	<script>
+		function getOption( target, key ) {
+			return target.controlgroup( "option", key );
+		}
+
+		function toggleCorners() {
+			toggleCornersOption( "#corners_v1" );
+			toggleCornersOption( "#corners_h1" );
+		}
+
+		function toggleCornersOption( id ) {
+			var target = $( id ),
+				value = getOption( target, "corners" );
+
+			target.controlgroup( "option", "corners", !value );
+		}
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Popup - jQM latest</title>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css"></link>
+
+		<script>
+			$.mobile.document.on( "click", ".popup-open", function() {
+				$( "#popup-methods" ).popup( "open" );
+			}).on( "click", ".popup-open-position", function() {
+				$( "#popup-methods" ).popup( "open", { x: 150, y: 200, transition: 'flip' } );
+			}).on( "click", ".popup-close", function() {
+				$( "#popup-methods" ).popup( "close" );
+			}).on( "click", ".popup-reposition-default", function() {
+				$( "#popup-methods" ).popup( "reposition", {x:'', y:'', positionTo: 'origin' } );
+			}).on( "click", ".popup-reposition", function() {
+				$( "#popup-methods" ).popup( "reposition", { x: 300, y: 50 } );
+			});
+
+			$.mobile.document.on( "pageinit", function() {
+				$( "#popup-events" ).popup({
+					afterclose: function() {
+						$( ".afterclose-trg" ).text( "triggered." );
+					},
+					afteropen: function() {
+						$( ".afteropen-trg" ).text( "triggered." );
+					},
+					beforeposition: function() {
+						$( ".beforeposition-trg" ).text( "triggered." );
+					}
+				});
+			});
+		</script>
+
+		<style>
+			div.ui-popup {
+				width: 400px;
+				padding: 0px 8px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div data-role="page">
+
+			<div data-role="header">
+				<h1>Popup</h1>
+			</div>
+
+			<div data-role="content">
+
+				<h1>Popup - jQM latest</h1>
+
+				<h3>Methods</h3>
+
+				<p>open( options )</p>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r popup-open">open()</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r popup-open-position">open( { x:150, y: 200, transition: 'flip' } )</a>
+
+				<p>close() - Check in opened popup.</p>
+				<p>reposition( options ) - Check in opened popup.</p>
+
+				<h3>Events</h3>
+				<a href="#popup-events" data-rel="popup" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">open</a>
+				<p>afterclose: <span class="afterclose-trg">not triggered.</span></p>
+				<p>afteropen: <span class="afteropen-trg">not triggered.</span></p>
+				<p>beforeposition: <span class="beforeposition-trg">not triggered.</span></p>
+
+			</div>	<!-- content -->
+
+			<div data-role="popup" id="popup-methods" data-dismissible="false" data-history="false">
+				<p>close()</p>
+				<a class="ui-btn ui-btn-inline ui-shadow ui-corner-all popup-close">close()</a>
+
+				<p>reposition( options )</p>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r popup-reposition-default">reposition( { x: '', y: '', positionTo: 'origin' } )</a>
+				<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r popup-reposition">reposition( { x: 600, y: 50 } )</a>
+			</div>
+
+			<div data-role="popup" id="popup-events" data-history="false">
+				<p>Check the 'triggered' messages in main page.</p>
+			</div>
+
+		</div>	<!-- page -->
+	</body>
+</html>

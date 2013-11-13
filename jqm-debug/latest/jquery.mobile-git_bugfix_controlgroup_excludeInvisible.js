@@ -6862,7 +6862,8 @@ $.mobile.behaviors.addFirstLastClasses = {
 
 		if ( create ) {
 			visibles = $els.not( ".ui-screen-hidden" ).filter( function() {
-				return $( this ).css( "visibility" ) !== "hidden";
+				var self = $( this );
+				return self.css( "visibility" ) !== "hidden" && self.css( "display" ) !== "none";
 			});
 		} else {
 			visibles = $els.filter( ":visible" ).filter( function() {

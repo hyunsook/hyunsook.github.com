@@ -19,18 +19,54 @@
 
 <h2>Controlgroup: excludeInvisible option</h2>
 	<h3>data-exclude-invisible=&quot;false&quot;</h3>
-	<div data-role="controlgroup" data-exclude-invisible="false">
+	<div id="target" data-role="controlgroup" data-exclude-invisible="false">
 		<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
+	<span id="result1"></span><br/>
 
 	<h3>default</h3>
-	<div data-role="controlgroup">
+	<div id="default" data-role="controlgroup">
 		<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
+	<span id="result2"></span><br/>
+
+	<hr/>
+	<a href="javascript:getVisibleElements();">1. Get visible elements</a><br/>
+	<a href="javascript:toggle();">2. Toggle</a><br/>
+
+	<script>
+	function getVisibleElements() {
+		printVisibleElements( "#target", "#result1" );
+		printVisibleElements( "#default", "#result2" );
+	}
+
+	function printVisibleElements( target, result ) {
+		var target = $( target ),
+			result = $( result ),
+			els = target.find( ".ui-btn" ),
+			visibles = els.filter( ":visible" );
+
+		result.html( "Length of the visible elements: <font color='red'>" 
+			+ visibles.length + "</font> / " + els.length );
+	}
+
+	function toggle() {
+		toggleOptions( "#target" );
+		toggleOptions( "#default" );
+	}
+
+	function toggleOptions( id ) {
+		var target = $( id ),
+			value = target.controlgroup( "option", "excludeInvisible" );
+
+		target.controlgroup( "option", "excludeInvisible", !value );
+	}
+	</script>
+
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

@@ -14,29 +14,43 @@
 		<h1>Selectmenu : data-overlay-theme</h1>
 	</div>
 	<div data-role="content">
+		<h4>Select 1</h4>
 		<div class="ui-field-contain">
-			<label for="select-choice-1" class="select">data-theme="b"<br>no data-overlay-theme<br>short list</label>
-			<select name="select-choice-1" id="select-choice-1" data-theme="b" data-native-menu="false">
+			<label for="select-choice-1" class="select">data-theme="b"<br>data-overlay-theme='a'<br>short list</label>
+			<select name="select-choice-1" id="select-choice-1" data-theme="b" data-overlay-theme="a" data-native-menu="false">
 				<option value="t">Tall</option>
 				<option value="g">Grande</option>
 				<option value="v">Vente</option>
 			</select>
 		</div>
+		<button class="select1" data-inline="true" >Validation</button>
+		<div class="resultselect1"></div>
+		<script>
+			$.mobile.document.delegate(".select1", "click", function () {
+				var theme, overlayTheme;
+
+				$( "select" ).selectmenu( "close" );
+				$( "#select-choice-1" ).selectmenu( "open" );
+
+				theme = ( /\bui-btn-([\w])\b/g ).exec( $( "#select-choice-1-button" )[0].className )[1];
+				overlayTheme = ( /\bui-group-theme-([\w]+)\b/g ).exec( $( "#select-choice-1-menu" )[0].className )[1];
+
+				if ( overlayTheme === "a" ) {
+					$( ".resultselect1" ).html( "<span style='color:blue;'>Validation success.</span><br>" );
+				} else {
+					$( ".resultselect1" ).html( "<span style='color:red;'>Validation failure.</span><br>" );
+				}
+
+				$( ".resultselect1" ).append( "Real theme: " +  theme + "<br>" )
+					.append( "Real overlay theme: " +  overlayTheme + "<br>" );
+			} );
+		</script>
 		<br>
 
+		<h4>Select 2</h4>
 		<div class="ui-field-contain">
-			<label for="select-choice-2" class="select">data-theme="b"<br>data-overlay-theme='a'<br>short list</label>
-			<select name="select-choice-2" id="select-choice-2" data-theme="b" data-overlay-theme="a" data-native-menu="false">
-				<option value="t">Tall</option>
-				<option value="g">Grande</option>
-				<option value="v">Vente</option>
-			</select>
-		</div>
-		<br>
-
-		<div class="ui-field-contain">
-			<label for="select-choice-3" class="select">data-theme="a"<br>data-overlay-theme='b'<br>long list</label>
-			<select name="select-choice-3" id="select-choice-3" data-native-menu="false" data-theme="a" data-overlay-theme="b">
+			<label for="select-choice-2" class="select">data-theme="a"<br>data-overlay-theme='b'<br>long list</label>
+			<select name="select-choice-2" id="select-choice-2" data-native-menu="false" data-theme="a" data-overlay-theme="b">
 				<option>Choose options</option>
 				<option value="AL">Alabama</option>
 				<option value="AK">Alaska</option>
@@ -90,15 +104,38 @@
 				<option value="WY">Wyoming</option>
 			</select>
 		</div>
+		<button class="select2" data-inline="true" >Validation</button>
+		<div class="resultselect2"></div>
+		<script>
+			$.mobile.document.delegate(".select2", "click", function () {
+				var theme, overlayTheme;
+
+				$( "select" ).selectmenu( "close" );
+				$( "#select-choice-2" ).selectmenu( "open" );
+
+				theme = ( /\bui-btn-([\w])\b/g ).exec( $( "#select-choice-2-button" )[0].className )[1];
+				overlayTheme = ( /\bui-group-theme-([\w]+)\b/g ).exec( $( "#select-choice-2-menu" )[0].className )[1];
+
+				if ( overlayTheme === "b" ) {
+					$( ".resultselect2" ).html( "<span style='color:blue;'>Validation success.</span><br>" );
+				} else {
+					$( ".resultselect2" ).html( "<span style='color:red;'>Validation failure.</span><br>" );
+				}
+
+				$( ".resultselect2" ).append( "Real theme: " +  theme + "<br>" )
+					.append( "Real overlay theme: " +  overlayTheme + "<br>" );
+			} );
+		</script>
 		<br>
 
+		<h4>Select 3</h4>
 		<div class="ui-field-contain">
-			<label for="select-choice-4" class="select">data-theme="a"<br>data-divider-theme="b"<br>data-overlay-theme="a"<br>optgroup</label>
-			<select name="select-choice-4" id="select-choice-4"
+			<label for="select-choice-3" class="select">data-theme="a"<br>data-divider-theme="b"<br>data-overlay-theme="b"<br>optgroup</label>
+			<select name="select-choice-3" id="select-choice-3"
 				data-native-menu="false"
 				data-theme="a"
 				data-divider-theme="b"
-				data-overlay-theme="a">
+				data-overlay-theme="b">
 				<optgroup label="FedEx">
 					<option value="firstOvernight">First Overnight</option>
 					<option value="expressSaver">Express Saver</option>
@@ -117,11 +154,36 @@
 				</optgroup>
 			</select>
 		</div>
+		<button class="select3" data-inline="true" >Validation</button>
+		<div class="resultselect3"></div>
+		<script>
+			$.mobile.document.delegate(".select3", "click", function () {
+				var theme, overlayTheme, dividerTheme;
+
+				$( "select" ).selectmenu( "close" );
+				$( "#select-choice-3" ).selectmenu( "open" );
+
+				theme = ( /\bui-btn-([\w])\b/g ).exec( $( "#select-choice-3-button" )[0].className )[1];
+				overlayTheme = ( /\bui-group-theme-([\w]+)\b/g ).exec( $( "#select-choice-3-menu" )[0].className )[1];
+				dividerTheme = ( /\bui-bar-([\w]+)\b/g ).exec( $( "#select-choice-3-menu .ui-li-divider:gt(0)" )[0].className )[1];
+
+				if ( overlayTheme === "b" && dividerTheme === "b" ) {
+					$( ".resultselect3" ).html( "<span style='color:blue;'>Validation success.</span><br>" );
+				} else {
+					$( ".resultselect3" ).html( "<span style='color:red;'>Validation failure.</span><br>" );
+				}
+
+				$( ".resultselect3" ).append( "Real theme: " +  theme + "<br>" )
+					.append( "Real divider theme: " +  dividerTheme + "<br>" )
+					.append( "Real overlay theme: " +  overlayTheme + "<br>" );
+			} );
+		</script>
 		<br>
 
+		<h4>Select 4</h4>
 		<div class="ui-field-contain">
-			<label for="select-choice-5" class="select">data-theme="b"<br>data-overlay-theme='a'<br>short list<br>multiple</label>
-			<select name="select-choice-5" id="select-choice-5"
+			<label for="select-choice-4" class="select">data-theme="b"<br>data-overlay-theme='a'<br>short list<br>multiple</label>
+			<select name="select-choice-4" id="select-choice-4"
 				multiple="multiple"
 				data-theme="b"
 				data-overlay-theme="a" 
@@ -131,11 +193,34 @@
 				<option value="v">Vente</option>
 			</select>
 		</div>
+		<button class="select4" data-inline="true" >Validation</button>
+		<div class="resultselect4"></div>
+		<script>
+			$.mobile.document.delegate(".select4", "click", function () {
+				var theme, overlayTheme;
+
+				$( "select" ).selectmenu( "close" );
+				$( "#select-choice-4" ).selectmenu( "open" );
+
+				theme = ( /\bui-btn-([\w])\b/g ).exec( $( "#select-choice-4-button" )[0].className )[1];
+				overlayTheme = ( /\bui-group-theme-([\w]+)\b/g ).exec( $( "#select-choice-4-menu" )[0].className )[1];
+
+				if ( overlayTheme === "a" ) {
+					$( ".resultselect4" ).html( "<span style='color:blue;'>Validation success.</span><br>" );
+				} else {
+					$( ".resultselect4" ).html( "<span style='color:red;'>Validation failure.</span><br>" );
+				}
+
+				$( ".resultselect4" ).append( "Real theme: " +  theme + "<br>" )
+					.append( "Real overlay theme: " +  overlayTheme + "<br>" );
+			} );
+		</script>
 		<br>
 
+		<h4>Select 5</h4>
 		<div class="ui-field-contain">
-			<label for="select-choice-6" class="select">data-theme="a"<br>data-overlay-theme='b'<br>long list<br>multiple</label>
-			<select name="select-choice-6" id="select-choice-6"
+			<label for="select-choice-5" class="select">data-theme="a"<br>data-overlay-theme='b'<br>long list<br>multiple</label>
+			<select name="select-choice-5" id="select-choice-5"
 				multiple="multiple"
 				data-native-menu="false"
 				data-theme="a"
@@ -193,16 +278,39 @@
 				<option value="WY">Wyoming</option>
 			</select>
 		</div>
+		<button class="select5" data-inline="true" >Validation</button>
+		<div class="resultselect5"></div>
+		<script>
+			$.mobile.document.delegate(".select5", "click", function () {
+				var theme, overlayTheme;
+
+				$( "select" ).selectmenu( "close" );
+				$( "#select-choice-5" ).selectmenu( "open" );
+
+				theme = ( /\bui-btn-([\w])\b/g ).exec( $( "#select-choice-5-button" )[0].className )[1];
+				overlayTheme = ( /\bui-group-theme-([\w]+)\b/g ).exec( $( "#select-choice-5-menu" )[0].className )[1];
+
+				if ( overlayTheme === "b" ) {
+					$( ".resultselect5" ).html( "<span style='color:blue;'>Validation success.</span><br>" );
+				} else {
+					$( ".resultselect5" ).html( "<span style='color:red;'>Validation failure.</span><br>" );
+				}
+
+				$( ".resultselect5" ).append( "Real theme: " +  theme + "<br>" )
+					.append( "Real overlay theme: " +  overlayTheme + "<br>" );
+			} );
+		</script>
 		<br>
 
+		<h4>Select 6</h4>
 		<div class="ui-field-contain">
-			<label for="select-choice-7" class="select">data-theme="b"<br>data-divider-theme="a"<br>data-overlay-theme="b"<br>optgroup<br>multiple</label>
-			<select name="select-choice-7" id="select-choice-7"
+			<label for="select-choice-6" class="select">data-theme="b"<br>data-divider-theme="a"<br>data-overlay-theme="a"<br>optgroup<br>multiple</label>
+			<select name="select-choice-6" id="select-choice-6"
 				multiple="multiple"
 				data-native-menu="false"
 				data-theme="b"
 				data-divider-theme="a"
-				data-overlay-theme="b">
+				data-overlay-theme="a">
 				<option>test</option>
 				<optgroup label="FedEx">
 					<option value="firstOvernight">First Overnight</option>
@@ -222,6 +330,30 @@
 				</optgroup>
 			</select>
 		</div>
+		<button class="select6" data-inline="true" >Validation</button>
+		<div class="resultselect6"></div>
+		<script>
+			$.mobile.document.delegate(".select6", "click", function () {
+				var theme, overlayTheme, dividerTheme;
+
+				$( "select" ).selectmenu( "close" );
+				$( "#select-choice-6" ).selectmenu( "open" );
+
+				theme = ( /\bui-btn-([\w])\b/g ).exec( $( "#select-choice-6-button" )[0].className )[1];
+				overlayTheme = ( /\bui-group-theme-([\w]+)\b/g ).exec( $( "#select-choice-6-menu" )[0].className )[1];
+				dividerTheme = ( /\bui-bar-([\w]+)\b/g ).exec( $( "#select-choice-6-menu .ui-li-divider:gt(0)" )[0].className )[1];
+
+				if ( overlayTheme === "a" && dividerTheme === "a" ) {
+					$( ".resultselect6" ).html( "<span style='color:blue;'>Validation success.</span><br>" );
+				} else {
+					$( ".resultselect6" ).html( "<span style='color:red;'>Validation failure.</span><br>" );
+				}
+
+				$( ".resultselect6" ).append( "Real theme: " +  theme + "<br>" )
+					.append( "Real divider theme: " +  dividerTheme + "<br>" )
+					.append( "Real overlay theme: " +  overlayTheme + "<br>" );
+			} );
+		</script>
 		<br>
 	</div>
 </div>

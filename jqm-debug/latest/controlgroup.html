@@ -11,6 +11,10 @@
 		a {
 			border-color:green !important;
 		}
+
+		div.excludeInvisible a {
+			border-color:red !important;	
+		}
 	</style>
 </head>
 <body>
@@ -77,97 +81,330 @@
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
+	<span id="result_corners_v1"></span><br/>
+	<span id="class_corners_v1"></span><br/>
 	<div id="corners_h1" data-role="controlgroup" data-type="horizontal">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
-	<span id="result_corners_v1"></span><br/>
 	<span id="result_corners_h1"></span><br/>
+	<span id="class_corners_h1"></span><br/>
 
 	<hr />
-	<a href="javascript:toggleCorners();">1. Toggle</a><br/>
+	<a href="javascript:getDefaultCorners();">1. Get default value</a><br/>
+	<a href="javascript:toggleCorners();">2. Toggle</a><br/>
 
 	<script>
 		function getOption( target, key ) {
 			return target.controlgroup( "option", key );
 		}
 
-		function toggleCorners() {
-			toggleCornersOption( "#corners_v1" );
-			toggleCornersOption( "#corners_h1" );
+		function printOptionValue( key, value, result ) {
+			result.html( key + ": <font color='blue'>" + value + "</font>")
 		}
 
-		function toggleCornersOption( id ) {
-			var target = $( id ),
-				value = getOption( target, "corners" );
+		function setOption( target, key, value, result ) {
+			target.controlgroup( "option", key, value );
+			printOptionValue( key, value, result );
+		}
 
-			target.controlgroup( "option", "corners", !value );
+		function toggleOption( id, key ) {
+			var target = $( "#" + id ),
+				result = $( "#result_" + id ),
+				value = getOption( target, key );
+
+			value = typeof value === "boolean" ? !value :
+					value === "vertical" || value === "horizontal" ? 
+						value === "vertical" ? "horizontal" : "vertical" :
+					key === "theme" || key === "contentTheme" ?
+						value === "b" ? "a" : "b" :
+					value;
+
+			setOption( target, key, value, result );
+			printClass( id, key );
+		}
+
+		function printOption( id, key ) {
+			var target = $( "#" + id ),
+				result = $( "#result_" + id ),
+				value = getOption( target, key );
+
+			printOptionValue( key, value, result );
+			printClass( id, key );
+		}
+
+		function printClass( id, key ) {
+			var target = $( getSelector( id, key ) ),
+				result = $( "#class_" + id ),
+				classes = target.attr( "class" ).split( " " ),
+				pattern = new RegExp( getPattern( key) ),
+				matched = [],
+				i;
+
+			for ( i in classes ) {
+				console.log( classes[i] );
+				if ( pattern.test( classes[ i ] ) ) {
+					matched.push( classes[ i ] );
+				}
+			}
+
+			result.html( key + " classes: <font color='blue'>" + matched + "</font>" );
+		}
+
+		function getSelector( id, key ) {
+			var selector = "#" + id;
+
+			if ( key === "shadow" ) {
+				return selector + " .ui-controlgroup-controls";
+			} else if ( key === "excludeInvisible" ) {
+				return selector + " .ui-btn:parent:nth-child(2)";
+			}
+
+			return selector;
+		}
+
+		function getPattern( key ) {
+			return key === "corners" ? "-corner" : 
+					key === "excludeInvisible" ? "-child" : 
+					key === "type" ? "-controlgroup-" : "-" + key;
+		}
+
+		function getDefaultCorners() {
+			printOption( "corners_v1", "corners" );
+			printOption( "corners_h1", "corners" );
+		}
+
+		function toggleCorners() {
+			toggleOption( "corners_v1", "corners" );
+			toggleOption( "corners_h1", "corners" );
 		}
 	</script>
 
 <h2>Options: excludeInvisible</h2>
-	<h3>data-excludeInvisible="false"</h3>
-	<div data-role="controlgroup" data-exclude-invisible="false">
-		<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+	<div class="excludeInvisible">
+		<h3>data-exclude-invisible="false"</h3>
+		<div data-role="controlgroup" data-exclude-invisible="false">
+			<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+			<a href="#" data-role="button">No</a>
+			<a href="#" data-role="button">Maybe</a>
+		</div>
+		<div data-role="controlgroup"  data-exclude-invisible="false" data-type="horizontal">
+			<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+			<a href="#" data-role="button">No</a>
+			<a href="#" data-role="button">Maybe</a>
+		</div>
+
+		<h3>Initialize with { excludeInvisible: false } </h3>
+		<div id="excludeInvisible_v0" data-role="controlgroup">
+			<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+			<a href="#" data-role="button">No</a>
+			<a href="#" data-role="button">Maybe</a>
+		</div>
+		<div id="excludeInvisible_h0" data-role="controlgroup" data-type="horizontal">
+			<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+			<a href="#" data-role="button">No</a>
+			<a href="#" data-role="button">Maybe</a>
+		</div>
+		<script>
+			$("#excludeInvisible_v0").controlgroup( { excludeInvisible: false } );
+			$("#excludeInvisible_h0").controlgroup( { excludeInvisible: false } );
+		</script>
+
+		<h3>Get/Set</h3>
+		<div id="excludeInvisible_v1" data-role="controlgroup">
+			<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+			<a href="#" data-role="button">No</a>
+			<a href="#" data-role="button">Maybe</a>
+		</div>
+		<span id="result_excludeInvisible_v1"></span><br/>
+		<span id="class_excludeInvisible_v1"></span><br/>
+		<div id="excludeInvisible_h1" data-role="controlgroup" data-type="horizontal">
+			<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
+			<a href="#" data-role="button">No</a>
+			<a href="#" data-role="button">Maybe</a>
+		</div>
+		<span id="result_excludeInvisible_h1"></span><br/>
+		<span id="class_excludeInvisible_h1"></span><br/>
+
+		<hr />
+		<a href="javascript:getDefaultExcludeInvisible();">1. Get default value</a><br/>
+		<a href="javascript:toggleExcludeInvisible();">2. Toggle</a><br/>
+
+		<script>
+		function getDefaultExcludeInvisible() {
+			printOption( "excludeInvisible_v1", "excludeInvisible" );
+			printOption( "excludeInvisible_h1", "excludeInvisible" );
+		}
+
+		function toggleExcludeInvisible() {
+			toggleOption( "excludeInvisible_v1", "excludeInvisible" );
+			toggleOption( "excludeInvisible_h1", "excludeInvisible" );
+		}
+		</script>
+	</div>
+
+<h2>Options: shadow</h2>
+	<h3>data-shadow="true"</h3>
+	<div data-role="controlgroup" data-shadow="true">
+		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
-	<div data-role="controlgroup" data-corners="false" data-type="horizontal">
+	<div data-role="controlgroup"  data-shadow="false" data-type="horizontal">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
 
-	<h3>Initialize with { corners: false } </h3>
-	<div id="corners_v0" data-role="controlgroup">
+	<h3>Initialize with { shadow: true } </h3>
+	<div id="shadow_v0" data-role="controlgroup">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
-	<div id="corners_h0" data-role="controlgroup" data-type="horizontal">
+	<div id="shadow_h0" data-role="controlgroup" data-type="horizontal">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
 	<script>
-		$("#corners_v0").controlgroup( { corners: false } );
-		$("#corners_h0").controlgroup( { corners: false } );
+		$("#shadow_v0").controlgroup( { shadow: true } );
+		$("#shadow_h0").controlgroup( { shadow: true } );
 	</script>
 
 	<h3>Get/Set</h3>
-	<div id="corners_v1" data-role="controlgroup">
+	<div id="shadow_v1" data-role="controlgroup">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
-	<div id="corners_h1" data-role="controlgroup" data-type="horizontal">
+	<span id="result_shadow_v1"></span><br/>
+	<span id="class_shadow_v1"></span><br/>
+	<div id="shadow_h1" data-role="controlgroup" data-type="horizontal">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
-	<span id="result_corners_v1"></span><br/>
-	<span id="result_corners_h1"></span><br/>
+	<span id="result_shadow_h1"></span><br/>
+	<span id="class_shadow_h1"></span><br/>
 
 	<hr />
-	<a href="javascript:toggleCorners();">1. Toggle</a><br/>
+	<a href="javascript:getDefaultShadow();">1. Get default value</a><br/>
+	<a href="javascript:toggleShadow();">2. Toggle</a><br/>
 
 	<script>
-		function getOption( target, key ) {
-			return target.controlgroup( "option", key );
-		}
+	function getDefaultShadow() {
+		printOption( "shadow_v1", "shadow" );
+		printOption( "shadow_h1", "shadow" );
+	}
 
-		function toggleCorners() {
-			toggleCornersOption( "#corners_v1" );
-			toggleCornersOption( "#corners_h1" );
-		}
+	function toggleShadow() {
+		toggleOption( "shadow_v1", "shadow" );
+		toggleOption( "shadow_h1", "shadow" );
+	}
+	</script>
 
-		function toggleCornersOption( id ) {
-			var target = $( id ),
-				value = getOption( target, "corners" );
+<h2>Options: theme</h2>
+	<h3>data-theme="b"</h3>
+	<div data-role="controlgroup" data-theme="b">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div data-role="controlgroup"  data-theme="false" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
 
-			target.controlgroup( "option", "corners", !value );
-		}
+	<h3>Initialize with { theme: "b" } </h3>
+	<div id="theme_v0" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<div id="theme_h0" data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<script>
+		$("#theme_v0").controlgroup( { theme: "b" } );
+		$("#theme_h0").controlgroup( { theme: "b" } );
+	</script>
+
+	<h3>Get/Set</h3>
+	<div id="theme_v1" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result_theme_v1"></span><br/>
+	<span id="class_theme_v1"></span><br/>
+	<div id="theme_h1" data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result_theme_h1"></span><br/>
+	<span id="class_theme_h1"></span><br/>
+
+	<hr />
+	<a href="javascript:getDefaultTheme();">1. Get default value</a><br/>
+	<a href="javascript:toggleTheme();">2. Toggle</a><br/>
+
+	<script>
+	function getDefaultTheme() {
+		printOption( "theme_v1", "theme" );
+		printOption( "theme_h1", "theme" );
+	}
+
+	function toggleTheme() {
+		toggleOption( "theme_v1", "theme" );
+		toggleOption( "theme_h1", "theme" );
+	}
+	</script>
+
+<h2>Options: type</h2>
+	<h3>data-type="b"</h3>
+	<div data-role="controlgroup" data-type="horizontal">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+
+	<h3>Initialize with { type: "horizontal" } </h3>
+	<div id="type0" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<script>
+		$("#type0").controlgroup( { type: "horizontal" } );
+	</script>
+
+	<h3>Get/Set</h3>
+	<div id="type1" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result_type1"></span><br/>
+	<span id="class_type1"></span><br/>
+
+	<hr />
+	<a href="javascript:getDefaultType();">1. Get default value</a><br/>
+	<a href="javascript:toggleType();">2. Toggle</a><br/>
+
+	<script>
+	function getDefaultType() {
+		printOption( "type1", "type" );
+	}
+
+	function toggleType() {
+		toggleOption( "type1", "type" );
+	}
 	</script>
 
 </div><!-- /content -->

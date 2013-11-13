@@ -4,12 +4,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Congrolgroup</title>
-	<!--link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script-->
-	<link rel="stylesheet" href="http://172.21.100.252/jqm-latest/css/themes/default/jquery.mobile.css">
-	<script src="http://172.21.100.252/jqm-latest/js/jquery.js"></script>
-	<script src="http://172.21.100.252/jqm-latest/js/"></script>
+	<script src="jquery.mobile-git_bugfix_controlgroup_excludeInvisible.js"></script>
 	<style>
 		a {
 			border-color:green !important;
@@ -22,11 +19,12 @@
 
 <h2>Controlgroup: excludeInvisible option</h2>
 	<h3>data-exclude-invisible=&quot;false&quot;</h3>
-	<div id="exclude" data-role="controlgroup" data-exclude-invisible="false">
+	<div id="target" data-role="controlgroup" data-exclude-invisible="false">
 		<a href="#" data-role="button" style="visibility:hidden;">Yes</a>
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
+	<span id="result1"></span><br/>
 
 	<h3>default</h3>
 	<div id="default" data-role="controlgroup">
@@ -34,24 +32,45 @@
 		<a href="#" data-role="button">No</a>
 		<a href="#" data-role="button">Maybe</a>
 	</div>
+	<span id="result2"></span><br/>
 
-	<a href="javascript:toggle();">Toggle</a>
+	<hr/>
+	<a href="javascript:getVisibleElements();">1. Get visible elements</a><br/>
+	<a href="javascript:toggle();">2. Toggle</a><br/>
 
 	<script>
-	function getOption( target ) {
-		return target.controlgroup( "option", "excludeInvisible" );
+	function getVisibleElements() {
+		printVisibleElements( "#target", "#result1" );
+		printVisibleElements( "#default", "#result2" );
+	}
+
+	function printVisibleElements( target, result ) {
+		var target = $( target ),
+			result = $( result ),
+			els = target.find( ".ui-btn" ),
+			visibles = els.filter( ":visible" );
+		
+		visibles = visibles.filter( function() {
+			return $( this ).css( "visibility" ) !== "hidden";
+		});
+
+		result.html( "Length of the visible elements: <font color='blue'>" 
+			+ visibles.length + "</font> / " + els.length );
 	}
 
 	function toggle() {
-		var def = $( "#default" ),
-			excl = $( "#exclude"),
-			def_val = getOption( def ),
-			excl_val = getOption( excl );
+		toggleOptions( "#target" );
+		toggleOptions( "#default" );
+	}
 
-		def.controlgroup( "option", "excludeInvisible", !def_val );
-		excl.controlgroup( "option", "excludeInvisible", !excl_val );
+	function toggleOptions( id ) {
+		var target = $( id ),
+			value = target.controlgroup( "option", "excludeInvisible" );
+
+		target.controlgroup( "option", "excludeInvisible", !value );
 	}
 	</script>
+
 </div><!-- /content -->
 </div><!-- /page -->
 </body>

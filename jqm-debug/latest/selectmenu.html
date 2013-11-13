@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Selectmenu</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>-->
+	<!--<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"></link>-->
+</head>
+<body>
+
+<div data-role="page" id="selectmenuFront">
+	<div data-role="header" data-position="fixed">
+		<h1>Selectmenu</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview" data-inset="true" >
+			<li><a href="#selectmenuDefault">Default</a></li>
+			<li><a href="#selectmenuAPI">API</a></li>
+		</ul>
+	</div>
+</div>
+
+<div data-role="page" id="selectmenuDefault">
+	<div data-role="header" data-position="fixed">
+		<h1>Default</h1>
+	</div>
+	<div data-role="content">
+		<h2>Document examples</h2>
+		<label for="select-choice-0" class="select">Shipping method:</label>
+		<select name="select-choice-0" id="select-choice-0">
+			<option value="standard">Standard: 7 day</option>
+			<option value="rush">Rush: 3 days</option>
+			<option value="express">Express: next day</option>
+			<option value="overnight">Overnight</option>
+		</select>
+		<br>
+
+		<label for="select-choice-min" class="select">Shipping method:</label>
+		<select name="select-choice-min" id="select-choice-min" data-mini="true">
+			<option value="standard">Standard: 7 day</option>
+			<option value="rush">Rush: 3 days</option>
+			<option value="express">Express: next day</option>
+			<option value="overnight">Overnight</option>
+		</select>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-1" class="select">Shipping method:</label>
+			<select name="select-choice-1" id="select-choice-1">
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-2" class="select">Your state:</label>
+			<select name="select-choice-2" id="select-choice-2">
+				<option value="AL">Alabama</option>
+				<option value="AK">Alaska</option>
+				<option value="AZ">Arizona</option>
+				<option value="AR">Arkansas</option>
+				<option value="CA">California</option>
+				<option value="CO">Colorado</option>
+				<option value="CT">Connecticut</option>
+				<option value="DE">Delaware</option>
+				<option value="FL">Florida</option>
+				<option value="GA">Georgia</option>
+				<option value="HI">Hawaii</option>
+				<option value="ID">Idaho</option>
+				<option value="IL">Illinois</option>
+				<option value="IN">Indiana</option>
+				<option value="IA">Iowa</option>
+				<option value="KS">Kansas</option>
+				<option value="KY">Kentucky</option>
+				<option value="LA">Louisiana</option>
+				<option value="ME">Maine</option>
+				<option value="MD">Maryland</option>
+				<option value="MA">Massachusetts</option>
+				<option value="MI">Michigan</option>
+				<option value="MN">Minnesota</option>
+				<option value="MS">Mississippi</option>
+				<option value="MO">Missouri</option>
+				<option value="MT">Montana</option>
+				<option value="NE">Nebraska</option>
+				<option value="NV">Nevada</option>
+				<option value="NH">New Hampshire</option>
+				<option value="NJ">New Jersey</option>
+				<option value="NM">New Mexico</option>
+				<option value="NY">New York</option>
+				<option value="NC">North Carolina</option>
+				<option value="ND">North Dakota</option>
+				<option value="OH">Ohio</option>
+				<option value="OK">Oklahoma</option>
+				<option value="OR">Oregon</option>
+				<option value="PA">Pennsylvania</option>
+				<option value="RI">Rhode Island</option>
+				<option value="SC">South Carolina</option>
+				<option value="SD">South Dakota</option>
+				<option value="TN">Tennessee</option>
+				<option value="TX">Texas</option>
+				<option value="UT">Utah</option>
+				<option value="VT">Vermont</option>
+				<option value="VA">Virginia</option>
+				<option value="WA">Washington</option>
+				<option value="WV">West Virginia</option>
+				<option value="WI">Wisconsin</option>
+				<option value="WY">Wyoming</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-nc" class="select">Preferred delivery:</label>
+			<select name="select-choice-8" id="select-choice-nc">
+				<optgroup label="FedEx">
+					<option value="firstOvernight">First Overnight</option>
+					<option value="expressSaver">Express Saver</option>
+					<option value="ground">Ground</option>
+				</optgroup>
+				<optgroup label="UPS">
+					<option value="firstOvernight">First Overnight</option>
+					<option value="expressSaver">Express Saver</option>
+					<option value="ground">Ground</option>
+				</optgroup>
+				<optgroup label="US Mail">
+					<option value="standard">Standard: 7 day</option>
+					<option value="rush">Rush: 3 days</option>
+					<option value="express">Express: next day (disabled)</option>
+					<option value="overnight">Overnight</option>
+				</optgroup>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<fieldset data-role="controlgroup">
+			<legend>Date of Birth:</legend>
+
+			<label for="select-choice-month">Month</label>
+			<select name="select-choice-month" id="select-choice-month">
+				<option>Month</option>
+				<option value="jan">January</option>
+				<!-- etc. -->
+			</select>
+
+			<label for="select-choice-day">Day</label>
+			<select name="select-choice-day" id="select-choice-day">
+				<option>Day</option>
+				<option value="1">1</option>
+				<!-- etc. -->
+			</select>
+
+			<label for="select-choice-year">Year</label>
+			<select name="select-choice-year" id="select-choice-year">
+				<option>Year</option>
+				<option value="2011">2011</option>
+				<!-- etc. -->
+			</select>
+			</fieldset>
+		</div>
+		<br>
+
+		<fieldset data-role="controlgroup" data-type="horizontal">
+			<legend>Date of Birth:</legend>
+			<label for="select-choice-month">Month</label>
+			<select name="select-choice-month" id="select-choice-month">
+				<option>Month</option>
+				<option value="jan">January</option>
+				<option value="dec">December</option>
+				<option value="feb">February</option>
+				<option value="mar">March</option>
+				<option value="apr">April</option>
+				<option value="may">May</option>
+				<option value="jun">June</option>
+				<option value="jul">July</option>
+				<option value="aug">August</option>
+				<option value="sep">September</option>
+				<option value="oct">October</option>
+				<option value="nov">November</option>
+				<option value="dec">December</option>
+			</select>
+
+			<label for="select-choice-day">Day</label>
+			<select name="select-choice-day" id="select-choice-day">
+				<option>Day</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+			</select>
+
+			<label for="select-choice-year">Year</label>
+			<select name="select-choice-year" id="select-choice-year">
+				<option>Year</option>
+				<option value="2011">2011</option>
+				<option value="2010">2010</option>
+				<option value="2009">2009</option>
+				<option value="2008">2008</option>
+				<option value="2007">2007</option>
+				<option value="2006">2006</option>
+				<option value="2005">2005</option>
+				<option value="2004">2004</option>
+			</select>
+		</fieldset>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-11" class="select">Theme a</label>
+			<select name="select-choice-11" id="select-choice-11" data-theme="a" data-icon="gear" data-inline="true">
+				<option value="view">User details</option>
+				<option value="edit">Edit user</option>
+				<option value="deactivate">De-activate</option>
+				<option value="delete">Delete user</option>
+			</select>
+		</div>
+		<div class="ui-field-contain">
+			<label for="select-choice-11" class="select">Theme b</label>
+			<select name="select-choice-11" id="select-choice-11" data-theme="b" data-icon="gear" data-inline="true">
+				<option value="view">User details</option>
+				<option value="edit">Edit user</option>
+				<option value="deactivate">De-activate</option>
+				<option value="delete">Delete user</option>
+			</select>
+		</div>
+		<div class="ui-field-contain">
+			<label for="select-choice-11" class="select">Theme c</label>
+			<select name="select-choice-11" id="select-choice-11" data-theme="c" data-icon="gear" data-inline="true">
+				<option value="view">User details</option>
+				<option value="edit">Edit user</option>
+				<option value="deactivate">De-activate</option>
+				<option value="delete">Delete user</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-custom" class="select">a little options</label>
+			<select name="select-choice-1" id="select-choice-custom" data-native-menu="false">
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-3" class="select">Too many options</label>
+			<select name="select-choice-3" id="select-choice-3" data-native-menu="false">
+				<option value="AL">Alabama</option>
+				<option value="AK">Alaska</option>
+				<option value="AZ">Arizona</option>
+				<option value="AR">Arkansas</option>
+				<option value="CA">California</option>
+				<option value="CO">Colorado</option>
+				<option value="CT">Connecticut</option>
+				<option value="DE">Delaware</option>
+				<option value="FL">Florida</option>
+				<option value="GA">Georgia</option>
+				<option value="HI">Hawaii</option>
+				<option value="ID">Idaho</option>
+				<option value="IL">Illinois</option>
+				<option value="IN">Indiana</option>
+				<option value="IA">Iowa</option>
+				<option value="KS">Kansas</option>
+				<option value="KY">Kentucky</option>
+				<option value="LA">Louisiana</option>
+				<option value="ME">Maine</option>
+				<option value="MD">Maryland</option>
+				<option value="MA">Massachusetts</option>
+				<option value="MI">Michigan</option>
+				<option value="MN">Minnesota</option>
+				<option value="MS">Mississippi</option>
+				<option value="MO">Missouri</option>
+				<option value="MT">Montana</option>
+				<option value="NE">Nebraska</option>
+				<option value="NV">Nevada</option>
+				<option value="NH">New Hampshire</option>
+				<option value="NJ">New Jersey</option>
+				<option value="NM">New Mexico</option>
+				<option value="NY">New York</option>
+				<option value="NC">North Carolina</option>
+				<option value="ND">North Dakota</option>
+				<option value="OH">Ohio</option>
+				<option value="OK">Oklahoma</option>
+				<option value="OR">Oregon</option>
+				<option value="PA">Pennsylvania</option>
+				<option value="RI">Rhode Island</option>
+				<option value="SC">South Carolina</option>
+				<option value="SD">South Dakota</option>
+				<option value="TN">Tennessee</option>
+				<option value="TX">Texas</option>
+				<option value="UT">Utah</option>
+				<option value="VT">Vermont</option>
+				<option value="VA">Virginia</option>
+				<option value="WA">Washington</option>
+				<option value="WV">West Virginia</option>
+				<option value="WI">Wisconsin</option>
+				<option value="WY">Wyoming</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-7" class="select">Shipping method:</label>
+			<select name="select-choice-7" id="select-choice-7" data-native-menu="false">
+				<option value="standard">Disabled options</option>
+				<option value="rush" disabled="disabled">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-4" class="select">Placeholder1:</label>
+			<select name="select-choice-4" id="select-choice-4" data-native-menu="false">
+				<option></option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-5" class="select">Placeholder3:</label>
+			<select name="select-choice-5" id="select-choice-5" data-native-menu="false">
+				<option>Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-6" class="select">Placeholder4:</label>
+			<select name="select-choice-6" id="select-choice-6" data-native-menu="false">
+				<option value="choose-one" data-placeholder="true">Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-9" class="select">Multiple selects(short):</label>
+			<select name="select-choice-9" id="select-choice-9" multiple="multiple" data-native-menu="false">
+				<option>Choose options</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-10" class="select">Multiple selects(long):</label>
+			<select name="select-choice-10" id="select-choice-10" multiple="multiple" data-native-menu="false">
+				<option>Choose options</option>
+				<option value="AL">Alabama</option>
+				<option value="AK">Alaska</option>
+				<option value="AZ">Arizona</option>
+				<option value="AR">Arkansas</option>
+				<option value="CA">California</option>
+				<option value="CO">Colorado</option>
+				<option value="CT">Connecticut</option>
+				<option value="DE">Delaware</option>
+				<option value="FL">Florida</option>
+				<option value="GA">Georgia</option>
+				<option value="HI">Hawaii</option>
+				<option value="ID">Idaho</option>
+				<option value="IL">Illinois</option>
+				<option value="IN">Indiana</option>
+				<option value="IA">Iowa</option>
+				<option value="KS">Kansas</option>
+				<option value="KY">Kentucky</option>
+				<option value="LA">Louisiana</option>
+				<option value="ME">Maine</option>
+				<option value="MD">Maryland</option>
+				<option value="MA">Massachusetts</option>
+				<option value="MI">Michigan</option>
+				<option value="MN">Minnesota</option>
+				<option value="MS">Mississippi</option>
+				<option value="MO">Missouri</option>
+				<option value="MT">Montana</option>
+				<option value="NE">Nebraska</option>
+				<option value="NV">Nevada</option>
+				<option value="NH">New Hampshire</option>
+				<option value="NJ">New Jersey</option>
+				<option value="NM">New Mexico</option>
+				<option value="NY">New York</option>
+				<option value="NC">North Carolina</option>
+				<option value="ND">North Dakota</option>
+				<option value="OH">Ohio</option>
+				<option value="OK">Oklahoma</option>
+				<option value="OR">Oregon</option>
+				<option value="PA">Pennsylvania</option>
+				<option value="RI">Rhode Island</option>
+				<option value="SC">South Carolina</option>
+				<option value="SD">South Dakota</option>
+				<option value="TN">Tennessee</option>
+				<option value="TX">Texas</option>
+				<option value="UT">Utah</option>
+				<option value="VT">Vermont</option>
+				<option value="VA">Virginia</option>
+				<option value="WA">Washington</option>
+				<option value="WV">West Virginia</option>
+				<option value="WI">Wisconsin</option>
+				<option value="WY">Wyoming</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-8" class="select">Optgroup support:</label>
+			<select name="select-choice-8" id="select-choice-8" data-native-menu="false">
+				<option>Choose shipping method</option>
+				<optgroup label="USPS">
+					<option value="standard" selected>Standard: 7 day</option>
+					<option value="rush">Rush: 3 days</option>
+					<option value="express">Express: next day</option>
+					<option value="overnight">Overnight</option>
+				</optgroup>
+				<optgroup label="FedEx">
+					<option value="firstOvernight">First Overnight</option>
+					<option value="expressSaver">Express Saver</option>
+					<option value="ground">Ground</option>
+				</optgroup>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-22" class="select">theme a:</label>
+			<select name="select-choice-22" id="select-choice-22" data-theme="a" data-icon="gear" data-inline="true" data-native-menu="false">
+				<option value="view">User details</option>
+				<option value="edit">Edit user</option>
+				<option value="deactivate">De-activate</option>
+				<option value="delete">Delete user</option>
+			</select>
+		</div>
+		<div class="ui-field-contain">
+			<label for="select-choice-22-1" class="select">theme b:</label>
+			<select name="select-choice-22-1" id="select-choice-22-1" data-theme="b" data-icon="gear" data-inline="true" data-native-menu="false">
+				<option value="view">User details</option>
+				<option value="edit">Edit user</option>
+				<option value="deactivate">De-activate</option>
+				<option value="delete">Delete user</option>
+			</select>
+		</div>
+		<div class="ui-field-contain">
+			<label for="select-choice-22-2" class="select">theme c:</label>
+			<select name="select-choice-22-2" id="select-choice-22-2" data-theme="c" data-icon="gear" data-inline="true" data-native-menu="false">
+				<option value="view">User details</option>
+				<option value="edit">Edit user</option>
+				<option value="deactivate">De-activate</option>
+				<option value="delete">Delete user</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-15" class="select">Size</label>
+			<select name="select-choice-15" id="select-choice-15" data-theme="b" data-overlay-theme="a" data-native-menu="false">
+				<option value="t">Tall</option>
+				<option value="g">Grande</option>
+				<option value="v">Vente</option>
+			</select>
+		</div>
+		<br>
+
+		<div class="ui-field-contain">
+			<label for="select-choice-13" class="select">Choose state(s):</label>
+			<select name="select-choice-13" id="select-choice-13" data-native-menu="false" data-theme="a" data-overlay-theme="b">
+				<option>Choose options</option>
+				<option value="AL">Alabama</option>
+				<option value="AK">Alaska</option>
+				<option value="AZ">Arizona</option>
+				<option value="AR">Arkansas</option>
+				<option value="CA">California</option>
+				<option value="CO">Colorado</option>
+				<option value="CT">Connecticut</option>
+				<option value="DE">Delaware</option>
+				<option value="FL">Florida</option>
+				<option value="GA">Georgia</option>
+				<option value="HI">Hawaii</option>
+				<option value="ID">Idaho</option>
+				<option value="IL">Illinois</option>
+				<option value="IN">Indiana</option>
+				<option value="IA">Iowa</option>
+				<option value="KS">Kansas</option>
+				<option value="KY">Kentucky</option>
+				<option value="LA">Louisiana</option>
+				<option value="ME">Maine</option>
+				<option value="MD">Maryland</option>
+				<option value="MA">Massachusetts</option>
+				<option value="MI">Michigan</option>
+				<option value="MN">Minnesota</option>
+				<option value="MS">Mississippi</option>
+				<option value="MO">Missouri</option>
+				<option value="MT">Montana</option>
+				<option value="NE">Nebraska</option>
+				<option value="NV">Nevada</option>
+				<option value="NH">New Hampshire</option>
+				<option value="NJ">New Jersey</option>
+				<option value="NM">New Mexico</option>
+				<option value="NY">New York</option>
+				<option value="NC">North Carolina</option>
+				<option value="ND">North Dakota</option>
+				<option value="OH">Ohio</option>
+				<option value="OK">Oklahoma</option>
+				<option value="OR">Oregon</option>
+				<option value="PA">Pennsylvania</option>
+				<option value="RI">Rhode Island</option>
+				<option value="SC">South Carolina</option>
+				<option value="SD">South Dakota</option>
+				<option value="TN">Tennessee</option>
+				<option value="TX">Texas</option>
+				<option value="UT">Utah</option>
+				<option value="VT">Vermont</option>
+				<option value="VA">Virginia</option>
+				<option value="WA">Washington</option>
+				<option value="WV">West Virginia</option>
+				<option value="WI">Wisconsin</option>
+				<option value="WY">Wyoming</option>
+			</select>
+		</div>
+		<br>
+
+	</div>
+</div>
+
+
+<div data-role="page" id="selectmenuAPI">
+	<div data-role="header" data-position="fixed">
+		<h1>API</h1>
+	</div>
+	<div data-role="content">
+		<button class="closeText" data-inline="true" >Dynamic Test( closeText )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-closeText" class="select">Size</label>
+			<select name="select-choice-closeText" id="select-choice-closeText" data-native-menu="false" multiple="multiple">
+				<option value="t">Tall</option>
+				<option value="g">Grande</option>
+				<option value="v">Vente</option>
+			</select>
+		</div>
+		<div class="resultcloseText"></div>
+		<script>
+			$.mobile.document.delegate(".closeText", "click", function () {
+				$( "#select-choice-closeText" ).selectmenu( "option", "closeText", "Fermer" );
+
+				if ( $( "#select-choice-closeText .ui-header .ui-btn:contains( 'Fermer' )" ).length ) {
+					$( ".resultcloseText" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultcloseText" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultcloseText h4" ).append( "<br>Current closeText option:" + $( "#select-choice-closeText" ).selectmenu( "option", "closeText" ) );
+			});
+		</script>
+		<br>
+
+		<button class="corners" data-inline="true" >Dynamic Test( corners )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-corners" class="select">Size</label>
+			<select name="select-choice-corners" id="select-choice-corners" >
+				<option value="t">Tall</option>
+				<option value="g">Grande</option>
+				<option value="v">Vente</option>
+			</select>
+		</div>
+		<div class="resultcorners"></div>
+		<script>
+			$.mobile.document.delegate(".corners", "click", function () {
+				$( "#select-choice-corners" ).selectmenu( "option", "corners", false );
+
+				if ( !$( "#select-choice-corners-button" ).hasClass( "ui-corner-all" ) ) {
+					$( ".resultcorners" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultcorners" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultcorners h4" ).append( "<br>Current corners option:" + $( "#select-choice-corners" ).selectmenu( "option", "corners" ) );
+			});
+		</script>
+		<br>
+
+		<button class="dividerTheme" data-inline="true" >Dynamic Test( dividerTheme )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-dividerTheme" class="select">dividerTheme: b</label>
+			<select name="select-choice-dividerTheme" id="select-choice-dividerTheme"
+				data-native-menu="false">
+				<optgroup label="FedEx">
+					<option value="firstOvernight">First Overnight</option>
+					<option value="expressSaver">Express Saver</option>
+					<option value="ground">Ground</option>
+				</optgroup>
+				<optgroup label="UPS">
+					<option value="firstOvernight">First Overnight</option>
+					<option value="expressSaver">Express Saver</option>
+					<option value="ground">Ground</option>
+				</optgroup>
+				<optgroup label="US Mail">
+					<option value="standard">Standard: 7 day</option>
+					<option value="rush">Rush: 3 days</option>
+					<option value="express">Express: next day (disabled)</option>
+					<option value="overnight">Overnight</option>
+				</optgroup>
+			</select>
+		</div>
+		<div class="resultdividerTheme"></div>
+		<script>
+			$.mobile.document.delegate( ".dividerTheme", "click", function () {
+				$( "#select-choice-dividerTheme" ).selectmenu( "option", "dividerTheme", "b" );
+
+				if ( $( "#select-choice-dividerTheme-menu .ui-li-divider:gt(0)" ).hasClass( "ui-bar-b" ) ) {
+					$( ".resultdividerTheme" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultdividerTheme" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultdividerTheme h4" ).append( "<br>Current dividerTheme option:" + $( "#select-choice-dividerTheme" ).selectmenu( "option", "dividerTheme" ) );
+			});
+		</script>
+		<br>
+
+		<button class="hidePlaceholderMenuItems" data-inline="true" >Dynamic Test( hidePlaceholderMenuItems )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-hidePlaceholderMenuItems" class="select">Placeholder4:</label>
+			<select name="select-choice-hidePlaceholderMenuItems" id="select-choice-hidePlaceholderMenuItems"
+				data-native-menu="false">
+				<option value="choose-one" data-placeholder="true">Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<div class="resulthidePlaceholderMenuItems"></div>
+		<script>
+			$.mobile.document.delegate( ".hidePlaceholderMenuItems", "click", function () {
+				$( "#select-choice-hidePlaceholderMenuItems" ).selectmenu( "option", "hidePlaceholderMenuItems", false );
+
+				if ( !$( "#select-choice-hidePlaceholderMenuItems-menu li[data-placeholder=true]" ).hasClass( "ui-screen-hidden" ) ) {
+					$( ".resulthidePlaceholderMenuItems" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resulthidePlaceholderMenuItems" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resulthidePlaceholderMenuItems h4" ).append( "<br>Current hidePlaceholderMenuItems option:" + $( "#select-choice-hidePlaceholderMenuItems" ).selectmenu( "option", "hidePlaceholderMenuItems" ) );
+			});
+		</script>
+		<br>
+
+		<button class="icon" data-inline="true" >Dynamic Test( icon )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-icon" class="select">Size</label>
+			<select name="select-choice-icon" id="select-choice-icon">
+				<option value="t">Tall</option>
+				<option value="g">Grande</option>
+				<option value="v">Vente</option>
+			</select>
+		</div>
+		<div class="resulticon"></div>
+		<script>
+			$.mobile.document.delegate( ".icon", "click", function () {
+				$( "#select-choice-icon" ).selectmenu( "option", "icon", "star" );
+
+				if ( $( "#select-choice-icon-button" ).hasClass( "ui-icon-star" ) ) {
+					$( ".resulticon" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resulticon" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resulticon h4" ).append( "<br>Current icon option:" + $( "#select-choice-icon" ).selectmenu( "option", "icon" ) );
+			});
+		</script>
+		<br>
+
+		<button class="iconpos" data-inline="true" >Dynamic Test( iconpos )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-iconpos" class="select">Size</label>
+			<select name="select-choice-iconpos" id="select-choice-iconpos">
+				<option value="t">Tall</option>
+				<option value="g">Grande</option>
+				<option value="v">Vente</option>
+			</select>
+		</div>
+		<div class="resulticonpos"></div>
+		<script>
+			$.mobile.document.delegate( ".iconpos", "click", function () {
+				$( "#select-choice-iconpos" ).selectmenu( "option", "iconpos", "left" );
+
+				if ( $( "#select-choice-iconpos-button" ).hasClass( "ui-btn-icon-left" ) ) {
+					$( ".resulticonpos" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resulticonpos" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resulticonpos h4" ).append( "<br>Current iconpos option:" + $( "#select-choice-iconpos" ).selectmenu( "option", "iconpos" ) );
+			});
+		</script>
+		<br>
+
+		<button class="inline" data-inline="true" >Dynamic Test( inline )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-inline" class="select">Size</label>
+			<select name="select-choice-inline" id="select-choice-inline">
+				<option value="t">Tall</option>
+				<option value="g">Grande</option>
+				<option value="v">Vente</option>
+			</select>
+		</div>
+		<div class="resultinline"></div>
+		<script>
+			$.mobile.document.delegate( ".inline", "click", function () {
+				$( "#select-choice-inline" ).selectmenu( "option", "inline", true );
+
+				if ( $( "#select-choice-inline-button" ).parent().hasClass( "ui-btn-inline" ) ) {
+					$( ".resultinline" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultinline" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultinline h4" ).append( "<br>Current inline option:" + $( "#select-choice-inline" ).selectmenu( "option", "inline" ) );
+			});
+		</script>
+		<br>
+
+		<button class="nativeMenu" data-inline="true" >Dynamic Test( nativeMenu )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-nativeMenu" class="select">Size</label>
+			<select name="select-choice-nativeMenu" id="select-choice-nativeMenu">
+				<option value="t">Tall</option>
+				<option value="g">Grande</option>
+				<option value="v">Vente</option>
+			</select>
+		</div>
+		<div class="resultnativeMenu"></div>
+		<script>
+			$.mobile.document.delegate( ".nativeMenu", "click", function () {
+				$( "#select-choice-nativeMenu" ).selectmenu( "option", "nativeMenu", false );
+
+				if ( $( "#select-choice-nativeMenu-listbox-popup" ).length ) {
+					$( ".resultnativeMenu" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultnativeMenu" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultnativeMenu h4" ).append( "<br>Current nativeMenu option:" + $( "#select-choice-nativeMenu" ).selectmenu( "option", "nativeMenu" ) );
+			});
+		</script>
+		<br>
+
+		<button class="overlayTheme" data-inline="true" >Dynamic Test( overlayTheme )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-overlayTheme" class="select">overlayTheme: b</label>
+			<select name="select-choice-overlayTheme" id="select-choice-overlayTheme"
+				data-native-menu="false">
+				<option value="choose-one" data-placeholder="true">Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<div class="resultoverlayTheme"></div>
+		<script>
+			$.mobile.document.delegate( ".overlayTheme", "click", function () {
+				$( "#select-choice-overlayTheme" ).selectmenu( "option", "overlayTheme", "b" );
+
+				if ( $( "#select-choice-overlayTheme-menu" ).hasClass( "ui-group-theme-b" ) ) {
+					$( ".resultoverlayTheme" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultoverlayTheme" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultoverlayTheme h4" ).append( "<br>Current overlayTheme option:" + $( "#select-choice-overlayTheme" ).selectmenu( "option", "overlayTheme" ) );
+			});
+		</script>
+		<br>
+
+		<button class="shadow" data-inline="true" >Dynamic Test( shadow )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-shadow" class="select">shadow</label>
+			<select name="select-choice-shadow" id="select-choice-shadow"
+				data-native-menu="false">
+				<option value="choose-one" data-placeholder="true">Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<div class="resultshadow"></div>
+		<script>
+			$.mobile.document.delegate( ".shadow", "click", function () {
+				$( "#select-choice-shadow" ).selectmenu( "option", "shadow", false );
+
+				if ( !$( "#select-choice-shadow-button" ).hasClass( "ui-corner-all" ) ) {
+					$( ".resultshadow" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultshadow" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+				$( ".resultshadow h4" ).append( "<br>Current shadow option:" + $( "#select-choice-shadow" ).selectmenu( "option", "shadow" ) );
+			});
+		</script>
+		<br>
+
+		<button class="open" data-inline="true" >Dynamic Test( open )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-open" class="select">shadow</label>
+			<select name="select-choice-open" id="select-choice-open"
+				data-native-menu="false">
+				<option value="choose-one" data-placeholder="true">Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<div class="resultopen"></div>
+		<script>
+			$.mobile.document.delegate( ".open", "click", function () {
+				$( "#select-choice-open" ).selectmenu( "open" );
+
+				if ( !$( "#select-choice-open-listbox-popup" ).hasClass( "ui-popup-hidden" ) ) {
+					$( ".resultopen" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultopen" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+			});
+		</script>
+		<br>
+
+		<button class="close" data-inline="true" >Dynamic Test( close )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-close" class="select">shadow</label>
+			<select name="select-choice-close" id="select-choice-close"
+				data-native-menu="false">
+				<option value="choose-one" data-placeholder="true">Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<div class="resultclose"></div>
+		<script>
+			$.mobile.document.delegate( ".close", "click", function () {
+				$( "#select-choice-close" ).selectmenu( "open" ).selectmenu( "close" );
+
+				setTimeout( function () {
+					if ( $( "#select-choice-close-listbox-popup" ).hasClass( "ui-popup-hidden" ) ) {
+						$( ".resultclose" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+					} else {
+						$( ".resultclose" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+					}
+				}, 1000 );
+			});
+		</script>
+		<br>
+
+		<button class="refresh" data-inline="true" >Dynamic Test( refresh )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-refresh" class="select">shadow</label>
+			<select name="select-choice-refresh" id="select-choice-refresh">
+				<option>Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<div class="resultrefresh"></div>
+		<script>
+			$.mobile.document.delegate( ".refresh", "click", function () {
+				$( "#select-choice-refresh option" ).eq( 0 ).text( "test" );
+				$( "#select-choice-refresh" ).selectmenu( "refresh" );
+
+				if ( $( "#select-choice-refresh-button span" ).text() === "test" ) {
+					$( ".resultrefresh" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultrefresh" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+			});
+		</script>
+		<br>
+
+		<button class="refresh2" data-inline="true" >Dynamic Test( refresh, true )</button><br>
+		<div class="ui-field-contain">
+			<label for="select-choice-refresh2" class="select">refresh(true)</label>
+			<select name="select-choice-refresh2" id="select-choice-refresh2"
+				data-native-menu="false">
+				<option>Choose one...</option>
+				<option value="standard">Standard: 7 day</option>
+				<option value="rush">Rush: 3 days</option>
+				<option value="express">Express: next day</option>
+				<option value="overnight">Overnight</option>
+			</select>
+		</div>
+		<div class="resultrefresh2"></div>
+		<script>
+			$.mobile.document.delegate( ".refresh2", "click", function () {
+				$( "#select-choice-refresh2 option" ).eq( 0 ).text( "test" );
+				$( "#select-choice-refresh2" ).selectmenu( "refresh" );
+
+				if ( $( "#select-choice-refresh2-listbox .ui-header h1" ).text() === "test" ) {
+					$( ".resultrefresh2" ).html( "<h4><span style='color:blue;'>Test success.</span></h4>" );
+				} else {
+					$( ".resultrefresh2" ).html( "<h4><span style='color:red;'>Test failure.</span></h4>" );
+				}
+			});
+		</script>
+		<br>
+
+	</div>
+</div>

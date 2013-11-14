@@ -367,7 +367,7 @@
 	</script>
 
 <h2>Options: type</h2>
-	<h3>data-type="b"</h3>
+	<h3>data-type="horizontal"</h3>
 	<div data-role="controlgroup" data-type="horizontal">
 		<a href="#" data-role="button">Yes</a>
 		<a href="#" data-role="button">No</a>
@@ -405,6 +405,86 @@
 	function toggleType() {
 		toggleOption( "type1", "type" );
 	}
+	</script>
+
+<h2>Options: mini</h2>
+	<h3>data-mini="true"</h3>
+	<div data-role="controlgroup" data-mini="true">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+
+	<h3>Initialize with { mini: true } </h3>
+	<div id="mini0" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<script>
+		$("#mini0").controlgroup( { mini: true } );
+	</script>
+
+	<h3>Get/Set</h3>
+	<div id="mini1" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result_mini1"></span><br/>
+	<span id="class_mini1"></span><br/>
+
+	<hr />
+	<a href="javascript:getDefaultMini();">1. Get default value</a><br/>
+	<a href="javascript:toggleMini();">2. Toggle</a><br/>
+
+	<script>
+	function getDefaultMini() {
+		printOption( "mini1", "mini" );
+	}
+
+	function toggleMini() {
+		toggleOption( "mini1", "mini" );
+	}
+	</script>
+
+<h2>Methods: container()</h2>
+	<div id="container" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result_container"></span><br/>
+	
+	<hr />
+	<a href="javascript:getContainer();">1. Get container</a><br/>
+	<script>
+	function getContainer() {
+		var val = $( "#container" ).controlgroup( "container" );
+
+		$( "#result_container" ).html( "Class of the container: <font color='blue'>" + val.attr( "class" ) + "</font>");
+	}	
+	</script>
+
+<h2>Events: create()</h2>
+	<div id="create" data-role="controlgroup">
+		<a href="#" data-role="button">Yes</a>
+		<a href="#" data-role="button">No</a>
+		<a href="#" data-role="button">Maybe</a>
+	</div>
+	<span id="result1_create"></span><br/>
+	<span id="result2_create"></span><br/>
+
+	<script>
+		$( "#create" ).on( "controlgroupcreate", function( event, ui ) {
+			$( "#result1_create" ).html( "<font color='blue'>" + event.type + "</font>")
+		});
+
+		$( "#create" ).controlgroup( {
+			create: function( event, ui ) {
+				$( "#result2_create" ).html( "<font color='blue'>" + event.type + "</font>")
+			}
+		});
 	</script>
 
 </div><!-- /content -->

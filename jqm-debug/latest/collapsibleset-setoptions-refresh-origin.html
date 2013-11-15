@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CollapsibleSet: iconpos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<script>
+	$(document).on("mobileinit", function( event ) {
+		var mobiles = $.mobile;
+		console.log(" mobileinit");
+		for ( key in mobiles ) {
+			if ( mobiles[key].initSelector && (  key !== "collapsible" && key !== "collapsibleset") ) {
+				console.log(" init widget : " + key );
+				mobiles[key].initSelector = "";
+			}
+		} 
+	});
+	</script>
+</head>
+<body>
+<div data-role="page">
+<div data-role="content" class="jqm-content">
+
+	<h2>Collapsible set: Setting the iconpos options</h2>
+
+	<div id="target" data-role="collapsibleset"  data-corners=true>
+		<div id="col1" data-role="collapsible"  data-collapsed="false">
+			<h3>Section 1</h3>
+			<p>I'm the collapsible set content for section 1.</p>
+		</div>
+		<div id="col2" data-role="collapsible"  data-iconpos="left" data-mini="false" data-collapsed-icon="plus" data-expanded-icon="minus" data-theme="a" data-content-theme="a" data-inset=true data-corners=true>
+			<h3>Section 2 - Set to default.</h3>
+			<p>I'm the collapsible set content for section 2.</p>
+		</div>
+		<div id="col2" data-role="collapsible" >
+			<h3>Section 3</h3>
+			<p>I'm the collapsible set content for section 2.</p>
+		</div>
+	</div>
+	<span id="iconpos-result"></span><br/>
+	<span id="iconpos-subresult"></span><br/>
+
+	<a href="javascript:setOption( 'iconpos', 'right', 'ui-btn-icon-right', 'a');">1. Set the iconpos with &quot;right&quot;</a><br/>
+	<a href="javascript:setOption( 'iconpos', 'left', 'ui-btn-icon-left' , 'a');">2. Set the iconpos with &quot;left&quot;</a><br/>
+	<hr />
+	<span id="mini-result"></span><br/>
+	<span id="mini-subresult"></span><br/>
+	<a href="javascript:setOption( 'mini', true, 'ui-mini', 'a');">3. Set the mini with &quot;true&quot;</a><br/>
+	<a href="javascript:setOption( 'mini', false, 'ui-mini', 'a');">4. Set the mini with &quot;false&quot;</a><br/>
+	<hr />
+
+	<span id="collapsedIcon-result"></span><br/>
+	<span id="collapsedIcon-subresult"></span><br/>
+	<a href="javascript:setOption( 'collapsedIcon', 'arrow-r', 'ui-icon-arrow-r', 'a' );">5. Set the collapsedIcon with &quot;arrow-r&quot;</a><br/>
+	<a href="javascript:setOption( 'collapsedIcon', 'plus', 'ui-icon-plus', 'a' );">6. Set the collapsedIcon with &quot;plus&quot;</a><br/>
+	<hr />
+
+	<span id="expandedIcon-result"></span><br/>
+	<span id="expandedIcon-subresult"></span><br/>
+	<a href="javascript:setOption( 'expandedIcon', 'arrow-r', 'ui-icon-arrow-r', 'a' );">7. Set the expandedIcon with &quot;arrow-r&quot;</a><br/>
+	<a href="javascript:setOption( 'expandedIcon', 'minus', 'ui-icon-plus', 'a' );">8. Set the expandedIcon with &quot;plus&quot;</a><br/>
+	<hr />
+
+	<span id="theme-result"></span><br/>
+	<span id="theme-subresult"></span><br/>
+	<a href="javascript:setOption( 'theme', 'b', 'ui-btn-b', 'a' );">9. Set the theme with &quot;b&quot;</a><br/>
+	<a href="javascript:setOption( 'theme', 'a', 'ui-btn-a', 'a' );">10. Set the theme with &quot;a&quot;</a><br/>
+	<hr />
+	<span id="contentTheme-result"></span><br/>
+	<span id="contentTheme-subresult"></span><br/>
+	<a href="javascript:setOption( 'contentTheme', 'b', 'ui-body-b', '.ui-collapsible-content' );">11. Set the contentTheme with &quot;b&quot;</a><br/>
+	<a href="javascript:setOption( 'contentTheme', 'a', 'ui-body-a', '.ui-collapsible-content' );">12. Set the contentTheme with &quot;a&quot;</a><br/>
+	<hr />
+	<span id="inset-result"></span><br/>
+	<span id="inset-subresult"></span><br/>
+	<a href="javascript:setOption( 'inset', false, 'ui-body-b', '.ui-collapsible-content' );">13. Set the inset with &quot;false&quot;</a><br/>
+	<a href="javascript:setOption( 'inset', true, 'ui-body-a', '.ui-collapsible-content' );">14. Set the inset with &quot;true&quot;</a><br/>
+	<hr />
+
+	<script>
+		function setOption( key, value, checkClass, refDOM ) {
+			var target = $( "#target" );
+			target.collapsibleset( "option", key, value );
+
+			var val = getOption( target, key ),
+				result = $( "#" + key +"-result" ),
+				el = target.find( refDOM ),
+				hasClassName = el.hasClass( checkClass );
+
+			result.html( key + ": <font color='" + getResultColor( hasClassName ) + "'>" + val + "</font>" );
+			result.append( ", class: <font color='" + getResultColor( hasClassName ) + "'>(" + checkClass + ")</font>" );
+		}
+
+		function getOption( target, option ) {
+			return target.collapsibleset( "option", option );
+		}
+
+		function getClasses( classes, key, value ) {
+			var result = [],
+				pattern = new RegExp( "ui-btn-icon-" ),
+				i;
+
+			for ( i in classes ) {
+				if ( pattern.test( classes[ i ] ) ) {
+					result.push( classes[ i ] );
+				}
+			}
+
+			return result;
+		}
+
+		function getResultColor( result ) {
+			return result ? "blue" : "red";
+		}
+
+		function getOptionResult( key, value, check ) {
+			return value === check;
+		}
+
+		function getClassResult( classes, key, value ) {
+			if ( classes.length !== 1 ) {
+				return false;
+			}
+
+			return classes[0] === "ui-btn-icon-" + value;
+		}
+	</script>
+
+</div><!-- /content -->
+</div><!-- /page -->
+</body>
+</html>

@@ -6683,16 +6683,14 @@ $.widget( "mobile.collapsible", {
 	},
 
 	refresh: function( collapsibleSetOptions ) {
-		var key, options = {}, opts = null;
+		var key, options = {}, opts = {};
 
 		if ( collapsibleSetOptions && typeof collapsibleSetOptions  === "object" ) {
 			// if refreshed by collapsibleset.
-			opts = $.extend( {}, this.options );
-			options = $.extend( {}, collapsibleSetOptions );
-			for ( key in options ) {
-				// collapsible's option is more important.
-				if ( this.options[ key ] != null ) {
-					options[ key ] = this.options[ key ];
+			for ( key in collapsibleSetOptions ) {
+				if ( this.options[ key ] == null ) {
+					options[ key ] = collapsibleSetOptions[ key ];
+					opts[ key ] = null;
 				}
 			}
 		} else {
@@ -6702,8 +6700,8 @@ $.widget( "mobile.collapsible", {
 		}
 		this._setOptions( options );
 		// recover options.
-		if ( collapsibleSetOptions ) {
-			this.options = opts;
+		for ( key in opts ) {
+			this.options[ key ] = opts[ key ];
 		}
 	},
 

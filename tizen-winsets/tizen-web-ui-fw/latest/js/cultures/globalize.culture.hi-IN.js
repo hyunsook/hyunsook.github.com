@@ -59,10 +59,10 @@ Globalize.addCultureInfo( "hi-IN", "default", {
 			patterns: {
 				d: "dd-MM-yyyy",
 				D: "dd MMMM yyyy",
-				t: "HH:mm",
-				T: "HH:mm:ss",
-				f: "dd MMMM yyyy HH:mm",
-				F: "dd MMMM yyyy HH:mm:ss",
+				t: "hh:mm tt",
+				T: "hh:mm:ss tt",
+				f: "dd MMMM yyyy hh:mm tt",
+				F: "dd MMMM yyyy hh:mm:ss tt",
 				M: "dd MMMM"
 			}
 		}

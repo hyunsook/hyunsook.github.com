@@ -20,7 +20,10 @@ $( document ).one( "pageshow", ":jqmData(role='page')", function ( ev ) {
 	});
 
 	$( ".ui-btn-search-front-icon" ).on( "vclick", function () {
-		window.alert( "front button in searchbar pressed!" );
+	//JIRA - bug fix N_SE-47442
+		setTimeout( function () {
+			$( "#front-button-popup" ).popup( "open" );
+		}, 300 );
 	});
 });
 

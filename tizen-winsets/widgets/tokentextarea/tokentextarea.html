@@ -39,7 +39,9 @@
 				</ul>
 
 				<div id="tta_popup" data-role="popup" class="tta-popup">
-					<div class="ui-popup-text">
+					<div class="ui-popup-scroller-bg" data-scroll="y">
+						<div class="ui-popup-text">
+						</div>
 					</div>
 					<div class="ui-popup-button-bg">
 						<a data-role="button" data-rel="back" data-inline="true">OK</a>
@@ -52,6 +54,12 @@
 					if ( ev.originalEvent.keyName === "back" ) {
 						//bind callbacks to the H/W keys
 						window.history.back();
+					}
+				}).on( "popstate", function( event, state ) {
+					var state = this.history.state;
+					if ( state && state.hash.indexOf( "index.html" ) > -1 ) {
+						$( "#MBTremoveAllItemTest" ).click();
+						$( ":jqmData(role='tokentextarea')" ).tokentextarea( "inputText", "" );
 					}
 				});
 			});

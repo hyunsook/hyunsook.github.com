@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<div data-role="page" id="scrollview_xy-demo">
+	<div data-role="header" data-position="fixed">
+	<h1>Scroll view</h1>
+	</div>
+	<div data-role="content" data-scroll="none">
+		<p>XY Scroll</p>
+		<div data-scroll="xy" style="height:300px; border-style:dotted; border-width:1px;">
+			<div class="ui-scrollview-view" style="width:1176px">
+				<img src="./test/01.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/01.jpg" height="70px">
+				<img src="./test/01.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/01.jpg" height="70px">
+				<img src="./test/01.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/01.jpg" height="70px">
+				<img src="./test/01.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/11.jpg" height="70px">
+				<img src="./test/10.jpg" height="70px">
+				<img src="./test/08.jpg" height="70px">
+				<img src="./test/07.jpg" height="70px">
+				<img src="./test/06.jpg" height="70px">
+				<img src="./test/05.jpg" height="70px">
+				<img src="./test/04.jpg" height="70px">
+				<img src="./test/03.jpg" height="70px">
+				<img src="./test/02.jpg" height="70px">
+				<img src="./test/01.jpg" height="70px">
+			</div>
+		</div>
+	</div><!-- /content -->
+	<script>
+	$( "#scrollview_xy-demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#scrollview_xy-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div> <!-- /page -->

@@ -1,11 +1,7 @@
-
 /*
-* jQuery Mobile Framework : scrollview plugin
-* Copyright (c) 2010 Adobe Systems Incorporated - Kin Blas (jblas@adobe.com)
-* Licensed under the MIT (MIT-LICENSE.txt) license.
-* Note: Code is in draft form and is subject to change
-* Modified by Koeun Choi <koeun.choi@samsung.com>
-* Modified by Minkyu Kang <mk7.kang@samsung.com>
+* Module Name : jquery.mobile.tizen.scrollview
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 (function ( $, window, document, undefined ) {
@@ -445,7 +441,6 @@
 				} else {
 					this._outerScroll( this._softkeyboardHeight, scroll_height );
 				}
-				return;
 			}
 
 			if ( dir === "in" ) {
@@ -524,10 +519,16 @@
 					this._effect_dir = 0;
 					this._setEndEffect( "in" );
 				} else if ( y < -scroll_height ) {
-					this._sy = -scroll_height;
+					if ( this._sy !== -scroll_height ) {
+                                                this._hideOverflowIndicator();
+                                                this._sy = -scroll_height;
+                                                this._effect_dir = 1;
+                                        } else {
+                                                this._sy = -scroll_height;
 
-					this._effect_dir = 1;
-					this._setEndEffect( "in" );
+                                                this._effect_dir = 1;
+                                                this._setEndEffect( "in" );
+                                        }
 				} else {
 					if ( this._endEffect && this._sy !== y ) {
 						this._setEndEffect();
@@ -714,16 +715,24 @@
 		centerToElement: function ( element ) {
 			var $clip = this._$clip,
 				$view = this._$view,
-				$element = element.get ? element : $( element ),
-				delta = ( $clip.height() / 2 ) - ( element.height() / 2 ),
-				elementPosition = element.position().top;
+				$element = 0,
+				delta = 0,
+				elementPosition = null,
+				elementPositionTop = 0;
 
-			element.parentsUntil( $view ).each( function () {
-				var $parent = $( this );
-				elementPosition += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
-			});
+			if ( element ) {
+				$element = element.get ? element : $( element );
+				delta = ( $clip.height() / 2 ) - ( element.height() / 2 );
+				elementPosition = element.position();
+				elementPositionTop = elementPosition ? elementPosition.top : 0;
 
-			this.scrollTo( this._sx, -( elementPosition - delta ) );
+				element.parentsUntil( $view ).each( function () {
+					var $parent = $( this );
+					elementPositionTop += ( $parent.position().top + parseFloat( $parent.css( "marginTop" ) ) + parseFloat( $parent.css( "paddingTop" ) ) );
+				});
+
+				this.scrollTo( this._sx, -( elementPositionTop - delta ) );
+			}
 		},
 
 		/**
@@ -732,16 +741,16 @@
 		 * @param {Element|jQuery}
 		 */
 		ensureElementIsVisible: function ( element ) {
-			var $element = element.get ? element : $( element ),
+			var $element = null,
 				$clip = this._$clip,
-				clipHeight = $clip.height(),
-				clipTop = $clip.offset().top,
-				clipBottom = clipTop + clipHeight,
-				elementHeight = $element.height(),
-				elementTop = $element.offset().top,
-				elementBottom = elementTop + elementHeight,
-				elementFits = clipHeight > elementHeight,
-				$anchor,
+				clipTop = 0,
+				clipBottom = 0,
+				elementHeight = 0,
+				elementOffset = null,
+				elementTop = 0,
+				elementBottom = 0,
+				elementFits = 0,
+				$anchor = null,
 				anchorPosition = 0,
 				findPositionAnchor = function ( input ) {
 					var $label,
@@ -755,7 +764,18 @@
 					return input;
 				};
 
-			switch( true ) {
+			if ( element ) {
+				$element = element.get ? element : $( element );
+				clipTop = $clip.offset().top;
+				clipHeight = $clip.height();
+				clipBottom = clipHeight;
+				elementHeight = $element.height();
+				elementOffset = $element.offset();
+				elementTop = elementOffset ? elementOffset.top - clipTop : 0;
+				elementBottom = elementTop + elementHeight;
+				elementFits = clipHeight > elementHeight;
+
+				switch( true ) {
 				case elementFits && clipTop < elementTop && clipBottom > elementBottom: // element fits in view is inside clip area
 					// pass, element position is ok
 					break;
@@ -778,6 +798,7 @@
 					});
 					this.scrollTo( self._sx, -anchorPosition );
 					break;
+				}
 			}
 		},
 
@@ -1368,6 +1389,8 @@
 						_in_progress = false;
 
 						if ( touches.length != 0 ) {
+							self._hideScrollBars();
+							self._hideOverflowIndicator();
 							return;
 						}
 
@@ -1407,7 +1430,7 @@
 					return false;
 				}
 
-				$focusedElement = $c.find( ".ui-focus" );
+				$focusedElement = $c.find( ":input.ui-focus" );
 				if ( !$focusedElement.length ) {
 					return;
 				}
@@ -1425,7 +1448,7 @@
 
 				/* Tab Key */
 				$input = $( this ).find( ":input.ui-focus" ).eq( 0 );
-				if ( !$input ) {
+				if ( !$input.length ) {
 					return;
 				}
 				self.ensureElementIsVisible( $input );
@@ -1465,6 +1488,9 @@
 			});
 
 			$( window ).bind( "resize", function ( e ) {
+				if ( !$( self.element ).parents( ".ui-page" ).hasClass( "ui-page-active" ) ) {
+					return;
+				}
 				var focused,
 					view_h = self._getViewHeight(),
 					clip_h = $c.height();
@@ -1480,7 +1506,6 @@
 				} else {
 					self._set_scrollbar_size();
 					self._setScrollPosition( self._sx, self._sy );
-					self._showScrollBars( 2000 );
 				}
 
 				if ( $(".ui-page-active").get(0) !== $c.closest(".ui-page").get(0) ) {
@@ -1497,10 +1522,26 @@
 					focused.trigger("resize.scrollview");
 				}
 
+
+
+				/* manual calibration : focus element doesn't catch position when page has footer */
+				if ( focused.length ) {
+					var $elFooter = $c.siblings( ".ui-footer" ),
+						$elFooterHeight = $elFooter.length ? $elFooter.height() : 0,
+						focusHeight = focused.offset().top,
+						$cHeight = $c.height();
+
+					if ( focusHeight > $cHeight - $elFooterHeight ) {
+						self.scrollTo( 0, self._sy - focusHeight + $cHeight - $elFooterHeight, self.options.snapbackDuration );
+					}
+				}
+
 				/* calibration - after triggered throttledresize */
 				setTimeout( function () {
 					var view_w = $v.outerWidth(),
 						cw = $c.outerWidth(),
+						view_h = self._getViewHeight(),
+						clip_h = $c.height(),
 						scroll_x,
 						scroll_y;
 
@@ -1947,31 +1988,11 @@
 }( jQuery, window, document ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Minkyu Kang <mk7.kang@samsung.com>
- */
+/*
+* Module Name : widgets/jquery.mobile.tizen.gallery
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /*
  * Gallery widget
@@ -2762,6 +2783,11 @@
 }( jQuery, this ) );
 
 
+/*
+* Module Name : widgets/jquery.mobile.tizen.listdivider
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /* ***************************************************************************
 * style : normal, check
@@ -2840,31 +2866,10 @@
 }( jQuery ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Yonghwi Park <yonghwi0324.park@samsung.com>
- *		 Wonseop Kim <wonseop.kim@samsung.com>
+/*
+* Module Name : widgets/jquery.mobile.tizen.multimediaview
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
@@ -3187,17 +3192,20 @@
 				if ( !isNaN( viewElement.duration ) ) {
 					durationLabel.find( "p" ).text( self._convertTimeFormat( viewElement.duration ) );
 				}
+				//JIRA - N_SE-47690
+				if ( option.controls ) {
+					control.show();
+				}
 				self._resize();
 			}).bind( "timeupdate.multimediaview", function ( e ) {
 				self._updateSeekBar();
+				if ( viewElement.currentTime >= viewElement.duration && !viewElement.loop ) {
+					viewElement.pause();
+				}
 			}).bind( "play.multimediaview", function ( e ) {
 				playpauseButton.removeClass( "ui-play-icon" ).addClass( "ui-pause-icon" );
 			}).bind( "pause.multimediaview", function ( e ) {
 				playpauseButton.removeClass( "ui-pause-icon" ).addClass( "ui-play-icon" );
-			}).bind( "ended.multimediaview", function ( e ) {
-				if ( typeof viewElement.loop == "undefined" || viewElement.loop === "" ) {
-					self.stop();
-				}
 			}).bind( "volumechange.multimediaview", function ( e ) {
 				if ( viewElement.muted && viewElement.volume > 0.1 ) {
 					volumeButton.removeClass( "ui-volume-icon" ).addClass( "ui-mute-icon" );
@@ -3229,9 +3237,6 @@
 				control.fadeToggle( "fast" );
 				self._resize();
 			}).bind( "multimediaviewinit", function ( e ) {
-				if ( option.controls ) {
-					control.show();
-				}
 				self._resize();
 			});
 
@@ -3290,17 +3295,26 @@
 					var x = $.support.touch ? e.originalEvent.changedTouches[0].pageX : e.pageX,
 						timerate = ( x - durationOffset.left ) / durationWidth;
 
-					viewElement.currentTime = duration * timerate;
+					time = duration * timerate;
+					viewElement.currentTime = time;
+					self._updateSeekBar();
 
 					e.stopPropagation();
 				}).bind( touchEndEvt, function () {
 					control.unbind( ".multimediaview" );
 					$document.unbind( touchMoveEvt );
+
 					if ( viewElement.paused ) {
 						viewElement.pause();
+					} else if ( time >= duration && !viewElement.loop ) {
+						// Below codes have low priority to run after the end of the current task.
+						setTimeout( function () {
+							viewElement.pause();
+						}, 0 );
 					} else {
 						viewElement.play();
 					}
+
 					e.stopPropagation();
 				});
 
@@ -3315,7 +3329,7 @@
 						volume = viewElement.volume;
 
 					self.isVolumeHide = false;
-					volumeControl.fadeIn( "fast", function () {
+					volumeControl.stop( true, true ).fadeIn( "fast", function () {
 						self._updateVolumeState();
 						self._updateSeekBar();
 					});
@@ -3614,29 +3628,11 @@
 } ( jQuery, document, window ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software" ),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- */
+/*
+* Module Name : widgets/jquery.mobile.tizen.circularview
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 // most of following codes are derived from jquery.mobile.scrollview.js
 (function ( $, window, document, undefined ) {
@@ -4129,39 +4125,11 @@
 }( jQuery, window, document ) ); // End Component
 
 
-
 /*
- * jQuery Mobile Widget @VERSION
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- *
- * ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- * Copyright (c) 2011 by Intel Corporation Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Elliot Smith <elliot.smith@intel.com>
- *		 Yonghwi Park <yonghwi0324.park@samsung.com>
- */
+* Module Name : widgets/jquery.mobile.tizen.fastscroll
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 // fastscroll is a scrollview controller, which binds
 // a scrollview to a a list of short cuts; the shortcuts are built
@@ -4749,34 +4717,11 @@
 } ( jQuery ) );
 
 
-
 /*
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- * 
- * ***************************************************************************
- * Copyright (C) 2011 by Intel Corporation Ltd.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- */
+* Module Name : util/ensurens
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 // Ensure that the given namespace is defined. If not, define it to be an empty object.
 // This is kinda like the mkdir -p command.
@@ -4803,13 +4748,12 @@
 })(this);
 
 
-
 /*
- * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL licenses
- * http://phpjs.org/functions/range
- * original by: Waldo Malqui Silva
- * version: 1107.2516
- */
+* Module Name : util/range
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+
 function range( low, high, step ) {
     // Create an array containing the range of integers or characters
     // from low to high (inclusive)  
@@ -4861,31 +4805,10 @@ function range( low, high, step ) {
 }
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Hyunsook Park <hyunsook.park@samsung.com>
- *			Wonseop Kim <wonseop.kim@samsung.com>
+/*
+* Module Name : widgets/components/webgl
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 ( function ( $, undefined ) {
@@ -4977,216 +4900,11 @@ function range( low, high, step ) {
 } ( jQuery ) );
 
 
-/* ***************************************************************************
-	Flora License
-
-	Version 1.1, April, 2013
-
-	http://floralicense.org/license/
-
-	TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-
-	1. Definitions.
-
-	"License" shall mean the terms and conditions for use, reproduction,
-	and distribution as defined by Sections 1 through 9 of this document.
-
-	"Licensor" shall mean the copyright owner or entity authorized by
-	the copyright owner that is granting the License.
-
-	"Legal Entity" shall mean the union of the acting entity and
-	all other entities that control, are controlled by, or are
-	under common control with that entity. For the purposes of
-	this definition, "control" means (i) the power, direct or indirect,
-	to cause the direction or management of such entity,
-	whether by contract or otherwise, or (ii) ownership of fifty percent (50%)
-	or more of the outstanding shares, or (iii) beneficial ownership of
-	such entity.
-
-	"You" (or "Your") shall mean an individual or Legal Entity
-	exercising permissions granted by this License.
-
-	"Source" form shall mean the preferred form for making modifications,
-	including but not limited to software source code, documentation source,
-	and configuration files.
-
-	"Object" form shall mean any form resulting from mechanical
-	transformation or translation of a Source form, including but
-	not limited to compiled object code, generated documentation,
-	and conversions to other media types.
-
-	"Work" shall mean the work of authorship, whether in Source or Object form,
-	made available under the License, as indicated by a copyright notice
-	that is included in or attached to the work (an example is provided
-	in the Appendix below).
-
-	"Derivative Works" shall mean any work, whether in Source or Object form,
-	that is based on (or derived from) the Work and for which the editorial
-	revisions, annotations, elaborations, or other modifications represent,
-	as a whole, an original work of authorship. For the purposes of this License,
-	Derivative Works shall not include works that remain separable from,
-	or merely link (or bind by name) to the interfaces of, the Work and
-	Derivative Works thereof.
-
-	"Contribution" shall mean any work of authorship, including the original
-	version of the Work and any modifications or additions to that Work or
-	Derivative Works thereof, that is intentionally submitted to Licensor
-	for inclusion in the Work by the copyright owner or by an individual or
-	Legal Entity authorized to submit on behalf of the copyright owner.
-	For the purposes of this definition, "submitted" means any form of
-	electronic, verbal, or written communication sent to the Licensor or
-	its representatives, including but not limited to communication on
-	electronic mailing lists, source code control systems, and issue
-	tracking systems that are managed by, or on behalf of, the Licensor
-	for the purpose of discussing and improving the Work, but excluding
-	communication that is conspicuously marked or otherwise designated
-	in writing by the copyright owner as "Not a Contribution."
-
-	"Contributor" shall mean Licensor and any individual or Legal Entity
-	on behalf of whom a Contribution has been received by Licensor and
-	subsequently incorporated within the Work.
-
-	"Tizen Certified Platform" shall mean a software platform that complies
-	with the standards set forth in the Tizen Compliance Specification
-	and passes the Tizen Compliance Tests as defined from time to time
-	by the Tizen Technical Steering Group and certified by the Tizen
-	Association or its designated agent.
-
-	2. Grant of Copyright License.  Subject to the terms and conditions of
-	this License, each Contributor hereby grants to You a perpetual,
-	worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-	copyright license to reproduce, prepare Derivative Works of,
-	publicly display, publicly perform, sublicense, and distribute the
-	Work and such Derivative Works in Source or Object form.
-
-	3. Grant of Patent License.  Subject to the terms and conditions of
-	this License, each Contributor hereby grants to You a perpetual,
-	worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-	(except as stated in this section) patent license to make, have made,
-	use, offer to sell, sell, import, and otherwise transfer the Work
-	solely as incorporated into a Tizen Certified Platform, where such
-	license applies only to those patent claims licensable by such
-	Contributor that are necessarily infringed by their Contribution(s)
-	alone or by combination of their Contribution(s) with the Work solely
-	as incorporated into a Tizen Certified Platform to which such
-	Contribution(s) was submitted. If You institute patent litigation
-	against any entity (including a cross-claim or counterclaim
-	in a lawsuit) alleging that the Work or a Contribution incorporated
-	within the Work constitutes direct or contributory patent infringement,
-	then any patent licenses granted to You under this License for that
-	Work shall terminate as of the date such litigation is filed.
-
-	4. Redistribution.  You may reproduce and distribute copies of the
-	Work or Derivative Works thereof pursuant to the copyright license
-	above, in any medium, with or without modifications, and in Source or
-	Object form, provided that You meet the following conditions:
-
-	  1. You must give any other recipients of the Work or Derivative Works
-		 a copy of this License; and
-	  2. You must cause any modified files to carry prominent notices stating
-		 that You changed the files; and
-	  3. You must retain, in the Source form of any Derivative Works that
-		 You distribute, all copyright, patent, trademark, and attribution
-		 notices from the Source form of the Work, excluding those notices
-		 that do not pertain to any part of the Derivative Works; and
-	  4. If the Work includes a "NOTICE" text file as part of its distribution,
-		 then any Derivative Works that You distribute must include a readable
-		 copy of the attribution notices contained within such NOTICE file,
-		 excluding those notices that do not pertain to any part of
-		 the Derivative Works, in at least one of the following places:
-		 within a NOTICE text file distributed as part of the Derivative Works;
-		 within the Source form or documentation, if provided along with the
-		 Derivative Works; or, within a display generated by the Derivative Works,
-		 if and wherever such third-party notices normally appear.
-		 The contents of the NOTICE file are for informational purposes only
-		 and do not modify the License.
-
-	You may add Your own attribution notices within Derivative Works
-	that You distribute, alongside or as an addendum to the NOTICE text
-	from the Work, provided that such additional attribution notices
-	cannot be construed as modifying the License. You may add Your own
-	copyright statement to Your modifications and may provide additional or
-	different license terms and conditions for use, reproduction, or
-	distribution of Your modifications, or for any such Derivative Works
-	as a whole, provided Your use, reproduction, and distribution of
-	the Work otherwise complies with the conditions stated in this License.
-
-	5. Submission of Contributions. Unless You explicitly state otherwise,
-	any Contribution intentionally submitted for inclusion in the Work
-	by You to the Licensor shall be under the terms and conditions of
-	this License, without any additional terms or conditions.
-	Notwithstanding the above, nothing herein shall supersede or modify
-	the terms of any separate license agreement you may have executed
-	with Licensor regarding such Contributions.
-
-	6. Trademarks.  This License does not grant permission to use the trade
-	names, trademarks, service marks, or product names of the Licensor,
-	except as required for reasonable and customary use in describing the
-	origin of the Work and reproducing the content of the NOTICE file.
-
-	7. Disclaimer of Warranty. Unless required by applicable law or
-	agreed to in writing, Licensor provides the Work (and each
-	Contributor provides its Contributions) on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-	implied, including, without limitation, any warranties or conditions
-	of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-	PARTICULAR PURPOSE. You are solely responsible for determining the
-	appropriateness of using or redistributing the Work and assume any
-	risks associated with Your exercise of permissions under this License.
-
-	8. Limitation of Liability. In no event and under no legal theory,
-	whether in tort (including negligence), contract, or otherwise,
-	unless required by applicable law (such as deliberate and grossly
-	negligent acts) or agreed to in writing, shall any Contributor be
-	liable to You for damages, including any direct, indirect, special,
-	incidental, or consequential damages of any character arising as a
-	result of this License or out of the use or inability to use the
-	Work (including but not limited to damages for loss of goodwill,
-	work stoppage, computer failure or malfunction, or any and all
-	other commercial damages or losses), even if such Contributor
-	has been advised of the possibility of such damages.
-
-	9. Accepting Warranty or Additional Liability. While redistributing
-	the Work or Derivative Works thereof, You may choose to offer,
-	and charge a fee for, acceptance of support, warranty, indemnity,
-	or other liability obligations and/or rights consistent with this
-	License. However, in accepting such obligations, You may act only
-	on Your own behalf and on Your sole responsibility, not on behalf
-	of any other Contributor, and only if You agree to indemnify,
-	defend, and hold each Contributor harmless for any liability
-	incurred by, or claims asserted against, such Contributor by reason
-	of your accepting any such warranty or additional liability.
-
-	END OF TERMS AND CONDITIONS
-
-	APPENDIX: How to apply the Flora License to your work
-
-	To apply the Flora License to your work, attach the following
-	boilerplate notice, with the fields enclosed by brackets "[]"
-	replaced with your own identifying information. (Don't include
-	the brackets!) The text should be enclosed in the appropriate
-	comment syntax for the file format. We also recommend that a
-	file or class name and description of purpose be included on the
-	same "printed page" as the copyright notice for easier
-	identification within third-party archives.
-
-	   Copyright [yyyy] [name of copyright owner]
-
-	   Licensed under the Flora License, Version 1.1 (the "License");
-	   you may not use this file except in compliance with the License.
-	   You may obtain a copy of the License at
-
-		   http://floralicense.org/license/
-
-	   Unless required by applicable law or agreed to in writing, software
-	   distributed under the License is distributed on an "AS IS" BASIS,
-	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	   See the License for the specific language governing permissions and
-	   limitations under the License.
-
- *	Author: Minkyu Kang <mk7.kang@samsung.com>
- */
-
+/*
+* Module Name : jquery.mobile.tizen.pinch
+* Copyright (c) 2013 Samsung Electronics Co., Ltd.
+* License : Flora License
+*/	
 /*
  * Pinch Event
  *
@@ -5336,31 +5054,10 @@ function range( low, high, step ) {
 }( jQuery, this ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Hyunsook Park <hyunsook.park@samsung.com>
- *			Wonseop Kim <wonseop.kim@samsung.com>
+/*
+* Module Name : widgets/components/imageloader
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 ( function ( $, window, document, undefined ) {
@@ -5506,30 +5203,10 @@ function range( low, high, step ) {
 } ( jQuery, window, document ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *  Author: Sanghee Lee <sang-hee.lee@samsung.com>
+/*
+* Module Name : widgets/jquery.mobile.tizen.splitview
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
@@ -6013,7 +5690,7 @@ function range( low, high, step ) {
 			};
 		},
 
-		_layout : function ( initRatio, fromFirstPane ) {
+		_layout : function ( initRatio, fromFirstPane, saveRatio ) {
 			var self = this,
 				$el = self.element,
 				opt = self.options,
@@ -6045,6 +5722,7 @@ function range( low, high, step ) {
 
 			initRatio = !!initRatio;
 			fromFirstPane = !!fromFirstPane;
+			saveRatio = !!saveRatio;
 
 			$el.css( {
 				"min-width" : width,
@@ -6059,7 +5737,7 @@ function range( low, high, step ) {
 			$panes.each( function ( i ) {
 				var $pane = $( this ),
 					paneWidth = initRatio ? initializedWidth[ i ] :
-										Math.floor( availableWidth * self.options.ratio[i] ),
+										Math.round( availableWidth * self.options.ratio[i] ),
 					prevPane = ( ( i ) ? $panes.eq( i - 1 ) : null ),
 					posValue = 0,
 					widthValue = 0,
@@ -6097,12 +5775,14 @@ function range( low, high, step ) {
 				$pane.css( ( isHorizontal ? "left" : "top" ), posValue );
 			});
 
-			$panes.each( function ( i ) {
-				var $pane = $( this ),
-					paneWidth = isHorizontal ? $pane.width() : $pane.height();
+			if ( saveRatio ) {
+				$panes.each( function ( i ) {
+					var $pane = $( this ),
+						paneWidth = isHorizontal ? $pane.width() : $pane.height();
 
-				self.options.ratio[ i ] = paneWidth / widthSum;
-			});
+					self.options.ratio[ i ] = paneWidth / widthSum;
+				});
+			}
 
 			$.each( spliters, function ( i ) {
 				var spliter = $( this ),
@@ -6402,7 +6082,7 @@ function range( low, high, step ) {
 			fromFirstPane = !!fromFirstPane;
 
 			if ( self._getContainerSize( $el[ 0 ].style.width, $el[ 0 ].style.height ) ) {
-				self._layout( initRatio, fromFirstPane );
+				self._layout( initRatio, fromFirstPane, true );
 			}
 		},
 
@@ -6491,6 +6171,11 @@ function range( low, high, step ) {
 } ( jQuery, window, document ) );
 
 
+/*
+* Module Name : widgets/jquery.mobile.tizen.checkbox
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /**
 	@class Checkbox
@@ -6511,31 +6196,10 @@ function range( low, high, step ) {
 */
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Hyunsook Park <hyunsook.park@samsung.com>
- *			Wonseop Kim <wonseop.kim@samsung.com>
+/*
+* Module Name : widgets/components/motionpath
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 ( function ( $, window, undefined ) {
@@ -6791,30 +6455,10 @@ function range( low, high, step ) {
 } ( jQuery, window ) );
 
 
-
-/****************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Wongi Lee <wongi11.lee@samsung.com>
+/*
+* Module Name : widgets/jquery.mobile.tizen.extendablelist
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
@@ -7458,6 +7102,12 @@ function range( low, high, step ) {
 }( jQuery ));
 
 
+/*
+* Module Name : jquery.mobile.tizen.clrlib
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+
 
 ensureNS("jQuery.mobile.tizen.clrlib");
 
@@ -7673,6 +7323,11 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 });
 
 
+/*
+* Module Name : jquery.mobile.tizen.configure
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /*
  * set TIZEN specific configures
@@ -7697,256 +7352,45 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 
 
 
-
-/* ***************************************************************************
-	Flora License
-
-	Version 1.1, April, 2013
-
-	http://floralicense.org/license/
-
-	TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-
-	1. Definitions.
-
-	"License" shall mean the terms and conditions for use, reproduction,
-	and distribution as defined by Sections 1 through 9 of this document.
-
-	"Licensor" shall mean the copyright owner or entity authorized by
-	the copyright owner that is granting the License.
-
-	"Legal Entity" shall mean the union of the acting entity and
-	all other entities that control, are controlled by, or are
-	under common control with that entity. For the purposes of
-	this definition, "control" means (i) the power, direct or indirect,
-	to cause the direction or management of such entity,
-	whether by contract or otherwise, or (ii) ownership of fifty percent (50%)
-	or more of the outstanding shares, or (iii) beneficial ownership of
-	such entity.
-
-	"You" (or "Your") shall mean an individual or Legal Entity
-	exercising permissions granted by this License.
-
-	"Source" form shall mean the preferred form for making modifications,
-	including but not limited to software source code, documentation source,
-	and configuration files.
-
-	"Object" form shall mean any form resulting from mechanical
-	transformation or translation of a Source form, including but
-	not limited to compiled object code, generated documentation,
-	and conversions to other media types.
-
-	"Work" shall mean the work of authorship, whether in Source or Object form,
-	made available under the License, as indicated by a copyright notice
-	that is included in or attached to the work (an example is provided
-	in the Appendix below).
-
-	"Derivative Works" shall mean any work, whether in Source or Object form,
-	that is based on (or derived from) the Work and for which the editorial
-	revisions, annotations, elaborations, or other modifications represent,
-	as a whole, an original work of authorship. For the purposes of this License,
-	Derivative Works shall not include works that remain separable from,
-	or merely link (or bind by name) to the interfaces of, the Work and
-	Derivative Works thereof.
-
-	"Contribution" shall mean any work of authorship, including the original
-	version of the Work and any modifications or additions to that Work or
-	Derivative Works thereof, that is intentionally submitted to Licensor
-	for inclusion in the Work by the copyright owner or by an individual or
-	Legal Entity authorized to submit on behalf of the copyright owner.
-	For the purposes of this definition, "submitted" means any form of
-	electronic, verbal, or written communication sent to the Licensor or
-	its representatives, including but not limited to communication on
-	electronic mailing lists, source code control systems, and issue
-	tracking systems that are managed by, or on behalf of, the Licensor
-	for the purpose of discussing and improving the Work, but excluding
-	communication that is conspicuously marked or otherwise designated
-	in writing by the copyright owner as "Not a Contribution."
-
-	"Contributor" shall mean Licensor and any individual or Legal Entity
-	on behalf of whom a Contribution has been received by Licensor and
-	subsequently incorporated within the Work.
-
-	"Tizen Certified Platform" shall mean a software platform that complies
-	with the standards set forth in the Tizen Compliance Specification
-	and passes the Tizen Compliance Tests as defined from time to time
-	by the Tizen Technical Steering Group and certified by the Tizen
-	Association or its designated agent.
-
-	2. Grant of Copyright License.  Subject to the terms and conditions of
-	this License, each Contributor hereby grants to You a perpetual,
-	worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-	copyright license to reproduce, prepare Derivative Works of,
-	publicly display, publicly perform, sublicense, and distribute the
-	Work and such Derivative Works in Source or Object form.
-
-	3. Grant of Patent License.  Subject to the terms and conditions of
-	this License, each Contributor hereby grants to You a perpetual,
-	worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-	(except as stated in this section) patent license to make, have made,
-	use, offer to sell, sell, import, and otherwise transfer the Work
-	solely as incorporated into a Tizen Certified Platform, where such
-	license applies only to those patent claims licensable by such
-	Contributor that are necessarily infringed by their Contribution(s)
-	alone or by combination of their Contribution(s) with the Work solely
-	as incorporated into a Tizen Certified Platform to which such
-	Contribution(s) was submitted. If You institute patent litigation
-	against any entity (including a cross-claim or counterclaim
-	in a lawsuit) alleging that the Work or a Contribution incorporated
-	within the Work constitutes direct or contributory patent infringement,
-	then any patent licenses granted to You under this License for that
-	Work shall terminate as of the date such litigation is filed.
-
-	4. Redistribution.  You may reproduce and distribute copies of the
-	Work or Derivative Works thereof pursuant to the copyright license
-	above, in any medium, with or without modifications, and in Source or
-	Object form, provided that You meet the following conditions:
-
-	  1. You must give any other recipients of the Work or Derivative Works
-		 a copy of this License; and
-	  2. You must cause any modified files to carry prominent notices stating
-		 that You changed the files; and
-	  3. You must retain, in the Source form of any Derivative Works that
-		 You distribute, all copyright, patent, trademark, and attribution
-		 notices from the Source form of the Work, excluding those notices
-		 that do not pertain to any part of the Derivative Works; and
-	  4. If the Work includes a "NOTICE" text file as part of its distribution,
-		 then any Derivative Works that You distribute must include a readable
-		 copy of the attribution notices contained within such NOTICE file,
-		 excluding those notices that do not pertain to any part of
-		 the Derivative Works, in at least one of the following places:
-		 within a NOTICE text file distributed as part of the Derivative Works;
-		 within the Source form or documentation, if provided along with the
-		 Derivative Works; or, within a display generated by the Derivative Works,
-		 if and wherever such third-party notices normally appear.
-		 The contents of the NOTICE file are for informational purposes only
-		 and do not modify the License.
-
-	You may add Your own attribution notices within Derivative Works
-	that You distribute, alongside or as an addendum to the NOTICE text
-	from the Work, provided that such additional attribution notices
-	cannot be construed as modifying the License. You may add Your own
-	copyright statement to Your modifications and may provide additional or
-	different license terms and conditions for use, reproduction, or
-	distribution of Your modifications, or for any such Derivative Works
-	as a whole, provided Your use, reproduction, and distribution of
-	the Work otherwise complies with the conditions stated in this License.
-
-	5. Submission of Contributions. Unless You explicitly state otherwise,
-	any Contribution intentionally submitted for inclusion in the Work
-	by You to the Licensor shall be under the terms and conditions of
-	this License, without any additional terms or conditions.
-	Notwithstanding the above, nothing herein shall supersede or modify
-	the terms of any separate license agreement you may have executed
-	with Licensor regarding such Contributions.
-
-	6. Trademarks.  This License does not grant permission to use the trade
-	names, trademarks, service marks, or product names of the Licensor,
-	except as required for reasonable and customary use in describing the
-	origin of the Work and reproducing the content of the NOTICE file.
-
-	7. Disclaimer of Warranty. Unless required by applicable law or
-	agreed to in writing, Licensor provides the Work (and each
-	Contributor provides its Contributions) on an "AS IS" BASIS,
-	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-	implied, including, without limitation, any warranties or conditions
-	of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-	PARTICULAR PURPOSE. You are solely responsible for determining the
-	appropriateness of using or redistributing the Work and assume any
-	risks associated with Your exercise of permissions under this License.
-
-	8. Limitation of Liability. In no event and under no legal theory,
-	whether in tort (including negligence), contract, or otherwise,
-	unless required by applicable law (such as deliberate and grossly
-	negligent acts) or agreed to in writing, shall any Contributor be
-	liable to You for damages, including any direct, indirect, special,
-	incidental, or consequential damages of any character arising as a
-	result of this License or out of the use or inability to use the
-	Work (including but not limited to damages for loss of goodwill,
-	work stoppage, computer failure or malfunction, or any and all
-	other commercial damages or losses), even if such Contributor
-	has been advised of the possibility of such damages.
-
-	9. Accepting Warranty or Additional Liability. While redistributing
-	the Work or Derivative Works thereof, You may choose to offer,
-	and charge a fee for, acceptance of support, warranty, indemnity,
-	or other liability obligations and/or rights consistent with this
-	License. However, in accepting such obligations, You may act only
-	on Your own behalf and on Your sole responsibility, not on behalf
-	of any other Contributor, and only if You agree to indemnify,
-	defend, and hold each Contributor harmless for any liability
-	incurred by, or claims asserted against, such Contributor by reason
-	of your accepting any such warranty or additional liability.
-
-	END OF TERMS AND CONDITIONS
-
-	APPENDIX: How to apply the Flora License to your work
-
-	To apply the Flora License to your work, attach the following
-	boilerplate notice, with the fields enclosed by brackets "[]"
-	replaced with your own identifying information. (Don't include
-	the brackets!) The text should be enclosed in the appropriate
-	comment syntax for the file format. We also recommend that a
-	file or class name and description of purpose be included on the
-	same "printed page" as the copyright notice for easier
-	identification within third-party archives.
-
-	   Copyright [yyyy] [name of copyright owner]
-
-	   Licensed under the Flora License, Version 1.1 (the "License");
-	   you may not use this file except in compliance with the License.
-	   You may obtain a copy of the License at
-
-		   http://floralicense.org/license/
-
-	   Unless required by applicable law or agreed to in writing, software
-	   distributed under the License is distributed on an "AS IS" BASIS,
-	   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	   See the License for the specific language governing permissions and
-	   limitations under the License.
-
-
- * Authors: Hyunsook Park <hyunsook.park@samsung.com>
- *			Wonseop Kim <wonseop.kim@samsung.com>
- */
+/*
+* Module Name : widgets/jquery.mobile.tizen.gallery3d
+* Copyright (c) 2013 Samsung Electronics Co., Ltd.
+* License : Flora License
+*/
 
 /**
- *	The gallery3d widget displays images along a curved path on a 3-dimensional coordinate system.
- *	To improve performance, the size of image(s) displayed on the screen should be a square(under
- *	128X128 pixel) as possible. But if a user can't resize the images, this widget supports an image
- *	resizing feature and he/she can use it with "data-thumbnail-cache" option. ("data-thumbnail-cache"
- *	option resizes the gallery images under 128x128 pixels and stores the images on a local storage.
- *	So when a gallery3D widget is re-launched, the widget reuse the storage and a user can improve
- *	launching time. A browser or web runtime engine should support "Web Storage" feature to use that
- *	option.)
+ *	The gallery 3D widget enables 3-dimensional arranging and handling of images.
  *
  *	HTML Attributes:
  *
  *		data-thumbnail-cache : Determines whether to cache and resize images.
+ *		To improve performance, the size of image(s) displayed on the screen should be a square (under 128X128 pixels).
+ *		"data-thumbnail-cache" option resizes the gallery images under 128x128 pixels and stores the images on a local storage.
+ *		So when a gallery3D widget is re-launched, the widget reuses the storage and the launching time can be improved.
+ *		A browser or web runtime engine must support "Web Storage" feature to use this option.
  *
  *	APIs:
  *
  *		next ( void )
- *			: This method moves each image forward one by one.
+ *			: This method moves each image forward.
  *		prev ( void )
- *			: This method moves each image backward one by one.
+ *			: This method moves each image backward.
  *		select ( [number] )
- *			: When the "select" method is called with an argument, the method selects the image of given index.
- *			If the method is called with no argument, it will return the Javascript object having "src"
- *			attribute having the selected image's URL.
+ *			: When the select method is called with an argument, the method selects the image of a given index.
+ *			If the method is called with no argument, it returns the selected image's object.
  *		add ( object or string [, number] )
- *			This method adds an image to Gallery3D widget.
- *			If the second argument isn't inputted, the image is added at the 0th position.
+ *			This method adds an image to the gallery 3D widget.
+ *			If the second argument is not defined, the image is added at the 0 position.
  *		remove ( [number] )
- *			: This method deletes an image from Gallery3d widget.
+ *			: This method deletes an image from the gallery 3D widget.
  *			The argument defines the index of the image to be deleted.
- *			If an argument isn't inputted, it removes current image.
+ *			If the argument is not defined, the current image is removed.
  *		clearThumbnailCache ( void )
- *			: This method clears the cache data of all images when thumbnailCache option is set as 'true'.
+ *			: This method clears the cache data of all images when the thumbnailCache option is set to true.
  *		refresh ( void )
  *			: This method updates and redraws current widget.
  *		empty ( void )
- *			: This method removes all of images from Gallery3D widget.
+ *			: This method removes all of images from the gallery 3D widget.
  *		length ( void )
  *			: This method gets the number of images.
  *
@@ -8002,7 +7446,7 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 */
 /**
 	@method next
-	This method moves each image forward one by one.
+	This method moves each image forward.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -8016,7 +7460,7 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 */
 /**
 	@method prev
-	This method moves each image backward one by one.
+	This method moves each image backward.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -8030,38 +7474,36 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 */
 /**
 	@method select
-	When the "select" method is called with an argument, the method selects the image of given index.
-	If the method is called with no argument, it will return the Javascript object having "src" attribute having the selected image's URL.
+	When the select method is called with an argument, the method selects the image of a given index.
+	If the method is called with no argument, it returns the selected image's object.
 
 		<script>
-			$( "#gallery3d" ).on( "gallery3dcreate", function () {
-				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } )
-					.gallery3d( "add", { src: "2.jpg" } )
-					.gallery3d( "add", { src: "3.jpg" } );
-				var selectedImage = $("#gallery3d"). gallery3d( "select" );
-				// selectedImage = { src: "3.jpg" };
+			$("#gallery3d").on("gallery3dcreate", function () {
+				$("#gallery3d").gallery3d("add", {src: "1.jpg"})
+					.gallery3d("add", {src: "2.jpg"})
+					.gallery3d("add", {src: "3.jpg"});
+			}).on( "gallery3dinit", function () {
+				$("#gallery3d").gallery3d("select");
 			});
 		</script>
 		<div id="gallery3d" data-role="gallery3d"></div>
 */
 /**
 	@method add
-	This method adds an image to Gallery3D widget.
-	The first argument is a Javascript object having a "src" attribute or a string of image's path.
-	The second argument is an index of images.
-	If second argument isn't inputted, the image is added at the 0th position.
+	This method adds an image to the gallery 3D widget.
+	If the second argument is not defined, the image is added at the 0 position.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
-				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } )
-					.gallery3d( "add", "2.jpg", 1 );
+				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } );
+				$( "#gallery3d" ).gallery3d( "add", "2.jpg", 1 );
 			});
 		</script>
 		<div id="gallery3d" data-role="gallery3d"></div>
 */
 /**
 	@method remove
-	This method deletes an image from Gallery3d widget.
+	This method deletes an image from the gallery 3D widget.
 	The argument defines the index of the image to be deleted.
 	If an argument isn't inputted, it removes current image.
 
@@ -8079,7 +7521,7 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 */
 /**
 	@method clearThumbnailCache
-	This method clears the cache data of all images when thumbnailCache option is set as 'true'
+	This method clears the cache data of all images when the thumbnailCache option is set to true.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -8101,15 +7543,15 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 				$( "#gallery3d" ).gallery3d( "add", { src: "1.jpg" } )
 					.gallery3d( "add", { src: "2.jpg" } )
 					.gallery3d( "add", { src: "3.jpg" } );
-
-				$( "#gallery3d" ).gallery3d( "refresh" );
-			});
+				}).on("gallery3dinit", function () {
+					$("#gallery3d").gallery3d("refresh");
+				});
 		</script>
 		<div id="gallery3d" data-role="gallery3d"></div>
 */
 /**
 	@method empty
-	This method removes all of images from Gallery3D widget.
+	This method removes all of images from the gallery 3D widget.
 
 		<script>
 			$( "#gallery3d" ).on( "gallery3dcreate", function () {
@@ -8247,7 +7689,8 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 		},
 		getContext3D = function ( canvas ) {
 			var gl, i,
-				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ];
+				contextNames = [ "experimental-webgl", "webkit-3d", "webgl", "moz-webgl" ],
+				errorMessage = "Unfortunately, there's a WebGL compatibility problem.\nYou may want to check your system settings.";
 
 			for ( i = 0; i < contextNames.length; i += 1 ) {
 				try {
@@ -8256,10 +7699,16 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 						break;
 					}
 				} catch ( e ) {
-					$( canvas ).html( "Unfortunately, there's a WebGL compatibility problem. </br> You may want to check your system settings." );
+					alert(  errorMessage );
 					return;
 				}
 			}
+
+			if ( !gl ) {
+				alert(  errorMessage );
+				return;
+			}
+
 			return gl;
 		},
 		requestAnimationFrame = function ( callback ) {
@@ -8330,6 +7779,8 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 		},
 
 		destroy: function () {
+			this._imageList.length = 0;
+			this._path.length = 0;
 			this._final();
 			$.mobile.widget.prototype.destroy.call( this );
 		},
@@ -8360,7 +7811,6 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 				i;
 
 			canvas = canvas || self._canvas;
-
 			if ( !canvas ) {
 				return;
 			}
@@ -8413,16 +7863,24 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 				return;
 			}
 
+			clearTimeout( this._imageLoadTimer );
+			this._imageLoadTimer = null;
+
 			self._stop();
 
 			canvas = canvas || self._canvas;
 
 			$( self._nodes ).each( function ( i ) {
 				var node = self._nodes[i];
-				gl.deleteTexture( node.texture );
-				node.texture = null;
+
+				if ( node.texture ) {
+					gl.deleteTexture( node.texture );
+					node.texture = null;
+					delete node.image;
+					node.image = null;
+				}
 			});
-			self._nodes = null;
+			this._nodes.length = 0;
 
 			gl.deleteBuffer( self._positionBuffer );
 			self._positionBuffer = null;
@@ -8605,8 +8063,13 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 			gl.enable( gl.DEPTH_TEST );
 			gl.depthFunc( gl.LEQUAL );
 
+			// Fit the canvas size to Gallery3d widget
+			canvas.style.width = "100%";
+
+			// Set the drawing buffer size of the canvas
 			canvas.width = self._VIEWPORT_WIDTH;
 			canvas.height = self._VIEWPORT_HEIGHT;
+
 			gl.viewportWidth = canvas.width;
 			gl.viewportHeight = canvas.height;
 			gl.viewport( 0, 0, gl.viewportWidth, gl.viewportHeight );
@@ -8699,26 +8162,28 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 		// Texture
 		// ----------------------------------------------------------
 		_initTextures: function ( gl, nodes ) {
-			var self = this;
+			var self = this,
+				count = 0;
 
-			$( nodes ).each( function ( i ) {
-				var node = nodes[i],
-					url;
+			this._imageLoadTimer = setTimeout( function step() {
+				var node = nodes[count], url;
 
-				if ( !self._imageList[i] ) {
-					return false;
+				if ( self._imageList[count] ) {
+					url = self._imageList[count].src;
+					node.texture = gl.createTexture();
+					self._loadImage( url, count, count, gl, nodes );
 				}
 
-				url = self._imageList[i].src;
-				node.texture = gl.createTexture();
-				self._loadImage( url, i, i, gl, nodes );
-			});
+				count++;
+				if ( count < nodes.length ) {
+					self._imageLoadTimer = setTimeout( step, 25 );
+				}
+			}, 25 );
 		},
 
 		_loadImage: function ( url, i, imageID, gl, nodes ) {
 			var self = this,
 				isMipmap = false,
-				image,
 				node;
 
 			gl = gl || self._gl;
@@ -8806,14 +8271,9 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 				current = 0,
 				next = 0,
 				nextLevel = 0,
-				path = self._path,
-				nextImageID = 0;
+				path = self._path;
 
 			nextLevelLenth = ( direction >= 0 ) ? displayLength + 1 : displayLength;
-
-			if ( !nodes[i].level ) {
-				nodes[i].level = displayLength;
-			}
 
 			for ( i = 0; i < displayLength; i += 1 ) {
 				if ( !nodes[i].mvMatrix ) {
@@ -8897,12 +8357,15 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 
 			gl.bindBuffer( gl.ARRAY_BUFFER, self._positionBuffer );
 			gl.vertexAttribPointer( shaderProgram.vertexPositionAttr, self._positionBuffer.itemSize, gl.FLOAT, false, 0, 0 );
+			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 
 			gl.bindBuffer( gl.ARRAY_BUFFER, self._textureCoordBuffer );
 			gl.vertexAttribPointer( shaderProgram.textureCoordAttr, self._textureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0 );
+			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 
 			gl.bindBuffer( gl.ARRAY_BUFFER, self._normalVectorBuffer );
 			gl.vertexAttribPointer( shaderProgram.vertexNormalAttr, self._normalVectorBuffer.itemSize, gl.FLOAT, false, 0, 0 );
+			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 
 			for ( i = 0; i < nodesLength; i += 1 ) {
 				if ( nodes[i].drawable ) {
@@ -8926,14 +8389,12 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 				LightDir,
 				normalMatrix;
 
-			if ( !moveMatrix ) {
+			if ( !moveMatrix || !texture || !texture.loaded ) {
 				return;
 			}
 
 			gl.activeTexture( gl.TEXTURE0 );
-			if ( texture && texture.loaded ) {
-				gl.bindTexture( gl.TEXTURE_2D, texture );
-			}
+			gl.bindTexture( gl.TEXTURE_2D, texture );
 			gl.uniform1i( shaderProgram.sampleUniform, 0 );
 
 			LightDir = vec3.create();
@@ -8957,7 +8418,6 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 			gl.drawElements( gl.TRIANGLES, meshIndexBufferItemSize, gl.UNSIGNED_SHORT, 0 );
 
 			// release buffer memory
-			gl.bindBuffer( gl.ARRAY_BUFFER, null );
 			gl.bindBuffer( gl.ELEMENT_ARRAY_BUFFER, null );
 
 			// release texture memory
@@ -9071,7 +8531,7 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 				canvas.width( view.width() );
 			}
 
-			if ( !this._animationID ) {
+			if ( this._gl && !this._animationID ) {
 				this._setPosition( 0, 0 );
 			}
 		},
@@ -9182,6 +8642,11 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 } ( jQuery, document, window ) );
 
 
+/*
+* Module Name : widgets/jquery.mobile.tizen.button
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /**
 	@class Button
@@ -9209,43 +8674,19 @@ jQuery.extend( jQuery.mobile.tizen.clrlib,
 */
 
 
-
 /*
- * jQuery Mobile Widget @VERSION
- *
- * TODO: remove unnecessary codes....
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- * 
- * ***************************************************************************
- * Copyright (C) 2011 by Intel Corporation Ltd.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Kalyan Kondapally <kalyan.kondapally@intel.com>
- */
+* Module Name : jquery.mobile.tizen.core
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 ensureNS("jQuery.mobile.tizen");
 
 (function () {
+
+/* Tizen enableHWKeyHandler property */
+$.mobile.tizen.enableHWKeyHandler = true;
+
 jQuery.extend(jQuery.mobile.tizen, {
 	disableSelection: function (element) {
 		this.enableSelection(
@@ -9357,31 +8798,11 @@ jQuery.extend(jQuery.mobile.tizen, {
 })();
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Jinhyuk Jun <jinhyuk.jun@samsung.com>
- */
+/*
+* Module Name : widgets/jquery.mobile.tizen.pagelayout
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 (function ( $, undefined ) {
 
@@ -9601,7 +9022,8 @@ jQuery.extend(jQuery.mobile.tizen, {
 				})
 
 				.bind( "pagebeforehide", function ( e, ui ) {
-					self._unsetHWKeySupport( );
+					var thisPage = this;
+					self._unsetHWKeySupport( thisPage );
 					if ( o.disablePageZoom ) {
 						$.mobile.zoom.enable( true );
 					}
@@ -9662,10 +9084,17 @@ jQuery.extend(jQuery.mobile.tizen, {
 
 		_HWKeyHandler: function ( ev ) {
 			var $openedpopup = $.mobile.popup.active,
+				$openedpopupwindow = $.mobile.popupwindow.active,
+				$currentPicker = $( ".ui-page-active .ui-popupwindow.ui-datetimepicker" ),
 				$page,
 				$focused;
 			// NOTE: The 'tizenhwkey' event is passed only document -> window objects.
 			//       Other DOM elements does not receive 'tizenhwkey' event.
+
+			// Check enableHWKeyHandler property
+			if( !$.mobile.tizen.enableHWKeyHandler ) {
+				return true;
+			}
 
 			// menu key
 			if( ev.originalEvent.keyName == "menu" ) {
@@ -9673,17 +9102,21 @@ jQuery.extend(jQuery.mobile.tizen, {
 				$page = $( ev.data ); 	// page object, passed by _setHWKeySupport()
 				$focused = $page.find( ".ui-focus" );
 				if ( $focused[0] ) {	// Focused element is found
-					$focused.blur();
 					// NOTE: If a popup is opened and focused element exists in it,
 					//       do not close that popup.
 					//       'false' is returned here, hence popup close routine is not run.
 					if ( $page.find( ".ui-popup-active" ).find( ".ui-focus" ).length ) {
 						return false;
 					}
+					$focused.blur();
 				}
 				// Close opened popup
 				if ( $openedpopup ) {
 					$openedpopup.close();
+					return false;
+				}
+				if ( $openedpopupwindow && $currentPicker.hasClass( "in" ) ) {
+					$openedpopupwindow.close();
 					return false;
 				}
 			}
@@ -9694,18 +9127,24 @@ jQuery.extend(jQuery.mobile.tizen, {
 					$openedpopup.close();
 					return false;
 				}
+				if ( $openedpopupwindow && $currentPicker.hasClass( "in" ) ) {
+					$openedpopupwindow.close();
+					return false;
+				}
 			}
 			return true;	// Otherwise, propagate tizenhwkey event to window object
 		},
-
+		_disableHWKey: function() {
+				return false;
+		},
 		_setHWKeySupport: function( thisPage ) {
+			$( document ).off( "tizenhwkey", this._disableHWKey );
 			$( document ).on( "tizenhwkey", thisPage, this._HWKeyHandler );
 		},
-
-		_unsetHWKeySupport: function () {
+		_unsetHWKeySupport: function ( thisPage ) {
 			$( document ).off( "tizenhwkey", this._HWKeyHandler );
+			$( document ).on( "tizenhwkey", thisPage, this._disableHWKey );
 		},
-
 		_bindHWkeyOnSWBtn: function () {
 			// if HW key not exist
 			// return true
@@ -9755,13 +9194,13 @@ jQuery.extend(jQuery.mobile.tizen, {
 				footerHeight,
 				resultMinHeight,
 				dpr = 1,
-				layoutInnerHeight = window.innerHeight;
+				layoutInnerHeight = $.mobile.$window.height();
 
 			if ( !$.support.scrollview || ($.support.scrollview && $elContent.jqmData("scroll") === "none") ) {
 					dpr = window.outerWidth / window.innerWidth;
 					layoutInnerHeight = Math.floor( window.outerHeight / dpr );
 			} else {
-				layoutInnerHeight = window.innerHeight;
+				layoutInnerHeight = $.mobile.$window.height();
 			}
 
 			if ( $elFooter.css( "display" ) === "none" ) {
@@ -9781,12 +9220,20 @@ jQuery.extend(jQuery.mobile.tizen, {
 			var $elPage = $( thisPage ),
 				$elHeader = $elPage.find( ":jqmData(role='header')" ).length ? $elPage.find( ":jqmData(role='header')") : $elPage.siblings( ":jqmData(role='header')"),
 				$headerBtn = $elHeader.children("a,[data-"+$.mobile.ns+"role=button]"),
-				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") ),
+				headerBtnWidth = 0,
 				headerBtnNum = $headerBtn.length,
 				$headerSrc = $elHeader.children("img"),
 				headerSrcNum = $headerSrc.length,
-				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") ),
+				headerSrcWidth = 0,
 				h1width;
+
+
+			if ( headerBtnNum ) {
+				headerBtnWidth = $headerBtn.width() + parseInt( $headerBtn.css("padding-left") ) + parseInt( $headerBtn.css("padding-right") );
+			}
+			if( headerSrcNum ) {
+				headerSrcWidth = $headerSrc.width() + parseInt( $headerSrc.css("margin-left") );
+			}
 
 			if ( !$elPage.is( ".ui-dialog" ) ) {
 				h1width = window.innerWidth - parseInt( $elHeader.find( "h1" ).css( "margin-left" ), 10 ) * 2 - headerBtnWidth * headerBtnNum - headerSrcWidth * headerSrcNum;
@@ -9932,7 +9379,7 @@ jQuery.extend(jQuery.mobile.tizen, {
 				resultContentHeight = 0,
 				resultFooterHeight = 0,
 				resultHeaderHeight = 0,
-				layoutInnerHeight = window.innerHeight,
+				layoutInnerHeight = $.mobile.$window.height(),
 				dpr = 1;
 
 			if ( $elPage.length ) {
@@ -9966,11 +9413,12 @@ jQuery.extend(jQuery.mobile.tizen, {
 			}
 
 			// External call page( "refresh") - in case title changed
+
 			if ( receiveType ) {
 				$elPage
-					.css( "min-height", resultContentHeight )
 					.css( "padding-top", resultHeaderHeight )
 					.css( "padding-bottom", resultFooterHeight );
+				$elContent.css( "min-height", resultContentHeight );
 			}
 		},
 
@@ -10025,32 +9473,11 @@ jQuery.extend(jQuery.mobile.tizen, {
 }( jQuery ));
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Wongi Lee <wongi11.lee@samsung.com>
- *	        Youmin Ha <youmin.ha@samsung.com>
- */
+/*
+* Module Name : widgets/jquery.mobile.tizen.virtuallistview
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /**
  * Virtual List Widget for unlimited data.
@@ -11021,6 +10448,11 @@ jQuery.extend(jQuery.mobile.tizen, {
 } ( jQuery ) );
 
 
+/*
+* Module Name : jquery.mobile.tizen.loader
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /**
  * @class core
@@ -11521,31 +10953,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 } ( jQuery, Globalize, window ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Minkyu Kang <mk7.kang@samsung.com>
- */
+/*
+* Module Name : widgets/jquery.mobile.tizen.notification
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /*
  * Notification widget
@@ -11889,39 +11301,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery, this ));
 
 
-
 /*
- * jQuery Mobile Widget @VERSION
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- *
- * ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- * Copyright (c) 2011 by Intel Corporation Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Max Waterman <max.waterman@intel.com>
- * Authors: Minkyu Kang <mk7.kang@samsung.com>
- */
+* Module Name : widgets/jquery.mobile.tizen.slider
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /**
  * tizenslider modifies the JQuery Mobile slider and is created in the same way.
@@ -12155,7 +11539,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				self.handle.addClass( "ui-slider-handle-press" );
 				self.showPopup();
 				$.mobile.$document.on( 'vmouseup.slider', _closePopup );
-			}).on( 'vmouseup', function () {
+			}).on( 'mouseup touchend vmouseup', function () {
 				self.hidePopup();
 				self.handle.removeClass( "ui-slider-handle-press" );
 				$.mobile.$document.off('vmouseup.slider');
@@ -12182,7 +11566,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		positionPopup: function () {
 			var dstOffset = this.handle.offset();
 
-			this.popup.offset({
+			this.popup.css({
 				left: dstOffset.left + ( this.handle.width() - this.popup.width() ) / 2,
 				top: dstOffset.top - this.popup.height()
 			});
@@ -12356,30 +11740,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery, this ));
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Wonseop Kim ( wonseop.kim@samsung.com )
+/*
+* Module Name : widgets/jquery.mobile.tizen.scrollview.handler
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
@@ -12691,31 +12055,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 } ( jQuery, document ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
- *				Minkyeong Kim <minkyeong.kim@samsung.com>
+/*
+* Module Name : widgets/jquery.mobile.tizen.tokentextarea
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
@@ -12904,7 +12247,7 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 */
 /**
 	@method focusIn
-	The focusIn method is used to set the focus status to "focus in". This focus state enables the user to add or remove buttons in the token text area widget.
+	The focusIn method is used to set the focus on input and set the focus status to "focus in". This focus state enables the user to add or remove buttons in the token text area widget.
 
 		<div data-role="tokentextarea">
 		</div>
@@ -13044,6 +12387,13 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				}
 
 				return !isSeparator;
+			});
+
+			inputbox.focus(function() {
+				inputbox.addClass( $.mobile.focusClass );
+			})
+			.blur(function() {
+				inputbox.removeClass( $.mobile.focusClass );
 			});
 
 			moreBlock.click( function () {
@@ -13278,11 +12628,13 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 		// Focus In Event
 		//
 		focusIn : function () {
+			var $view = this.element;
+
 			if ( this._focusStatus === "focusIn" ) {
+				// N_SE-48198 this function should always set focus on input
+				$view.find( ".ui-tokentextarea-input" ).focus();
 				return;
 			}
-
-			var $view = this.element;
 
 			$view.find( ".ui-tokentextarea-label" ).attr( "tabindex", 0 ).show();
 			$view.find( ".ui-tokentextarea-desclabel" ).remove();
@@ -13491,36 +12843,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 } ( jQuery, window, document ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- */
 /*
-* jQuery Mobile Framework : "textinput" plugin for text inputs, textareas
-* Copyright (c) jQuery Project
-* Licensed under the MIT license.
-* http://jquery.org/license
-* Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
-*          Wongi Lee <wongi11.lee@samsung.com>
+* Module Name : widgets/jquery.mobile.tizen.searchbar
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
@@ -13801,31 +13127,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Kangsik Kim <kangsik81.kim@samsung.com>
- *			Youmin Ha <youmin.ha@samsung.com>
+/*
+* Module Name : widgets/jquery.mobile.tizen.virtualgrid
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
@@ -15534,6 +14839,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 } ( jQuery, window, document ) );
 
 
+/*
+* Module Name : jquery.mobile.tizen.loadprototype
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 ( function ( $, undefined ) {
 
@@ -15680,32 +14990,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery ) );
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software" ),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- *	Author: Minkyu Kang <mk7.kang@samsung.com>
- *	Author: Koeun Choi <koeun.choi@samsung.com>
- */
+/*
+* Module Name : widgets/jquery.mobile.tizen.progress
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /*
  * Progress widget
@@ -15884,34 +15173,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery, this ));
 
 
-
 /*
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- * 
- * ***************************************************************************
- * Copyright (C) 2011 by Intel Corporation Ltd.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software" ),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- */
+* Module Name : widgets/jquery.mobile.tizen.widgetex
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 // Base class for widgets that need the following features:
 //
@@ -16247,22 +15513,12 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery ) );
 
 
-
 /*
- * jQuery UI Progressbar @VERSION
- *
- * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
- * Licensed under the MIT license.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Progressbar
- *
- * Depends:
- *   jquery.ui.core.js
- *   jquery.ui.widget.js
- * Original file:
- *   jquery.ui.progressbar.js
- */
+* Module Name : widgets/jquery.mobile.tizen.progressbar
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
+
 /* This is from jquery ui plugin - progressbar 11/16/2011 */
 
 
@@ -16389,40 +15645,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery, this ) );
 
 
-
 /*
- * jQuery Mobile Widget @VERSION
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- *
- * ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- * Copyright (c) 2011 by Intel Corporation Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Kalyan Kondapally <kalyan.kondapally@intel.com>,
- *          Elliot Smith <elliot.smith@intel.com>
- *          Hyunjung Kim <hjnim.kim@samsung.com>
- */
+* Module Name : widgets/jquery.mobile.tizen.swipe
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 // Widget which turns a html element into a "swipe":
 // i.e. each list item has a sliding "cover" which can be swiped
@@ -16725,42 +15952,18 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery ));
 
 
-
-/* ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * jQuery Mobile Framework : "tabbar" plugin
- * Copyright (c) jQuery Project
- * Licensed under the MIT license.
- * http://jquery.org/license
- * Authors: Jinhyuk Jun <jinhyuk.jun@samsung.com>
+/*
+* Module Name : widgets/jquery.mobile.tizen.tabbar
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
 */
 
 /**
- *  Tabbar can be created using data-role = "tabbar" inside footer 
+ *  Tabbar can be created using data-role = "tabbar" inside footer
  *  Framework determine which tabbar will display with tabbar attribute
  *
  * Examples:
- *         
+ *
  *     HTML markup for creating tabbar: ( 2 ~ 5 li item available )
  *     icon can be changed data-icon attribute (customized icon need)
  *         <div data-role="footer" data-position ="fixed">
@@ -16778,12 +15981,35 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 
 	$.widget( "tizen.tabbar", $.mobile.widget, {
 		options: {
+			/**
+			 * Icons position
+			 * @type {string}
+			 */
 			iconpos: "top",
+
+			/**
+			 * Gridd type
+			 * @type {string|null}
+			 */
 			grid: null,
+
+			/**
+			 * Default visible elements in tabbar
+			 * @type {number}
+			 */
 			defaultList : 4,
+
+			/**
+			 * The selector which indicates Tabbar class in DOM
+			 * @type {string}
+			 */
 			initSelector: ":jqmData(role='tabbar')"
 		},
 
+		/**
+		 * Creates the whole widget, addes dom and binds event
+		 * @private
+		 */
 		_create: function () {
 
 			var $tabbar = this.element,
@@ -16913,6 +16139,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 				}
 			});
 
+			$tabbar.bind( "touchend vmouseup", function ( e ) {
+				$( ".ui-tabbar-divider" ).hide();
+			});
+
 			this._bindTabbarEvents();
 			this._initTabbarAnimation();
 		},
@@ -16959,6 +16189,10 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			});
 		},
 
+		/**
+		 * Binds tabbar to events (like orientation changes)
+		 * @private
+		 */
 		_bindTabbarEvents: function () {
 			var $tabbar = this.element;
 
@@ -16975,16 +16209,31 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 			});
 		},
 
+		/**
+		 * Sets tabbar elements disabled and aria-disabled attributes according
+		 * to specified value
+		 * @private
+		 * @param {string} value
+		 * @param {number} cnt the element index
+		 */
 		_setDisabled: function ( value, cnt ) {
 			this.element.find( "li" ).eq( cnt ).attr( "disabled", value );
 			this.element.find( "li" ).eq( cnt ).attr( "aria-disabled", value );
 		},
 
+		/**
+		 * Disables specified element in tabbar
+		 * @param {number} cnt the element index
+		 */
 		disable: function ( cnt ) {
 			this._setDisabled( true, cnt );
 			this.element.find( "li" ).eq( cnt ).addClass( "ui-disabled" );
 		},
 
+		/**
+		 * Enables specified element in tabbar
+		 * @param {number} cnt the element index
+		 */
 		enable: function ( cnt ) {
 			this._setDisabled( false, cnt );
 			this.element.find( "li" ).eq( cnt ).removeClass( "ui-disabled" );
@@ -16998,34 +16247,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }( jQuery ) );
 
 
-
 /*
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- *
- * ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- * Copyright (c) 2011 by Intel Corporation Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- */
+* Module Name : widgets/jquery.mobile.tizen.triangle
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 ( function ($, undefined) {
 
@@ -17105,40 +16331,11 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 }(jQuery) );
 
 
-
 /*
- * jQuery Mobile Widget @VERSION
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- *
- * ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- * Copyright (c) 2011 by Intel Corporation Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Gabriel Schulhof <gabriel.schulhof@intel.com>,
- *          Elliot Smith <elliot.smith@intel.com>
- *			Hyunjung Kim <hjnim.kim@samsung.com>
- */
+* Module Name : widgets/jquery.mobile.tizen.popupwindow
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /*
  * % Popupwindow widget do not use anymore(will be deprecated, internal use only)
@@ -17248,6 +16445,9 @@ If developers do not give a viewport meta tag, Tizen Web UI Framework automatica
 */
 
 (function ( $, undefined ) {
+	if ( !$.mobile.popupwindow ) {
+		$.mobile.popupwindow = {};
+	}
 	$.widget( "tizen.popupwindow", $.tizen.widgetex, {
 		options: {
 			theme: null,
@@ -17332,21 +16532,22 @@ source:
 				self.close();
 				return false;
 			} );
-
-			this.element.bind( "vclick", function ( e ) {
-				if ( $( e.target ).is("ui-btn-ctxpopup-close") ) {
-					self.close();
-				}
-			} );
 		},
 
 		destroy: function () {
-			this.element.insertBefore( this._ui.placeholder );
+			if(this._ui.placeholder.parent().get(0)) {
+				this.element.insertBefore( this._ui.placeholder );
+			} else {
+				// if removed placeholder tag when popupwindow opened,
+				// then popupwindow element append to body.
+				this.element.appendTo(document.body);
+			}
 
 			this._ui.placeholder.remove();
 			this._ui.container.remove();
 			this._ui.screen.remove();
 			this.element.triggerHandler("destroyed");
+			delete this._callback;
 			$.Widget.prototype.destroy.call( this );
 		},
 
@@ -17445,6 +16646,11 @@ source:
 
 			this._ui.screen.css( "height", screenHeight );
 		},
+		setPositionCB: function( callback ) {
+			// This function is callback function regist
+			this._callback = callback;
+		},
+
 		open: function ( x_where, y_where, backgroundclose ) {
 			var self = this,
 				zIndexMax = 0;
@@ -17491,14 +16697,20 @@ source:
 				} );
 
 			this._isOpen = true;
+			// Keep the popupwindow object for hardwarekey support
+			$.mobile.popupwindow.active = this;
 
 			if ( !this._reflow ) {
 				this._reflow = function () {
 					if ( !self._isOpen ) {
 						return;
 					}
-
-					self._setPosition( x_where, y_where );
+					if ( !self._callback ) {
+						self._setPosition( x_where, y_where );
+					} else {
+						var _callback = self._callback();
+						self._setPosition( _callback.x, _callback.y );
+					}
 				};
 
 				$( window ).bind( "resize", this._reflow );
@@ -17519,6 +16731,7 @@ source:
 				hideScreen = function () {
 					self._ui.screen.addClass("ui-screen-hidden");
 					self._isOpen = false;
+					$.mobile.popupwindow.active = undefined;
 				};
 
 			this._ui.container.removeClass("in").addClass("reverse out");
@@ -17660,39 +16873,11 @@ source:
 }( jQuery ));
 
 
-
 /*
- * jQuery Mobile Widget @VERSION
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- *
- * ***************************************************************************
- * Copyright (c) 2000 - 2011 Samsung Electronics Co., Ltd.
- * Copyright (c) 2011 by Intel Corporation Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Gabriel Schulhof <gabriel.schulhof@intel.com>
- *			Hyunjung Kim <hjnim.kim@samsung.com>
- */
+* Module Name : widgets/jquery.mobile.tizen.popupwindow.ctxpopup
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /*
  * % ContextPopup widget do not use anymore(will be deprecated, internal use only)
@@ -17986,40 +17171,13 @@ source:
 }( jQuery ) );
 
 
+/*
+* Module Name : widgets/jquery.mobile.tizen.datetimepicker
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 /*global Globalize:false, range:false, regexp:false*/
-/*
- * jQuery Mobile Widget @VERSION
- *
- * This software is licensed under the MIT licence (as defined by the OSI at
- * http://www.opensource.org/licenses/mit-license.php)
- *
- * ***************************************************************************
- * Copyright (C) 2011 by Intel Corporation Ltd.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- * ***************************************************************************
- *
- * Authors: Salvatore Iovene <salvatore.iovene@intel.com>
- *			Daehyon Jung <darrenh.jung@samsung.com>
- */
-
 /**
  * datetimepicker is a widget that lets the user select a date and/or a 
  * time. If you'd prefer use as auto-initialization of form elements, 
@@ -18713,6 +17871,13 @@ source:
 			current = data.current;
 			valuesData = data.data;
 
+			obj.getElementPosition = function() {
+				var offset = target.offset();
+				return {
+					x: offset.left + ( target.width() / 2 ) - window.pageXOffset,
+					y: offset.top + target.height() - window.pageYOffset
+				}
+			}
 			if ( values ) {
 				datans = "data-" + ($.mobile.ns ? ($.mobile.ns + '-') : "") + 'val="';
 				for ( i = 0; i < values.length; i++ ) {
@@ -18728,10 +17893,12 @@ source:
 				$( $li[current] ).addClass("current");
 				$div.jqmData( "list", $li );
 				$div.circularview();
+
 				if( !obj._reflow ) {
 					obj._reflow = function() {
 						$div.circularview( "reflow" );
 						$div.circularview( 'centerTo', '.current', 0 );
+						$ctx.popupwindow( "setPositionCB", obj.getElementPosition);
 					}
 					$(window).bind( "resize" , obj._reflow );
 				}
@@ -18848,4 +18015,4 @@ source:
 } ( jQuery, this ) );
 
 
-(function($){$.tizen.frameworkData.pkgVersion="0.2.52";}(jQuery));
+(function($){$.tizen.frameworkData.pkgVersion="0.2.72";}(jQuery));

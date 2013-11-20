@@ -14,7 +14,7 @@
 
 		$( "#MBTgetInputTextTest" ).on( "click", function () {
 			var input = $( ":jqmData(role='tokentextarea')" ).tokentextarea( "inputText" );
-			$( ".tta-popup .ui-popup-text" ).text( "Input string : " + input );
+			$( ".tta-popup .ui-popup-scroller-bg .ui-popup-text" ).text( "Input string : " + input );
 		});
 
 		$( "#MBTremoveAllItemTest" ).on( "click", function () {

@@ -453,6 +453,18 @@
 				window.history.back();
 			}
 		});
+		$( ".ui-li-text-sub" ).on ( "vclick" , function( event ) {
+			var targetParent = $( event.target ).parent(),
+				checkboxradio = targetParent.find( ".ui-checkbox" );
+
+			if ( !checkboxradio.length ) {
+				checkboxradio = targetParent.find( ".ui-radio" );
+			}
+
+			if ( checkboxradio.length ) {
+				checkboxradio.children( "label" ).trigger( "vclick" );
+			}
+		});
 	});
 	$( "#genlist-normal" ).on( "pagebeforehide" , function() {
 		//unbind callbacks to the H/W keys

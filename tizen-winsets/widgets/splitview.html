@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <div data-role="page" id="splitview-demo">
 	<div data-role="header" data-position="fixed">
-		<h1>Splitview</h1>
+		<h1>Split view</h1>
 	</div>
 	<div data-role="content">
 		<div data-role="splitview" data-divider-vertical="true" data-fixed="false" data-ratio="0.5, 0.5">
@@ -77,9 +77,9 @@
 				downContents = testSplitview.splitview( "pane", "#down" );
 
 			contents = "* Up pane: \n" +
-						( ( typeof upContents === "undefined" || !upContents ) ? "" : upContents[ 0 ].text() ) + "\n" +
+						( ( typeof upContents === "undefined" || !upContents ) ? "" : upContents[ 0 ].outerHTML ) + "\n" +
 						"* Down pane: \n" +
-						( ( typeof downContents === "undefined" || !downContents ) ? "" : downContents[ 0 ].text() );
+						( ( typeof downContents === "undefined" || !downContents ) ? "" : downContents[ 0 ].outerHTML );
 
 			contents = contents.substring(0, 120) + "..." ;
 			$( ".splitview-popup" ).text( contents );

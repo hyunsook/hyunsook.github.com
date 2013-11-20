@@ -1,0 +1,93 @@
+<div data-role="page" id="segmentctrl-demo">
+
+	<div data-role="header" data-position="fixed">
+		<h1>Segment control</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<legend>segment toolbar segonly style with 2 buttons:</legend>
+				<input type="radio" name="radio-view-7" data-icon="segment-titlestyle-segonly" id="segment61" value="on" checked="checked" />
+				<label for="segment61">Listtest length</label>
+				<input type="radio" name="radio-view-7" data-icon="segment-titlestyle-segonly" id="segment62" value="off" />
+				<label for="segment62">Grid</label>
+			</fieldset>
+		</div>
+
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<legend>segment toolbar segonly style with 3 buttons:</legend>
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment71" value="on" checked="checked" />
+				<label for="segment71">List</label>
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment72" value="off" />
+				<label for="segment72">Grid</label>
+				<input type="radio" name="radio-view-8" data-icon="segment-titlestyle-segonly" id="segment73" value="off" />
+				<label for="segment73">Grid</label>
+			</fieldset>
+		</div>
+
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<legend>segment toolbar segonly style with 4 buttons:</legend>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment861" value="on" checked="checked" />
+				<label for="segment861">List</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment862" value="off" />
+				<label for="segment862">Grid</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment863" value="off" />
+				<label for="segment863">Grid</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment864" value="off" />
+				<label for="segment864">Grid</label>
+			</fieldset>
+		</div>
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-1" data-icon="segment-titlestyle-segonly" id="segment1" value="on" checked="checked" />
+				<label for="segment1">List</label>
+				<input type="radio" name="radio-view-1" data-icon="segment-titlestyle-segonly" id="segment2" value="off" />
+				<label for="segment2">Grid</label>
+			</fieldset>
+		</div>
+
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-2" data-icon="segment-titlestyle-segonly" id="segment3" value="on" checked="checked" />
+				<label for="segment3">List</label>
+				<input type="radio" name="radio-view-2" data-icon="segment-titlestyle-segonly" id="segment4" value="off" />
+				<label for="segment4">Grid</label>
+				<input type="radio" name="radio-view-2" data-icon="segment-titlestyle-segonly" id="segment5" value="off" />
+				<label for="segment5">Grid</label>
+			</fieldset>
+		</div>
+
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment6" value="on" checked="checked" />
+				<label for="segment6">List</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment7" value="off" />
+				<label for="segment7">Grid</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment8" value="off" />
+				<label for="segment8">Grid</label>
+				<input type="radio" name="radio-view-9" data-icon="segment-titlestyle-segonly" id="segment9" value="off" />
+				<label for="segment9">Grid</label>
+			</fieldset>
+		</div>
+
+		<div id=test> </div>
+
+	</div><!-- /content -->
+	<script>
+	$( "#segmentctrl-demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#segmentctrl-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div><!-- /page -->

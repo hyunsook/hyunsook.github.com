@@ -1,0 +1,35 @@
+<div data-role="page" id="native-datetimepicker-demo">
+	<div data-role="header" data-position="fixed">
+		<h1>Native Date/Time picker</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li><div data-role="fieldcontain">
+				<label for="month">Month:</label>
+				<input type="month" name="month" id="month" value="" />
+			</div></li>
+			<li><div data-role="fieldcontain">
+				<label for="week">Week:</label>
+				<input type="week" name="week" id="week" value="" />
+			</div></li>
+			<li><div data-role="fieldcontain">
+				<label for="datetime-l">Datetime local:</label>
+				<input type="datetime-local" name="datetime-l" id="datetime-l" value="" />
+			</div></li>
+		</ul>
+	</div><!-- /content -->
+	<script>
+	$( "#native-datetimepicker-demo" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#native-datetimepicker-demo" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div> <!-- /page -->

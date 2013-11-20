@@ -204,15 +204,11 @@ jQuery.extend( jQuery.easing,
  * OF THE POSSIBILITY OF SUCH DAMAGE. 
  *
  */
-/*!
- * jQuery Templates Plugin 1.0.0pre
- * http://github.com/jquery/jquery-tmpl
- * Requires jQuery 1.4.2
- *
- * Copyright Software Freedom Conservancy, Inc.
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- */
+/*
+* Module Name : libs/jquery.tmpl
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+*/
 
 
 (function( jQuery, undefined ){
@@ -691,8 +687,9 @@ jQuery.extend( jQuery.easing,
 	}
 })( jQuery );
 
+
 /*
-* jQuery Mobile Framework Git Build: SHA1: c9c65ddda641ef2e81e0cd7567913281c779bcd4 <> Date: Mon Jul 29 13:26:26 2013 +0900
+* jQuery Mobile Framework Git Build: SHA1: bb4d26d1015988fdec26b69e6f3c41dd8356dd09 <> Date: Fri Nov 15 16:39:23 2013 +0900
 * http://jquerymobile.com
 *
 * Copyright 2012 jQuery Foundation and other contributors
@@ -1875,8 +1872,9 @@ var dataPropertyName = "virtualMouseBindings",
 	lastTouchID = 0, threshold;
 
 $.vmouse = {
-	moveDistanceThreshold: 10,
-	clickDistanceThreshold: 10,
+	moveDistanceThreshold: 15,
+	moveDistanceThresholdPow: 15 * 15, //moveDistanceThreshold * moveDistanceThreshold
+	clickDistanceThreshold: 15,
 	resetTimerDuration: 1500
 };
 
@@ -2068,8 +2066,8 @@ function handleTouchStart( event ) {
 			didScroll = false;
 
 			var t = getNativeEvent( event ).touches[ 0 ];
-			startX = t.pageX;
-			startY = t.pageY;
+			startX = t.screenX;
+			startY = t.screenY;
 
 			triggerVirtualEvent( "vmouseover", event, flags );
 			triggerVirtualEvent( "vmousedown", event, flags );
@@ -2101,8 +2099,8 @@ function handleTouchMove( event ) {
 		flags = getVirtualBindingFlags( event.target );
 
 		didScroll = didScroll ||
-			( Math.abs( t.pageX - startX ) > moveThreshold ||
-				Math.abs( t.pageY - startY ) > moveThreshold );
+			( ( t.screenX - startX ) * ( t.screenX - startX ) )
+				+ ( ( t.screenY - startY ) * ( t.screenY - startY ) ) > $.vmouse.moveDistanceThresholdPow;
 
 
 	if ( didScroll && !didCancel ) {
@@ -2110,6 +2108,22 @@ function handleTouchMove( event ) {
 	}
 
 	triggerVirtualEvent( "vmousemove", event, flags );
+	startResetTimer();
+}
+
+function handleTouchCancel( event ){
+	if ( blockTouchTriggers ) {
+		return;
+	}
+
+	disableTouchBindings();
+
+	var flags = getVirtualBindingFlags( event.target );
+
+	triggerVirtualEvent( "vmousecancel", event, flags );
+
+	didScroll = false;
+
 	startResetTimer();
 }
 
@@ -2121,22 +2135,26 @@ function handleTouchEnd( event ) {
 	disableTouchBindings();
 
 	var flags = getVirtualBindingFlags( event.target ),
-		t;
+		t = getNativeEvent( event ).changedTouches[ 0 ],
+		endX = t.screenX,
+		endY = t.screenY,
+		moveThresholdPow = $.vmouse.moveDistanceThresholdPow,
+		isVclickBound = ( ( endX - startX ) * ( endX - startX ) ) + ( ( endY - startY ) * ( endY - startY ) ) < moveThresholdPow;
+
 	triggerVirtualEvent( "vmouseup", event, flags );
 
-	if ( !didScroll ) {
+	if ( !didScroll && isVclickBound ) {
 		var ve = triggerVirtualEvent( "vclick", event, flags );
 		if ( ve && ve.isDefaultPrevented() ) {
 			// The target of the mouse events that follow the touchend
 			// event don't necessarily match the target used during the
 			// touch. This means we need to rely on coordinates for blocking
 			// any click that is generated.
-			t = getNativeEvent( event ).changedTouches[ 0 ];
 			clickBlockList.push({
 				touchID: lastTouchID,
 				target: event.target,
-				x: t.clientX,
-				y: t.clientY
+				x: endX,
+				y: endY
 			});
 
 			// Prevent any mouse events that follow from triggering
@@ -2208,6 +2226,7 @@ function getSpecialEventObject( eventType ) {
 				if ( activeDocHandlers[ "touchstart" ] === 1 ) {
 					$document.bind( "touchstart", handleTouchStart )
 						.bind( "touchend", handleTouchEnd )
+						.bind( "touchcancel", handleTouchCancel )
 
 						// On touch platforms, touching the screen and then dragging your finger
 						// causes the window content to scroll after some distance threshold is
@@ -2245,6 +2264,7 @@ function getSpecialEventObject( eventType ) {
 					$document.unbind( "touchstart", handleTouchStart )
 						.unbind( "touchmove", handleTouchMove )
 						.unbind( "touchend", handleTouchEnd )
+						.unbind( "touchcancel", handleTouchCancel)
 						.unbind( "scroll", handleScroll );
 				}
 			}
@@ -2888,7 +2908,7 @@ if ( !$.support.boxShadow ) {
 		setup: function() {
 			// If the event is supported natively, return false so that jQuery
 			// will bind to the event using DOM methods.
-			if ( $.support.orientation && 
+			if ( $.support.orientation &&
 				$.event.special.orientationchange.disabled === false ) {
 				return false;
 			}
@@ -5962,7 +5982,7 @@ var attachEvents = function() {
 	var hoverDelay = $.mobile.buttonMarkup.hoverDelay, hov, foc;
 
 	$.mobile.$document.bind( {
-		"vmousedown vmousecancel vmouseup vmouseover vmouseout focus blur scrollstart touchend touchcancel": function( event ) {
+		"vmousedown vmousecancel vmouseup vmouseover vmouseout focus blur scrollstart touchend touchcancel keypress": function( event ) {
 			var theme,
 				$btn = $( closestEnabledButton( event.target ) ),
 				isTouchEvent = event.originalEvent && /^touch/.test( event.originalEvent.type ),
@@ -5981,6 +6001,12 @@ var attachEvents = function() {
 						$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
 					}
 				} else if ( evt === "vmousecancel" || evt === "vmouseup" || evt === "touchend" || evt === "touchcancel" ) {
+					if ( hov ) {
+						clearTimeout( hov );
+					}
+					if ( foc ) {
+						clearTimeout( foc );
+					}
 					$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
 				} else if ( evt === "vmouseover" || evt === "focus" ) {
 					if ( isTouchEvent ) {
@@ -5998,6 +6024,14 @@ var attachEvents = function() {
 					}
 					if ( foc ) {
 						clearTimeout( foc );
+					}
+				} else if ( evt === "keypress" ) {
+					if ( event.originalEvent.keyCode == 13 ) { // ENTER keyCode == 13
+						var parent_popup = $btn.parents(".ui-popup");
+						if ( parent_popup.length && ! parent_popup.parent().hasClass("ui-popup-active") ) {
+							return;
+						}
+						$btn.click();
 					}
 				}
 			}
@@ -6171,10 +6205,10 @@ $.widget( "mobile.collapsible", $.mobile.widget, {
 			.trigger( o.collapsed ? "collapse" : "expand" );
 
 		collapsibleHeading
-			.bind( "vmousedown", function() {
+			.bind( "vmousedown touchstart", function() {
 				collapsibleHeading.find( "a" ).first().addClass( $.mobile.activeBtnClass );
 			})
-			.bind( "vmousecancel vmouseup", function() {
+			.bind( "vmousecancel vmouseup touchmove touchend", function() {
 				collapsibleHeading.find( "a" ).first().removeClass( $.mobile.activeBtnClass );
 			})
 			.bind( "click", function( event ) {
@@ -6870,6 +6904,7 @@ $.widget( "mobile.listview", $.mobile.widget, {
 		$item.slideUp('normal',
 			function( ) {
 			$(this).remove();
+			_self._refreshCorners(false);
 		});
 	},
 
@@ -7032,7 +7067,9 @@ $.widget( "mobile.checkboxradio", $.mobile.widget, {
 					event.stopPropagation();
 				}
 			},
-
+			vmousecancel: function ( event ) {
+				self.refresh();
+			},
 			vclick: function( event ) {
 				if ( input.is( ":disabled" ) ) {
 					event.preventDefault();
@@ -7434,9 +7471,11 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 		},
 
 		_eatEventAndClose: function( e ) {
-			e.preventDefault();
-			e.stopImmediatePropagation();
-			this.close();
+			if( this._isOpen ) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				this.close();
+			}
 			return false;
 		},
 
@@ -7468,20 +7507,24 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 					return false;
 				} else {
 					// clear existing timeout - it will be refreshed below
-					clearTimeout( this._resizeData.timeoutId );
+					// remove clearTimeout
+					//clearTimeout( this._resizeData.timeoutId );
 				}
 			}
 
 			this._resizeData = {
-				timeoutId: setTimeout( $.proxy( this, "_resizeTimeout" ), 200 ),
+			//	timeoutId: setTimeout( $.proxy( this, "_resizeTimeout" ), 200 ),
 				winCoords: winCoords
 			};
+
+			// resizeTimeout method is call immediately
+			this._resizeTimeout();
 
 			return true;
 		},
 
 		_resizeTimeout: function() {
-			if ( !this._maybeRefreshTimeout() && this.positionTo === "window" && this._isOpen ) {
+			if ( this.positionTo === "window" && this._isOpen ) {
 				// effectively rapid-open the popup while leaving the screen intact
 				this._trigger( "beforeposition" );
 				this._ui.container
@@ -7491,6 +7534,8 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 				this._resizeScreen();
 				this._resizeData = null;
 				this._orientationchangeInProgress = false;
+			} else if( !this._isOpen && this._isPreOpen  )  {
+				setTimeout( $.proxy( this, "_resizeTimeout" ), 200 );
 			}
 		},
 
@@ -7503,15 +7548,21 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 				}
 				this._maybeRefreshTimeout();
 			}
+
+			if ( !this._isOpen && this._isPreOpen && this.positionTo === "window" ) {
+				 setTimeout( $.proxy( this, "_resizeTimeout" ), 200 );
+			}
 		},
 
 		_handleWindowOrientationchange: function( e ) {
 
 			if ( !this._orientationchangeInProgress ) {
 				// effectively rapid-close the popup while leaving the screen intact
+
+				// remove ui-selectmenu-hidden when orientation event has been fired
 				this._ui.container
-					.addClass( "ui-selectmenu-hidden" )
 					.removeAttr( "style" );
+				//	.addClass( "ui-selectmenu-hidden" )
 
 				this._orientationchangeInProgress = true;
 			}
@@ -7526,6 +7577,7 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 				},
 				thisPage = this.element.closest( ".ui-page" ),
 				myId = this.element.attr( "id" ),
+				popupInput = $.find( "input" ),
 				self = this;
 
 			// We need to adjust the history option to be false if there's no AJAX nav.
@@ -7563,6 +7615,7 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 				_fallbackTransition: "",
 				_currentTransition: false,
 				_prereqs: null,
+				_isPreOpen: false,
 				_isOpen: false,
 				_tolerance: null,
 				_resizeData: null,
@@ -7591,6 +7644,12 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 			$.each( this._globalHandlers, function( idx, value ) {
 				value.src.bind( value.handler );
 			});
+
+                        if ( popupInput.length ) {
+                                $.each( popupInput, function ( i ) {
+                                        $( popupInput ).eq( i ).attr( "tabindex", "-1" );
+                                });
+                        }
 		},
 
 		_applyTheme: function( dst, theme, prefix ) {
@@ -7937,7 +7996,7 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 				&& self.positionTo !== "window") {
 					coords = self._placementCoords( self._desiredCoords( $(self.link).offset().left + $(self.link).outerWidth() /2 , $(self.link).offset().top + $(self.link).outerHeight() /2 , self.positionTo || self.options.positionTo || "origin" ) );
 					self._ui.container
-						.offset( { top : coords.top } );
+						.css( { top : coords.top } );
 			}
 		},
 
@@ -7946,6 +8005,7 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 
 			self._ui.container.addClass( "ui-popup-active" );
 			self._isOpen = true;
+			self._isPreOpen = false;
 			self._resizeScreen();
 
 			// Android appears to trigger the animation complete before the popup
@@ -7960,6 +8020,7 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 
 		_open: function( options ) {
 			var coords, transition,
+				$popupInput = $( this.element ).find( "input" ),
 				androidBlacklist = ( function() {
 					var w = window,
 						ua = navigator.userAgent,
@@ -7976,6 +8037,9 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 					}
 					return false;
 				}());
+
+			// If popup is received resize event during the orientationchange ( resize ) event, resize handler is called once more
+			this._isPreOpen = true;
 
 			// Make sure options is defined
 			options = ( options || {} );
@@ -8010,8 +8074,10 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 			this._ui.screen.removeClass( "ui-screen-hidden" );
 
 			this._ui.container
-				.removeClass( "ui-selectmenu-hidden" )
-				.offset( coords );
+				.removeClass( "ui-selectmenu-hidden" );
+
+			this._ui.container.css( { top : coords.top, left : coords.left } );
+
 			this._ui.arrow.css( { top : coords.arrowtop, left : coords.arrowleft } );
 			if ( this.options.overlayTheme && androidBlacklist ) {
 				/* TODO:
@@ -8039,6 +8105,12 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 				applyTransition: false,
 				prereqs: this._prereqs
 			});
+
+                        if ( $popupInput.length ) {
+                                $.each( $popupInput, function ( i ) {
+                                        $popupInput.eq( i ).removeAttr( "tabindex" );
+                                });
+                        }
 		},
 
 		_closePrereqScreen: function() {
@@ -8077,6 +8149,7 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 			this._page.removeClass( "ui-popup-open" );
 
 			this._isOpen = false;
+			this._isPreOpen = false;
 
 			// IME hide when popup is closed
 			this.element.find("input").blur();
@@ -8217,7 +8290,7 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 				options.x = $(self.link).offset().left + $(self.link).outerWidth() / 2;
 			}
 			if( !options.y
-				&& self.positionTo === "origin" 
+				&& self.positionTo === "origin"
 				&& self.link ) {
 				options.y = $(self.link).offset().top + $(self.link).outerHeight() / 2;
 			}
@@ -8470,10 +8543,23 @@ $.widget( "mobile.textinput", $.mobile.widget, {
 
 			this._keyup = function() {
 				var scrollHeight = input[ 0 ].scrollHeight,
-					clientHeight = input[ 0 ].clientHeight;
+					clientHeight = input[ 0 ].clientHeight,
+					lineNumber,
+					rows,
+					relevantLineHeight = parseInt(input.css('line-height'),10);
 
 				if ( clientHeight < scrollHeight && window.innerHeight / 2 > scrollHeight ) {
-					input.height(scrollHeight + extraLineHeight);
+					input.height( scrollHeight );
+					input[ 0 ].rows += 1;
+				} else {
+					// Current cursor position
+					lineNumber = input[ 0 ].value.substr( 0, input[ 0 ].selectionStart ).split( "\n" ).length;
+					// Total number of rows
+					rows = input[ 0 ].value.split( "\n" ).length;
+					// If we are at the end of the line, scroll down
+					if( lineNumber === rows ) {
+						input[ 0 ].scrollTop =  ( lineNumber * ( relevantLineHeight ) );
+					}
 				}
 			};
 
@@ -10332,15 +10418,28 @@ $.mobile.$document.bind( "pagecreate create", function( e ) {
 
 }));
 
-/*!
- * Globalize
- *
- * http://github.com/jquery/globalize
- *
- * Copyright Software Freedom Conservancy, Inc.
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- */
+/*
+* Module Name : libs/globalize
+* Copyright (c) 2010 - 2013 Samsung Electronics Co., Ltd.
+* License : MIT License V2
+* 
+* The MIT License V2
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy 
+* of this software and associated documentation files (the "Software"), 
+* to deal in the Software without restriction, including without limitation the rights to use, copy, 
+* modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+* and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in 
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
+* TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
 (function( window, undefined ) {
 
@@ -11925,6 +12024,7 @@ if ( typeof define === "function" ) {
  */
 
 /*
+ * Module Name : libs/gl-matrix
  * Copyright (c) 2012 Brandon Jones, Colin MacKenzie IV
  *
  * This software is provided 'as-is', without any express or implied

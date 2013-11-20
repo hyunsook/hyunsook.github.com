@@ -1,0 +1,25 @@
+<div data-role="page" id="picker">
+	<div data-role="header" data-position="fixed">
+		<h1>Picker</h1>
+	</div>
+	<div data-role="content">
+		<ul data-role="listview">
+			<li><a href="datefield.html">Web Date/time picker</a></li>
+			<li><a href="nativedatefield.html">Native Date/time picker</a></li>
+		</ul>
+	</div>
+	<script>
+	$( "#picker" ).on( "pageshow" , function() {
+		$( window ).on( "tizenhwkey", function ( ev ) {
+			if ( ev.originalEvent.keyName === "back" ) {
+				//bind callbacks to the H/W keys
+				window.history.back();
+			}
+		});
+	});
+	$( "#picker" ).on( "pagebeforehide" , function() {
+		//unbind callbacks to the H/W keys
+		$( window ).off( "tizenhwkey" );
+	});
+	</script>
+</div>

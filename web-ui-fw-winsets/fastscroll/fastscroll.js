@@ -64,14 +64,16 @@ var testIndexString = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
 						index = 0,
 						omitSet,
 						unit;
-					if ( $item.text() !== "." ) {
-						self._hitItem ( $item );
-					} else {
-						omitSet = $item.data( "omitSet" );
-						unit = height / omitSet.length;
-						index = parseInt( e.offsetY / unit, 10 );
-						index = index >=  omitSet.length ?  omitSet.length - 1 : index;
-						self._hitOmitItem( $item, omitSet.charAt( index ) );
+					if ( $item.is( ".ui-fastscroll li" ) ) {
+						if ( $item.text() !== "." ) {
+							self._hitItem ( $item );
+						} else {
+							omitSet = $item.data( "omitSet" );
+							unit = height / omitSet.length;
+							index = parseInt( e.offsetY / unit, 10 );
+							index = index >=  omitSet.length ?  omitSet.length - 1 : index;
+							self._hitOmitItem( $item, omitSet.charAt( index ) );
+						}
 					}
 					e.preventDefault();
 					e.stopPropagation();

@@ -1,0 +1,79 @@
+/*
+ * for virtualgrid
+ */
+.ui-fastscroll { /* using */
+	position: fixed;
+	z-index: 999;
+	float: right;
+	right: 0;
+	width: 1.0681818181818181rem;
+	-ms-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	margin: 0;
+	padding-left: 1px;
+	padding-right: 0.045454545454545456rem;
+	opacity: 1;
+	/*
+	background: -webkit-linear-gradient(left, transparent 1px, #f8f6ef 1px, #f8f6ef 0.13636363636363635rem, #e2dfd5 0.13636363636363635rem, #e2dfd5 1.0909090909090908rem, #f8f6ef 1.0909090909090908rem, #f8f6ef);
+	*/
+	background-color: #d1cfc9;
+}
+.ui-fastscroll ul { /* using */
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.ui-fastscroll li { /* using */
+	cursor: pointer;
+	color: #a09f9a;
+	background: #f8f6ef;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 0.5909090909090909rem;
+	font-weight: bold;
+	height: 0.5909090909090909rem;
+	border: 0.06818181818181818rem solid transparent;
+	margin-bottom: 1px;
+}
+.ui-fastscroll li:first-child { /* using */
+	margin-top: 1px;
+}
+
+.ui-fastscroll li:hover { /* using */
+	background-color: #3b73b6;
+}
+li.ui-fastscroll-hover {
+	position: relative;
+	left: -1px;
+	margin-top: -1px;
+	margin-bottom: 0;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	width: 1rem;
+	color: #3b73b6;
+	border-color: #3b73b6;
+	border-left-width: 0;
+	padding-left: 1px;
+}
+li.ui-fastscroll-hover-first-item {
+	margin-top: 0;
+	padding-top: 0;
+}
+.ui-fastscroll-popup { /* using */
+	position: fixed;
+	background: #3b73b6;
+	color: #ffffff;
+	padding: 0.4545454545454546rem;
+	border: 1px solid #112e51;
+	border-radius: 2px;
+	text-align: center;
+	font-size: 3.409090909090909rem;
+	font-weight: bold;
+	display: none;
+	box-sizing: border-box;
+	left: 50%;
+	top: 40%;
+}

@@ -1,0 +1,39 @@
+.ui-swipe {
+	padding: 0 !important;
+	list-style-type: none;
+}
+
+.ui-swipe-item {
+	-ms-user-select: none;
+	-o-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-user-select: none;
+	opacity: 0;
+	padding: .7em 1em;
+}
+
+.ui-swipe-item .ui-btn {
+	margin-top: -1em;
+	margin-bottom: -.7em;
+}
+
+.ui-swipe-item-cover {
+	position: absolute;
+	border: none;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	text-align: left;
+}
+
+.ui-swipe-item-cover.ui-btn {
+	margin: 0;
+}
+
+.ui-swipe-item-cover-inner {
+	width : 100%;
+	text-align : left;
+}

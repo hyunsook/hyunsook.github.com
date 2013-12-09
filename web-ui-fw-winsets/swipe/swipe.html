@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Swipe Demo - Web UI Framework Demos</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/git/jquery.mobile-git.css" />
+	<link rel="stylesheet" href="web-ui-fw.listview.swipe.css" />
+
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/mobile/git/jquery.mobile-git.js"></script>
+	<script src="listview.swipe.js"></script>
+</head>
+<body>
+	<div data-role="page" id="swipe">
+		<div data-role="header" data-position="fixed">
+			<h1>Swipe Demo - Web UI Framework Demos</h1>
+		</div> <!--/header -->
+		<div data-role="content">
+			<div class="content-primary">
+				<h3>Swipe</h3>
+				<p>The list items can be swiped to show the hidden items.</p>
+				<div data-demo-html="true">
+					<ul data-role="listview" data-swipe="true">
+						<li>
+							<div>Cover 1 / 'div' only</div>
+							<div>Item 1</div>
+						</li>
+						<li>
+							<div>Cover 2 / one 'a' button</div>
+							<div>
+								<a href="#" data-role="button">Item 2</a>
+							</div>
+						</li>
+						<li>
+							<div>Cover 3 / two 'a' buttons</div>
+							<div>
+								<a href="#" data-role="button">Item 3-1</a>
+								<a href="#" data-role="button">Item 3-2</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div> <!--/content-primary -->
+		</div> <!--/content -->
+	</div>
+</body>
+</html>
